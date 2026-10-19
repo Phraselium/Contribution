@@ -106,6 +106,18 @@ def main() -> int:
         filas.append(t)
     tn = pd.concat(filas)
     tn.to_csv(O / "empleo_tres_niveles.csv", index=False)
+    # conjunto de nacidos fuera (cantidad de la afirmación F4): tres niveles con los grupos agrupados
+    for v, dfv, yv, pw in (("EMP", c[(c.anio == ult) & (c.origen_def == "nacimiento") & c.edad1664].assign(tasa=lambda x: x.ocu / x.pob),
+                            "tasa", "pob"),
+                           ("PARO", c[(c.anio == ult) & (c.origen_def == "nacimiento") & c.edad1664 & (c.act > 0)].assign(
+                               tasa=lambda x: x.par / x.act), "tasa", "act")):
+        dfv = dfv.assign(grupo=np.where(dfv.grupo == "España", "España", "FUERA"))
+        tf = tres_niveles(dfv, yv, pw)
+        for _, r in tf.iterrows():
+            cf.add(f"F3_{v}_BRECHA_FUERA_{r.nivel_ajuste.replace(' ', '_')}_{ult}", round(100 * r.brecha, 1), "pp",
+                   f"Brecha de tasa de {'empleo 16-64' if v == 'EMP' else 'paro'} del conjunto de nacidos fuera frente a nacidos en España "
+                   f"({r.nivel_ajuste})", "C1" if r.nivel_ajuste == "bruto" else "C4", EPA, str(ult), "España", "nacidos fuera",
+                   nivel_ajuste=r.nivel_ajuste, ic_inf=round(100 * (r.brecha - 1.96 * r.ee), 1), ic_sup=round(100 * (r.brecha + 1.96 * r.ee), 1))
     k = tn[(tn.anio == ult) & (tn.variable == "tasa_empleo_16_64")]
     for _, r in k.iterrows():
         cf.add(f"F3_EMP_BRECHA_{r.grupo}_{r.nivel_ajuste.replace(' ', '_')}_{ult}", round(100 * r.brecha, 1), "pp",

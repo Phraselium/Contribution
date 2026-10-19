@@ -83,15 +83,16 @@ def main() -> int:
     L = res
     fuente, per, amb, grp = "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España con educación baja"
     cf.add("F5X_E3a_MCO", round(L["tasa_empleo_educ_baja"]["mco"], 2), "pp por pp", f"P1-E3a por MCO con la especificación principal ({ROT})",
-           "C4", fuente, per, amb, grp)
+           "C4", fuente, per, amb, grp, clasificacion="ASOCIACIÓN")
     for y, k, dsc in (("log_ocu_baja", "OCU", "Δ log ocupados nacidos en España con educación baja"),
                       ("log_pob_baja", "POB", "Δ log población nacida en España de 16-64 con educación baja (EPA)"),
                       ("log_pob_media_alta", "POB_MA", "Δ log población nacida en España de 16-64 con educación media o alta (EPA)")):
+        gk = "nacidos en España con educación media o alta" if k == "POB_MA" else grp
         cf.add(f"F5X_E3a_{k}", round(L[y]["mc2e"], 2), "log por pp", f"{dsc} por punto de tratamiento, MC2E ({ROT}; p AKM0 sin ajustar = "
-               f"{L[y]['akm0_p']:.2f})", "C4", fuente, per, amb, grp)
-        cf.add(f"F5X_E3a_{k}_p", round(L[y]["akm0_p"], 3), "p ajustado", f"p AKM0 sin ajustar de {dsc} ({ROT})", "C4", fuente, per, amb, grp)
+               f"{L[y]['akm0_p']:.2f})", "C4", fuente, per, amb, gk, clasificacion="ASOCIACIÓN")
+        cf.add(f"F5X_E3a_{k}_p", round(L[y]["akm0_p"], 3), "p", f"p AKM0 sin ajustar de {dsc} ({ROT})", "C4", fuente, per, amb, gk)
     cf.add("F5X_E3a_ELAST", round(eps, 2), "elasticidad", "P1-E3a expresada como elasticidad de la tasa de empleo respecto a la cuota "
-           f"de nacidos fuera, con medias de los años iniciales ({ROT})", "C4", fuente, per, amb, grp)
+           f"de nacidos fuera, con medias de los años iniciales ({ROT})", "C4", fuente, per, amb, grp, clasificacion="ASOCIACIÓN")
     cf.add("F5X_PESO_BAJA", round(100 * float(w["baja"]), 1), "% de los nativos de 16-64", "Peso de la educación baja entre los nacidos en "
            "España de 16-64 (EPA, años iniciales de los periodos)", "C1", "EPA (INE)", "2005, 2009, 2015", "España", "nacidos en España")
     cf.add("F5X_NAC_IMPLICITO", round(implicito, 2), "pp por pp", "Media ponderada por educación de las estimaciones por nacionalidad de "
