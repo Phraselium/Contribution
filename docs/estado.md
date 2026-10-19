@@ -4,7 +4,8 @@ Leer docs/plan.md y este fichero al empezar o tras compactar.
 
 ## Situación (19-10-2026)
 - Fases 0, 1, 2, 3, 4, 6 y 7: hechas en local (rama claude/m1-contribucion-origen). `make check` limpio.
-- **Fase 5: pre-registrada y programada, NO ejecutada.** La etiqueta local prereg-m1 fija docs/preregistro.md y su adenda; la puerta exige que su commit esté en una rama remota. No hay remoto: el autor decidió no crearlo todavía y esta sesión no puede crear repositorios (HTTP 403). Para ejecutarla: subir la rama y la etiqueta a un remoto y lanzar `make m1_f5` (src/m1/f5_p1_shiftshare.py; P1-E4, P3 y P5 quedan por programar según la adenda).
+- **Remoto:** https://github.com/Phraselium/Contribution (origin; la rama claude/m1-contribucion-origen está subida). La etiqueta prereg-m1 no se pudo subir (HTTP 403 del proxy): la puerta acepta la etiqueta local porque su commit c247555 está en origin/claude/m1-contribucion-origen; la orden para subirla está en docs/tareas_autor.md.
+- **Fase 5:** puerta abierta; en ejecución.
 - Paradas D atendidas: guarda que no se aplica a esta sesión (D5, el autor decidió seguir); signo fiscal dependiente de supuestos (D11, el autor decidió publicar solo intervalos).
 
 ## Hecho por fase
