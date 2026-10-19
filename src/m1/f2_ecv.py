@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from comun import PROC, RAW  # noqa: E402
 
 VR = ["RB010", "RB030", "RB050", "RB080", "RB081", "RB090", "RB200", "RB220", "RB230", "RB280", "RB290"]
-VP = ["PB030", "PB040", "PB210", "PB220A", "PE040", "PE041", "PL031", "PL032", "PL060", "PL073", "PL074", "PL075", "PL076",
+VP = ["PB030", "PB040", "PB210", "PB220A", "PE010", "PE020", "PE021", "PE040", "PE041", "PL031", "PL032", "PL060", "PL073", "PL074", "PL075", "PL076",
       "PY010G", "PY020G", "PY021G", "PY030G", "PY035G", "PY050G", "PY080G", "PY090G", "PY100G", "PY110G", "PY120G", "PY130G",
       "PY140G"]
 VH = ["HB030", "HY010", "HY020", "HY022", "HY023", "HY040G", "HY050G", "HY060G", "HY070G", "HY080G", "HY090G", "HY100G", "HY110G",

@@ -1,0 +1,193 @@
+calibrar,sanidad,bienes,educ_hijos,indirectos,capital,grupo,neta_pc,neta_total_pct_pib
+True,edad_sexo,medio,hijo,epf,rentas,España,-1366.7317260616453,-3.3935033588609005
+True,edad_sexo,medio,hijo,epf,rentas,Resto UE,3459.5089679871185,0.37170962973386634
+True,edad_sexo,medio,hijo,epf,rentas,Resto del mundo,-168.10896046486127,-0.07669068336699107
+True,edad_sexo,medio,hijo,epf,persona,España,-1429.6537132738436,-3.5497344398251878
+True,edad_sexo,medio,hijo,epf,persona,Resto UE,3039.287626385476,0.32655862109696754
+True,edad_sexo,medio,hijo,epf,persona,Resto del mundo,273.3284117527429,0.12469140623419456
+True,edad_sexo,medio,hijo,uniforme,rentas,España,-1392.446275262386,-3.4573508626689535
+True,edad_sexo,medio,hijo,uniforme,rentas,Resto UE,3497.2553214913614,0.3757653160219205
+True,edad_sexo,medio,hijo,uniforme,rentas,Resto del mundo,-37.04297113873414,-0.016898865846993644
+True,edad_sexo,medio,hijo,uniforme,persona,España,-1455.368262474584,-3.6135819436332404
+True,edad_sexo,medio,hijo,uniforme,persona,Resto UE,3077.0339798897185,0.33061430738502173
+True,edad_sexo,medio,hijo,uniforme,persona,Resto del mundo,404.39440107887015,0.18448322375419204
+True,edad_sexo,medio,padres,epf,rentas,España,-888.5870194575376,-2.094456951640381
+True,edad_sexo,medio,padres,epf,rentas,Resto UE,1079.081557999431,0.14195788658910022
+True,edad_sexo,medio,padres,epf,rentas,Resto del mundo,-2053.8983913491415,-1.145985347442745
+True,edad_sexo,medio,padres,epf,persona,España,-1020.1431305851121,-2.404543195810516
+True,edad_sexo,medio,padres,epf,persona,Resto UE,929.1895862713521,0.12223894378496192
+True,edad_sexo,medio,padres,epf,persona,Resto del mundo,-1462.8032743856975,-0.8161801604684717
+True,edad_sexo,medio,padres,uniforme,rentas,España,-915.5463770433162,-2.158001897347289
+True,edad_sexo,medio,padres,uniforme,rentas,Resto UE,1113.363184279362,0.14646778408429856
+True,edad_sexo,medio,padres,uniforme,rentas,Resto del mundo,-1948.0925092531609,-1.0869502992310358
+True,edad_sexo,medio,padres,uniforme,persona,España,-1047.1024881708906,-2.4680881415174243
+True,edad_sexo,medio,padres,uniforme,persona,Resto UE,963.4712125512833,0.12674884128016026
+True,edad_sexo,medio,padres,uniforme,persona,Resto del mundo,-1356.9973922897173,-0.757145112256763
+True,edad_sexo,marginal,hijo,epf,rentas,España,-1864.4643826622164,-4.629340216805189
+True,edad_sexo,marginal,hijo,epf,rentas,Resto UE,5652.100577446021,0.6072943392551586
+True,edad_sexo,marginal,hijo,epf,rentas,Resto del mundo,2024.4826489940403,0.9235614650560049
+True,edad_sexo,marginal,hijo,epf,persona,España,-1927.3863698744146,-4.785571297769476
+True,edad_sexo,marginal,hijo,epf,persona,Resto UE,5231.879235844377,0.5621433306182596
+True,edad_sexo,marginal,hijo,epf,persona,Resto del mundo,2465.920021211645,1.1249435546571906
+True,edad_sexo,marginal,hijo,uniforme,rentas,España,-1890.1789318629571,-4.693187720613242
+True,edad_sexo,marginal,hijo,uniforme,rentas,Resto UE,5689.846930950262,0.6113500255432125
+True,edad_sexo,marginal,hijo,uniforme,rentas,Resto del mundo,2155.5486383201674,0.9833532825760023
+True,edad_sexo,marginal,hijo,uniforme,persona,España,-1953.100919075155,-4.849418801577528
+True,edad_sexo,marginal,hijo,uniforme,persona,Resto UE,5269.6255893486195,0.5661990169063137
+True,edad_sexo,marginal,hijo,uniforme,persona,Resto del mundo,2596.9860105377716,1.184735372177188
+True,edad_sexo,marginal,padres,epf,rentas,España,-1386.3196760581086,-3.2676449454419445
+True,edad_sexo,marginal,padres,epf,rentas,Resto UE,2778.6457135938113,0.36554296582821194
+True,edad_sexo,marginal,padres,epf,rentas,Resto del mundo,-351.96746963836165,-0.19638243288029159
+True,edad_sexo,marginal,padres,epf,persona,España,-1517.8757871856833,-3.5777311896120807
+True,edad_sexo,marginal,padres,epf,persona,Resto UE,2628.7537418657325,0.3458240230240736
+True,edad_sexo,marginal,padres,epf,persona,Resto del mundo,239.12764732508202,0.13342275409398133
+True,edad_sexo,marginal,padres,uniforme,rentas,España,-1413.2790336438875,-3.331189891148854
+True,edad_sexo,marginal,padres,uniforme,rentas,Resto UE,2812.9273398737423,0.37005286332341025
+True,edad_sexo,marginal,padres,uniforme,rentas,Resto del mundo,-246.16158754238126,-0.13734738466858257
+True,edad_sexo,marginal,padres,uniforme,persona,España,-1544.8351447714617,-3.6412761353189893
+True,edad_sexo,marginal,padres,uniforme,persona,Resto UE,2663.035368145664,0.35033392051927204
+True,edad_sexo,marginal,padres,uniforme,persona,Resto del mundo,344.93352942106253,0.19245780230569046
+True,observado,medio,hijo,epf,rentas,España,-1351.5712311662774,-3.355860865189027
+True,observado,medio,hijo,epf,rentas,Resto UE,3292.121384547999,0.3537245407406143
+True,observado,medio,hijo,epf,rentas,Resto del mundo,-211.15446122006955,-0.09632788093018271
+True,observado,medio,hijo,epf,persona,España,-1414.4932183784756,-3.512091946153314
+True,observado,medio,hijo,epf,persona,Resto UE,2871.9000429463554,0.30857353210371546
+True,observado,medio,hijo,epf,persona,Resto del mundo,230.28291099753463,0.10505420867100292
+True,observado,medio,hijo,uniforme,rentas,España,-1377.2857803670177,-3.4197083689970786
+True,observado,medio,hijo,uniforme,rentas,Resto UE,3329.8677380522413,0.3577802270286684
+True,observado,medio,hijo,uniforme,rentas,Resto del mundo,-80.08847189394217,-0.03653606341018517
+True,observado,medio,hijo,uniforme,persona,España,-1440.207767579216,-3.575939449961366
+True,observado,medio,hijo,uniforme,persona,Resto UE,2909.6463964505983,0.3126292183917696
+True,observado,medio,hijo,uniforme,persona,Resto del mundo,361.34890032366195,0.16484602619100044
+True,observado,medio,padres,epf,rentas,España,-872.5428292388891,-2.056639759850427
+True,observado,medio,padres,epf,rentas,Resto UE,942.0188062314038,0.12392668363985487
+True,observado,medio,padres,epf,rentas,Resto del mundo,-2089.323719761846,-1.165751129168023
+True,observado,medio,padres,epf,persona,España,-1004.0989403664634,-2.366726004020562
+True,observado,medio,padres,epf,persona,Resto UE,792.1268345033252,0.10420774083571659
+True,observado,medio,padres,epf,persona,Resto del mundo,-1498.228602798402,-0.8359459421937497
+True,observado,medio,padres,uniforme,rentas,España,-899.5021868246677,-2.1201847055573357
+True,observado,medio,padres,uniforme,rentas,Resto UE,976.3004325113347,0.1284365811350532
+True,observado,medio,padres,uniforme,rentas,Resto del mundo,-1983.5178376658657,-1.1067160809563137
+True,observado,medio,padres,uniforme,persona,España,-1031.0582979522421,-2.4302709497274706
+True,observado,medio,padres,uniforme,persona,Resto UE,826.4084607832563,0.10871763833091497
+True,observado,medio,padres,uniforme,persona,Resto del mundo,-1392.4227207024217,-0.7769108939820408
+True,observado,marginal,hijo,epf,rentas,España,-1849.3038877668484,-4.591697723133315
+True,observado,marginal,hijo,epf,rentas,Resto UE,5484.712994006902,0.5893092502619065
+True,observado,marginal,hijo,epf,rentas,Resto del mundo,1981.4371482388322,0.9039242674928134
+True,observado,marginal,hijo,epf,persona,España,-1912.2258749790467,-4.747928804097602
+True,observado,marginal,hijo,epf,persona,Resto UE,5064.491652405257,0.5441582416250076
+True,observado,marginal,hijo,epf,persona,Resto del mundo,2422.874520456437,1.1053063570939994
+True,observado,marginal,hijo,uniforme,rentas,España,-1875.018436967589,-4.655545226941368
+True,observado,marginal,hijo,uniforme,rentas,Resto UE,5522.459347511143,0.5933649365499606
+True,observado,marginal,hijo,uniforme,rentas,Resto del mundo,2112.5031375649596,0.9637160850128108
+True,observado,marginal,hijo,uniforme,persona,España,-1937.940424179787,-4.811776307905654
+True,observado,marginal,hijo,uniforme,persona,Resto UE,5102.238005909499,0.5482139279130618
+True,observado,marginal,hijo,uniforme,persona,Resto del mundo,2553.940509782564,1.1650981746139966
+True,observado,marginal,padres,epf,rentas,España,-1370.2754858394603,-3.2298277536519926
+True,observado,marginal,padres,epf,rentas,Resto UE,2641.5829618257844,0.3475117628789666
+True,observado,marginal,padres,epf,rentas,Resto del mundo,-387.3927980510662,-0.21614821460556952
+True,observado,marginal,padres,epf,persona,España,-1501.8315969670346,-3.539913997822127
+True,observado,marginal,padres,epf,persona,Resto UE,2491.6909900977057,0.32779282007482835
+True,observado,marginal,padres,epf,persona,Resto del mundo,203.70231891237754,0.11365697236870344
+True,observado,marginal,padres,uniforme,rentas,España,-1397.2348434252388,-3.2933726993589008
+True,observado,marginal,padres,uniforme,rentas,Resto UE,2675.864588105715,0.35202166037416494
+True,observado,marginal,padres,uniforme,rentas,Resto del mundo,-281.5869159550858,-0.15711316639386047
+True,observado,marginal,padres,uniforme,persona,España,-1528.790954552813,-3.6034589435290347
+True,observado,marginal,padres,uniforme,persona,Resto UE,2525.9726163776368,0.33230271757002666
+True,observado,marginal,padres,uniforme,persona,Resto del mundo,309.5082010083579,0.17269202058041247
+False,edad_sexo,medio,hijo,epf,rentas,España,-1127.4802382861312,-2.7994579350978657
+False,edad_sexo,medio,hijo,epf,rentas,Resto UE,3716.935712973512,0.3993690464163911
+False,edad_sexo,medio,hijo,epf,rentas,Resto del mundo,56.70923229855201,0.025870541142882467
+False,edad_sexo,medio,hijo,epf,persona,España,-1190.4022254983295,-2.955689016062153
+False,edad_sexo,medio,hijo,epf,persona,Resto UE,3296.714371371869,0.3542180377794923
+False,edad_sexo,medio,hijo,epf,persona,Resto del mundo,498.14660451615634,0.2272526307440682
+False,edad_sexo,medio,hijo,uniforme,rentas,España,-1153.1947874868717,-2.863305438905918
+False,edad_sexo,medio,hijo,uniforme,rentas,Resto UE,3754.6820664777547,0.40342473270444523
+False,edad_sexo,medio,hijo,uniforme,rentas,Resto del mundo,187.7752216246793,0.08566235866287997
+False,edad_sexo,medio,hijo,uniforme,persona,España,-1216.11677469907,-3.019536519870205
+False,edad_sexo,medio,hijo,uniforme,persona,Resto UE,3334.4607248761117,0.3582737240675464
+False,edad_sexo,medio,hijo,uniforme,persona,Resto del mundo,629.2125938422836,0.28704444826406567
+False,edad_sexo,medio,padres,epf,rentas,España,-653.4788958607678,-1.540291931139638
+False,edad_sexo,medio,padres,epf,rentas,Resto UE,1350.1353733163767,0.17761619850172597
+False,edad_sexo,medio,padres,epf,rentas,Resto del mundo,-1812.942682174573,-1.0115426149006796
+False,edad_sexo,medio,padres,epf,persona,España,-785.0350069883423,-1.8503781753097732
+False,edad_sexo,medio,padres,epf,persona,Resto UE,1200.2434015882984,0.15789725569758775
+False,edad_sexo,medio,padres,epf,persona,Resto del mundo,-1221.8475652111294,-0.6817374279264067
+False,edad_sexo,medio,padres,uniforme,rentas,España,-680.4382534465464,-1.6038368768465459
+False,edad_sexo,medio,padres,uniforme,rentas,Resto UE,1384.416999596308,0.18212609599692436
+False,edad_sexo,medio,padres,uniforme,rentas,Resto del mundo,-1707.1368000785928,-0.9525075666889706
+False,edad_sexo,medio,padres,uniforme,persona,España,-811.9943645741209,-1.9139231210166818
+False,edad_sexo,medio,padres,uniforme,persona,Resto UE,1234.5250278682295,0.16240715319278612
+False,edad_sexo,medio,padres,uniforme,persona,Resto del mundo,-1116.041683115149,-0.6227023797146978
+False,edad_sexo,marginal,hijo,epf,rentas,España,-1625.2128948867025,-4.035294793042153
+False,edad_sexo,marginal,hijo,epf,rentas,Resto UE,5909.527322432415,0.6349537559376834
+False,edad_sexo,marginal,hijo,epf,rentas,Resto del mundo,2249.300841757454,1.0261226895658786
+False,edad_sexo,marginal,hijo,epf,persona,España,-1688.1348820989006,-4.191525874006441
+False,edad_sexo,marginal,hijo,epf,persona,Resto UE,5489.305980830771,0.5898027473007844
+False,edad_sexo,marginal,hijo,epf,persona,Resto del mundo,2690.7382139750584,1.2275047791670644
+False,edad_sexo,marginal,hijo,uniforme,rentas,España,-1650.927444087443,-4.099142296850206
+False,edad_sexo,marginal,hijo,uniforme,rentas,Resto UE,5947.273675936657,0.6390094422257374
+False,edad_sexo,marginal,hijo,uniforme,rentas,Resto del mundo,2380.3668310835806,1.085914507085876
+False,edad_sexo,marginal,hijo,uniforme,persona,España,-1713.8494312996413,-4.255373377814494
+False,edad_sexo,marginal,hijo,uniforme,persona,Resto UE,5527.052334335013,0.5938584335888385
+False,edad_sexo,marginal,hijo,uniforme,persona,Resto del mundo,2821.8042033011848,1.2872965966870618
+False,edad_sexo,marginal,padres,epf,rentas,España,-1151.2115524613394,-2.7134799249412036
+False,edad_sexo,marginal,padres,epf,rentas,Resto UE,3049.699528910757,0.4012012777408377
+False,edad_sexo,marginal,padres,epf,rentas,Resto del mundo,-111.01176046379356,-0.06193970033822648
+False,edad_sexo,marginal,padres,epf,persona,España,-1282.7676635889138,-3.0235661691113394
+False,edad_sexo,marginal,padres,epf,persona,Resto UE,2899.807557182679,0.3814823349366995
+False,edad_sexo,marginal,padres,epf,persona,Resto del mundo,480.08335649965017,0.2678654866360465
+False,edad_sexo,marginal,padres,uniforme,rentas,España,-1178.1709100471178,-2.7770248706481118
+False,edad_sexo,marginal,padres,uniforme,rentas,Resto UE,3083.9811551906887,0.4057111752360361
+False,edad_sexo,marginal,padres,uniforme,rentas,Resto del mundo,-5.205878367813194,-0.0029046521265174595
+False,edad_sexo,marginal,padres,uniforme,persona,España,-1309.7270211746923,-3.0871111148182466
+False,edad_sexo,marginal,padres,uniforme,persona,Resto UE,2934.08918346261,0.3859922324318979
+False,edad_sexo,marginal,padres,uniforme,persona,Resto del mundo,585.8892385956307,0.32690053484775555
+False,observado,medio,hijo,epf,rentas,España,-1112.3197433907633,-2.7618154414259917
+False,observado,medio,hijo,epf,rentas,Resto UE,3549.548129534392,0.381383957423139
+False,observado,medio,hijo,epf,rentas,Resto del mundo,13.663731543343879,0.0062333435796908965
+False,observado,medio,hijo,epf,persona,España,-1175.2417306029615,-2.918046522390279
+False,observado,medio,hijo,epf,persona,Resto UE,3129.326787932749,0.3362329487862402
+False,observado,medio,hijo,epf,persona,Resto del mundo,455.1011037609481,0.20761543318087655
+False,observado,medio,hijo,uniforme,rentas,España,-1138.0342925915038,-2.825662945234044
+False,observado,medio,hijo,uniforme,rentas,Resto UE,3587.2944830386346,0.3854396437111931
+False,observado,medio,hijo,uniforme,rentas,Resto del mundo,144.72972086947115,0.0660251610996884
+False,observado,medio,hijo,uniforme,persona,España,-1200.9562798037018,-2.9818940261983307
+False,observado,medio,hijo,uniforme,persona,Resto UE,3167.073141436992,0.34028863507429435
+False,observado,medio,hijo,uniforme,persona,Resto del mundo,586.1670930870752,0.267407250700874
+False,observado,medio,padres,epf,rentas,España,-637.4347056421194,-1.5024747393496847
+False,observado,medio,padres,epf,rentas,Resto UE,1213.0726215483498,0.15958499555248068
+False,observado,medio,padres,epf,rentas,Resto del mundo,-1848.3680105872777,-1.0313083966259577
+False,observado,medio,padres,epf,persona,España,-768.9908167696939,-1.81256098351982
+False,observado,medio,padres,epf,persona,Resto UE,1063.1806498202714,0.13986605274834243
+False,observado,medio,padres,epf,persona,Resto del mundo,-1257.272893623834,-0.7015032096516848
+False,observado,medio,padres,uniforme,rentas,España,-664.3940632278981,-1.5660196850565928
+False,observado,medio,padres,uniforme,rentas,Resto UE,1247.3542478282811,0.16409489304767907
+False,observado,medio,padres,uniforme,rentas,Resto del mundo,-1742.5621284912972,-0.9722733484142485
+False,observado,medio,padres,uniforme,persona,España,-795.9501743554724,-1.8761059292267281
+False,observado,medio,padres,uniforme,persona,Resto UE,1097.4622761002026,0.1443759502435408
+False,observado,medio,padres,uniforme,persona,Resto del mundo,-1151.4670115278536,-0.6424681614399756
+False,observado,marginal,hijo,epf,rentas,España,-1610.0523999913341,-3.9976522993702797
+False,observado,marginal,hijo,epf,rentas,Resto UE,5742.139738993293,0.6169686669444311
+False,observado,marginal,hijo,epf,rentas,Resto del mundo,2206.255341002246,1.0064854920026873
+False,observado,marginal,hijo,epf,persona,España,-1672.9743872035326,-4.153883380334567
+False,observado,marginal,hijo,epf,persona,Resto UE,5321.918397391651,0.5718176583075323
+False,observado,marginal,hijo,epf,persona,Resto del mundo,2647.6927132198493,1.2078675816038724
+False,observado,marginal,hijo,uniforme,rentas,España,-1635.7669491920753,-4.061499803178333
+False,observado,marginal,hijo,uniforme,rentas,Resto UE,5779.886092497536,0.6210243532324853
+False,observado,marginal,hijo,uniforme,rentas,Resto del mundo,2337.321330328373,1.0662773095226845
+False,observado,marginal,hijo,uniforme,persona,España,-1698.6889364042734,-4.21773088414262
+False,observado,marginal,hijo,uniforme,persona,Resto UE,5359.664750895893,0.5758733445955866
+False,observado,marginal,hijo,uniforme,persona,Resto del mundo,2778.758702545977,1.26765939912387
+False,observado,marginal,padres,epf,rentas,España,-1135.1673622426906,-2.6756627331512495
+False,observado,marginal,padres,epf,rentas,Resto UE,2912.636777142731,0.3831700747915925
+False,observado,marginal,padres,epf,rentas,Resto del mundo,-146.43708887649794,-0.0817054820635043
+False,observado,marginal,padres,epf,persona,España,-1266.7234733702649,-2.9857489773213843
+False,observado,marginal,padres,epf,persona,Resto UE,2762.7448054146525,0.36345113198745427
+False,observado,marginal,padres,epf,persona,Resto del mundo,444.65802808694565,0.24809970491076855
+False,observado,marginal,padres,uniforme,rentas,España,-1162.1267198284693,-2.739207678858158
+False,observado,marginal,padres,uniforme,rentas,Resto UE,2946.918403422662,0.3876799722867909
+False,observado,marginal,padres,uniforme,rentas,Resto del mundo,-40.631206780517644,-0.022670433851795322
+False,observado,marginal,padres,uniforme,persona,España,-1293.6828309560435,-3.0492939230282925
+False,observado,marginal,padres,uniforme,persona,Resto UE,2797.0264316945836,0.36796102948265264
+False,observado,marginal,padres,uniforme,persona,Resto del mundo,550.463910182926,0.3071347531224776
