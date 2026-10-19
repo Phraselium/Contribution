@@ -1,0 +1,139 @@
+{
+ "herramienta": "iv2sls",
+ "seed": 20261019,
+ "datos": "simulados (nunca datos reales)",
+ "dgp": {
+  "ar_cobertura_agregada": 0.9226666666666667,
+  "ar_cobertura_agregada_ee": 0.006896998810540172,
+  "G": 52,
+  "beta": 1.0,
+  "F_objetivo": [
+   3,
+   10,
+   50
+  ],
+  "rho_endogeneidad": 0.8,
+  "R": 500,
+  "descripcion": "M1 · Monte Carlo de econ.iv2sls + econ.f_efectivo + econ.ar_conjunto con instrumento fuerte y débil y 52 clusters.\n\nDGP (declarado antes de simular; todo se redibuja en cada réplica):\n- G = 52 clusters (provincias) con N_g ~ U{10, …, 60} observaciones.\n- Instrumento z_ig = z_g + 0,5·N(0,1), z_g ~ N(0,1); control c_ig ~ N(0,1).\n- Errores con componente de cluster y endogeneidad fuerte: (u, v) = (a_g, b_g) + (e_ig, f_ig), cada par N(0, [[1, 0,8], [0,8, 1]]).\n- x = pi·z + 0,3·c + v; y = beta·x + 0,3·c + u; beta = 1 (cobertura y tamaño en el valor verdadero; potencia contra beta = 0).\n- pi calibrado para un F efectivo (= F de Wald agrupado de la primera etapa) mediano ≈ 3, 10 y 50.\n- Wald: IC b ± t(G-1)·EE CR1. AR: conjunto de econ.ar_conjunto (test agrupado con t(G-1)²); cobertura = el valor verdadero\n  no se rechaza (rejilla de un punto); forma del conjunto (acotado/convexo/longitud) con una rejilla de 201 puntos en beta ± 5.\n"
+ },
+ "disenos": [
+  {
+   "diseno": "F_objetivo_3",
+   "pi": 0.21640481824203733,
+   "G": 52,
+   "beta": 1.0,
+   "F_efectivo_mediana": 3.6717274527517474,
+   "F_efectivo_p10_p90": [
+    0.24441700058129556,
+    12.349166265934434
+   ],
+   "max_dif_f_efectivo_vs_F_primera": 7.105427357601002e-15,
+   "wald_iv2sls_CR1": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 1.0,
+    "media": 0.9067532738657978,
+    "sesgo": -0.09324672613420215,
+    "mediana_sesgo": 0.05269627793331555,
+    "rmse": 47.7848920079565,
+    "de_mc": 47.832657625634745,
+    "cobertura95": 0.89,
+    "ee_mc_cobertura": 0.013992855319769442,
+    "tamano": 0.10999999999999999,
+    "potencia_vs_0": 0.516
+   },
+   "ar_conjunto": {
+    "cobertura95": 0.926,
+    "ee_mc_cobertura": 0.011706750189527404,
+    "tamano": 0.07399999999999995,
+    "potencia_vs_0": 0.192,
+    "frac_acotado_en_beta±5": 0.376,
+    "frac_convexo": 0.678,
+    "frac_vacio": 0.0,
+    "longitud_mediana_acotados": 1.7000000000000002
+   },
+   "wald_apto": false,
+   "ar_apto": true
+  },
+  {
+   "diseno": "F_objetivo_10",
+   "pi": 0.395099335013231,
+   "G": 52,
+   "beta": 1.0,
+   "F_efectivo_mediana": 11.05689421140127,
+   "F_efectivo_p10_p90": [
+    3.5335885065827966,
+    25.8756198998284
+   ],
+   "max_dif_f_efectivo_vs_F_primera": 7.105427357601002e-15,
+   "wald_iv2sls_CR1": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 1.0,
+    "media": 0.8207475423117269,
+    "sesgo": -0.17925245768827314,
+    "mediana_sesgo": 0.006135912219565665,
+    "rmse": 0.9870052688550461,
+    "de_mc": 0.9715635999861109,
+    "cobertura95": 0.932,
+    "ee_mc_cobertura": 0.01125841907196565,
+    "tamano": 0.06799999999999995,
+    "potencia_vs_0": 0.682
+   },
+   "ar_conjunto": {
+    "cobertura95": 0.906,
+    "ee_mc_cobertura": 0.013050976974924135,
+    "tamano": 0.09399999999999997,
+    "potencia_vs_0": 0.418,
+    "frac_acotado_en_beta±5": 0.762,
+    "frac_convexo": 0.956,
+    "frac_vacio": 0.0,
+    "longitud_mediana_acotados": 1.2999999999999998
+   },
+   "wald_apto": true,
+   "ar_apto": false
+  },
+  {
+   "diseno": "F_objetivo_50",
+   "pi": 0.8834689709545475,
+   "G": 52,
+   "beta": 1.0,
+   "F_efectivo_mediana": 61.26114696135774,
+   "F_efectivo_p10_p90": [
+    31.371165639067115,
+    112.6369121584174
+   ],
+   "max_dif_f_efectivo_vs_F_primera": 2.842170943040401e-14,
+   "wald_iv2sls_CR1": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 1.0,
+    "media": 0.9874316904870643,
+    "sesgo": -0.01256830951293575,
+    "mediana_sesgo": 0.006575428277197037,
+    "rmse": 0.15323245521821535,
+    "de_mc": 0.15286909710562563,
+    "cobertura95": 0.928,
+    "ee_mc_cobertura": 0.0115599307956406,
+    "tamano": 0.07199999999999995,
+    "potencia_vs_0": 0.986
+   },
+   "ar_conjunto": {
+    "cobertura95": 0.936,
+    "ee_mc_cobertura": 0.01094568408095172,
+    "tamano": 0.06399999999999995,
+    "potencia_vs_0": 0.95,
+    "frac_acotado_en_beta±5": 1.0,
+    "frac_convexo": 1.0,
+    "frac_vacio": 0.0,
+    "longitud_mediana_acotados": 0.5
+   },
+   "wald_apto": true,
+   "ar_apto": true
+  }
+ ],
+ "veredicto": "APTO CON CONDICIÓN",
+ "condicion": "Wald (iv2sls CR1): F≈3.7 cobertura 0.890; F≈11.1 cobertura 0.932; F≈61.3 cobertura 0.928. AR (ar_conjunto): F≈3.7 cobertura 0.926; F≈11.1 cobertura 0.906; F≈61.3 cobertura 0.936 (agregada 0.923 ± 0.007, idéntica en distribución en los tres diseños). Wald solo cumple con F efectivo ≥ 11; con F menor, usar el conjunto AR.",
+ "criterio": "APTO si cobertura en [0.92, 0.98] y tamaño ≤ 0.08",
+ "segundos": 94.4
+}

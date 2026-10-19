@@ -1,0 +1,149 @@
+{
+ "herramienta": "oaxaca",
+ "seed": 20261019,
+ "datos": "simulados (nunca datos reales)",
+ "dgp": {
+  "N": 4000,
+  "proporcion_A": 0.3,
+  "probabilidades": {
+   "A": {
+    "educ": [
+     0.45,
+     0.35,
+     0.2
+    ],
+    "edad": [
+     0.5,
+     0.35,
+     0.15
+    ],
+    "mujer": 0.45
+   },
+   "B": {
+    "educ": [
+     0.25,
+     0.45,
+     0.3
+    ],
+    "edad": [
+     0.3,
+     0.4,
+     0.3
+    ],
+    "mujer": 0.5
+   }
+  },
+  "coeficientes_B": [
+   0.3,
+   0.7,
+   0.2,
+   0.35,
+   -0.15
+  ],
+  "delta": -0.1,
+  "disenos": [
+   "lineal",
+   "lineal_pesos",
+   "heterogeneo"
+  ],
+  "R": 500,
+  "cuantiles": [
+   0.1,
+   0.25,
+   0.5,
+   0.75,
+   0.9
+  ],
+  "descripcion": "M1 · Monte Carlo de econ.oaxaca y econ.dfl: identidades contables exactas e insesgadez de la parte explicada (composición).\n\nDGP (declarado antes de simular; composición conocida, todo se redibuja en cada réplica):\n- n = 4000 con 30 % del grupo A y 70 % del grupo B (grupos genéricos; sin atribuir rasgos a ningún colectivo real).\n- Covariables discretas independientes dentro de cada grupo: educación (3 niveles), edad (3 tramos), sexo.\n  P(educ | A) = (0,45; 0,35; 0,20), P(educ | B) = (0,25; 0,45; 0,30); P(edad | A) = (0,50; 0,35; 0,15), P(edad | B) = (0,30; 0,40; 0,30);\n  P(mujer | A) = 0,45, P(mujer | B) = 0,50. Con esta estructura el logit con efectos principales de DFL está bien especificado.\n- «lineal»: y = 2 + 0,3·e2 + 0,7·e3 + 0,2·a2 + 0,35·a3 − 0,15·mujer − 0,10·A + error, error ~ N(0, (0,4 + 0,2·e3)²).\n  Verdad: explicada = (E[x|A] − E[x|B])·b (poblacional); no explicada = −0,10.\n- «lineal_pesos»: igual, pero la muestra sobrerrepresenta educación alta (probabilidad ×2) y se usan pesos 1/probabilidad.\n- «heterogeneo»: A tiene la mitad de rendimiento educativo (0,15; 0,35). Verdad de composición con estructura de B:\n  (E[x|A] − E[x|B])·b_B. DFL debe ser insesgado; Oaxaca con coeficientes agrupados estima otra cantidad (se informa, no se exige).\n- Cuantiles de DFL: verdad por simulación grande (2·10⁶) de la distribución contrafactual (composición de A, estructura de B).\n- Criterio (las herramientas no dan EE, así que no hay cobertura): identidades con error < 1e-10 y |sesgo| < max(3·EE_MC; 2 % de |verdad|).\n"
+ },
+ "disenos": [
+  {
+   "diseno": "lineal",
+   "verdad_brecha": -0.255,
+   "explicada": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": -0.155,
+    "media": -0.1551198230676932,
+    "sesgo": -0.00011982306769320328,
+    "mediana_sesgo": -0.00018004192378398565,
+    "rmse": 0.011411469907296837,
+    "de_mc": 0.011422268790666866
+   },
+   "no_explicada": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": -0.1,
+    "media": -0.09965110962415276,
+    "sesgo": 0.0003488903758472467,
+    "mediana_sesgo": -0.00019162724601515246,
+    "rmse": 0.016659205427552642,
+    "de_mc": 0.016672232233216917
+   },
+   "max_error_identidades": 0.0,
+   "max_dif_sin_vs_con_constante": 3.4416913763379853e-15,
+   "identidades_ok": true,
+   "explicada_insesgada": true
+  },
+  {
+   "diseno": "lineal_pesos",
+   "verdad_brecha": -0.255,
+   "explicada": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": -0.155,
+    "media": -0.15520112742696857,
+    "sesgo": -0.000201127426968567,
+    "mediana_sesgo": 9.797951792769877e-05,
+    "rmse": 0.011016670189415585,
+    "de_mc": 0.011025865464395844
+   },
+   "no_explicada": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": -0.1,
+    "media": -0.09979961557564025,
+    "sesgo": 0.00020038442435975357,
+    "mediana_sesgo": -0.0008446639958375468,
+    "rmse": 0.017191206494816858,
+    "de_mc": 0.017207254459732712
+   },
+   "max_error_identidades": 0.0,
+   "max_dif_sin_vs_con_constante": 2.7755575615628914e-15,
+   "identidades_ok": true,
+   "explicada_insesgada": true
+  },
+  {
+   "diseno": "heterogeneo",
+   "verdad_brecha": -0.37750000000000006,
+   "explicada": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": -0.155,
+    "media": -0.13776942247481075,
+    "sesgo": 0.01723057752518925,
+    "mediana_sesgo": 0.017158513430987954,
+    "rmse": 0.02056260088054103,
+    "de_mc": 0.01123299218140762
+   },
+   "no_explicada": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": -0.22250000000000006,
+    "media": -0.24028624697368017,
+    "sesgo": -0.017786246973680114,
+    "mediana_sesgo": -0.017923601713409343,
+    "rmse": 0.024062296448927458,
+    "de_mc": 0.016222511171972476
+   },
+   "max_error_identidades": 0.0,
+   "max_dif_sin_vs_con_constante": 2.7755575615628914e-15,
+   "identidades_ok": true,
+   "explicada_insesgada": false
+  }
+ ],
+ "veredicto": "APTO",
+ "condicion": "identidades exactas (error máx. 0.0e+00); parte explicada lineal: sesgo -0.0001 (verdad -0.1550); lineal_pesos: sesgo -0.0002 (verdad -0.1550); heterogeneo: sesgo +0.0172 (verdad -0.1550). Con rendimientos heterogéneos la referencia agrupada no coincide con la de B (sesgo frente a b_B +0.0172): no es error, es otra referencia; declararla. Sin constante en X ya no hay sesgo (corrección en econ.oaxaca; dif. máx. con/sin constante 3.4e-15).",
+ "criterio": "APTO si cobertura en [0.92, 0.98] y tamaño ≤ 0.08",
+ "segundos": 24.5
+}

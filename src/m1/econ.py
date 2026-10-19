@@ -207,7 +207,11 @@ def oaxaca(y, X, grupo, w=None):
     (Jann 2008). Devuelve brecha, explicada (composición) y no explicada (resto) y la contribución de cada variable."""
     y, X, grupo = np.asarray(y, float), np.asarray(X, float), np.asarray(grupo, bool)
     w = _w(len(y), w)
-    bp = ols(y, np.column_stack([X, grupo.astype(float)]), None, w)["b"][:-1]
+    # Corrección (F5, Monte Carlo): sin constante en X la regresión agrupada no tenía término independiente y la parte
+    # explicada quedaba sesgada; se añade una constante si X no la trae (su contribución a la parte explicada es 0).
+    tiene_cte = bool(np.any(np.all(X == X[:1], axis=0)))
+    Xc = X if tiene_cte else np.column_stack([X, np.ones(len(y))])
+    bp = ols(y, np.column_stack([Xc, grupo.astype(float)]), None, w)["b"][:X.shape[1]]
     xa = np.average(X[grupo], axis=0, weights=w[grupo])
     xb = np.average(X[~grupo], axis=0, weights=w[~grupo])
     ya, yb = np.average(y[grupo], weights=w[grupo]), np.average(y[~grupo], weights=w[~grupo])

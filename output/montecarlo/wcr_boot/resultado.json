@@ -1,0 +1,254 @@
+{
+ "herramienta": "wcr_boot",
+ "seed": 20261019,
+ "datos": "simulados (nunca datos reales)",
+ "dgp": {
+  "disenos_G_xg": [
+   [
+    17,
+    "asimetrico"
+   ],
+   [
+    17,
+    "normal"
+   ],
+   [
+    52,
+    "asimetrico"
+   ],
+   [
+    52,
+    "normal"
+   ]
+  ],
+  "betas": [
+   0.0,
+   0.5
+  ],
+  "R": 500,
+  "B": 399,
+  "descripcion": "M1 · Monte Carlo de econ.wcr_boot (wild cluster bootstrap restringido, pesos de Webb) frente a CR1 con t(G-1).\n\nDGP (declarado antes de simular; se redibuja todo en cada réplica salvo el número de clusters):\n- G ∈ {17, 52} clusters (CCAA, provincias) de tamaños muy heterogéneos: N_g = redondeo(exp(N(log 40, 1))) acotado a [5, 400].\n- Tratamiento al nivel del cluster: «asimetrico» (pocos clusters de alto apalancamiento) x_g = (exp(N(0,1)) - e^{1/2}) / DE, o\n  «normal» x_g ~ N(0,1); x_ig = x_g + 0,3·N(0,1); un control individual c_ig ~ N(0,1).\n- Error u_ig = a_g + e_ig con a_g ~ N(0, 1)·(0,5 + |x_g|) (heterocedasticidad ligada al apalancamiento) y e_ig ~ N(0, 1).\n- y_ig = 1 + beta·x_ig + 0,5·c_ig + u_ig; beta = 0 (tamaño) y beta = 0,5 (potencia). H0: beta = 0 al 5 %.\n- wcr_boot con B = 399 dentro del MC (con B = 9999 en la aplicación) y semilla distinta por réplica (SEED + r).\n"
+ },
+ "disenos": [
+  {
+   "diseno": "G17_asimetrico",
+   "G": 17,
+   "x_g": "asimetrico",
+   "beta": 0.0,
+   "B": 399,
+   "mco": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": -0.024583030352398345,
+    "sesgo": -0.024583030352398345,
+    "mediana_sesgo": -0.03423954188238068,
+    "rmse": 0.6585908188308752,
+    "de_mc": 0.6587909777552812,
+    "cobertura95": 0.646,
+    "ee_mc_cobertura": 0.021386163751360363
+   },
+   "wcr_webb": {
+    "tamano": 0.102,
+    "ee_mc": 0.013534843922262273
+   },
+   "cr1_t(G-1)": {
+    "tamano": 0.354,
+    "ee_mc": 0.021386163751360363
+   }
+  },
+  {
+   "diseno": "G17_asimetrico",
+   "G": 17,
+   "x_g": "asimetrico",
+   "beta": 0.5,
+   "B": 399,
+   "mco": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.45490243252489415,
+    "sesgo": -0.04509756747510585,
+    "mediana_sesgo": -0.03587212733096068,
+    "rmse": 0.68022535719787,
+    "de_mc": 0.6794085205960514,
+    "cobertura95": 0.66,
+    "ee_mc_cobertura": 0.021184900282984576
+   },
+   "wcr_webb": {
+    "potencia": 0.21,
+    "ee_mc": 0.01821537811850196
+   },
+   "cr1_t(G-1)": {
+    "potencia": 0.466,
+    "ee_mc": 0.022308921982023246
+   }
+  },
+  {
+   "diseno": "G17_normal",
+   "G": 17,
+   "x_g": "normal",
+   "beta": 0.0,
+   "B": 399,
+   "mco": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": -0.00031016941066104397,
+    "sesgo": -0.00031016941066104397,
+    "mediana_sesgo": 0.03003041993212176,
+    "rmse": 0.5599017564324426,
+    "de_mc": 0.5604624134452199,
+    "cobertura95": 0.81,
+    "ee_mc_cobertura": 0.01754422982065613
+   },
+   "wcr_webb": {
+    "tamano": 0.062,
+    "ee_mc": 0.010784804124322332
+   },
+   "cr1_t(G-1)": {
+    "tamano": 0.19,
+    "ee_mc": 0.017544229820656135
+   }
+  },
+  {
+   "diseno": "G17_normal",
+   "G": 17,
+   "x_g": "normal",
+   "beta": 0.5,
+   "B": 399,
+   "mco": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.5344159032331138,
+    "sesgo": 0.03441590323311383,
+    "mediana_sesgo": 0.014659500170154383,
+    "rmse": 0.5670974009292221,
+    "de_mc": 0.5666190272037345,
+    "cobertura95": 0.812,
+    "ee_mc_cobertura": 0.017473179447370188
+   },
+   "wcr_webb": {
+    "potencia": 0.178,
+    "ee_mc": 0.017106489996489636
+   },
+   "cr1_t(G-1)": {
+    "potencia": 0.364,
+    "ee_mc": 0.02151762068631195
+   }
+  },
+  {
+   "diseno": "G52_asimetrico",
+   "G": 52,
+   "x_g": "asimetrico",
+   "beta": 0.0,
+   "B": 399,
+   "mco": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": 0.00027969790800919147,
+    "sesgo": 0.00027969790800919147,
+    "mediana_sesgo": 0.02077066416807726,
+    "rmse": 0.5529650422255128,
+    "de_mc": 0.5535187672916172,
+    "cobertura95": 0.726,
+    "ee_mc_cobertura": 0.01994612744369192
+   },
+   "wcr_webb": {
+    "tamano": 0.074,
+    "ee_mc": 0.011706750189527408
+   },
+   "cr1_t(G-1)": {
+    "tamano": 0.274,
+    "ee_mc": 0.01994612744369192
+   }
+  },
+  {
+   "diseno": "G52_asimetrico",
+   "G": 52,
+   "x_g": "asimetrico",
+   "beta": 0.5,
+   "B": 399,
+   "mco": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.4726487095760632,
+    "sesgo": -0.027351290423936803,
+    "mediana_sesgo": -0.014049068220418293,
+    "rmse": 0.579234954249215,
+    "de_mc": 0.5791682924316144,
+    "cobertura95": 0.696,
+    "ee_mc_cobertura": 0.020571047615520217
+   },
+   "wcr_webb": {
+    "potencia": 0.272,
+    "ee_mc": 0.019900552756142227
+   },
+   "cr1_t(G-1)": {
+    "potencia": 0.464,
+    "ee_mc": 0.022302645582979615
+   }
+  },
+  {
+   "diseno": "G52_normal",
+   "G": 52,
+   "x_g": "normal",
+   "beta": 0.0,
+   "B": 399,
+   "mco": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": -0.0034220020249415483,
+    "sesgo": -0.0034220020249415483,
+    "mediana_sesgo": -0.0033660639373432107,
+    "rmse": 0.37580353866333926,
+    "de_mc": 0.37616431084239277,
+    "cobertura95": 0.9,
+    "ee_mc_cobertura": 0.013416407864998736
+   },
+   "wcr_webb": {
+    "tamano": 0.036,
+    "ee_mc": 0.008331146379700696
+   },
+   "cr1_t(G-1)": {
+    "tamano": 0.1,
+    "ee_mc": 0.01341640786499874
+   }
+  },
+  {
+   "diseno": "G52_normal",
+   "G": 52,
+   "x_g": "normal",
+   "beta": 0.5,
+   "B": 399,
+   "mco": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.48226433156322757,
+    "sesgo": -0.017735668436772434,
+    "mediana_sesgo": -0.03192663152409969,
+    "rmse": 0.36795877166611063,
+    "de_mc": 0.36789917547851253,
+    "cobertura95": 0.894,
+    "ee_mc_cobertura": 0.013766916866168691
+   },
+   "wcr_webb": {
+    "potencia": 0.304,
+    "ee_mc": 0.020571047615520213
+   },
+   "cr1_t(G-1)": {
+    "potencia": 0.42,
+    "ee_mc": 0.02207260745811423
+   }
+  }
+ ],
+ "veredicto": "APTO CON CONDICIÓN",
+ "condicion": "G17_asimetrico: tamaño WCR 0.102 (CR1 t(G-1) 0.354) → falla; G17_normal: tamaño WCR 0.062 (CR1 t(G-1) 0.190) → cumple; G52_asimetrico: tamaño WCR 0.074 (CR1 t(G-1) 0.274) → cumple; G52_normal: tamaño WCR 0.036 (CR1 t(G-1) 0.100) → cumple",
+ "criterio": "APTO si cobertura en [0.92, 0.98] y tamaño ≤ 0.08",
+ "segundos": 278.3
+}

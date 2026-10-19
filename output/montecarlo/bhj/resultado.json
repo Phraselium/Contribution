@@ -1,0 +1,296 @@
+{
+ "herramienta": "bhj",
+ "seed": 20261019,
+ "datos": "simulados (nunca datos reales)",
+ "dgp": {
+  "provincias": 52,
+  "ccaa": 17,
+  "patrones_asentamiento": 5,
+  "disenos": [
+   {
+    "nombre": "corte_O40",
+    "O": 40,
+    "a_dirichlet": 1.0,
+    "T": 1
+   },
+   {
+    "nombre": "corte_O20_10efectivos",
+    "O": 20,
+    "a_dirichlet": 1.0,
+    "T": 1
+   },
+   {
+    "nombre": "apilado_3periodos_O40",
+    "O": 40,
+    "a_dirichlet": 1.0,
+    "T": 3
+   }
+  ],
+  "betas": [
+   0.0,
+   0.5
+  ],
+  "rho_endogeneidad": 0.5,
+  "R": 500,
+  "cuotas": "fijas entre réplicas; shocks y errores redibujados",
+  "descripcion": "M1 · Monte Carlo de econ.bhj (MC2E shift-share con EE robustos a la exposición, BHJ 2022) frente a EE convencionales.\n\nDGP (declarado antes de simular; cuotas FIJAS entre réplicas, como en el enfoque de diseño de BHJ/AKM; se redibujan shocks y errores):\n- 52 provincias agrupadas en 17 «CCAA» contiguas; cada CCAA tiene uno de K=5 patrones de asentamiento (provincias de patrones\n  iguales tienen cuotas parecidas aunque estén en CCAA distintas).\n- O orígenes con mezcla nacional m ~ Dirichlet(a·1) (a pequeño: pocos orígenes dominantes); patrón k: m_k ~ Dirichlet(5·O·m);\n  provincia l: pi_l ~ Dirichlet(60·m_k); exposición total e_l ~ U(0,04; 0,25); cuotas S_lo = e_l·pi_lo (suman e_l < 1).\n- Shocks nacionales g_o ~ N(0, 1)/sigma_S i.i.d. (sigma_S² = media_l sum_o S_lo²: el instrumento z = S·g tiene DE ≈ 1).\n- Problema de AKM: errores con componente de origen no observado nu_o: eps_l = sum_o S_lo nu_o + eta_l (provincias con cuotas\n  parecidas tienen errores correlacionados); endogeneidad: mu_o = rho·nu_o + ..., v_l = rho·eta_l + ..., rho = 0,5.\n- x_l = 2·z_l + sum_o S_lo mu_o + v_l (primera etapa fuerte); y_l = beta·x_l + eps_l (+ constante y e_l, que entran en los\n  controles W = [1, e_l]).\n- Apilado: 3 periodos con las mismas cuotas, shocks g_ot y nu_ot i.i.d. por (origen, periodo); W = efectos de periodo y periodo × e_l.\n- beta = 0 (nulo) y beta = 0,5 (no nulo). Referencia adicional: test AKM0 (residuos con el nulo impuesto, al nivel del shock).\n  Se compara el IC95 normal de bhj con MC2E de ubicación (econ.iv2sls) con EE robustos HC1 (normal) y agrupados CR1 por CCAA\n  (corte) o por provincia (apilado), con t(G-1).\n"
+ },
+ "disenos": [
+  {
+   "diseno": "corte_O40",
+   "O": 40,
+   "T": 1,
+   "n": 52,
+   "beta": 0.0,
+   "orígenes_efectivos_1/HHI": 21.55220142361822,
+   "F_shock_mediana": 21.260999814561124,
+   "max_dif_b_bhj_vs_iv2sls": 6.340891353651124e-14,
+   "bhj": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": -0.011671742910509732,
+    "sesgo": -0.011671742910509732,
+    "mediana_sesgo": -0.0014183514928434535,
+    "rmse": 0.1688425582951371,
+    "de_mc": 0.16860734498426522,
+    "cobertura95": 0.864,
+    "ee_mc_cobertura": 0.01532997064576446,
+    "tamano": 0.136,
+    "ee_medio": 0.1470956862930876,
+    "ee_rms": 0.16608634392892302
+   },
+   "akm0_referencia": {
+    "cobertura95": 0.958,
+    "ee_mc_cobertura": 0.00897061870775924,
+    "tamano": 0.042
+   },
+   "iv2sls_HC1": {
+    "cobertura95": 0.806,
+    "ee_mc_cobertura": 0.017684117167673367,
+    "tamano": 0.194
+   },
+   "iv2sls_CR1_ccaa_G17": {
+    "cobertura95": 0.81,
+    "ee_mc_cobertura": 0.01754422982065613,
+    "tamano": 0.19
+   },
+   "bhj_apto": false,
+   "akm0_apto": true
+  },
+  {
+   "diseno": "corte_O40",
+   "O": 40,
+   "T": 1,
+   "n": 52,
+   "beta": 0.5,
+   "orígenes_efectivos_1/HHI": 21.55220142361822,
+   "F_shock_mediana": 21.121644315081262,
+   "max_dif_b_bhj_vs_iv2sls": 4.873879078104437e-14,
+   "bhj": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.4885566702111855,
+    "sesgo": -0.011443329788814516,
+    "mediana_sesgo": -0.006928863848658151,
+    "rmse": 0.1716240399546097,
+    "de_mc": 0.1714136124897304,
+    "cobertura95": 0.864,
+    "ee_mc_cobertura": 0.01532997064576446,
+    "potencia": 0.818,
+    "ee_medio": 0.14705634501797613,
+    "ee_rms": 0.164714387687626
+   },
+   "akm0_referencia": {
+    "cobertura95": 0.94,
+    "ee_mc_cobertura": 0.010620734437881408,
+    "potencia": 0.44
+   },
+   "iv2sls_HC1": {
+    "cobertura95": 0.77,
+    "ee_mc_cobertura": 0.018820201911775546,
+    "potencia": 0.892
+   },
+   "iv2sls_CR1_ccaa_G17": {
+    "cobertura95": 0.786,
+    "ee_mc_cobertura": 0.01834142851579451,
+    "potencia": 0.894
+   },
+   "bhj_apto": false,
+   "akm0_apto": true
+  },
+  {
+   "diseno": "corte_O20_10efectivos",
+   "O": 20,
+   "T": 1,
+   "n": 52,
+   "beta": 0.0,
+   "orígenes_efectivos_1/HHI": 8.539852860689862,
+   "F_shock_mediana": 14.519811600352615,
+   "max_dif_b_bhj_vs_iv2sls": 1.653122083666858e-13,
+   "bhj": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": -0.04363524872575181,
+    "sesgo": -0.04363524872575181,
+    "mediana_sesgo": -0.010970344126400154,
+    "rmse": 0.38061973836656265,
+    "de_mc": 0.3784889139973722,
+    "cobertura95": 0.776,
+    "ee_mc_cobertura": 0.018645321128905233,
+    "tamano": 0.224,
+    "ee_medio": 0.26452914738871663,
+    "ee_rms": 1.0442154801898906
+   },
+   "akm0_referencia": {
+    "cobertura95": 0.984,
+    "ee_mc_cobertura": 0.00561141693336006,
+    "tamano": 0.016
+   },
+   "iv2sls_HC1": {
+    "cobertura95": 0.69,
+    "ee_mc_cobertura": 0.02068332661831747,
+    "tamano": 0.31
+   },
+   "iv2sls_CR1_ccaa_G17": {
+    "cobertura95": 0.726,
+    "ee_mc_cobertura": 0.01994612744369192,
+    "tamano": 0.274
+   },
+   "bhj_apto": false,
+   "akm0_apto": false
+  },
+  {
+   "diseno": "corte_O20_10efectivos",
+   "O": 20,
+   "T": 1,
+   "n": 52,
+   "beta": 0.5,
+   "orígenes_efectivos_1/HHI": 8.539852860689862,
+   "F_shock_mediana": 16.014668845990688,
+   "max_dif_b_bhj_vs_iv2sls": 7.416289804496046e-14,
+   "bhj": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.4628222071741433,
+    "sesgo": -0.037177792825856704,
+    "mediana_sesgo": -0.0048398149347477215,
+    "rmse": 0.2788345515284755,
+    "de_mc": 0.2766216874408241,
+    "cobertura95": 0.796,
+    "ee_mc_cobertura": 0.018021320706318945,
+    "potencia": 0.682,
+    "ee_medio": 0.22100925853038147,
+    "ee_rms": 0.3201609941797115
+   },
+   "akm0_referencia": {
+    "cobertura95": 0.98,
+    "ee_mc_cobertura": 0.006260990336999414,
+    "potencia": 0.182
+   },
+   "iv2sls_HC1": {
+    "cobertura95": 0.738,
+    "ee_mc_cobertura": 0.01966499427917537,
+    "potencia": 0.78
+   },
+   "iv2sls_CR1_ccaa_G17": {
+    "cobertura95": 0.758,
+    "ee_mc_cobertura": 0.019153902996517445,
+    "potencia": 0.772
+   },
+   "bhj_apto": false,
+   "akm0_apto": true
+  },
+  {
+   "diseno": "apilado_3periodos_O40",
+   "O": 40,
+   "T": 3,
+   "n": 156,
+   "beta": 0.0,
+   "orígenes_efectivos_1/HHI": 70.3570208408049,
+   "F_shock_mediana": 56.877087018335956,
+   "max_dif_b_bhj_vs_iv2sls": 1.5862311464331924e-14,
+   "bhj": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": 0.0019523813812340881,
+    "sesgo": 0.0019523813812340881,
+    "mediana_sesgo": 0.005186517436101719,
+    "rmse": 0.09371104902189961,
+    "de_mc": 0.09378454028100006,
+    "cobertura95": 0.918,
+    "ee_mc_cobertura": 0.012269963325128561,
+    "tamano": 0.082,
+    "ee_medio": 0.08541034306379157,
+    "ee_rms": 0.08893976356051732
+   },
+   "akm0_referencia": {
+    "cobertura95": 0.952,
+    "ee_mc_cobertura": 0.009559916317625384,
+    "tamano": 0.048
+   },
+   "iv2sls_HC1": {
+    "cobertura95": 0.79,
+    "ee_mc_cobertura": 0.01821537811850196,
+    "tamano": 0.21
+   },
+   "iv2sls_CR1_provincia_G52": {
+    "cobertura95": 0.788,
+    "ee_mc_cobertura": 0.018278730809331373,
+    "tamano": 0.212
+   },
+   "bhj_apto": false,
+   "akm0_apto": true
+  },
+  {
+   "diseno": "apilado_3periodos_O40",
+   "O": 40,
+   "T": 3,
+   "n": 156,
+   "beta": 0.5,
+   "orígenes_efectivos_1/HHI": 70.3570208408049,
+   "F_shock_mediana": 58.18297164514445,
+   "max_dif_b_bhj_vs_iv2sls": 2.0095036745715333e-14,
+   "bhj": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.4959776548468851,
+    "sesgo": -0.004022345153114892,
+    "mediana_sesgo": 0.0010323797548050795,
+    "rmse": 0.09300049489137448,
+    "de_mc": 0.09300652243763158,
+    "cobertura95": 0.924,
+    "ee_mc_cobertura": 0.01185107590052481,
+    "potencia": 0.986,
+    "ee_medio": 0.08774043556928328,
+    "ee_rms": 0.09182436212026678
+   },
+   "akm0_referencia": {
+    "cobertura95": 0.946,
+    "ee_mc_cobertura": 0.010107818755794947,
+    "potencia": 0.956
+   },
+   "iv2sls_HC1": {
+    "cobertura95": 0.814,
+    "ee_mc_cobertura": 0.017401379255679708,
+    "potencia": 0.998
+   },
+   "iv2sls_CR1_provincia_G52": {
+    "cobertura95": 0.806,
+    "ee_mc_cobertura": 0.017684117167673367,
+    "potencia": 0.998
+   },
+   "bhj_apto": true,
+   "akm0_apto": true
+  }
+ ],
+ "veredicto": "NO APTO",
+ "condicion": "corte_O40 (1/HHI≈22): cobertura bhj 0.864/0.864, tamaño 0.136 → falla; corte_O20_10efectivos (1/HHI≈9): cobertura bhj 0.776/0.796, tamaño 0.224 → falla; apilado_3periodos_O40 (1/HHI≈70): cobertura bhj 0.918/0.924, tamaño 0.082 → falla. El EE de bhj (tipo HC0 al nivel del shock) infra-cubre cuando pocos orígenes concentran la exposición (apalancamiento alto); solo se acerca al umbral con ~70 orígenes efectivos. EE convencionales HC1/CR1 sobre-rechazan en todos los diseños. AKM0 (nulo impuesto, referencia calculada en el MC) cumple en: corte_O40 β=0.0, corte_O40 β=0.5, corte_O20_10efectivos β=0.5, apilado_3periodos_O40 β=0.0, apilado_3periodos_O40 β=0.5.",
+ "criterio": "APTO si cobertura en [0.92, 0.98] y tamaño ≤ 0.08",
+ "segundos": 3.9
+}
