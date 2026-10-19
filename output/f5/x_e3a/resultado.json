@@ -60,6 +60,58 @@
     ],
     "mco": 0.35215829057335724,
     "ee_mco_cluster": 0.29154857025872816
+   },
+   "tasa_baja_estand_edad": {
+    "mc2e": -0.3049872891917862,
+    "akm0_p": 0.27806909920805356,
+    "akm0_conjunto": [
+     [
+      -Infinity,
+      Infinity
+     ]
+    ],
+    "mco": -0.13259792721147035,
+    "ee_mco_cluster": 0.10129745462618811
+   },
+   "tasa_baja_25_64": {
+    "mc2e": -0.4142822927619086,
+    "akm0_p": 0.07099422490284191,
+    "akm0_conjunto": [
+     [
+      -Infinity,
+      Infinity
+     ]
+    ],
+    "mco": -0.08088333809735342,
+    "ee_mco_cluster": 0.12206525817338577
+   },
+   "tasa_baja_sin_sg": {
+    "mc2e": -0.5052435613329439,
+    "akm0_p": 0.040690264480838345,
+    "akm0_conjunto": [
+     [
+      -Infinity,
+      -0.06498136544424282
+     ],
+     [
+      2.562975199143759,
+      Infinity
+     ]
+    ],
+    "mco": -0.12415746502751268,
+    "ee_mco_cluster": 0.12291737680814956
+   },
+   "cuota_16_24_baja": {
+    "mc2e": 0.521409848295742,
+    "akm0_p": 0.008308372279714926,
+    "akm0_conjunto": [
+     [
+      0.1569290200451232,
+      Infinity
+     ]
+    ],
+    "mco": 0.1545935254809701,
+    "ee_mco_cluster": 0.0733803813282224
    }
   },
   "peso_educ_baja_nativos": 0.4866368313335411,
@@ -109,7 +161,51 @@
     ]
    }
   },
-  "tasa_total_implicita_por_niveles_nacionalidad": -0.06422405889226042
+  "tasa_total_implicita_por_niveles_nacionalidad": -0.06422405889226042,
+  "representacion_crecimiento": {
+   "tasa_empleo_educ_baja": {
+    "b": -0.8532638587557212,
+    "F_shock": 11.42868398286825,
+    "efectivos": 44.408323693199314,
+    "akm0_p": 0.0025866211723130084,
+    "conjunto": [
+     [
+      -3.0400077571893274,
+      -0.3457304605779017
+     ]
+    ],
+    "acotado": true,
+    "convexo": true
+   },
+   "tasa_empleo": {
+    "b": -0.1637417904872403,
+    "F_shock": 11.42868398286825,
+    "efectivos": 44.408323693199314,
+    "akm0_p": 0.57554994532213,
+    "conjunto": [
+     [
+      -2.3742767240798703,
+      0.3485710267404283
+     ]
+    ],
+    "acotado": true,
+    "convexo": true
+   },
+   "tasa_paro": {
+    "b": -0.35733866821000854,
+    "F_shock": 11.42868398286825,
+    "efectivos": 44.408323693199314,
+    "akm0_p": 0.1903879430975811,
+    "conjunto": [
+     [
+      -0.678537353061361,
+      0.576851872941015
+     ]
+    ],
+    "acotado": true,
+    "convexo": true
+   }
+  }
  },
  "notas": "No pre-registrado; no cambia ninguna clasificación (docs/desviaciones.md, 12).",
  "prereg": "prereg-m1 c247555"

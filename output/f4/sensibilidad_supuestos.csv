@@ -1,19 +1,19 @@
 supuesto,de,a,grupo,efecto_medio_eur_pc
-calibrar,True,False,España,237.1798056861419
-calibrar,True,False,Resto UE,264.2402801516705
-calibrar,True,False,Resto del mundo,232.88695096899073
+calibrar,True,False,España,237.17980568614166
+calibrar,True,False,Resto UE,264.24028015167005
+calibrar,True,False,Resto del mundo,232.8869509689908
 sanidad,edad_sexo,observado,España,15.588274063962672
 sanidad,edad_sexo,observado,Resto UE,-152.1598509600958
 sanidad,edad_sexo,observado,Resto del mundo,-39.223922786295816
-bienes,medio,marginal,España,-497.7326566005711
+bienes,medio,marginal,España,-497.7326566005713
 bienes,medio,marginal,Resto UE,1946.0778825266416
 bienes,medio,marginal,Resto del mundo,1947.2612655848409
-educ_hijos,hijo,padres,España,442.8869282562032
-educ_hijos,hijo,padres,Resto UE,-2473.611709020967
-educ_hijos,hijo,padres,Resto del mundo,-2061.98018439269
-indirectos,epf,uniforme,España,-27.60617297989802
-indirectos,epf,uniforme,Resto UE,70.95848964423521
-indirectos,epf,uniforme,Resto del mundo,116.1013024393472
-capital,rentas,persona,España,-97.23904916988636
-capital,rentas,persona,Resto UE,-285.0566566648604
-capital,rentas,persona,Resto del mundo,516.266244590524
+educ_hijos,hijo,padres,España,442.7517929729672
+educ_hijos,hijo,padres,Resto UE,-2473.495984899986
+educ_hijos,hijo,padres,Resto del mundo,-2061.964518570796
+indirectos,epf,uniforme,España,-26.60510533199067
+indirectos,epf,uniforme,Resto UE,67.11552450098225
+indirectos,epf,uniforme,Resto del mundo,112.2504984883102
+capital,rentas,persona,España,-97.23904916988613
+capital,rentas,persona,Resto UE,-285.05665666486084
+capital,rentas,persona,Resto del mundo,516.2662445905238

@@ -111,6 +111,7 @@ def main() -> int:
     if web or (PUB / "web").exists():
         (PUB / "web").mkdir(exist_ok=True)
         (PUB / "web" / "index.html").write_text(md_a_html(texto), encoding="utf-8")
+        shutil.copy2(OUT / "f6" / "afirmaciones.md", PUB / "web" / "afirmaciones.md")
     man = [f"{sha256(p)}  {p.relative_to(PUB)}" for p in sorted(PUB.rglob("*")) if p.is_file() and p.name not in ("MANIFIESTO.sha256", ".gitkeep")]
     (PUB / "MANIFIESTO.sha256").write_text("\n".join(man) + "\n", encoding="utf-8")
     print(f"publicar: {len(man)} ficheros en publicacion/")

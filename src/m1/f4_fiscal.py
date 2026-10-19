@@ -432,11 +432,15 @@ def main() -> int:
         es = estandarizar(principal.assign(w=principal.w * principal.hid.map(cnt).fillna(0)))
         bsd.append((es.neta_est - es.nat_neta_mismas).drop("España"))
     bsd = pd.DataFrame(bsd)
+    e0 = estandarizar(principal)
     for g in ("Resto UE", "Resto del mundo"):
-        lo, hi = np.percentile(bsd[g], [2.5, 97.5])
-        cf.add(f"F4_NETA_EST_DIF_NAT_MUESTREO_{g.replace(' ', '_')}", round(float(bsd[g].median()), 0), "€ por persona y año",
-               f"Diferencia con los nativos a igual edad y sexo, nacidos en {g}, escenario principal: mediana e IC 95 % por muestreo (bootstrap "
-               "por hogares, 100 réplicas, sin recalibrar)", "C4", "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", g,
+        punto = float(e0.loc[g, "neta_est"] - e0.loc[g, "nat_neta_mismas"])
+        sd = float(bsd[g].std())
+        lo, hi = punto - 1.96 * sd, punto + 1.96 * sd
+        cf.add(f"F4_NETA_EST_DIF_NAT_MUESTREO_{g.replace(' ', '_')}", round(punto, 0), "€ por persona y año",
+               f"Diferencia con los nativos a igual edad y sexo, nacidos en {g}, escenario principal: estimación e IC 95 % normal con el error "
+               "típico del bootstrap por hogares (100 réplicas, sin recalibrar; la distribución bootstrap no está centrada en la estimación porque "
+               "las celdas cubiertas cambian entre réplicas, así que el IC es aproximado)", "C4", "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", g,
                nivel_ajuste="edad y sexo", ic_inf=round(float(lo), 0), ic_sup=round(float(hi), 0))
     sg = pd.DataFrame(signos)
     sg.to_csv(O / "signo_por_supuestos.csv", index=False)

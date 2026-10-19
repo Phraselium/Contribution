@@ -98,9 +98,10 @@ FICHAS = [
      "supuestos": "En el resto del mundo el signo depende del reparto de los bienes públicos (coste medio o marginal) y de a quién se asignan los hijos nacidos en "
                   "España (decisión D11: solo intervalos).",
      "veredicto": "no se puede saber", "confianza": "alta",
-     "razon": "Para el conjunto de los inmigrantes el signo de la contabilidad estática depende de supuestos defendibles (es un coste neto en 16 de "
-              "las 64 combinaciones); para los nacidos en la UE es incorrecta en las 64; en el ciclo vital es cierta para algunas edades de llegada de "
-              "los nacidos fuera de la UE y depende de supuestos en las demás."},
+     "razon": "Para el conjunto de los inmigrantes el signo de la contabilidad estática depende de dos supuestos defendibles: es un coste neto con "
+              "bienes públicos a coste medio e hijos asignados a sus padres, y no lo es en las demás celdas; para los nacidos en la UE es incorrecta en "
+              "las 64 combinaciones; en el ciclo vital es cierta para algunas edades de llegada de los nacidos fuera de la UE y depende de supuestos en "
+              "las demás."},
     {"id": "A6", "sentido": "desfavorable", "afirmacion": "La inmigración es la causa de la subida del precio de la vivienda.",
      "contabilidad": "Entre 2015 y 2022 el aumento de la población nacida fuera implica unos {{F3_VIV_DEMANDA_FUERA_2015_2022}} mil hogares a tasa de jefatura "
                      "constante, frente a {{F3_VIV_DEMANDA_ESPANA_2015_2022}} mil de los nacidos en España (cuya población se redujo); la formación de hogares por "
