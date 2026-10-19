@@ -29,8 +29,7 @@ FICHAS = [
                      "(resto del mundo) y {{F6_PREST_MONETARIAS_PC_Resto_UE}} € (resto de la UE) frente a {{F6_PREST_MONETARIAS_PC_España}} € de los nacidos en "
                      "España (2024), sobre todo porque reciben pocas pensiones contributivas (perciben jubilación o viven en un hogar que la "
                      "percibe el {{F3_PRE_jubilacion_Resto_del_mundo}} % de los mayores de 65 nacidos en el resto del mundo frente al {{F3_PRE_jubilacion_España}} %). A"
-                     " igual edad y sexo, sobre las celdas con datos suficientes ({{F4_COBERTURA_EST_Resto_del_mundo}} % del peso nativo para el resto del "
-                     "mundo y {{F4_COBERTURA_EST_Resto_UE}} %, edades centrales, para el resto de la UE), siguen recibiendo menos: "
+                     " igual edad y sexo siguen recibiendo menos: "
                      "{{F4_PREST_MONET_EST_DIF_Resto_del_mundo_2024}} € (resto del mundo) y {{F4_PREST_MONET_EST_DIF_Resto_UE_2024}} € (resto de la UE) por persona. En"
                      " prestaciones no contributivas la relación se invierte: "
                      "viven en hogares que perciben rentas mínimas o IMV el {{F3_PRE_rentas_minimas_IMV_Resto_del_mundo}} % frente al {{F3_PRE_rentas_minimas_IMV_España}} %, "
@@ -92,8 +91,8 @@ FICHAS = [
                      "[{{F4_NETA_PC_RANGO_SUPUESTOS_Resto_del_mundo_2024:inf}}, {{F4_NETA_PC_RANGO_SUPUESTOS_Resto_del_mundo_2024:sup}}] €; conjunto de "
                      "nacidos fuera {{F4_NETA_PC_FUERA_2024}} € [{{F4_NETA_PC_FUERA_2024:inf}}, {{F4_NETA_PC_FUERA_2024:sup}}], positiva en "
                      "{{F4_NETA_PC_FUERA_POSITIVAS}} de 64 combinaciones, según el reparto de los bienes públicos y la asignación de los hijos. A igual "
-                     "edad y sexo, frente a los nativos, el resto de la UE aporta menos en las edades centrales (las únicas con datos suficientes) y el "
-                     "intervalo del resto del mundo contiene el cero. En el ciclo vital, "
+                     "edad y sexo, frente a los nativos, la ventaja del resto de la UE se reduce mucho (positiva en las 64 combinaciones, pero no "
+                     "distinguible de cero por muestreo) y el intervalo del resto del mundo contiene el cero. En el ciclo vital, "
                      "las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos; frente a un nativo de la misma edad, "
                      "quienes llegan de fuera de la UE a los 20 o a los 30 años aportan menos en todas las combinaciones sin convergencia adicional.",
      "causal": "No es causal: contabilidad (capa C2).",

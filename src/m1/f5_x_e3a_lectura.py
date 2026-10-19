@@ -136,6 +136,19 @@ def main() -> int:
         cf.add(f"F5X_E3a_{k}", round(L[y]["mc2e"], 2), "pp por pp", f"{dsc}, MC2E con la especificación principal ({ROT})", "C4", fuente, per,
                amb, grp, clasificacion="ASOCIACIÓN")
         cf.add(f"F5X_E3a_{k}_p", round(L[y]["akm0_p"], 3), "p", f"p AKM0 sin ajustar: {dsc} ({ROT})", "C4", fuente, per, amb, grp)
+    # las mismas señales que P1-E3a, para la tasa estandarizada por edad
+    ye = "tasa_baja_estand_edad"
+    nv = p1.nacionalidad(p1.PRINCIPAL, E, Y, (ctrl0, bart), paro, ye)
+    pm = p1.permutaciones(d, S, g, grupos, p1.PRINCIPAL, ye)
+    wb = p1.wcb_ccaa(d, p1.PRINCIPAL, ye)
+    cf.add("F5X_E3a_ESTEDAD_NAC", round(nv["b"], 2), "pp por pp", f"Tasa estandarizada por edad, variante por nacionalidad (IC: envolvente del "
+           f"conjunto AKM0; {ROT})", "C4", fuente, per, amb, grp, clasificacion="ASOCIACIÓN",
+           ic_inf=round(nv["akm0_inf"], 2) if np.isfinite(nv["akm0_inf"]) else np.nan,
+           ic_sup=round(nv["akm0_sup"], 2) if np.isfinite(nv["akm0_sup"]) else np.nan)
+    cf.add("F5X_E3a_ESTEDAD_PERM_p", round(pm["p_recentrado"], 3), "p", f"Tasa estandarizada por edad: p de permutación recentrado ({ROT})", "C4",
+           fuente, per, amb, grp)
+    cf.add("F5X_E3a_ESTEDAD_WCB_p", round(wb["p_wcb_ccaa"], 3), "p", f"Tasa estandarizada por edad: p del wild bootstrap por comunidad ({ROT})",
+           "C4", fuente, per, amb, grp)
     for y, k in (("tasa_empleo_educ_baja", "E3a"), ("tasa_empleo", "H1"), ("tasa_paro", "H2")):
         r = rep_crec[y]
         cj = r["conjunto"]

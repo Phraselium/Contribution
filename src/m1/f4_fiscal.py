@@ -250,26 +250,36 @@ MONET = ["gas_desempleo", "gas_vejez", "gas_supervivencia", "gas_enfermedad_inca
 
 
 def estandarizar(c: pd.DataFrame) -> pd.DataFrame:
-    """Nivel «edad y sexo» de la regla de tres niveles: media de cada grupo con la estructura por edad (tramos de 5 años) y sexo de
-    los nacidos en España; solo celdas con ≥ 50 observaciones del grupo; los pesos nativos se renormalizan sobre las celdas
-    cubiertas (cobertura = peso nativo cubierto)."""
-    x = c[c.w > 0].assign(e5=lambda d: (d.edad.clip(upper=85) // 5) * 5, monet=lambda d: d[MONET].sum(axis=1))
-    m = x.groupby(["grupo", "e5", "sexo_"]).apply(lambda g: pd.Series({"neta": np.average(g.neta, weights=g.w),
-                                                                       "monet": np.average(g.monet, weights=g.w), "n": len(g)}),
-                                                  include_groups=False)
-    wn = x[x.grupo == "España"].groupby(["e5", "sexo_"]).w.sum()
+    """Nivel «edad y sexo» de la regla de tres niveles: media de cada grupo con la estructura por edad (tramos de 10 años, 80 y más
+    agrupado) y sexo de los nacidos en España, con cobertura completa. Donde una celda de edad × sexo del grupo tiene menos de 10
+    observaciones se usa la media del tramo de edad con los dos sexos juntos; si el tramo entero tiene menos de 10, el tramo contiguo.
+    El umbral de 50 observaciones de M1 se aplica a las celdas que se publican, no a los términos de un agregado (corrección de la
+    ronda 3: la versión con celdas ≥ 50 dejaba fuera las edades en las que los nacidos fuera salen mejor, sobre todo los mayores)."""
+    x = c[c.w > 0].assign(e10=lambda d: (d.edad.clip(upper=80) // 10) * 10, monet=lambda d: d[MONET].sum(axis=1))
+    def medias(df, keys):
+        return df.groupby(keys).apply(lambda g: pd.Series({"neta": np.average(g.neta, weights=g.w), "monet": np.average(g.monet, weights=g.w),
+                                                           "n": len(g)}), include_groups=False)
+    m2 = medias(x, ["grupo", "e10", "sexo_"])
+    m1 = medias(x, ["grupo", "e10"])
+    wn = x[x.grupo == "España"].groupby(["e10", "sexo_"]).w.sum()
     wn = wn / wn.sum()
     filas = []
-    mn = m.loc["España"]
-    for g in m.index.get_level_values(0).unique():
-        mg = m.loc[g]
-        mg = mg[mg.n >= 50]
-        ww = wn.reindex(mg.index).fillna(0)
-        nn = mn.reindex(mg.index)          # nativos en las mismas celdas: la comparación solo vale sobre la cobertura común
-        filas.append({"grupo": g, "neta_est": float((mg.neta * ww).sum() / ww.sum()), "monet_est": float((mg.monet * ww).sum() / ww.sum()),
-                      "cobertura": float(ww.sum()), "nat_neta_mismas": float((nn.neta * ww).sum() / ww.sum()),
-                      "nat_monet_mismas": float((nn.monet * ww).sum() / ww.sum())})
-    return pd.DataFrame(filas).set_index("grupo")
+    for g in x.grupo.unique():
+        vals, aprox = [], 0.0
+        for (e, s), w_ in wn.items():
+            if (g, e, s) in m2.index and m2.loc[(g, e, s), "n"] >= 10:
+                r = m2.loc[(g, e, s)]
+            else:
+                aprox += w_
+                cand = [k for k in sorted(m1.loc[g].index, key=lambda k: abs(k - e)) if m1.loc[(g, k), "n"] >= 10]
+                r = m1.loc[(g, cand[0])]
+            vals.append((w_, r.neta, r.monet))
+        v = np.array(vals)
+        filas.append({"grupo": g, "neta_est": float((v[:, 0] * v[:, 1]).sum()), "monet_est": float((v[:, 0] * v[:, 2]).sum()),
+                      "cobertura": float(1 - aprox)})
+    o = pd.DataFrame(filas).set_index("grupo")
+    o["nat_neta_mismas"], o["nat_monet_mismas"] = o.loc["España", "neta_est"], o.loc["España", "monet_est"]
+    return o
 
 
 def resumen(c: pd.DataFrame, pib: float, por="grupo") -> pd.DataFrame:
@@ -403,16 +413,16 @@ def main() -> int:
         if g == "España":
             continue
         cf.add(f"F4_NETA_EST_PC_{g.replace(' ', '_')}_2024", round(pe.neta_pc_est, 0), "€ por persona y año", f"Contribución neta por "
-               f"persona de los nacidos en {g} con la estructura por edad y sexo de los nacidos en España (nivel «edad y sexo»; cobertura "
-               f"de celdas con ≥ 50 observaciones = {100 * pe.cobertura_est:.0f} % del peso nativo; intervalo: 64 combinaciones)", "C4",
+               f"persona de los nacidos en {g} con la estructura por edad y sexo de los nacidos en España (nivel «edad y sexo»; peso nativo "
+               f"de celdas edad × sexo con ≥ 10 observaciones del grupo = {100 * pe.cobertura_est:.0f} %, el resto con la media del tramo de edad; "
+               "intervalo: 64 combinaciones)", "C4",
                "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", g, nivel_ajuste="edad y sexo",
                ic_inf=round(x.neta_pc_est.min(), 0), ic_sup=round(x.neta_pc_est.max(), 0))
         if g != "España":
             dif = x.neta_pc_est - x.nat_neta_mismas
-            cob = f"{100 * pe.cobertura_est:.0f} % del peso nativo"
             cf.add(f"F4_NETA_EST_DIF_NAT_{g.replace(' ', '_')}_2024", round(float(pe.neta_pc_est - pe.nat_neta_mismas), 0),
-                   "€ por persona y año", f"Diferencia con los nacidos en España a igual edad y sexo, nacidos en {g}, sobre las celdas de edad "
-                   f"y sexo con ≥ 50 observaciones del grupo ({cob}); positiva en {int((dif > 0).sum())} de 64 combinaciones", "C4",
+                   "€ por persona y año", f"Diferencia con los nacidos en España a igual edad y sexo (todas las edades), nacidos en {g}; "
+                   f"positiva en {int((dif > 0).sum())} de 64 combinaciones", "C4",
                    "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", g, nivel_ajuste="edad y sexo", ic_inf=round(dif.min(), 0),
                    ic_sup=round(dif.max(), 0))
             cf.add(f"F4_NETA_EST_DIF_NAT_POSITIVAS_{g.replace(' ', '_')}", int((dif > 0).sum()), "combinaciones", "Combinaciones (de 64) "
@@ -420,9 +430,9 @@ def main() -> int:
                    "2024", "España", g, nivel_ajuste="edad y sexo")
             cf.add(f"F4_PREST_MONET_EST_DIF_{g.replace(' ', '_')}_2024", round(float(pe.monet_est - pe.nat_monet_mismas), 0),
                    "€ por persona y año", f"Prestaciones monetarias por persona de los nacidos en {g} menos las de los nacidos en España a igual "
-                   f"edad y sexo, sobre las celdas comunes ({cob})", "C4", "ECV y COFOG", "2024", "España", g, nivel_ajuste="edad y sexo")
-            cf.add(f"F4_COBERTURA_EST_{g.replace(' ', '_')}", round(100 * pe.cobertura_est, 0), "% del peso nativo", "Cobertura de las celdas de "
-                   f"edad y sexo con ≥ 50 observaciones de los nacidos en {g}", "C4", "ECV (INE)", "2024", "España", g)
+                   f"edad y sexo (todas las edades)", "C4", "ECV y COFOG", "2024", "España", g, nivel_ajuste="edad y sexo")
+            cf.add(f"F4_COBERTURA_EST_{g.replace(' ', '_')}", round(100 * pe.cobertura_est, 0), "% del peso nativo", "Peso nativo de las celdas "
+                   f"edad × sexo con ≥ 10 observaciones de los nacidos en {g} (el resto usa la media del tramo de edad)", "C4", "ECV (INE)", "2024", "España", g)
     # error de muestreo de la diferencia estandarizada (bootstrap por hogares del principal, 100 réplicas)
     bsd = []
     rng2 = np.random.default_rng(SEED + 1)
