@@ -172,6 +172,14 @@ def main() -> int:
     r_obs = tasa_retorno()
     h0 = riesgo_inicial(r_obs)
     TRASLADO_BP["valor"] = traslado_bienes()
+    pe = pd.read_csv(O / "perfil_edad_2024.csv")
+    pe = pe[pe.grupo == "España"]
+    cf.add("F4_OTROS_INGRESOS_PC", round(float(np.average(pe.ing_otros_ingresos, weights=pe.n_muestral)), 0), "€ por persona y año",
+           "Ingresos no tributarios repartidos por persona en la contabilidad estática (ventas, rentas de la propiedad y otros)", "C2",
+           "Eurostat gov_10a_main", "2024", "España", "todos")
+    cf.add("F4_TRASLADO_BIENES_NAT", round(TRASLADO_BP["valor"], 0), "€ por persona y año", "Gasto adicional en bienes públicos puros por "
+           "nativo y año cuando a los nacidos fuera se les imputa coste marginal cero (aplicado al comparador nativo del ciclo vital)", "C2",
+           "ECV y cuentas de las AAPP", "2024", "España", "España")
     filas = []
     for g, a0, modo, c, dto, bienes in itertools.product(["España", "Resto UE", "Resto del mundo"], [0, 20, 30, 40, 50], MODOS,
                                                          [0.0, 0.5, 1.0], [0.02, 0.03, 0.04], ["medio", "marginal"]):
