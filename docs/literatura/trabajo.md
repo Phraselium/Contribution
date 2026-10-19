@@ -16,7 +16,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): la movilidad entre ciudades de nativos e inmigrantes antiguos apenas responde a las llegadas; salarios y tasas de empleo por ocupación son menores donde la oferta relativa es mayor; en ciudades de entrada tradicionales (Miami, Los Ángeles) las llegadas de los ochenta habrían reducido salarios y tasas de empleo de los nativos poco cualificados en 1–3 puntos porcentuales.
 - Validez para España: alta como diseño (provincia × ocupación o × educación con EPA y padrón); el resultado de ausencia de «salida» de nativos debe contrastarse con la EVR del INE. Mercado laboral y composición de orígenes muy distintos.
 - Replicación pública: paquete de los autores no localizado; datos de base públicos (microdatos censales de EE. UU. vía IPUMS, registro gratuito). Texto abierto en http://hdl.handle.net/2027/pst.000031163163.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Borjas (2003). The labor demand curve is downward sloping: reexamining the impact of immigration on the labor market
 - DOI: 10.1162/003355303322552810 · Revista: Quarterly Journal of Economics 118(4)
@@ -26,7 +26,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): un aumento del 10 % de la oferta de trabajo en una celda reduce el salario de los trabajadores competidores entre un 3 % y un 4 % (elasticidad salarial −0,3 a −0,4).
 - Validez para España: diseño replicable con la EPA (celdas educación × experiencia potencial), pero es un efecto relativo entre celdas, no el efecto total (véase Dustmann, Schönberg y Stuhler 2016) y es sensible al «downgrading» de los inmigrantes, muy documentado en España (Simón, Ramos y Sanromá 2014).
 - Replicación pública: paquete de los autores no localizado; datos de base públicos (IPUMS, registro gratuito).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Ottaviano y Peri (2012). Rethinking the effect of immigration on wages
 - DOI: 10.1111/j.1542-4774.2011.01052.x · Revista: Journal of the European Economic Association 10(1)
@@ -36,7 +36,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): sustituibilidad imperfecta pequeña pero significativa entre nativos e inmigrantes; efecto de la inmigración 1990–2006 sobre el salario de los nativos sin secundaria entre +0,6 % y +1,7 %; salario medio nativo +0,6 %; salario de los inmigrantes anteriores −6,7 % a largo plazo.
 - Validez para España: el marco es trasladable (EPA + EES por celdas), pero los resultados dependen críticamente de la elasticidad de sustitución y del supuesto de ajuste completo del capital; en España la proximidad lingüística de los latinoamericanos podría aumentar la sustituibilidad.
 - Replicación pública: paquete de los autores no localizado; datos de base públicos (IPUMS, registro gratuito).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Peri y Sparber (2009). Task specialization, immigration, and wages
 - DOI: 10.1257/app.1.3.135 · Revista: American Economic Journal: Applied Economics 1(3)
@@ -46,7 +46,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): los nacidos fuera se concentran en ocupaciones intensivas en tareas manuales y físicas y los nativos en ocupaciones intensivas en comunicación y lenguaje; este mecanismo explica efectos salariales solo modestos para los nativos poco educados (el resumen no da magnitudes).
 - Validez para España: muy relevante para P2 del plan; el canal lingüístico es menos claro en España por el peso de inmigrantes hispanohablantes (véase Amuedo-Dorantes y De la Rica 2011). Requiere asignar a la CNO de la EPA medidas de tareas (O*NET con tabla de paso ISCO, pública).
 - Replicación pública: paquete de los autores no localizado; datos de base públicos (IPUMS con registro gratuito; O*NET de descarga libre).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Dustmann, Schönberg y Stuhler (2016). The impact of immigration: why do studies reach such different results?
 - DOI: 10.1257/jep.30.4.31 · Revista: Journal of Economic Perspectives 30(4)
@@ -56,7 +56,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): las estimaciones de los distintos enfoques no son comparables entre sí; el «downgrading» sesga los enfoques de efectos relativos pero no los de efecto total, y la heterogeneidad de la oferta nativa complica sobre todo la lectura de los efectos relativos; recomiendan estimar efectos totales.
 - Validez para España: guía directa para el pre-registro de P1: preferir el efecto total por provincia (o provincia × grupo asignado por posición en la distribución, no por educación declarada) y documentar el «downgrading».
 - Replicación pública: no aplica (ensayo sin estimaciones propias que replicar). Texto abierto: https://www.aeaweb.org/articles/pdf/doi/10.1257/jep.30.4.31
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Jaeger, Ruist y Stuhler (2018). Shift-share instruments and the impact of immigration
 - DOI: 10.3386/w24285 · Revista: NBER Working Paper 24285 (también IZA DP 11307 y CEPR DP 12701)
@@ -66,7 +66,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): solo en los años setenta hay un cambio suficiente en la composición por origen (correlación de cuotas entre llegados en los sesenta y en los setenta 0,59, frente a 0,96–0,99 en décadas posteriores); el impacto inicial sobre los salarios nativos en los setenta es más negativo que con el instrumento convencional y el efecto de la llegada retardada es positivo y, en algunas especificaciones, de magnitud similar (recuperación).
 - Validez para España: crítica central para P1. En España la composición por origen sí cambió mucho (Marruecos, Ecuador, Rumanía, Colombia, Venezuela…) entre 1998–2008 y 2015–2025, lo que favorece la instrumentación múltiple; la correlación de cuotas entre olas debe medirse con el padrón antes de estimar.
 - Replicación pública: paquete de los autores no localizado; datos de base públicos (IPUMS, registro gratuito).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Goldsmith-Pinkham, Sorkin y Swift (2020). Bartik instruments: what, when, why, and how
 - DOI: 10.1257/aer.20181047 · Revista: American Economic Review 110(8)
@@ -76,7 +76,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): resultado metodológico (sin cifra única): el estimador equivale a una combinación ponderada de estimadores que usan cada cuota como instrumento; los pesos de Rotemberg identifican qué cuotas deben defenderse como exógenas.
 - Validez para España: obligatorio en las pruebas mínimas del plan (pesos de Rotemberg por país de origen; exclusión de los orígenes de más peso).
 - Replicación pública: paquete y datos públicos en openICPSR (proyecto 117405, https://doi.org/10.3886/E117405V1).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Adão, Kolesár y Morales (2019). Shift-share designs: theory and inference
 - DOI: 10.1093/qje/qjz025 · Revista: Quarterly Journal of Economics 134(4)
@@ -86,7 +86,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): con errores convencionales al 5 % nominal, el nulo de efecto se rechaza hasta en el 55 % de las muestras placebo; sus métodos dan intervalos de confianza sustancialmente más anchos en aplicaciones habituales.
 - Validez para España: inferencia exigida por el plan (AKM o BHJ). Con 50 provincias y pocos orígenes dominantes, la corrección puede ser grande.
 - Replicación pública: paquete R público ShiftShareSE (CRAN, https://cran.r-project.org/web/packages/ShiftShareSE/index.html; código en https://github.com/kolesarm/ShiftShareSE); paquete de datos del artículo no comprobado.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Borusyak, Hull y Jaravel (2022). Quasi-experimental shift-share research designs
 - DOI: 10.1093/restud/rdab030 · Revista: Review of Economic Studies 89(1)
@@ -96,7 +96,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): resultado metodológico: la ortogonalidad instrumento-residuo equivale a la ortogonalidad choques-inobservable al nivel del choque; la consistencia exige muchos choques con exposición dispersa.
 - Validez para España: alternativa a GPSS; con pocos países de origen de gran peso (Marruecos, Rumanía, Colombia…) la condición de «muchos choques» puede fallar; hay que informar del número efectivo de choques.
 - Replicación pública: paquete y datos públicos (https://github.com/borusyak/shift-share; Zenodo, https://doi.org/10.5281/zenodo.4516266; comando de Stata ssaggregate en SSC).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ## 2. España
 
@@ -108,7 +108,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): no encuentran un efecto negativo significativo sobre la tasa de empleo nativa; elasticidad en torno a −0,17 con solo inmigrantes legales, no significativa al incluir legales e irregulares. La versión publicada añade salarios (no leído).
 - Validez para España: directa, pero periodo previo al gran auge (2000–2008) y con flujos pequeños (permisos ≈ 1,5 % de la población activa en 2000). Réplica prevista en el plan; los permisos de trabajo históricos y los censos son públicos en agregados.
 - Replicación pública: no público (sin paquete); datos de base parcialmente públicos (censos 1991 y 2001 y EPA del INE; serie de permisos de trabajo en anuarios públicos del Ministerio de Trabajo).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### González y Ortega (2011). How do very open economies adjust to large immigration flows? Evidence from Spanish regions
 - DOI: 10.1016/j.labeco.2010.06.001 · Revista: Labour Economics 18(1)
@@ -118,7 +118,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): las llegadas de inmigrantes poco cualificados no redujeron salarios ni tasas de empleo de los trabajadores poco cualificados de las regiones receptoras; el aumento de la oferta se absorbió con más empleo, mediante cambios de intensidad de cualificación dentro de las ramas (comercio, construcción, hostelería, servicio doméstico) y no por cambios en la composición sectorial de la producción. El resumen no da elasticidades.
 - Validez para España: máxima; réplica prevista en el plan con datos ampliados (padrón por país de nacimiento y EPA hasta 2025). Hereda la crítica de Jaeger, Ruist y Stuhler (2018).
 - Replicación pública: no público (sin paquete localizado); datos de base públicos (EPA y padrón del INE; la versión publicada usa además la Encuesta de Estructura Salarial, cuyos microdatos son públicos).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Amuedo-Dorantes y De la Rica (2007). Labour market assimilation of recent immigrants in Spain
 - DOI: 10.1111/j.1467-8543.2007.00614.x · Revista: British Journal of Industrial Relations 45(2)
@@ -128,7 +128,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): hay asimilación de empleo y ocupacional a medida que se alarga la residencia, con diferencias significativas por sexo, origen y nivel educativo (el resumen no da magnitudes).
 - Validez para España: directa; con sección cruzada no se separa asimilación de efectos de cohorte ni de retorno selectivo.
 - Replicación pública: no público (sin paquete); datos de base públicos (microdatos del Censo 2001 y de la EES 2002 del INE).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Amuedo-Dorantes y De la Rica (2011). Complements or substitutes? Task specialization by gender and nativity in Spain
 - DOI: 10.1016/j.labeco.2011.02.002 · Revista: Labour Economics 18(5)
@@ -138,7 +138,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): la inmigración cambió la especialización por tareas de los nativos sin alterar su nivel de empleo; el efecto sobre la oferta relativa de tareas de los nativos es aproximadamente el doble que en EE. UU.; el dominio del idioma no basta para explicarlo (muchos inmigrantes hispanohablantes) y el efecto difiere por sexo.
 - Validez para España: directa; referencia para P2 del plan.
 - Replicación pública: no público (sin paquete localizado); datos de base no verificados en el resumen.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Amuedo-Dorantes y De la Rica (2010). Immigrants' responsiveness to labor market conditions and their impact on regional employment disparities: evidence from Spain
 - DOI: 10.1007/s13209-009-0002-y · Revista: SERIEs 1(4)
@@ -148,7 +148,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): los inmigrantes eligen regiones con tasas de empleo más altas para su cualificación; el choque migratorio solo redujo temporalmente las disparidades regionales de tasa de empleo (sin magnitudes en el resumen).
 - Validez para España: directa; confirma la endogeneidad de la localización que exige el instrumento en P1.
 - Replicación pública: no público (sin paquete); datos de base públicos (microdatos de la EPA del INE). Texto abierto en https://link.springer.com/content/pdf/10.1007/s13209-009-0002-y.pdf
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Izquierdo, Lacuesta y Vegas (2009). Assimilation of immigrants in Spain: a longitudinal analysis
 - DOI: 10.1016/j.labeco.2009.08.011 · Revista: Labour Economics 16(6) (versión previa: Documento de Trabajo del Banco de España 0904)
@@ -158,7 +158,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): en los primeros 5–6 años tras la llegada los inmigrantes cierran unos 15 puntos porcentuales de la brecha salarial con los nativos, sin cerrarla del todo; más rápido para sudamericanos y nacionales de los nuevos Estados miembros de la UE que para africanos; la mayor parte se debe a acumulación de capital humano dentro de la misma empresa más que a la movilidad.
 - Validez para España: directa; resultado de referencia para los escenarios de convergencia de la fase 4.
 - Replicación pública: no público. Si la fuente es la MCVL (a confirmar en el texto completo), queda excluida por la regla A: NO ESTIMABLE la réplica longitudinal; solo cabe una aproximación por cohortes sintéticas con la EPA o la EES.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Simón, Sanromá y Ramos (2008). Labour segregation and immigrant and native-born wage distributions in Spain: an analysis using matched employer–employee data
 - DOI: 10.1007/s10108-007-9035-1 · Revista: Spanish Economic Review 10(2)
@@ -168,7 +168,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): los inmigrantes de países en desarrollo tienen salarios medios menores y una distribución más comprimida que los nativos; los de países desarrollados, salarios medios mayores y distribución más dispersa; la mayor parte de las diferencias se explica por características observadas, sobre todo la segregación ocupacional y por centro de trabajo (sin magnitudes en el resumen).
 - Validez para España: directa; base para la descomposición (Oaxaca-Blinder/DFL) de las brechas en tres niveles exigida por el plan.
 - Replicación pública: no público (sin paquete); si es la EES, datos de base públicos (microdatos del INE). Versión aceptada abierta en el depósito de la UB (hdl.handle.net/2445/64968).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Simón, Ramos y Sanromá (2014). Immigrant occupational mobility: longitudinal evidence from Spain
 - DOI: 10.1007/s10680-014-9313-1 · Revista: European Journal of Population 30(2)
@@ -178,7 +178,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): la situación ocupacional en España es sustancialmente peor que en el país de origen, por un fuerte descenso inicial y una movilidad ascendente muy lenta; la evidencia encaja con la asimilación segmentada (movilidad bloqueada por un amplio segmento secundario) y no con la trayectoria en U observada en otros países avanzados (sin magnitudes en el resumen).
 - Validez para España: directa; documenta el «downgrading» que, según Dustmann, Schönberg y Stuhler (2016), sesga los enfoques por celdas de cualificación.
 - Replicación pública: no público (sin paquete); si es la ENI 2007, microdatos públicos del INE.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Fernández-Huertas Moraga, Ferrer-i-Carbonell y Saiz (2019). Immigrant locations and native residential preferences: emerging ghettos or new communities?
 - DOI: 10.1016/j.jue.2019.06.002 · Revista: Journal of Urban Economics 112
@@ -188,7 +188,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): desplazamiento leve de nativos desde barrios densos y consolidados, acompañado de más construcción residencial en esas zonas; nativos e inmigrantes se mudan a la vez a nuevos suburbios en expansión, de modo que la segregación agregada no cambia; los métodos convencionales sobrestiman la «huida» de nativos.
 - Validez para España: directa, pero es un trabajo de movilidad residencial, no de mercado de trabajo: se ficha porque condiciona la elección de la unidad geográfica (la salida de nativos de la unidad sesga hacia cero los efectos locales). Para vivienda, se enlaza con docs/literatura/vivienda.md.
 - Replicación pública: no público (sin paquete localizado); versión de trabajo abierta en https://doi.org/10.2139/ssrn.5241963.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Fernández-Huertas Moraga (2021). Inmigración y políticas migratorias en España
 - DOI: sin DOI · Revista: FEDEA, Estudios sobre la Economía Española 2021/10
@@ -198,7 +198,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): la inmigración es probablemente el principal motor del cambio demográfico español del siglo XXI; el 14,8 % de la población había nacido fuera en enero de 2020; lo singular de España fue la facilidad de entrada de latinoamericanos por tratados bilaterales no pensados para regular flujos, por lo que la inmigración no respondió a una política diseñada para atraerla. El resumen no contiene resultados sobre salarios o empleo de nativos.
 - Validez para España: contexto institucional (canales de entrada, regularizaciones) útil para defender el instrumento; no aporta una estimación de efectos laborales.
 - Replicación pública: no aplica (síntesis); texto abierto en https://documentos.fedea.net/pubs/eee/eee2021-10.pdf
-- Estado: (lo escribe el verificador)
+- Estado: NO VERIFICADA (sin DOI)
 
 ### Gálvez-Iniesta (2025). Inmigración y mercado de trabajo: revisión y evidencia para España
 - DOI: sin DOI · Revista: FEDEA, Estudios sobre la Economía Española 2025/15
@@ -208,7 +208,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): coeficiente IV del log de la cuota inmigrante sobre el log de la tasa de empleo nativa de la celda: 0,038 (significativo solo al 10 %) en 2005–2024; 0,191 (al 1 %) en 2005–2013; −0,028 (al 5 %) en 2014–2024 (−0,042 en hombres). F de Kleibergen-Paap 123. El autor lo lee como elasticidad, pero en el texto lo traduce como «+1 % de cuota → +3,8 % de empleo», lectura incoherente con un coeficiente log-log de 0,038 (debería ser ≈ +0,04 %); conviene citar el coeficiente, no la traducción.
 - Validez para España: directa y reciente, la más próxima a lo que hará P1 con datos públicos; limitaciones: enfoque de efecto relativo (sensible al «downgrading»), 1.944 observaciones con pocas celdas (24) para agrupar errores (exige wild cluster bootstrap), y la definición de inmigrante en la EPA (nacionalidad o nacimiento) no se ha comprobado.
 - Replicación pública: paquete no publicado; datos de base públicos (microdatos trimestrales de la EPA del INE), por lo que es reproducible.
-- Estado: (lo escribe el verificador)
+- Estado: NO VERIFICADA (sin DOI)
 
 ### Cuadrado, Gómez y Sastre (2024). Una caracterización de los flujos migratorios hacia España y otros países de la Unión Europea
 - DOI: 10.53479/37372 · Revista: Banco de España, Boletín Económico 2024/T3, artículo 06
@@ -218,7 +218,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): los inmigrantes en España proceden sobre todo de Latinoamérica, son de más edad, con más nivel educativo y mayor presencia femenina que en otros destinos; su tasa de actividad es de las más altas de la UE y, a diferencia de otros países, superior a la de los nacionales; se concentran en actividades de baja exigencia formativa con indicios recientes de desplazamiento a sectores más cualificados; en 2022 la población extranjera residente era el 17,1 %.
 - Validez para España: hechos C1 para la sección 3 del documento; no aporta efectos.
 - Replicación pública: no hay paquete; los datos de base son públicos (Eurostat e INE).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Cuadrado y Regil (2025). Una estimación de la contribución de la población extranjera en España al crecimiento del PIB per cápita en el período 2022-2024
 - DOI: 10.53479/40025 · Revista: Banco de España, Boletín Económico 2025/T2, artículo 10
@@ -228,7 +228,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): el PIB per cápita creció un 2,9 % anual medio; la aportación directa de la población extranjera sería de 0,4 a 0,7 puntos porcentuales, similar en términos relativos a otras expansiones, condicionada por la asimilación de los llegados a principios de siglo y por la mejora educativa y ocupacional de los recientes. A finales de 2024, 6,7 millones de extranjeros por nacionalidad (13,8 %) y casi 9 millones de nacidos fuera (18,4 %), según la EPA.
 - Validez para España: directa; capa C2 (contabilidad con supuestos), útil para la fase 4 y para el debate de la fase 6; no es evidencia causal sobre los nativos.
 - Replicación pública: no hay paquete; datos de base públicos (CN, EPA y EES del INE): reproducible.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Banco de España (2026). Informe Anual 2025
 - DOI: 10.53479/43565 · Revista: Banco de España, Informe Anual 2025 (capítulo 1, apartado 4.5 «El papel de la inmigración en el actual ciclo expansivo de la economía española», gráficos 1.27–1.28, y apartado sobre salarios)
@@ -238,7 +238,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): la población inmigrante habría explicado unos 1,7 pp (alrededor de la mitad) del crecimiento del PIB y algo más de dos tercios del crecimiento del empleo en 2022–2025, y 0,5 pp del crecimiento medio anual del PIB per cápita (2,7 %); sin efectos estadísticamente significativos sobre la tasa de empleo de los nativos, con reasignación de los nativos desde agricultura, industria y construcción hacia servicios; las provincias con más inmigración no muestran una evolución salarial nativa significativamente distinta (el propio informe advierte de que ello es compatible con presiones a la baja compensadas por cambios de composición); con una política migratoria más restrictiva (laxa) las entradas brutas serían en torno a un 20 % menores (mayores). El informe no publica coeficientes ni errores en el texto principal.
 - Validez para España: directa y la más reciente; diseño muy próximo a P1. Pendiente: no se informa de inferencia AKM/BHJ, pesos de Rotemberg ni corrección de Jaeger, Ruist y Stuhler; la definición de origen (nacionalidad o nacimiento) no se precisa en la nota.
 - Replicación pública: no hay paquete; datos de base públicos (EPA y padrón del INE): el diseño es reproducible en P1.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ## 3. Europa
 
@@ -250,7 +250,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): fuerte «downgrading» de los inmigrantes al llegar; la inmigración reduce salarios por debajo del percentil 20 y los eleva ligeramente en la parte alta; efecto medio ligeramente positivo.
 - Validez para España: alta como método (EES por percentiles y provincia/CC. AA.), dado el «downgrading» documentado en España.
 - Replicación pública: paquete no localizado; datos de base (Labour Force Survey británica) distribuidos por el UK Data Service con registro y condiciones de uso: no cumplen con certeza la regla A, a comprobar.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Foged y Peri (2016). Immigrants' effect on native workers: new analysis on longitudinal data
 - DOI: 10.1257/app.20150114 · Revista: American Economic Journal: Applied Economics 8(2)
@@ -260,7 +260,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): la mayor oferta de inmigrantes de países de refugiados llevó a los nativos menos educados (sobre todo jóvenes y con poca antigüedad) a ocupaciones menos manuales, con efectos positivos sobre sus salarios, empleo y movilidad ocupacional (sin magnitudes en el resumen).
 - Validez para España: media; el mecanismo de reasignación coincide con el del Banco de España (2026), pero la asignación cuasi aleatoria no tiene equivalente en España y el panel individual requeriría la MCVL (excluida): la versión longitudinal es NO ESTIMABLE con datos públicos.
 - Replicación pública: programas públicos en openICPSR (proyecto 113642, https://doi.org/10.3886/E113642V1); datos administrativos daneses restringidos (Statistics Denmark): no reproducible.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Edo (2019). The impact of immigration on the labor market
 - DOI: 10.1111/joes.12300 · Revista: Journal of Economic Surveys 33(3)
@@ -270,7 +270,7 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 - Resultado principal (con su unidad, tal como lo da el autor): el efecto de la inmigración sobre el salario y el empleo medios de los nativos es nulo o ligeramente positivo; las llegadas inesperadas pueden tener efectos inmediatos negativos porque el ajuste lleva tiempo; hay efectos distributivos: caen los salarios de los nativos con cualificaciones parecidas a las de los inmigrantes y suben los de los complementarios.
 - Validez para España: marco para la fase 6 (distinguir efecto medio, efecto distributivo y corto frente a largo plazo).
 - Replicación pública: no aplica (revisión).
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ## Tabla de la pregunta
 
