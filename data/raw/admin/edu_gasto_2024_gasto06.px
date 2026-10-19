@@ -1,0 +1,48 @@
+AXIS-VERSION="2006";
+CREATION-DATE="20261019";
+CHARSET="ANSI";
+SUBJECT-AREA="ESTADÍSTICA DE GASTO PÚBLICO EN EDUCACIÓN / 2024 / RESULTADOS PROVISIONALES";
+SUBJECT-CODE="Gasto";
+MATRIX="07";
+TITLE="7. Transferencias de las Admones. Educativas a centros edu. de titul.  privada por administración educativa y enseñanza.";
+CONTENTS="7. Transferencias de las Admones. Educativas a centros edu. de titul.  privada";
+CODEPAGE="iso-8859-15";
+DESCRIPTION="";
+COPYRIGHT=YES;
+NOTE="1) Principado de Asturias: La parte correspondiente al Bachillerato  está inc"
+"luido en ESO";
+DECIMALS=1;
+SHOWDECIMALS=1;
+STUB="Administración educativa";
+HEADING="Enseñanza";
+VALUES("Administración educativa")="TOTAL","Ministerio de Educación","Andalucía - Consejería/Dpto. de Educación",
+"Aragón - Consejería/Dpto. de Educación",
+"Asturias, Principado de - Consejería/Dpto. de Educación (1)",
+"Balears, Illes - Consejería/Dpto. de Educación",
+"Canarias - Consejería/Dpto. de Educación",
+"Cantabria - Consejería/Dpto. de Educación",
+"Castilla y León - Consejería/Dpto. de Educación",
+"Castilla-La Mancha - Consejería/Dpto. de Educación",
+"Cataluña - Consejería/Dpto. de Educación",
+"Comunitat Valenciana - Consejería/Dpto. de Educación",
+"Extremadura - Consejería/Dpto. de Educación",
+"Galicia - Consejería/Dpto. de Educación (2)",
+"Madrid, Comunidad de - Consejería/Dpto. de Educación",
+"Murcia, Región de - Consejería/Dpto. de Educación",
+"Navarra, Comunidad Foral de - Consejería/Dpto. de Educación",
+"País Vasco - Consejería/Dpto. de Educación",
+"Rioja, La - Consejería/Dpto. de Educación";
+VALUES("Enseñanza")="TOTAL","TOTAL EDUCACIÓN NO UNIVERSITARIA","EDUCACIÓN INFANTIL Y PRIMARIA",
+"Educación Infantil 1er ciclo","Educación Infantil 2º ciclo","Educación Primaria",
+"EDUCACIÓN SECUNDARIA Y F.P.","ESO","Bachillerato","Formación Profesional (Total)",
+"FP Grado Medio","FP Grado Superior","FP Grado Básica","EDUCACIÓN ESPECIAL",
+"OTRAS ENSEÑANZAS","EDUCACIÓN UNIVERSITARIA";
+SOURCE=" Subdirección General de Estadística y Estudios del Ministerio de  Educación, Formación Profesional y Deportes";
+UNITS="Miles de euros";
+DATA=8342270.0 8322076.2 4149053.4 308915.6 1087690.9 2752446.9 3698072.1 2668847.7 325469.2 703755.2 408894.1 169873.1 124988.1 440496.1 34454.6 20193.9 24667.1 24667.1 15891.8 0.0 4580.7 11311.0 8284.5 8284.5 ".." ".." ".." ".." ".." ".." 490.8 0.0 1188410.3 1188410.3 602331.7 162906.7 132131.9 307293.1 479027.5 328025.4 31089.6 119912.6 94529.8 0.0 25382.8 107051.2 0.0 0.0 209082.9 209082.9
+ 99778.8 0.0 32696.7 67082.2 100103.0 69415.3 15718.5 14969.1 14969.1 0.0 0.0 9201.1 0.0 0.0 103992.0 103992.0 56063.0 282.0 17515.2 38265.8 42369.0 35490.0 ".." 6879.0 6879.0 0.0 0.0 5560.0 0.0 0.0 217897.0 217897.0 111891.0 0.0 33518.0 78373.0 94331.0 72461.0 12660.0 9210.0 4491.0 2508.0 2211.0 10381.0 1294.0 0.0 188683.2 188683.2 101789.3 0.0
+ 29509.5 72279.8 75545.8 67199.0 1855.5 6491.3 5759.1 732.2 0.0 11348.0 0.0 0.0 118550.3 118550.3 59514.5 0.0 14976.2 44538.2 51391.8 35089.9 1542.4 14759.6 6652.6 5171.1 2935.8 7610.7 33.3 0.0 441946.7 441946.7 236584.7 52847.7 51233.9 132503.2 193062.1 138983.1 6056.0 48023.0 22005.4 15959.6 10057.9 3293.0 9006.9 0.0 180901.7 180901.7 97932.8 0.0 27981.7 69951.1
+ 72892.8 60288.1 2296.3 10308.4 5764.9 1433.1 3110.3 10076.2 0.0 0.0 1462236.5 1462236.5 779667.0 5463.6 215869.0 558334.4 585817.9 441773.7 46768.2 97276.0 49260.8 45391.6 2623.6 96751.6 0.0 0.0 844763.9 844763.9 378250.1 0.0 107314.3 270935.8 424339.7 317790.6 48090.7 58458.4 34549.9 17562.8 6345.7 42130.4 43.8 0.0 106048.2 106048.2 50700.1 0.0 14276.9 36423.2 43495.3 37555.0
+ 2083.9 3856.4 2594.9 1073.5 188.0 7577.3 4275.5 0.0 367139.0 367139.0 205297.4 32175.9 47398.2 125723.3 142371.5 114535.9 0.0 27835.5 27835.5 0.0 0.0 19470.1 0.0 0.0 1338472.3 1338472.3 689152.3 13975.3 192734.4 482442.7 594297.4 456331.6 42196.9 95768.9 66252.9 6337.0 23178.9 55022.6 0.0 0.0 316329.3 316329.3 157770.8 0.0 42140.4 115630.3 147145.6 106985.3 13430.3 26730.0
+ 11359.9 8074.0 7296.2 11413.0 0.0 0.0 171620.2 171620.2 78988.5 0.0 21867.6 57120.8 73600.4 48620.3 12289.9 12690.1 5903.9 4525.5 2260.7 12792.9 6238.4 0.0 989417.9 969224.0 396956.0 41264.5 92068.1 263623.4 536126.0 306776.7 88410.4 140938.9 46117.2 58921.9 35899.8 23145.3 12996.8 20193.9 72111.4 72111.4 30493.7 0.0 9878.0 20615.6 33871.1 23242.3 980.8 9648.0 3968.1 2182.7
+ 3497.2 7671.7 75.0 0.0;

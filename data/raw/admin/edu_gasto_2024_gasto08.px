@@ -1,0 +1,28 @@
+AXIS-VERSION="2006";
+CREATION-DATE="20261019";
+CHARSET="ANSI";
+SUBJECT-AREA="ESTADÍSTICA DE GASTO PÚBLICO EN EDUCACIÓN / 2024 / RESULTADOS PROVISIONALES";
+SUBJECT-CODE="Gasto";
+MATRIX="09";
+TITLE="Anexo - Financiación de universidades   por comunidad autónoma y partida de financiación universitaria.";
+CONTENTS="Anexo - Financiación de universidades";
+CODEPAGE="iso-8859-15";
+DESCRIPTION="";
+COPYRIGHT=YES;
+DECIMALS=1;
+SHOWDECIMALS=1;
+STUB="Comunidad autónoma";
+HEADING="Partida de financiación universitaria";
+VALUES("Comunidad autónoma")="Minist. de Educación y Admones. Educativas de CCAA","Ministerio de Educación",
+"Ministerio de Educación  deducidas transferencias a CCAA","Andalucía","Aragón",
+"Asturias, Principado de","Balears, Illes","Canarias","Cantabria","Castilla y León",
+"Castilla-La Mancha","Cataluña","Comunitat Valenciana","Extremadura","Galicia",
+"Madrid, Comunidad de","Murcia, Región de","Navarra, Comunidad Foral de",
+"País Vasco","Rioja, La";
+VALUES("Partida de financiación universitaria")="Becas por compensación de precios académicos del Ministerio de Educ.",
+"Becas por compensación de precios académicos de la Consejería/Dpto. de Educ.",
+"Financiación origen privado";
+SOURCE=" Subdirección General de Estadística y Estudios del Ministerio de  Educación, Formación Profesional y Deportes";
+UNITS="Miles de euros";
+DATA=311193.0 201844.0 1502785.0 6540.0 "." 111032.0 6540.0 "." 111032.0 67308.0 58999.0 178551.0 7472.0 513.0 49128.0 4663.0 0.0 18642.0 3240.0 0.0 11688.0 9633.0 8336.0 23668.0 2309.0 1560.0 12954.0 18968.0 0.0 86169.0 9232.0 0.0 30548.0 47362.0 0.0 318024.0 38503.0 42034.0 156122.0 7897.0 1520.0 21950.0 14493.0 0.0 58184.0 56388.0 81325.0 316232.0 10494.0 0.0
+ 41931.0 2141.0 237.0 15573.0 3373.0 7321.0 47474.0 1178.0 0.0 4916.0;

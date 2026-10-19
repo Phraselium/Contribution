@@ -1,0 +1,41 @@
+AXIS-VERSION="2006";
+CREATION-DATE="20261019";
+CHARSET="ANSI";
+SUBJECT-AREA="ESTADÍSTICA DE GASTO PÚBLICO EN EDUCACIÓN / 2024 / RESULTADOS PROVISIONALES";
+SUBJECT-CODE="Gasto";
+MATRIX="07";
+TITLE="7. Gasto en educación del Ministerio de Educación en las ciudades  autónomas por ciudad autónoma, tipo de actividad educativa y  naturaleza económica.";
+CONTENTS="7. Gasto en educación del Ministerio de Educación en las ciudades  autónomas";
+CODEPAGE="iso-8859-15";
+DESCRIPTION="";
+COPYRIGHT=YES;
+NOTE="1) Gasto incluido en la rúbrica Educación Especial. # 2) No se dispone del ga"
+"sto de la UNED territorializado, así como no  se incluyen las transferencias "
+"a la universidad andaluza a cuyo  distrito pertenecen las ciudades autónomas.";
+DECIMALS=1;
+SHOWDECIMALS=1;
+STUB="Ciudad autónoma","Tipo de actividad educativa";
+HEADING="Naturaleza económica";
+VALUES("Ciudad autónoma")="Ceuta","Melilla";
+VALUES("Tipo de actividad educativa")="TOTAL","EDUCACIÓN NO UNIVERSITARIA","E. Infantil y E. Primaria",
+"E. Secundaria, F. Profesional y Régimen Especial","Educación Especial",
+"Educación de Adultos (1)","Educación en el Exterior",
+"Servicios complementarios (Edu. no univer.)",
+"Educación Compensatoria (Edu. no univer.)",
+"Actividades extraescolares y anexas (1)",
+"Formación y perfeccionamiento del profesorado","Administración General",
+"EDUCACIÓN UNIVERSITARIA (2)","BECAS Y AYUDAS";
+VALUES("Naturaleza económica")="TOTAL","GASTOS CORRIENTES","Personal (capítulo 1)",
+"Bienes y servicios (capítulo 2)","Transferencias corrientes (capítulo 4)",
+"GASTOS DE CAPITAL","Inversiones reales (capítulo 6)",
+"Transferencias de capital (capítulo 7)","GASTOS FINANCIEROS, ACTIVOS Y PASIVOS",
+"CAP.3","CAPs. 8,9";
+SOURCE=" Subdirección General de Estadística y Estudios del Ministerio de  Educación, Formación Profesional y Deportes.";
+UNITS="Miles de euros";
+DATA=123157.8 122951.5 101906.3 3982.5 17062.7 200.9 200.9 0.0 5.3 0.1 5.2 122098.0 121891.8 101906.3 3982.5 16002.9 200.9 200.9 0.0 5.3 0.1 5.2 43668.6 43668.6 34271.4 280.7 9116.4 0.0 0.0 0.0 0.0 0.0 0.0 60886.2 60886.2 51492.6 3118.9 6274.7 0.0 0.0 0.0 0.0 0.0 0.0 13221.7 13020.9 12630.4 309.3 81.2 200.9
+ 200.9 0.0 0.0 0.0 0.0 "." ".." "." "." "." ".." "." "." ".." "." "." 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 782.6 782.6 252.0 0.0 530.7 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+ ".." "." "." "." ".." "." "." ".." "." "." 157.8 157.8 96.2 61.5 0.0 0.0 0.0 0.0 0.0 0.0 0.0 3381.0 3375.7 3163.7 212.0 0.0 0.0 0.0 0.0 5.3 0.1 5.2 ".." ".." ".." ".." ".." ".." ".." ".." ".." ".." ".." 1059.8 ".." ".." ".." 1059.8 ".." ".."
+ ".." ".." ".." ".." 117298.3 116900.6 101881.1 3189.8 11829.7 388.0 388.0 0.0 9.7 0.1 9.6 116703.1 116305.4 101881.1 3189.8 11234.4 388.0 388.0 0.0 9.7 0.1 9.6 40651.6 40651.6 32493.5 251.0 7907.1 0.0 0.0 0.0 0.0 0.0 0.0 58120.2 58120.2 52476.2 2384.2 3259.8 0.0 0.0 0.0 0.0 0.0 0.0 12851.9 12463.9
+ 12102.0 325.2 36.8 388.0 388.0 0.0 0.0 0.0 0.0 "." ".." "." "." "." ".." "." "." ".." "." "." 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 1464.2 1464.2 1441.0 0.0 23.3 0.0 0.0 0.0
+ 0.0 0.0 0.0 0.0 ".." "." "." "." ".." "." "." ".." "." "." 177.5 177.5 94.7 75.4 7.5 0.0 0.0 0.0 0.0 0.0 0.0 3437.6 3427.9 3273.9 154.0 0.0 0.0 0.0 0.0 9.7 0.1 9.6 ".." ".." ".." ".." ".." ".." ".." ".." ".." ".." ".." 595.2 ".." ".."
+ ".." 595.2 ".." ".." ".." ".." ".." "..";
