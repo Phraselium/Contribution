@@ -120,7 +120,9 @@ def evaluar_bash(cmd: str, raiz: Path) -> str | None:
         return "(a) heredoc sin comillas: use <<'EOF' (el shell expandiría `…` y $(…))"
     if re.search(r"\bmake\b[^;&|\n]*\scheck(\s|$|;|&|\|)", cmd) and make_check_en_marcha():
         return "(b) ya hay un make check en marcha: un solo make check a la vez"
-    causal = re.search(r"\bmake\b[^;&|\n]*\sm1_f[5-7]\w*", cmd) or re.search(r"src/m1/f5_\w+\.py", cmd)
+    # m1_f6 y m1_f7 dependen de la fase 5 solo si hay resultados causales (output/f5); m1_f5 y src/m1/f5_* siempre
+    causal = (re.search(r"\bmake\b[^;&|\n]*\sm1_f5\w*", cmd) or re.search(r"src/m1/f5_\w+\.py", cmd) or
+              (re.search(r"\bmake\b[^;&|\n]*\sm1_f[67]\w*", cmd) and (raiz / "output" / "f5").exists()))
     if causal:
         ok, motivo = _puerta_abierta(raiz)
         if not ok:

@@ -48,7 +48,7 @@ def test_un_solo_make_check(tmp_path, monkeypatch):
     assert bash("make check") is None
 
 
-@pytest.mark.parametrize("cmd", ["make m1_f5", "make m1_f5_p1", "make m1_f6", "make m1_f7", "python3 src/m1/f5_p1_shiftshare.py"])
+@pytest.mark.parametrize("cmd", ["make m1_f5", "make m1_f5_p1", "python3 src/m1/f5_p1_shiftshare.py"])
 def test_fase5_sin_prereg_bloquea(cmd, monkeypatch):
     monkeypatch.setenv("M1_FORZAR_PUERTA", "cerrada")
     assert bash(cmd).startswith("(c)")
@@ -155,3 +155,13 @@ def test_descargador_rechaza_restringidas():
     import fuentes
     with pytest.raises(PermissionError):
         fuentes.descargar("https://circabc.europa.eu/x", "prueba", "x", "", "", "")
+
+
+def test_fases_6_7_bloqueadas_si_hay_resultados_causales(monkeypatch, tmp_path):
+    monkeypatch.setenv("M1_FORZAR_PUERTA", "cerrada")
+    (tmp_path / "output" / "f5").mkdir(parents=True)
+    (tmp_path / "src" / "m1").mkdir(parents=True)
+    import shutil
+    shutil.copy(RAIZ / "src" / "m1" / "etiquetas.py", tmp_path / "src" / "m1" / "etiquetas.py")
+    shutil.copy(RAIZ / "src" / "m1" / "politica_fuentes.py", tmp_path / "src" / "m1" / "politica_fuentes.py")
+    assert G.evaluar({"tool_name": "Bash", "tool_input": {"command": "make m1_f7"}}, tmp_path).startswith("(c)")
