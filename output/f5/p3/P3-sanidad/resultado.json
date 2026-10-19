@@ -1,0 +1,17 @@
+{
+ "pregunta": "P3 (sanidad): listas de espera quirúrgicas y población nacida fuera por comunidad autónoma",
+ "capa": "C4",
+ "clasificacion": "NO ESTIMABLE",
+ "datos": "SISLE-SNS (solo PDF por comunidad)",
+ "N": 0,
+ "metodo": "—",
+ "estimacion": null,
+ "ic95": [
+  null,
+  null
+ ],
+ "p_ajustado": null,
+ "diagnosticos": {},
+ "notas": "No hay series públicas procesables. El dato que faltaría (espera y uso por paciente y origen) solo existe en registros clínicos de acceso restringido.",
+ "prereg": "prereg-m1 c247555"
+}

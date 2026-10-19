@@ -1,0 +1,4 @@
+fase,pregunta,modelo_id,especificacion,muestra,n,coef,ee,p,notas
+F5,P5,principal_loo,"NUTS2 UE-27, efectos de país",2021-2024,198,-0.3251785742889751,0.3279697517801184,0.3824,
+F5,P5,shocks_comunes,"NUTS2 UE-27, efectos de país",2021-2024,198,-0.20868965133090941,0.2541282571308945,0.4382,
+F5,P5,sin_ucrania,"NUTS2 UE-27, efectos de país",2021-2024,198,-0.32173543944451255,0.3293146168491027,0.4217,

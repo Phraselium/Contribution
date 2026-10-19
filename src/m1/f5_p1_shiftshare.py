@@ -326,6 +326,15 @@ def main() -> int:
                    ("SUGESTIVO" if clas.startswith("SUGESTIVO") else "ASOCIACIÓN"),
                    ic_inf=round(r["akm0_inf"], 3) if np.isfinite(r["akm0_inf"]) else np.nan,
                    ic_sup=round(r["akm0_sup"], 3) if np.isfinite(r["akm0_sup"]) else np.nan)
+    for h in hip:
+        cf.add(f"F5_{h.replace('-', '_')}_p", round(float(p_holm.get(h, p_bh.get(h))), 3), "p ajustado",
+               f"{h}: p de AKM0 frente a β = 0 ajustado ({'Holm' if h in p_holm else 'BH'}); el conjunto AKM0 puede no estar acotado aunque "
+               "el p sea pequeño (primera etapa débil al nivel del shock)", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias",
+               "nacidos en España")
+    cf.add("F5_P1_F_SHOCK", round(res["P1-H1"]["F_shock"], 1), "F", "F de primera etapa al nivel del shock (BHJ), especificación "
+           "principal de P1 (umbral pre-registrado: 10)", "C4", "padrón, ECP (INE)", "2005-2022", "50 provincias", "todos")
+    cf.add("F5_P1_F_EFECTIVO", round(res["P1-H1"]["F_efectivo"], 1), "F", "F efectivo de primera etapa agrupado por provincia, "
+           "especificación principal de P1", "C4", "padrón, ECP (INE)", "2005-2022", "50 provincias", "todos")
     reg.flush()
     cf.escribir()
     print(json.dumps({h: {k: res[h][k] for k in ("b", "akm0_inf", "akm0_sup", "F_shock", "F_efectivo")} for h in hip}, indent=1,

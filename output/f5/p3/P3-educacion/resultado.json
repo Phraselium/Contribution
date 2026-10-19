@@ -1,0 +1,25 @@
+{
+ "pregunta": "P3 (educación): Δ alumnos por profesor en centros públicos por punto de aumento de la población nacida fuera de 5-19 años sobre la población de 5-19 años, por comunidad autónoma",
+ "capa": "C4",
+ "clasificacion": "ASOCIACIÓN",
+ "datos": "EDUCAbase (Ministerio de Educación), ECP y padrón (INE)",
+ "N": 102,
+ "metodo": "MC2E shift-share de comunidad (cuotas de 1998), efectos de curso; wild cluster bootstrap de la forma reducida (Webb, 17 comunidades)",
+ "estimacion": -16.86449846447124,
+ "ic95": [
+  -75.16118648081115,
+  41.432189551868674
+ ],
+ "p_ajustado": 0.584,
+ "diagnosticos": {
+  "F_efectivo": 39.47043250881326,
+  "forma_reducida": -0.7152768660537584,
+  "p_wcb_forma_reducida": 0.584,
+  "G": 17,
+  "mco": -9.923716746260508,
+  "ee_mco": 17.27812340263276,
+  "ee_mc2e_cluster": 29.743208171601996
+ },
+ "notas": "Techo ASOCIACIÓN pre-registrado (A6): la ratio responde a la contratación de profesorado. IC por errores agrupados con 17 grupos (orientativo); la inferencia es el p del wild bootstrap.",
+ "prereg": "prereg-m1 c247555"
+}

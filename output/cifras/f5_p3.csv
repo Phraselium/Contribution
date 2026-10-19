@@ -1,0 +1,2 @@
+id,valor,ic_inf,ic_sup,unidad,descripcion,capa,clasificacion,fuente,periodo,ambito,grupo_origen,nivel_ajuste,script
+F5_P3_EDUC_beta,-0.169,-0.752,0.414,alumnos por profesor por punto porcentual,P3 (educación): asociación entre el aumento de la población nacida fuera de 5-19 años y la ratio de alumnos por profesor en centros públicos (MC2E por comunidad; F efectivo = 39.5; p wild bootstrap de la forma reducida = 0.58; IC orientativo por errores agrupados en 17 comunidades),C4,ASOCIACIÓN,"EDUCAbase, ECP y padrón",2016-2022,17 CCAA,todos,bruto,src/m1/f5_p3_servicios.py

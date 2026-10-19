@@ -1,0 +1,42 @@
+{
+ "pregunta": "P1-E1: Δ tasa_actividad de los nacidos en España (16-64) por punto de aumento de la población nacida fuera de 15-64 sobre la población 15-64",
+ "capa": "C4",
+ "clasificacion": "ASOCIACIÓN",
+ "datos": "padrón 1998-2022 (INE), ECP, EPA microdatos, afiliación TGSS",
+ "N": 150,
+ "metodo": "MC2E shift-share (Card), AKM0 agrupado por origen",
+ "estimacion": -0.02140118925364796,
+ "ic95": [
+  -Infinity,
+  Infinity
+ ],
+ "p_ajustado": 0.9954727233775229,
+ "diagnosticos": {
+  "b": -0.02140118925364796,
+  "se_cluster_prov": 0.17391494453014783,
+  "F_efectivo": 24.391455625386065,
+  "F_shock": 6.57303785142903,
+  "se_bhj": 0.2551508961769641,
+  "akm0_p": 0.9954727233775228,
+  "akm0_inf": -Infinity,
+  "akm0_sup": Infinity,
+  "akm0_acotado": false,
+  "akm0_convexo": true,
+  "orig_efectivos": 356.8948008845452,
+  "n": 150,
+  "forma_reducida": -0.00795677534871595
+ },
+ "notas": "pre-registro interno sin sello externo",
+ "prereg": "prereg-m1 c247555",
+ "dinamico": {
+  "corto": 0.17623033204095562,
+  "ee_corto": 0.2632439692890667,
+  "largo": 0.026401159171876798,
+  "ee_largo": 0.20616780185551842,
+  "F_SW": [
+   18.89274138455378,
+   62.4770016906939
+  ],
+  "separable": true
+ }
+}

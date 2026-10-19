@@ -2,8 +2,8 @@
 sentidos, sin atribuirlas a nadie. Cada ficha: qué dice la contabilidad (A), qué dice la evidencia causal (B), qué depende de
 supuestos y veredicto («se sostiene», «se sostiene con matices», «engañosa», «incorrecta», «no se puede saber») con su confianza.
 Las cifras se citan con marcadores {{id}} de output/cifras_clave.csv y se sustituyen con render(). Mismas reglas para las
-afirmaciones favorables y desfavorables. La evidencia causal propia de M1 (fase 5) está pendiente de la puerta prereg-m1: donde
-se cita, es la literatura verificada (docs/literatura), no una estimación de M1.
+afirmaciones favorables y desfavorables. La evidencia causal propia de M1 es la de la fase 5 pre-registrada (output/f5); la
+literatura verificada (docs/literatura) se cita aparte.
 Salidas: output/f6/afirmaciones.md y output/f6/afirmaciones.csv.
 """
 from __future__ import annotations
@@ -19,8 +19,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from comun import OUT, Cifras, tabla_md  # noqa: E402
 
 O = OUT / "f6"
-CAUSAL_M1 = ("La estimación propia de M1 (fase 5) no se ha ejecutado: la puerta del pre-registro interno sigue cerrada porque la "
-             "etiqueta prereg-m1 no está en un repositorio remoto. Lo que sigue es la literatura verificada, no M1.")
+CAUSAL_M1 = ("Estimación propia de M1 (fase 5, pre-registrada): con el shift-share provincial la primera etapa es débil al nivel del "
+             "shock (F = {{F5_P1_F_SHOCK}}, por debajo de 10) y el conjunto AKM0 no está acotado, de modo que todas las preguntas causales "
+             "quedan en ASOCIACIÓN: el efecto no se puede identificar con estos datos.")
 
 FICHAS = [
     {"id": "A1", "sentido": "desfavorable", "afirmacion": "Los inmigrantes viven de las ayudas: reciben más prestaciones que los nacidos en España.",
@@ -40,20 +41,27 @@ FICHAS = [
      "contabilidad": "Entre 2014 y 2025 la ocupación media aumentó en {{F3_EMP_AUMENTO_OCUPADOS_2014_2025}} millones; el {{F3_EMP_CONTRIB_FUERA_2014_2025}} % del "
                      "aumento corresponde a nacidos fuera y el resto a nacidos en España, cuya ocupación también creció. La tasa de empleo 16-64 de los nacidos en "
                      "España es del {{F3_EMP_TASA_España_2025}} % (2025).",
-     "causal": CAUSAL_M1 + " En España, los trabajos con datos de provincias y celdas (González y Ortega 2011; Carrasco, Jimeno y Ortega 2008; Banco de "
+     "causal": CAUSAL_M1 + " Para la tasa de empleo de los nacidos en España, la estimación puntual es {{F5_P1_H1_beta}} puntos por punto de "
+               "aumento de la población nacida fuera (ASOCIACIÓN). La única estimación que rechaza el cero es la exploratoria de "
+               "los nacidos en España con educación baja: {{F5_P1_E3a_beta}} (p ajustado por BH = {{F5_P1_E3a_p}}), con un conjunto AKM0 no acotado "
+               "ni convexo, por lo que también queda en ASOCIACIÓN; es un indicio desfavorable que se publica igual que el resto. "
+               "En España, los trabajos con datos de provincias y celdas (González y Ortega 2011; Carrasco, Jimeno y Ortega 2008; Banco de "
                "España 2026, Informe Anual 2025) no encuentran en general efectos negativos significativos sobre el empleo de los nativos, aunque Carrasco, Jimeno y "
                "Ortega (2008) obtienen un efecto negativo (−0,17) cuando solo cuentan a los inmigrantes con permiso de trabajo, y la ficha del Banco de España no "
                "informa de inferencia adecuada para shift-share.",
      "supuestos": "La contabilidad no dice qué habría pasado sin inmigración.", "veredicto": "no se puede saber", "confianza": "media",
-     "razon": "La contabilidad no muestra desplazamiento agregado y la literatura española no encuentra efectos negativos grandes, pero sin estimación propia el "
-              "efecto en España no está identificado (mismo estándar que A3 y F2)."},
+     "razon": "La contabilidad no muestra desplazamiento agregado y la literatura española no encuentra efectos negativos grandes, pero la estimación "
+              "propia queda en ASOCIACIÓN y el efecto en España no está identificado (mismo estándar que A3 y F2)."},
     {"id": "A3", "sentido": "desfavorable", "afirmacion": "La inmigración hunde los salarios de los españoles.",
      "contabilidad": "Los extranjeros cobran por hora un {{F3_SAL_BRECHA_bruto_2022:abs}} % menos que los españoles (bruto, 2022); a igual edad, sexo, estudios y "
                      "región la diferencia es {{F3_SAL_BRECHA_completo_2022}} %. Es una brecha entre grupos, no un efecto sobre los salarios de los nativos.",
-     "causal": CAUSAL_M1 + " La literatura internacional verificada da efectos medios pequeños sobre los salarios nativos (Dustmann, Schönberg y Stuhler 2016) y "
+     "causal": CAUSAL_M1 + " Para salarios, el diseño de celdas educación × edad (Borjas) da {{F5_P1_E4_beta}} en log por punto de cuota, "
+               "sin significación (ASOCIACIÓN por diseño, sin instrumento). "
+               "La literatura internacional verificada da efectos medios pequeños sobre los salarios nativos (Dustmann, Schönberg y Stuhler 2016) y "
                "la española no documenta caídas generalizadas; con datos públicos no hay salarios provinciales por nacionalidad (la AEAT no fue accesible).",
      "supuestos": "—", "veredicto": "no se puede saber", "confianza": "media",
-     "razon": "Con datos públicos y sin la fase 5 no se puede estimar el efecto en España; la versión fuerte («hunde») no tiene apoyo en la literatura."},
+     "razon": "Con datos públicos el efecto en España no queda identificado (fase 5: ASOCIACIÓN); la versión fuerte («hunde») no tiene apoyo en "
+              "la literatura ni en la asociación estimada."},
     {"id": "A4", "sentido": "desfavorable", "afirmacion": "Los inmigrantes colapsan la sanidad pública.",
      "contabilidad": "Uso declarado por persona, nacidos fuera / nacidos en España del mismo tramo de edad (ENSE 2017; 1 = igual). 15-34 años: consultas "
                      "{{F6_ENSE_RAZON_CONSULTAS_15_34}}, días de hospital {{F6_ENSE_RAZON_HOSP_15_34}}, urgencias {{F6_ENSE_RAZON_URG_15_34}}. 35-54: consultas "
@@ -62,7 +70,7 @@ FICHAS = [
                      "urgencias {{F6_ENSE_RAZON_URG_55_74}}. Su estructura por edad es más joven: el {{F3_POB_65MAS_nacidos fuera_2025}} % tiene 65 o más años "
                      "frente al {{F3_POB_65MAS_España_2025}} % de los nacidos en España, lo que reduce el uso por persona del grupo, pero no el uso agregado, "
                      "que crece con el tamaño de la población.",
-     "causal": "P3 (listas de espera) no es estimable con datos públicos procesables (SISLE solo en PDF por CCAA) y la congestión local no se observa. "
+     "causal": "P3 (listas de espera) NO ESTIMABLE con datos públicos procesables (SISLE solo en PDF por CCAA) y la congestión local no se observa. "
                "Giuntella, Nicodemo y Vargas-Silva (2018) no encuentran más espera en el NHS inglés.",
      "supuestos": "Uso declarado en encuesta (2017); razones por tramo con muestras pequeñas en los mayores.", "veredicto": "no se puede saber",
      "confianza": "media",
@@ -104,7 +112,8 @@ FICHAS = [
     {"id": "F2", "sentido": "favorable", "afirmacion": "Sin inmigrantes no habría crecido el empleo.",
      "contabilidad": "El {{F3_EMP_CONTRIB_FUERA_2014_2025}} % del aumento de la ocupación de 2014-2025 y el {{F3_EMP_CONTRIB_HORAS_FUERA_2014_2025}} % del de las horas "
                      "corresponden a nacidos fuera.",
-     "causal": "El contrafactual (qué empleo habría sin inmigración) no está identificado en M1; la contabilidad no lo dice.",
+     "causal": "El contrafactual (qué empleo habría sin inmigración) no está identificado: en la fase 5 la primera etapa del shift-share es "
+               "débil y todas las estimaciones quedan en ASOCIACIÓN; la contabilidad no lo dice.",
      "supuestos": "—", "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Es cierto que la mayor parte del aumento del empleo corresponde a nacidos fuera, pero la afirmación es contrafactual («no habría crecido») y no "
               "está identificada (mismo estándar que A6)."},

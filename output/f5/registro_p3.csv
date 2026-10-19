@@ -1,0 +1,3 @@
+fase,pregunta,modelo_id,especificacion,muestra,n,coef,ee,p,notas
+F5,P3-educacion,mc2e,"17 CCAA × 6 cursos, efectos de curso",2016-2022,102,-16.86449846447124,29.743208171601996,0.584,
+F5,P3-educacion,mco,"17 CCAA × 6 cursos, efectos de curso",2016-2022,102,-9.923716746260508,17.27812340263276,,

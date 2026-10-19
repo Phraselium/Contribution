@@ -1,0 +1,42 @@
+{
+ "pregunta": "P1-E3c: Δ tasa_empleo_educ_alta de los nacidos en España (16-64) por punto de aumento de la población nacida fuera de 15-64 sobre la población 15-64",
+ "capa": "C4",
+ "clasificacion": "ASOCIACIÓN",
+ "datos": "padrón 1998-2022 (INE), ECP, EPA microdatos, afiliación TGSS",
+ "N": 150,
+ "metodo": "MC2E shift-share (Card), AKM0 agrupado por origen",
+ "estimacion": 0.1802011543403015,
+ "ic95": [
+  -Infinity,
+  Infinity
+ ],
+ "p_ajustado": 0.9954727233775229,
+ "diagnosticos": {
+  "b": 0.1802011543403015,
+  "se_cluster_prov": 0.284498451709609,
+  "F_efectivo": 24.391455625386065,
+  "F_shock": 6.57303785142903,
+  "se_bhj": 0.5086909654686412,
+  "akm0_p": 0.8743721164671245,
+  "akm0_inf": -Infinity,
+  "akm0_sup": Infinity,
+  "akm0_acotado": false,
+  "akm0_convexo": true,
+  "orig_efectivos": 356.8948008845452,
+  "n": 150,
+  "forma_reducida": 0.0669972161667611
+ },
+ "notas": "pre-registro interno sin sello externo",
+ "prereg": "prereg-m1 c247555",
+ "dinamico": {
+  "corto": -0.16161160475562864,
+  "ee_corto": 0.37028975302148104,
+  "largo": 0.09752480544716496,
+  "ee_largo": 0.2916976255844514,
+  "F_SW": [
+   18.89274138455378,
+   62.4770016906939
+  ],
+  "separable": true
+ }
+}

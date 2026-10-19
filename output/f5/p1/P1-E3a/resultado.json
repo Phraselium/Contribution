@@ -1,0 +1,42 @@
+{
+ "pregunta": "P1-E3a: Δ tasa_empleo_educ_baja de los nacidos en España (16-64) por punto de aumento de la población nacida fuera de 15-64 sobre la población 15-64",
+ "capa": "C4",
+ "clasificacion": "ASOCIACIÓN",
+ "datos": "padrón 1998-2022 (INE), ECP, EPA microdatos, afiliación TGSS",
+ "N": 150,
+ "metodo": "MC2E shift-share (Card), AKM0 agrupado por origen",
+ "estimacion": -0.6891854485365112,
+ "ic95": [
+  -Infinity,
+  Infinity
+ ],
+ "p_ajustado": 0.007648336794198185,
+ "diagnosticos": {
+  "b": -0.6891854485365112,
+  "se_cluster_prov": 0.2091125886934218,
+  "F_efectivo": 24.391455625386065,
+  "F_shock": 6.57303785142903,
+  "se_bhj": 0.46777481069587706,
+  "akm0_p": 0.001529667358839637,
+  "akm0_inf": -Infinity,
+  "akm0_sup": Infinity,
+  "akm0_acotado": false,
+  "akm0_convexo": false,
+  "orig_efectivos": 356.8948008845452,
+  "n": 150,
+  "forma_reducida": -0.25623313371190304
+ },
+ "notas": "pre-registro interno sin sello externo",
+ "prereg": "prereg-m1 c247555",
+ "dinamico": {
+  "corto": -1.088287971906738,
+  "ee_corto": 0.4007497098594746,
+  "largo": -0.7857188241601787,
+  "ee_largo": 0.2564176285839714,
+  "F_SW": [
+   18.89274138455378,
+   62.4770016906939
+  ],
+  "separable": true
+ }
+}

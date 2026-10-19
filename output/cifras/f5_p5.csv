@@ -1,0 +1,2 @@
+id,valor,ic_inf,ic_sup,unidad,descripcion,capa,clasificacion,fuente,periodo,ambito,grupo_origen,nivel_ajuste,script
+F5_P5_beta,-0.325,,,pp por pp,"P5: asociación entre la llegada de población nacida fuera y la tasa de empleo de los nativos, NUTS2 de la UE-27, 2021-2024 (MC2E leave-one-country-out; p wild bootstrap por país = 0.38; IC: AKM0 con shocks comunes)",C4,ASOCIACIÓN,"Eurostat (censo 2021, migr_imm3ctb, EU-LFS)",2021-2024,NUTS2 UE-27,nativos,bruto,src/m1/f5_p5_europa.py

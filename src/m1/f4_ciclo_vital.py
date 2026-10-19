@@ -53,7 +53,7 @@ BLOQUES = {"tax": TAX + ["ing_otros_ingresos"], "conv": CONV, "pens": PENS}
 DUR = [(0, 5, 1.0), (5, 10, 0.5), (10, 20, 0.25), (20, 200, 0.1)]   # riesgos relativos de salida por años de residencia
 
 
-def perfiles() -> dict[str, pd.DataFrame]:
+def perfiles(escalar: bool = True) -> dict[str, pd.DataFrame]:
     p = pd.read_csv(O / "perfil_edad_2024.csv")
     p = p[p.e >= 0]
     num = [c for c in p.columns if c not in ("grupo", "e", "n_muestral") and pd.api.types.is_numeric_dtype(p[c])]
@@ -67,7 +67,7 @@ def perfiles() -> dict[str, pd.DataFrame]:
             e0 = min(obs, key=lambda o: (abs(o - e), o))
             for cols in BLOQUES.values():
                 den = nat.loc[e0, cols].sum()
-                x.loc[e, cols] = nat.loc[e, cols] * (x.loc[e0, cols].sum() / den if den > 0 else 1.0)
+                x.loc[e, cols] = nat.loc[e, cols] * (x.loc[e0, cols].sum() / den if (den > 0 and escalar) else 1.0)
             otros = [c for c in num if not any(c in b for b in BLOQUES.values())]
             x.loc[e, otros] = nat.loc[e, otros]
         idx = pd.DataFrame(index=range(0, 101))
@@ -112,7 +112,9 @@ def riesgo(y: int, modo: str, r_obs: float, h0: float) -> float:
 
 
 def vida(a0: int, g: str, P: dict, q: pd.Series, modo: str, c: float, dto: float, bienes: str, r_obs: float, h0: float,
-         crec=0.01) -> dict:
+         crec=0.01, ajuste_pc=0.0, anos_min=15, suelo=True) -> dict:
+    """ajuste_pc: cantidad por persona y año sumada a la contribución neta de quien reside (presupuesto equilibrado: menos el saldo
+    medio por persona); anos_min: años cotizables mínimos para la pensión contributiva; suelo: pensión no contributiva."""
     nat, imm = P["España"], P[g]
     nativo = g == "España"
     sobrev, va_joven, va_mayor, contrib_rel_acum, anos_trab = 1.0, 0.0, 0.0, [], 0
@@ -123,7 +125,7 @@ def vida(a0: int, g: str, P: dict, q: pd.Series, modo: str, c: float, dto: float
         mezcla = lambda cols: sum(imm.loc[x, v] + k * (nat.loc[x, v] - imm.loc[x, v]) for v in cols)  # noqa: E731
         imp = sum(nat.loc[x, v] for v in TAX) if nativo else mezcla(TAX)
         conv = sum(nat.loc[x, v] for v in CONV) if nativo else mezcla(CONV)
-        fr = (np.mean(contrib_rel_acum) if contrib_rel_acum else 0.0) * min(1.0, anos_trab / 37) if anos_trab >= 15 else 0.0
+        fr = (np.mean(contrib_rel_acum) if contrib_rel_acum else 0.0) * min(1.0, anos_trab / 37) if anos_trab >= anos_min else 0.0
         fr = min(fr, 1.2)
         pens_nat = sum(nat.loc[x, v] for v in PENS)
         if x < 65:
@@ -131,10 +133,10 @@ def vida(a0: int, g: str, P: dict, q: pd.Series, modo: str, c: float, dto: float
             anos_trab += 1 if x >= 18 else 0
             pens = sum((nat if nativo else imm).loc[x, v] for v in PENS)
         else:
-            pens = pens_nat if nativo else max(pens_nat * fr, PNC if y >= 10 else 0.0)
+            pens = pens_nat if nativo else max(pens_nat * fr, PNC if (y >= 10 and suelo) else 0.0)
         edad_g = sum(nat.loc[x, v] for v in EDAD)   # gasto en especie por edad: mismo perfil para todos (criterio OCDE)
         bp = nat.loc[x, BP] if (bienes == "medio" or nativo) else 0.0
-        neta = sobrev * (imp - conv - pens - edad_g - bp) - (derechos_fuera * pens_nat if x >= 65 else 0.0)
+        neta = sobrev * (imp - conv - pens - edad_g - bp + ajuste_pc) - (derechos_fuera * pens_nat if x >= 65 else 0.0)
         fac = ((1 + crec) / (1 + dto)) ** y
         if x < 65:
             va_joven += fac * neta
@@ -221,10 +223,54 @@ def main() -> int:
                       "cuota_positivas": float((x.va_total > 0).mean()),
                       "signo_cambia_con_supuesto": bool(x.va_total.min() < 0 < x.va_total.max())})
     pd.DataFrame(s).to_csv(O / "ciclo_vital_signos.csv", index=False)
+    sensibilidad_principal(cf, P, q, r_obs, h0)
     cf.escribir()
     print(f"r_obs={r_obs:.4f} h0={h0:.4f}")
     print(princ[["grupo", "edad_llegada", "va_total", "va_hasta_64", "va_65_mas"]].round(0).to_string())
     return 0
+
+
+def sensibilidad_principal(cf, P, q, r_obs, h0) -> None:
+    """Variantes del escenario principal fuera de la rejilla D11: presupuesto equilibrado, imputación de los tramos suprimidos de
+    la UE y reglas de pensiones."""
+    r = pd.read_csv(O / "neta_por_grupo_2024.csv")
+    saldo = float(np.average(r.neta, weights=r.poblacion))
+    P1 = perfiles(escalar=False)
+    base = dict(modo="decreciente", c=0.0, dto=0.03, bienes="medio", r_obs=r_obs, h0=h0)
+    filas = []
+    for g in ("España", "Resto UE", "Resto del mundo"):
+        for a0 in (0, 20, 30, 40):
+            b = dict(base, modo="ninguno") if g == "España" else base
+            filas.append({"grupo": g, "edad_llegada": a0, "variante": "principal", "va_total": vida(a0, g, P, q, **b)["va_total"]})
+            filas.append({"grupo": g, "edad_llegada": a0, "variante": "presupuesto equilibrado",
+                          "va_total": vida(a0, g, P, q, **b, ajuste_pc=-saldo)["va_total"]})
+            if g != "España":
+                filas.append({"grupo": g, "edad_llegada": a0, "variante": "tramos suprimidos con perfil nativo sin escalar",
+                              "va_total": vida(a0, g, P1, q, **b)["va_total"]})
+                filas.append({"grupo": g, "edad_llegada": a0, "variante": "pensión contributiva sin mínimo de 15 años",
+                              "va_total": vida(a0, g, P, q, **b, anos_min=0)["va_total"]})
+                filas.append({"grupo": g, "edad_llegada": a0, "variante": "sin suelo de pensión no contributiva",
+                              "va_total": vida(a0, g, P, q, **b, suelo=False)["va_total"]})
+    s = pd.DataFrame(filas)
+    s.to_csv(O / "ciclo_vital_sensibilidad.csv", index=False)
+    k = s.set_index(["grupo", "edad_llegada", "variante"]).va_total
+    for g in ("España", "Resto UE", "Resto del mundo"):
+        for a0 in (0, 30):
+            cf.add(f"F4_VA_EQUILIBRADO_{g.replace(' ', '_')}_{a0}", round(k[(g, a0, "presupuesto equilibrado")] / 1e3, 0),
+                   "miles de € (VA)", f"Valor actual del escenario principal con presupuesto equilibrado (se suma cada año el saldo medio "
+                   f"por persona de 2024, {-saldo:,.0f} €), {g}, {'nacimiento' if a0 == 0 else f'llegada o edad {a0}'}",
+                   "C2", "Perfiles M1", "2024", "España", g)
+    for g in ("Resto UE", "Resto del mundo"):
+        v = k.xs((g, 30), level=("grupo", "edad_llegada"))
+        cf.add(f"F4_VA_IMPUT_UE_{g.replace(' ', '_')}_30", round(v["tramos suprimidos con perfil nativo sin escalar"] / 1e3, 0),
+               "miles de € (VA)", f"Principal con los tramos de edad suprimidos (< 50 observaciones) rellenados con el perfil nativo sin "
+               f"escalar, {g}, llegada a los 30", "C2", "Perfiles M1", "2024", "España", g)
+        cf.add(f"F4_VA_SIN_MIN15_{g.replace(' ', '_')}_30", round(v["pensión contributiva sin mínimo de 15 años"] / 1e3, 0),
+               "miles de € (VA)", f"Principal sin el mínimo de 15 años cotizados para la pensión contributiva, {g}, llegada a los 30",
+               "C2", "Perfiles M1", "2024", "España", g)
+        cf.add(f"F4_VA_SIN_SUELO_{g.replace(' ', '_')}_30", round(v["sin suelo de pensión no contributiva"] / 1e3, 0),
+               "miles de € (VA)", f"Principal sin el suelo de pensión no contributiva, {g}, llegada a los 30", "C2", "Perfiles M1", "2024",
+               "España", g)
 
 
 if __name__ == "__main__":

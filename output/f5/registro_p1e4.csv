@@ -1,0 +1,4 @@
+fase,pregunta,modelo_id,especificacion,muestra,n,coef,ee,p,notas
+F5,P1-E4,principal,,15 celdas × 4 olas,45,-0.10029466311961231,0.23555659299815077,0.6051,
+F5,P1-E4,nacionalidad,,15 celdas × 4 olas,45,-0.06034622172124031,0.2526856141471752,0.7746,
+F5,P1-E4,niveles,,15 celdas × 4 olas,60,-0.023751743644566226,0.23184810652736776,0.9106,

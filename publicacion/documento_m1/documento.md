@@ -31,7 +31,7 @@ Las cifras incluyen el déficit de las administraciones, que se reparte entre to
 
 **Pensiones.** Con una regla demográfica mecánica, el gasto en pensiones de 2050 de la variante de EUROPOP2023 sin migración es 4,4 puntos de PIB mayor que el de la variante base. Es una comparación de escenarios con supuestos, no una proyección del sistema ni un efecto estimado. En el Ageing Report 2024, que modeliza empleo y reformas, la diferencia entre un tercio menos y un tercio más de migración es de 2,6 puntos (18,7 % frente a 16,1 %; referencia NO VERIFICADA, sin DOI).
 
-**Impacto sobre la población local.** La estimación causal está pre-registrada, revisada y programada, pero **no se ha ejecutado**: la puerta del pre-registro interno exige que la etiqueta esté en un repositorio remoto, y en esta versión no lo está. Todas las preguntas causales quedan pendientes y se cita solo la literatura verificada.
+**Impacto sobre la población local.** La estimación causal se hizo con el diseño pre-registrado (shift-share provincial con cuotas de 1998). La primera etapa es débil al nivel del shock (F = 6,6, por debajo del umbral de 10) y los conjuntos de confianza AKM0 no están acotados. Por las reglas fijadas antes de estimar, **ningún efecto queda IDENTIFICADO ni SUGESTIVO**: todas las preguntas causales son ASOCIACIÓN o NO ESTIMABLE. Los datos públicos no permiten afirmar ni descartar un efecto de la inmigración sobre el empleo, los salarios o los servicios de la población local. La única estimación que rechaza el cero es exploratoria y desfavorable: una asociación negativa con la tasa de empleo de los nacidos en España con educación baja (-0,7 puntos por punto), cuyo conjunto de confianza no está acotado (sección 5).
 
 **Afirmaciones del debate.** Se evalúan doce afirmaciones: de las seis desfavorables a la inmigración, cinco con veredicto «no se puede saber» y una con veredicto «engañosa»; de las seis favorables a la inmigración, cuatro con veredicto «no se puede saber» y dos con veredicto «se sostiene con matices» (sección 7).
 
@@ -41,7 +41,7 @@ Casi una de cada cinco personas que viven en España nació fuera. En conjunto t
 
 En las cuentas públicas de un año (2024), los nacidos en otros países de la UE aportan más de lo que reciben en todas las combinaciones de supuestos estudiadas. Para los nacidos fuera de la UE, el resultado depende de cómo se repartan gastos como la defensa o los intereses de la deuda, y de si la educación de sus hijos nacidos en España se les imputa a ellos. Cuando se mira toda la vida (impuestos de hoy y pensiones de mañana), el resultado depende de supuestos para todos los grupos.
 
-Que la inmigración cambie el empleo o los salarios de los nacidos en España es otra pregunta. El estudio la deja preparada, pero sin resultados propios todavía.
+Que la inmigración cambie el empleo o los salarios de los nacidos en España es otra pregunta. Con los datos públicos y el diseño fijado de antemano, la respuesta es que no se puede saber: las estimaciones son demasiado imprecisas para afirmar un efecto en cualquier sentido.
 
 ## 1. Introducción
 
@@ -206,6 +206,8 @@ Todos los intervalos de llegada entre 20 y 50 años contienen el cero, y por D11
 - Los perfiles incluyen el déficit de 2024: todos los valores, también los de los nativos, salen más negativos que con presupuesto equilibrado.
 - No se cuentan los descendientes ni su educación.
 
+**Otras variantes del principal** (output/f4/ciclo_vital_sensibilidad.csv). Con presupuesto equilibrado, la llegada a los 30 da -3 (resto del mundo) y 20 (resto de la UE), y un nacido en España de 30 años 72. Rellenar los tramos de edad suprimidos con el perfil nativo sin escalar da 11 para el resto de la UE (los tramos de 0 a 24 y de 70 y más años de este grupo tienen menos de 50 observaciones). Quitar el mínimo de 15 años cotizados da -19 (resto del mundo) y quitar el suelo de pensión no contributiva, -13: las reglas de pensiones mueven poco el resultado porque, en el escenario principal, la mayor parte de quienes llegan sale antes de los 65.
+
 **Sensibilidad.** En la contabilidad estática lo que más mueve el resultado es la asignación de los hijos nacidos en España y el reparto de los bienes públicos. Imputar coste marginal cero a los nacidos fuera traslada su parte de los bienes públicos a los nacidos en España (-498 € por persona). Los impuestos indirectos, el uso sanitario observado frente a igual uso por edad, la calibración y el reparto del capital mueven menos (output/f4/sensibilidad_supuestos.csv).
 
 **Europa.** No se replica: hacen falta los microdatos de investigación de la EU-SILC, que no son públicos. Se comparan los resultados publicados. Fiorio et al. (2023, *International Tax and Public Finance*) estiman para España, en 2014-2018, una contribución neta por persona de los inmigrantes mayor que la de los nativos, sin diferencia significativa a igual composición demográfica. La cantidad comparable de este estudio es la diferencia con los nativos. En el escenario principal es positiva para los dos grupos: la dirección coincide. Para los nacidos fuera de la UE, sin embargo, el intervalo de supuestos contiene el cero. Las cifras por país de la OCDE (2021) no se pudieron leer en el original (anexo XLS inaccesible) y no se citan.
@@ -214,18 +216,37 @@ Todos los intervalos de llegada entre 20 y 50 años contienen el cero, y por D11
 
 ## 5. Impacto sobre la población local
 
-**Diseño pre-registrado** (docs/preregistro.md y su adenda, etiqueta local prereg-m1, pre-registro interno sin sello de tiempo externo):
-- shift-share de Card por provincia con cuotas de 1998;
+**Diseño pre-registrado** (docs/preregistro.md y su adenda; etiqueta prereg-m1 en el commit c247555, cuyo historial está en el repositorio remoto antes de cualquier estimación; pre-registro interno sin sello de tiempo externo):
+- shift-share de Card por provincia, con cuotas de 1998 de los nacidos fuera con nacionalidad extranjera y shocks nacionales por país de nacimiento;
+- 50 provincias y tres periodos apilados (2005-2009, 2009-2015, 2015-2022), con controles de periodo, suma de cuotas, paro inicial, construcción y Bartik sectorial;
 - inferencia AKM0 agrupada por origen, validada por Monte Carlo;
-- ajuste dinámico de Jaeger, Ruist y Stuhler;
-- pretendencia con la afiliación de 1999-2001, permutaciones, exclusión de los orígenes con mayor peso de Rotemberg y sensibilidad por nacionalidad.
+- ajuste dinámico de Jaeger, Ruist y Stuhler; pretendencia con la afiliación de 1999-2001; permutaciones; exclusión de los orígenes con mayor peso de Rotemberg; sensibilidad por nacionalidad; multiverso de 38 especificaciones por hipótesis confirmatoria.
 
-**Estado: no ejecutado.** La puerta exige que el commit de la etiqueta esté en la rama de un repositorio remoto. Esta sesión no tuvo remoto y no pudo crearlo, así que la fase 5 queda pendiente y ninguna pregunta B tiene clasificación propia. En la literatura verificada sobre España (González y Ortega 2011; Banco de España 2026, Informe Anual 2025) no se encuentran en general efectos negativos significativos sobre el empleo de los nativos; Carrasco, Jimeno y Ortega (2008) obtienen un efecto negativo cuando solo cuentan a los inmigrantes con permiso de trabajo. Es literatura, no un resultado de M1.
+**Primera etapa.** El instrumento predice bien el tratamiento entre provincias (F efectivo = 24,4), pero no al nivel de los shocks, que es el relevante en un shift-share (F = 6,6, por debajo de 10). En consecuencia, los conjuntos AKM0 de todas las hipótesis de P1 y P2 son la recta real entera: los datos son compatibles con efectos grandes en cualquier sentido.
 
-**Situación de cada pregunta:**
-- P3 (servicios públicos): NO ESTIMABLE con datos públicos procesables. Las listas de espera solo se publican en PDF por comunidad; el techo pre-registrado era ASOCIACIÓN.
-- P4 (vivienda): no se duplica; se remite a Econometr-a.
-- P5 (Europa): pendiente, con techo SUGESTIVO.
+**Resultados (estimación puntual de MC2E; clasificación según las reglas pre-registradas):**
+
+| Pregunta | Resultado de los nacidos en España | Estimación | Clasificación |
+|---|---|---|---|
+| P1-H1 | tasa de empleo (pp por pp) | -0,2 | ASOCIACIÓN |
+| P1-H2 | tasa de paro (pp por pp) | 0,3 | ASOCIACIÓN |
+| P1-E1 | tasa de actividad | -0,0 | ASOCIACIÓN |
+| P1-E2 | log de ocupados | -0,6 | ASOCIACIÓN |
+| P1-E3 | tasa de empleo, educación baja / media / alta | -0,7 / -0,0 / 0,2 | ASOCIACIÓN |
+| P1-E4 | log salario por hora de los españoles, celdas educación × edad (Borjas) | -0,1 [-0,6, 0,4] | ASOCIACIÓN (techo) |
+| P1-E5 | salarios provinciales | — | NO ESTIMABLE (AEAT no accesible) |
+| P2-E1 | cuota en ocupaciones no manuales | 0,0 | ASOCIACIÓN |
+| P2-E2 | cuota en ocupaciones de alta cualificación | 0,5 | ASOCIACIÓN |
+| P3 | alumnos por profesor en la enseñanza pública (por pp, 17 CCAA) | -0,2 [-0,8, 0,4] | ASOCIACIÓN (techo) |
+| P3 | listas de espera quirúrgicas | — | NO ESTIMABLE (solo PDF) |
+| P4 | vivienda | — | no se duplica (Econometr-a) |
+| P5 | tasa de empleo 20-64 de los nativos, NUTS2 de la UE-27 (pp por pp) | -0,3 | ASOCIACIÓN |
+
+Lectura: las dos confirmatorias no rechazan el cero (p de Holm = 0,4), ni P1-E4, P3 ni P5 con el wild bootstrap. **La única estimación que rechaza el cero es la exploratoria P1-E3a**: la tasa de empleo de los nacidos en España con educación baja, -0,7 puntos por punto (p de AKM0 ajustado por BH = 0,0; en el ajuste dinámico de Jaeger, Ruist y Stuhler los efectos de corto y de largo plazo también son negativos). Su conjunto AKM0, sin embargo, no está acotado ni es convexo: con la primera etapa débil, los datos rechazan el cero pero no excluyen efectos grandes de signo contrario, y por la regla pre-registrada queda en ASOCIACIÓN. Es un indicio desfavorable, coherente con Carrasco, Jimeno y Ortega (2008), que se publica con el mismo peso que el resto. En general, las estimaciones puntuales no deben leerse como efectos: con una primera etapa débil al nivel del shock su signo y su tamaño no están determinados por los datos. La pretendencia (afiliación 1999-2001) no es significativa, pero el instrumento del periodo previo está casi colineal con el del primer periodo (correlación 0,97), lo que resta poder a esa prueba. El placebo de permutación y la exclusión de los tres orígenes de mayor peso (Rumanía, Venezuela y Marruecos) no cambian la conclusión. El detalle está en output/f5 (resultado.json por pregunta, multiverso y registro de especificaciones).
+
+**Revisión.** El replicador ciego y el abogado del diablo solo actúan, según el pre-registro, sobre lo que quede IDENTIFICADO o SUGESTIVO; no hay nada en esas categorías. Las desviaciones de implementación respecto al texto pre-registrado se documentan en docs/desviaciones.md; ninguna cambia la clasificación.
+
+**Literatura verificada sobre España** (no es un resultado de M1): González y Ortega (2011) y el Banco de España (2026, Informe Anual 2025) no encuentran en general efectos negativos significativos sobre el empleo de los nativos; Carrasco, Jimeno y Ortega (2008) obtienen un efecto negativo cuando solo cuentan a los inmigrantes con permiso de trabajo.
 
 ## 6. Pensiones y demografía
 
@@ -265,7 +286,7 @@ Criterio común: cuando la contabilidad apoya una parte de la afirmación pero s
 
 ## 8. Limitaciones
 
-- La fase 5 no se ejecutó (sección 5).
+- La fase 5 no identifica efectos: la primera etapa del shift-share provincial es débil al nivel del shock (sección 5).
 - La agrupación de origen está limitada por las fuentes: tres grupos en la ECV y Eurostat, y la EPA sin Magreb.
 - La ECV y la EPA públicas no traen el diseño muestral completo: los errores se agrupan por hogar (ECV), por celda (EPA) o por establecimiento (EES), y con ello los intervalos pueden ser algo estrechos.
 - Las encuestas de hogares cubren peor a los inmigrantes recién llegados y a los que están en situación irregular, y no incluyen hogares colectivos (residencias, centros de acogida). La dirección del sesgo en la contabilidad fiscal no es conocida.
@@ -288,5 +309,5 @@ Criterio común: cuando la contabilidad apoya una parte de la afirmación pero s
 - **C. Supuestos fiscales:** docstrings de src/m1/f4_fiscal.py y src/m1/f4_ciclo_vital.py, docs/supuestos/impuestos_indirectos_coicop.csv y output/f4/rejilla.csv.
 - **D. Inventario de fuentes públicas:** docs/fuentes_publicas.md, docs/fuentes/*.md y data/fuentes.csv (URL, licencia, edición, fecha y sha256).
 - **E. Bibliografía con estado de verificación:** output/f1/referencias.csv (VERIFICADA en Crossref o DataCite, o NO VERIFICADA).
-- **F. Declaración de pre-registro interno.** El plan de la fase 5 se fijó en la etiqueta git local prereg-m1, antes de construir el instrumento y de estimar cualquier efecto. No tiene sello de tiempo externo. La etiqueta no está en un remoto, por lo que la puerta permanece cerrada.
+- **F. Declaración de pre-registro interno.** El plan de la fase 5 se fijó en la etiqueta git prereg-m1 (commit c247555), antes de construir el instrumento y de estimar cualquier efecto. No tiene sello de tiempo externo. El commit está en el repositorio remoto (https://github.com/Phraselium/Contribution, rama claude/m1-contribucion-origen) antes de los commits de la fase 5; la etiqueta, que el proxy de la sesión no dejó subir, se sube desde el ordenador del autor (docs/tareas_autor.md).
 - **Tablas:** tablas_m1.xlsx (azul: dato introducido con su fuente; negro: calculado; verde: de otra pestaña).

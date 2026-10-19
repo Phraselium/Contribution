@@ -1,0 +1,2 @@
+id,valor,ic_inf,ic_sup,unidad,descripcion,capa,clasificacion,fuente,periodo,ambito,grupo_origen,nivel_ajuste,script
+F5_P1_E4_beta,-0.1,-0.562,0.361,Δ log salario por punto de cuota,P1-E4 (Borjas): asociación entre la cuota de nacidos fuera en la celda educación × edad y el salario por hora de los españoles (primeras diferencias; IC orientativo por errores agrupados en 15 celdas; p wild bootstrap = 0.61),C4,ASOCIACIÓN,EES y EPA (INE),2010-2022,España,españoles (nacionalidad),bruto,src/m1/f5_p1e4_borjas.py

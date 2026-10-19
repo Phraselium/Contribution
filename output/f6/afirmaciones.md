@@ -12,21 +12,21 @@ Se evalúan afirmaciones, no personas ni grupos. Las favorables y las desfavorab
 ## A2 · «La inmigración quita empleo a los españoles.»
 - Sentido: desfavorable.
 - Contabilidad: Entre 2014 y 2025 la ocupación media aumentó en 4,9 millones; el 55,6 % del aumento corresponde a nacidos fuera y el resto a nacidos en España, cuya ocupación también creció. La tasa de empleo 16-64 de los nacidos en España es del 68,4 % (2025).
-- Evidencia causal: La estimación propia de M1 (fase 5) no se ha ejecutado: la puerta del pre-registro interno sigue cerrada porque la etiqueta prereg-m1 no está en un repositorio remoto. Lo que sigue es la literatura verificada, no M1. En España, los trabajos con datos de provincias y celdas (González y Ortega 2011; Carrasco, Jimeno y Ortega 2008; Banco de España 2026, Informe Anual 2025) no encuentran en general efectos negativos significativos sobre el empleo de los nativos, aunque Carrasco, Jimeno y Ortega (2008) obtienen un efecto negativo (−0,17) cuando solo cuentan a los inmigrantes con permiso de trabajo, y la ficha del Banco de España no informa de inferencia adecuada para shift-share.
+- Evidencia causal: Estimación propia de M1 (fase 5, pre-registrada): con el shift-share provincial la primera etapa es débil al nivel del shock (F = 6,6, por debajo de 10) y el conjunto AKM0 no está acotado, de modo que todas las preguntas causales quedan en ASOCIACIÓN: el efecto no se puede identificar con estos datos. Para la tasa de empleo de los nacidos en España, la estimación puntual es -0,2 puntos por punto de aumento de la población nacida fuera (ASOCIACIÓN). La única estimación que rechaza el cero es la exploratoria de los nacidos en España con educación baja: -0,7 (p ajustado por BH = 0,0), con un conjunto AKM0 no acotado ni convexo, por lo que también queda en ASOCIACIÓN; es un indicio desfavorable que se publica igual que el resto. En España, los trabajos con datos de provincias y celdas (González y Ortega 2011; Carrasco, Jimeno y Ortega 2008; Banco de España 2026, Informe Anual 2025) no encuentran en general efectos negativos significativos sobre el empleo de los nativos, aunque Carrasco, Jimeno y Ortega (2008) obtienen un efecto negativo (−0,17) cuando solo cuentan a los inmigrantes con permiso de trabajo, y la ficha del Banco de España no informa de inferencia adecuada para shift-share.
 - Depende de supuestos: La contabilidad no dice qué habría pasado sin inmigración.
-- **Veredicto: no se puede saber** (confianza media). La contabilidad no muestra desplazamiento agregado y la literatura española no encuentra efectos negativos grandes, pero sin estimación propia el efecto en España no está identificado (mismo estándar que A3 y F2).
+- **Veredicto: no se puede saber** (confianza media). La contabilidad no muestra desplazamiento agregado y la literatura española no encuentra efectos negativos grandes, pero la estimación propia queda en ASOCIACIÓN y el efecto en España no está identificado (mismo estándar que A3 y F2).
 
 ## A3 · «La inmigración hunde los salarios de los españoles.»
 - Sentido: desfavorable.
 - Contabilidad: Los extranjeros cobran por hora un 18,1 % menos que los españoles (bruto, 2022); a igual edad, sexo, estudios y región la diferencia es -6,2 %. Es una brecha entre grupos, no un efecto sobre los salarios de los nativos.
-- Evidencia causal: La estimación propia de M1 (fase 5) no se ha ejecutado: la puerta del pre-registro interno sigue cerrada porque la etiqueta prereg-m1 no está en un repositorio remoto. Lo que sigue es la literatura verificada, no M1. La literatura internacional verificada da efectos medios pequeños sobre los salarios nativos (Dustmann, Schönberg y Stuhler 2016) y la española no documenta caídas generalizadas; con datos públicos no hay salarios provinciales por nacionalidad (la AEAT no fue accesible).
+- Evidencia causal: Estimación propia de M1 (fase 5, pre-registrada): con el shift-share provincial la primera etapa es débil al nivel del shock (F = 6,6, por debajo de 10) y el conjunto AKM0 no está acotado, de modo que todas las preguntas causales quedan en ASOCIACIÓN: el efecto no se puede identificar con estos datos. Para salarios, el diseño de celdas educación × edad (Borjas) da -0,1 en log por punto de cuota, sin significación (ASOCIACIÓN por diseño, sin instrumento). La literatura internacional verificada da efectos medios pequeños sobre los salarios nativos (Dustmann, Schönberg y Stuhler 2016) y la española no documenta caídas generalizadas; con datos públicos no hay salarios provinciales por nacionalidad (la AEAT no fue accesible).
 - Depende de supuestos: —
-- **Veredicto: no se puede saber** (confianza media). Con datos públicos y sin la fase 5 no se puede estimar el efecto en España; la versión fuerte («hunde») no tiene apoyo en la literatura.
+- **Veredicto: no se puede saber** (confianza media). Con datos públicos el efecto en España no queda identificado (fase 5: ASOCIACIÓN); la versión fuerte («hunde») no tiene apoyo en la literatura ni en la asociación estimada.
 
 ## A4 · «Los inmigrantes colapsan la sanidad pública.»
 - Sentido: desfavorable.
 - Contabilidad: Uso declarado por persona, nacidos fuera / nacidos en España del mismo tramo de edad (ENSE 2017; 1 = igual). 15-34 años: consultas 1,0, días de hospital 0,6, urgencias 0,9. 35-54: consultas 0,8, hospital 0,8, urgencias 1,2, fármacos 0,9. 55-74: consultas 1,0, hospital 2,6 (pocas observaciones), urgencias 1,0. Su estructura por edad es más joven: el 9,2 % tiene 65 o más años frente al 23,5 % de los nacidos en España, lo que reduce el uso por persona del grupo, pero no el uso agregado, que crece con el tamaño de la población.
-- Evidencia causal: P3 (listas de espera) no es estimable con datos públicos procesables (SISLE solo en PDF por CCAA) y la congestión local no se observa. Giuntella, Nicodemo y Vargas-Silva (2018) no encuentran más espera en el NHS inglés.
+- Evidencia causal: P3 (listas de espera) NO ESTIMABLE con datos públicos procesables (SISLE solo en PDF por CCAA) y la congestión local no se observa. Giuntella, Nicodemo y Vargas-Silva (2018) no encuentran más espera en el NHS inglés.
 - Depende de supuestos: Uso declarado en encuesta (2017); razones por tramo con muestras pequeñas en los mayores.
 - **Veredicto: no se puede saber** (confianza media). El uso por persona a igual edad no es mayor en la mayoría de los tramos y partidas, pero la afirmación es agregada y contrafactual (congestión) y no hay datos públicos procesables para medirla (mismo estándar que A6).
 
@@ -54,7 +54,7 @@ Se evalúan afirmaciones, no personas ni grupos. Las favorables y las desfavorab
 ## F2 · «Sin inmigrantes no habría crecido el empleo.»
 - Sentido: favorable.
 - Contabilidad: El 55,6 % del aumento de la ocupación de 2014-2025 y el 71,8 % del de las horas corresponden a nacidos fuera.
-- Evidencia causal: El contrafactual (qué empleo habría sin inmigración) no está identificado en M1; la contabilidad no lo dice.
+- Evidencia causal: El contrafactual (qué empleo habría sin inmigración) no está identificado: en la fase 5 la primera etapa del shift-share es débil y todas las estimaciones quedan en ASOCIACIÓN; la contabilidad no lo dice.
 - Depende de supuestos: —
 - **Veredicto: no se puede saber** (confianza media). Es cierto que la mayor parte del aumento del empleo corresponde a nacidos fuera, pero la afirmación es contrafactual («no habría crecido») y no está identificada (mismo estándar que A6).
 
@@ -82,7 +82,7 @@ Se evalúan afirmaciones, no personas ni grupos. Las favorables y las desfavorab
 ## F6 · «Los inmigrantes hacen los trabajos que los españoles no quieren.»
 - Sentido: favorable.
 - Contabilidad: Ocupados en ocupaciones elementales: 23,8 % de los nacidos fuera frente al 8,4 % de los nacidos en España (2025); titulados superiores en ocupaciones que no lo requieren: 44,6 % frente al 32,2 %.
-- Evidencia causal: La estimación propia de M1 (fase 5) no se ha ejecutado: la puerta del pre-registro interno sigue cerrada porque la etiqueta prereg-m1 no está en un repositorio remoto. Lo que sigue es la literatura verificada, no M1. Peri y Sparber (2009) y Amuedo-Dorantes y De la Rica (2011) documentan especialización de tareas entre nativos e inmigrantes.
+- Evidencia causal: Estimación propia de M1 (fase 5, pre-registrada): con el shift-share provincial la primera etapa es débil al nivel del shock (F = 6,6, por debajo de 10) y el conjunto AKM0 no está acotado, de modo que todas las preguntas causales quedan en ASOCIACIÓN: el efecto no se puede identificar con estos datos. Peri y Sparber (2009) y Amuedo-Dorantes y De la Rica (2011) documentan especialización de tareas entre nativos e inmigrantes.
 - Depende de supuestos: —
 - **Veredicto: no se puede saber** (confianza media). La especialización por ocupaciones se observa; el núcleo de la afirmación («que no quieren») es sobre preferencias, que los datos no miden.
 

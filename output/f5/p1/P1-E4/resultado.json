@@ -1,0 +1,40 @@
+{
+ "pregunta": "P1-E4: Δ log salario por hora de los asalariados españoles por punto de Δ cuota de nacidos fuera en la población activa de su celda nacional educación × edad",
+ "capa": "C4",
+ "clasificacion": "ASOCIACIÓN",
+ "datos": "EES 2010, 2014, 2018 y 2022; EPA microdatos (INE)",
+ "N": 45,
+ "metodo": "MCO en primeras diferencias con efectos de celda y de ola, ponderado; errores agrupados por celda; wild cluster bootstrap restringido (Webb)",
+ "estimacion": -0.10029466311961231,
+ "ic95": [
+  -0.5619855853959878,
+  0.36139625915676316
+ ],
+ "p_ajustado": 0.6051,
+ "diagnosticos": {
+  "principal": {
+   "b": -0.10029466311961231,
+   "se_cluster": 0.23555659299815077,
+   "p_wcb": 0.6051,
+   "G": 15,
+   "n": 45
+  },
+  "nacionalidad": {
+   "b": -0.06034622172124031,
+   "se_cluster": 0.2526856141471752,
+   "p_wcb": 0.7746,
+   "G": 15,
+   "n": 45
+  },
+  "niveles": {
+   "b": -0.023751743644566226,
+   "se_cluster": 0.23184810652736776,
+   "p_wcb": 0.9106,
+   "G": 15,
+   "n": 60
+  },
+  "celdas_suprimidas": 0
+ },
+ "notas": "Techo ASOCIACIÓN pre-registrado (A6). La EES identifica nacionalidad, no país de nacimiento. IC por errores agrupados con 15 celdas (orientativo); la inferencia es el p del wild bootstrap.",
+ "prereg": "prereg-m1 c247555"
+}

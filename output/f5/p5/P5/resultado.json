@@ -1,0 +1,90 @@
+{
+ "pregunta": "P5: Δ tasa de empleo 20-64 de los nativos 2021→2024 por punto de aumento de la población nacida fuera de 20-64 sobre la población 20-64, regiones NUTS2 de la UE-27",
+ "capa": "C4",
+ "clasificacion": "ASOCIACIÓN",
+ "datos": "Eurostat: cens_21cob_r3, migr_imm3ctb, lfst_r_lfe2emprc, lfst_r_lfsd2pwc",
+ "N": 198,
+ "metodo": "MC2E shift-share leave-one-country-out con efectos de país; wild cluster bootstrap de la forma reducida por país (Webb); AKM0 en la variante con shocks comunes",
+ "estimacion": -0.3251785742889751,
+ "ic95": [
+  -Infinity,
+  Infinity
+ ],
+ "p_ajustado": 0.3824,
+ "diagnosticos": {
+  "principal": {
+   "b": -0.3251785742889751,
+   "ee_cluster_pais": 0.3279697517801184,
+   "F_efectivo": 18.57116353316886,
+   "forma_reducida": -6.120366663450395,
+   "p_wcb_forma_reducida": 0.3824,
+   "G": 24,
+   "n": 198
+  },
+  "shocks_comunes": {
+   "b": -0.20868965133090941,
+   "ee_cluster_pais": 0.2541282571308945,
+   "F_efectivo": 90.12774711781641,
+   "forma_reducida": -4.717155073942986,
+   "p_wcb_forma_reducida": 0.4382,
+   "G": 24,
+   "n": 198,
+   "F_shock": 1.7576607017746357,
+   "se_bhj": 0.36969463526484875,
+   "akm0_p": 0.4434625167747388,
+   "akm0_inf": -Infinity,
+   "akm0_sup": Infinity,
+   "akm0_acotado": false,
+   "akm0_convexo": false
+  },
+  "sin_ucrania": {
+   "b": -0.32173543944451255,
+   "ee_cluster_pais": 0.3293146168491027,
+   "F_efectivo": 17.276409470758235,
+   "forma_reducida": -6.314771673697562,
+   "p_wcb_forma_reducida": 0.4217,
+   "G": 24,
+   "n": 198
+  },
+  "heterogeneidad": {
+   "mediterráneos": {
+    "b": -0.5007927542355128,
+    "ee_cluster_pais": 0.36226537225455396,
+    "F_efectivo": 7.365525027456007,
+    "forma_reducida": -16.516880313986317,
+    "p_wcb_forma_reducida": 0.3081,
+    "G": 5,
+    "n": 57
+   },
+   "continentales": {
+    "b": -0.16266231554764135,
+    "ee_cluster_pais": 0.6216567212844466,
+    "F_efectivo": 39.5793890226313,
+    "forma_reducida": -2.28074111640236,
+    "p_wcb_forma_reducida": 0.8045,
+    "G": 6,
+    "n": 93
+   },
+   "nórdicos": {
+    "b": -0.9044755669522058,
+    "ee_cluster_pais": 0.520634367973001,
+    "F_efectivo": 28.151953930711453,
+    "forma_reducida": -18.810735911793262,
+    "p_wcb_forma_reducida": 0.3282,
+    "G": 3,
+    "n": 17
+   },
+   "centro y este": {
+    "b": 0.02712639464884356,
+    "ee_cluster_pais": 0.4037848615959118,
+    "F_efectivo": 6.160088311353416,
+    "forma_reducida": 0.37068461027254207,
+    "p_wcb_forma_reducida": 0.9361,
+    "G": 9,
+    "n": 28
+   }
+  }
+ },
+ "notas": "Techo SUGESTIVO (A8): periodo corto y cuotas de un censo posterior a la COVID. El IC es el conjunto AKM0 de la variante con shocks comunes.",
+ "prereg": "prereg-m1 c247555"
+}
