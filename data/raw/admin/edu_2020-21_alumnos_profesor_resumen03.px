@@ -1,0 +1,37 @@
+AXIS-VERSION="2006";
+CREATION-DATE="20261019";
+CHARSET="ANSI";
+SUBJECT-AREA="ENSEÑANZAS NO UNIVERSITARIAS / ESTADÍSTICA DEL PROFESORADO Y OTRO PERSONAL / C";
+SUBJECT-CODE="RDRS";
+MATRIX="3";
+TITLE="3. Número medio de alumnos por profesor valores absolutos Centros de  EE. RG. (1) por titularidad del centro, comunidad autónoma y tipo de  centro.";
+CONTENTS="3. Número medio de alumnos";
+CODEPAGE="iso-8859-15";
+DESCRIPTION="";
+COPYRIGHT=YES;
+NOTE="1) Calculado como cociente entre las cifras totales de alumnado y de  profeso"
+"rado de las Enseñanzas de Régimen General.      # 2) En el País Vasco no se i"
+"ncluyen los datos de centros extranjeros.";
+DECIMALS=1;
+SHOWDECIMALS=1;
+STUB="Titularidad del centro","Comunidad autónoma";
+HEADING="Tipo de centro";
+VALUES("Titularidad del centro")="TODOS LOS CENTROS","CENTROS PÚBLICOS","CENTROS PRIVADOS";
+VALUES("Comunidad autónoma")="Todos","Andalucía","Aragón","Asturias, Principado de","Balears, Illes","Canarias",
+"Cantabria","Castilla y León","Castilla-La Mancha","Cataluña","Comunitat Valenciana",
+"Extremadura","Galicia","Madrid, Comunidad de","Murcia, Región de",
+"Navarra, Comunidad Foral de","País Vasco (2)","Rioja, La","Ceuta","Melilla";
+VALUES("Tipo de centro")="TOTAL","Centros E. Infantil","Centros E. Primaria","Centros E. Primaria y ESO",
+"Centros ESO y/o Bachilleratos y/o FP","Centros E. Primaria, ESO y Bach/ FP",
+"Centros específicos E. Especial";
+SOURCE=" Subdirección General de Estadística y Estudios del Ministerio de  Educación y Formación Profesional";
+UNITS="Número de alumnos";
+DATA=10.9 7.1 11.3 11.9 10.0 13.7 3.3 11.4 8.3 12.8 12.0 10.2 14.6 3.5 10.0 7.4 10.3 11.5 8.7 13.5 3.5 9.1 5.8 8.7 9.0 8.9 13.6 2.7 9.9 6.8 10.2 10.4 9.1 12.3 3.3 10.4 6.9 11.0 11.9 9.2 13.8 3.1 9.2 6.3 9.2 11.8 8.3 12.3 3.1 9.4
+ 6.7 8.9 11.2 8.1 14.0 2.8 10.2 6.4 10.0 14.1 10.0 15.4 2.6 11.9 6.2 12.9 12.7 11.4 13.5 3.9 10.9 8.8 11.4 12.5 9.7 14.1 3.4 9.0 6.5 9.2 13.3 7.8 15.2 3.1 9.7 6.4 10.5 10.1 9.2 13.2 2.5 11.7 6.8 12.2 11.2 12.3 13.0 3.4 11.2 7.6
+ 10.4 11.9 11.4 14.0 3.1 9.7 6.4 9.6 11.0 8.3 14.9 3.0 10.2 5.1 9.8 12.2 8.1 14.4 3.1 10.1 6.6 9.7 12.3 9.3 14.6 2.9 11.7 9.0 11.4 14.3 12.2 14.3 2.8 12.3 5.0 13.3 17.4 12.4 19.8 3.3 10.1 6.6 11.3 8.9 9.6 7.5 3.0 10.9 7.7 12.8
+ 8.5 9.9 "." 3.2 9.2 6.7 10.3 8.9 8.5 "." 2.9 8.2 5.7 8.7 3.9 8.6 "." 2.1 9.5 6.3 10.2 "." 8.9 "." 3.7 9.8 6.6 11.0 8.1 9.1 "." 2.5 8.6 6.3 9.2 8.0 8.2 "." 2.1 8.3 6.6 8.9 6.4 8.0 "." 2.5 9.7 6.2 9.9 5.8
+ 9.9 "." 2.6 11.3 6.1 13.0 11.1 10.4 7.6 3.2 10.2 9.6 11.4 8.9 9.4 "." 3.2 8.3 6.4 9.2 "." 7.7 "." 2.9 9.2 6.4 10.4 7.6 9.1 "." 2.5 11.3 6.5 12.2 10.5 12.1 3.6 3.3 10.6 7.6 10.4 8.4 11.2 "." 2.9 8.5 6.2 9.4 7.8 7.9
+ "." 2.4 8.3 3.6 9.7 8.0 7.5 10.4 2.6 9.1 5.8 9.6 7.6 9.3 "." 2.3 11.4 8.2 11.4 "." 12.2 "." 2.8 11.8 4.5 12.7 "." 12.4 "." 3.3 12.7 7.9 11.9 12.8 14.7 13.7 3.8 13.1 8.9 13.3 14.0 15.3 14.6 3.6 12.5 9.0 12.7 12.8 11.1 13.5
+ 4.5 12.2 7.6 13.2 10.6 13.6 13.6 3.9 10.9 7.8 9.9 10.5 13.3 12.3 3.3 12.9 7.3 10.4 13.7 13.7 13.8 4.3 11.3 6.3 8.9 12.1 10.6 12.3 4.0 12.8 7.2 11.4 12.3 10.9 14.0 3.2 13.6 7.0 15.1 14.3 14.9 15.4 2.8 13.3 6.3 11.8 13.3 20.2 13.6 4.5
+ 12.8 8.3 12.1 12.6 14.2 14.1 4.7 13.4 7.2 9.0 13.3 11.7 15.2 3.4 11.6 6.6 12.9 11.9 11.7 13.2 2.5 12.1 7.3 11.3 11.4 13.9 13.0 3.6 13.0 7.6 7.2 12.2 16.1 14.0 3.7 13.1 7.5 12.4 13.0 10.7 14.9 3.9 13.4 10.3 12.6 13.0 11.1 14.4 3.2 13.2
+ 7.8 11.4 13.8 11.7 14.6 4.6 13.0 10.7 "." 14.3 "." 14.3 "." 16.0 6.8 19.5 17.4 "." 19.8 ".";
