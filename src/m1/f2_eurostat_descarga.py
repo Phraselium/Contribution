@@ -62,8 +62,24 @@ TABLAS = {
 }
 
 
+GISCO = {
+    "NUTS_RG_20M_2021_4326.geojson": "GISCO: polígonos NUTS 2021 (1:20M) para mapas",
+    "NUTS_LB_2021_4326.geojson": "GISCO: puntos de etiqueta NUTS 2021 (coordenadas para errores de Conley)",
+}
+LIC_GISCO = ("GISCO/EuroGeographics: uso permitido citando «© EuroGeographics para los límites administrativos» "
+             "(https://ec.europa.eu/eurostat/web/gisco/geodata/administrative-units)")
+
+
 def main() -> int:
     err = 0
+    for k, d in GISCO.items():
+        url = f"https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/{k}"
+        try:
+            p = fuentes.ya_descargado(url) or fuentes.descargar(url, "gisco", k, LIC_GISCO, "NUTS 2021", d)
+            print("ok", k, p.stat().st_size, flush=True)
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
+            print("FALLA", k, e, flush=True)
+            err += 1
     for k, d in TABLAS.items():
         url = API.format(k)
         try:
