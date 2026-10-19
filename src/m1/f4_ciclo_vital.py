@@ -11,7 +11,9 @@ bienes públicos. Para una persona que llega a la edad a0 en 2024 se proyecta ca
 - pensión futura = pensión media de los nacidos en España a esa edad × (contribución relativa acumulada en la vida laboral) ×
   min(1, años cotizables / 37), con suelo de pensión no contributiva (7.250 € al año, 2024) si residió al menos 10 años;
 - crecimiento real de la productividad del 1 % anual y tasas reales de descuento del 2, 3 y 4 %;
-- bienes públicos con coste medio o con coste marginal cero.
+- bienes públicos con coste medio o con coste marginal cero;
+- gasto en especie ligado a la edad (sanidad, educación, protección social en especie, resto de servicios): perfil de los nacidos en
+  España para todos (el perfil transversal de los nacidos fuera mayores de 65 tiene pocas observaciones).
 Comparadores: un nacido en España de la misma edad a0 (vida restante) y un recién nacido en España.
 Descomposición: valor actual de los años hasta los 64 («población joven hoy») frente al de 65 y más (pensiones y sanidad futuras).
 """
@@ -40,7 +42,7 @@ def perfiles() -> dict[str, pd.DataFrame]:
     p = pd.read_csv(O / "perfil_edad_2024.csv")
     out = {}
     for g, x in p.groupby("grupo"):
-        x = x.set_index("e").sort_index()
+        x = x.set_index("e").sort_index().drop(columns=["grupo"], errors="ignore").select_dtypes("number")
         idx = pd.DataFrame(index=range(0, 101))
         idx["e"] = (idx.index.to_series().clip(upper=85) // 5) * 5
         out[g] = idx.join(x, on="e").drop(columns=["e"]).interpolate(limit_direction="both")
@@ -85,7 +87,7 @@ def vida(a0: int, g: str, P: dict, q: pd.Series, r: float, c: float, dto: float,
             else:
                 fr = (np.mean(contrib_rel_acum) if contrib_rel_acum else 0.0) * min(1.0, anos_trab / 37)
                 pens = max(sum(nat.loc[x, v] for v in PENS) * min(fr, 1.2), PNC if (65 - a0) >= 10 or y >= 10 else 0.0)
-        edad_g = sum((imm if g != "España" else nat).loc[x, v] for v in EDAD)
+        edad_g = sum(nat.loc[x, v] for v in EDAD)   # gasto en especie por edad: mismo perfil para todos (criterio OCDE)
         bp = nat.loc[x, BP] if (bienes == "medio" or g == "España") else 0.0
         neta = imp - conv - pens - edad_g - bp
         fac = sobrev * ((1 + crec) / (1 + dto)) ** y
