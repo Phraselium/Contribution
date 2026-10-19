@@ -71,10 +71,12 @@ FICHAS = [
               "generalizadas, pero eso no basta para afirmar ni descartar la versión fuerte («hunde»)."},
     {"id": "A4", "sentido": "desfavorable", "afirmacion": "Los inmigrantes colapsan la sanidad pública.",
      "contabilidad": "Uso declarado por persona, nacidos fuera / nacidos en España del mismo tramo de edad (ENSE 2017; 1 = igual). 15-34 años: consultas "
-                     "{{F6_ENSE_RAZON_CONSULTAS_15_34}}, días de hospital {{F6_ENSE_RAZON_HOSP_15_34}}, urgencias {{F6_ENSE_RAZON_URG_15_34}}. 35-54: consultas "
+                     "{{F6_ENSE_RAZON_CONSULTAS_15_34}}, días de hospital {{F6_ENSE_RAZON_HOSP_15_34}}, urgencias {{F6_ENSE_RAZON_URG_15_34}}, fármacos "
+                     "{{F6_ENSE_RAZON_FAR_15_34}}. 35-54: consultas "
                      "{{F6_ENSE_RAZON_CONSULTAS_35_54}}, hospital {{F6_ENSE_RAZON_HOSP_35_54}}, urgencias {{F6_ENSE_RAZON_URG_35_54}}, fármacos "
                      "{{F6_ENSE_RAZON_FAR_35_54}}. 55-74: consultas {{F6_ENSE_RAZON_CONSULTAS_55_74}}, hospital {{F6_ENSE_RAZON_HOSP_55_74}} (pocas observaciones), "
-                     "urgencias {{F6_ENSE_RAZON_URG_55_74}}. Su estructura por edad es más joven: el {{F3_POB_65MAS_nacidos fuera_2025}} % tiene 65 o más años "
+                     "urgencias {{F6_ENSE_RAZON_URG_55_74}}, fármacos {{F6_ENSE_RAZON_FAR_55_74}}. Su estructura por edad es más joven: el {{F3_POB_65MAS_nacidos"
+                     " fuera_2025}} % tiene 65 o más años "
                      "frente al {{F3_POB_65MAS_España_2025}} % de los nacidos en España, lo que reduce el uso por persona del grupo, pero no el uso agregado, "
                      "que crece con el tamaño de la población.",
      "causal": "P3 (listas de espera) NO ESTIMABLE con datos públicos procesables (SISLE solo en PDF por CCAA) y la congestión local no se observa. "
@@ -91,17 +93,16 @@ FICHAS = [
                      "nacidos fuera {{F4_NETA_PC_FUERA_2024}} € [{{F4_NETA_PC_FUERA_2024:inf}}, {{F4_NETA_PC_FUERA_2024:sup}}], positiva en "
                      "{{F4_NETA_PC_FUERA_POSITIVAS}} de 64 combinaciones, según el reparto de los bienes públicos y la asignación de los hijos. A igual "
                      "edad y sexo, frente a los nativos, el resto de la UE aporta menos en las edades centrales (las únicas con datos suficientes) y el "
-                     "intervalo del resto del mundo contiene el cero. En el ciclo "
-                     "vital, para quienes llegan de fuera de la UE a los 20 o a los 50 años el valor actual es negativo en todas las combinaciones sin "
-                     "convergencia adicional.",
+                     "intervalo del resto del mundo contiene el cero. En el ciclo vital, "
+                     "las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos; frente a un nativo de la misma edad, "
+                     "quienes llegan de fuera de la UE a los 20 o a los 30 años aportan menos en todas las combinaciones sin convergencia adicional.",
      "causal": "No es causal: contabilidad (capa C2).",
      "supuestos": "En el resto del mundo el signo depende del reparto de los bienes públicos (coste medio o marginal) y de a quién se asignan los hijos nacidos en "
                   "España (decisión D11: solo intervalos).",
      "veredicto": "no se puede saber", "confianza": "alta",
      "razon": "Para el conjunto de los inmigrantes el signo de la contabilidad estática depende de dos supuestos defendibles: es un coste neto con "
               "bienes públicos a coste medio e hijos asignados a sus padres, y no lo es en las demás celdas; para los nacidos en la UE es incorrecta en "
-              "las 64 combinaciones; en el ciclo vital es cierta para algunas edades de llegada de los nacidos fuera de la UE y depende de supuestos en "
-              "las demás."},
+              "las 64 combinaciones; en el ciclo vital el saldo depende de supuestos para todas las edades de llegada entre 20 y 50 años."},
     {"id": "A6", "sentido": "desfavorable", "afirmacion": "La inmigración es la causa de la subida del precio de la vivienda.",
      "contabilidad": "Entre 2015 y 2022 el aumento de la población nacida fuera implica unos {{F3_VIV_DEMANDA_FUERA_2015_2022}} mil hogares a tasa de jefatura "
                      "constante, frente a {{F3_VIV_DEMANDA_ESPANA_2015_2022}} mil de los nacidos en España (cuya población se redujo); la formación de hogares por "
@@ -114,15 +115,15 @@ FICHAS = [
               "precios es una afirmación contrafactual no identificada con datos públicos recientes (mismo estándar que F2)."},
     {"id": "F1", "sentido": "favorable", "afirmacion": "Los inmigrantes pagan nuestras pensiones.",
      "contabilidad": "En la contabilidad de 2024 los nacidos fuera aportan el {{F6_TRABAJO_CUOTA_FUERA}} % de los impuestos sobre el trabajo y las cotizaciones "
-                     "(son el {{F6_POB_CUOTA_FUERA_ECV}} % de la población de la ECV) y reciben pocas pensiones; en la regla demográfica mecánica, sin "
-                     "migración el gasto en pensiones de 2050 sería {{F4_PEN_DIF_SIN_MIGRACION_2050}} puntos de PIB mayor que en la proyección base "
-                     "(Ageing Report 2024, referencia NO VERIFICADA: {{F4_PEN_AR2024_MAS_MIGRACION_2050}} % con un tercio más de migración frente a "
-                     "{{F4_PEN_AR2024_MENOS_MIGRACION_2050}} % con un tercio menos; la regla mecánica da {{F4_PEN_MEC_DIF_LMIGR_HMIGR_2050}} puntos en la "
-                     "comparación equivalente).",
+                     "(son el {{F6_POB_CUOTA_FUERA_ECV}} % de la población de la ECV) y reciben pocas pensiones; con la regla demográfica mecánica "
+                     "aplicada a EUROPOP2023, el gasto en pensiones de 2050 de la variante sin migración es {{F4_PEN_DIF_SIN_MIGRACION_2050}} puntos de "
+                     "PIB mayor que el de la variante base, y la diferencia entre menos y más migración es de {{F4_PEN_MEC_DIF_LMIGR_HMIGR_2050}} puntos. "
+                     "En el Ageing Report 2024 (referencia NO VERIFICADA), {{F4_PEN_AR2024_MAS_MIGRACION_2050}} % con un tercio más de migración frente a "
+                     "{{F4_PEN_AR2024_MENOS_MIGRACION_2050}} % con un tercio menos.",
      "causal": "La comparación «sin migración» es una regla mecánica (empleo, cobertura y pensión relativa constantes), no un contrafactual identificado.",
      "supuestos": "Las cotizaciones de hoy generan derechos de pensión futuros: en el ciclo vital el valor actual de los nacidos fuera depende del retorno, la "
-                  "convergencia y los bienes públicos; para quienes llegan de fuera de la UE a los 20 o a los 50 años es negativo en todas las "
-                  "combinaciones sin convergencia, y en las demás edades el intervalo contiene el cero.",
+                  "convergencia y los bienes públicos: para las llegadas entre 20 y 50 años el intervalo contiene el cero, y frente a un nativo de "
+                  "la misma edad quienes llegan de fuera de la UE a los 20 o 30 años aportan menos en todas las combinaciones.",
      "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Es cierto que sus cotizaciones financian una parte de las pensiones corrientes; que sostengan el sistema es una afirmación contrafactual y de "
               "largo plazo que no está identificada (mismo estándar que A6)."},
@@ -136,23 +137,26 @@ FICHAS = [
               "está identificada (mismo estándar que A6)."},
     {"id": "F3", "sentido": "favorable", "afirmacion": "Los inmigrantes aportan más de lo que reciben.",
      "contabilidad": "Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE, intervalo que contiene el cero para los "
-                     "nacidos fuera de la UE y, para el conjunto, positiva en {{F4_NETA_PC_FUERA_POSITIVAS}} de 64; en el ciclo vital, negativa en todas las "
-                     "combinaciones sin convergencia para quienes llegan de fuera de la UE a los 20 o a los 50 años y con intervalos que contienen el cero en "
-                     "las demás edades.",
+                     "nacidos fuera de la UE y, para el conjunto, negativa solo con bienes públicos a coste medio e hijos asignados a sus padres; en el "
+                     "ciclo vital, las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos, las llegadas a los 0 años "
+                     "son negativas, y frente a un nativo de la misma edad quienes llegan de fuera de la UE a los 20 o 30 años aportan menos en todas las "
+                     "combinaciones.",
      "causal": "No es causal.", "supuestos": "Bienes públicos e hijos nacidos en España.", "veredicto": "no se puede saber", "confianza": "alta",
-     "razon": "En la contabilidad estática se sostiene para los nacidos en la UE; para el conjunto de inmigrantes depende de supuestos, y en el ciclo vital "
-              "es falsa para algunas edades de llegada de los nacidos fuera de la UE (mismo estándar que A5)."},
+     "razon": "En la contabilidad estática se sostiene para los nacidos en la UE; para el conjunto de inmigrantes y en el ciclo vital depende de "
+              "supuestos (mismo estándar que A5)."},
     {"id": "F4", "sentido": "favorable", "afirmacion": "Los inmigrantes trabajan tanto como los españoles.",
      "contabilidad": "Tasa de empleo 16-64 de 2025: nacidos fuera {{F3_EMP_TASA_FUERA_2025}} % frente a {{F3_EMP_TASA_España_2025}} %; con variación interna amplia "
                      "(África {{F3_EMP_TASA_África_2025}} %, América Latina {{F3_EMP_TASA_América Latina_2025}} %). Tasa de paro de nacidos fuera "
                      "{{F3_EMP_PARO_FUERA_2025}} % frente a {{F3_EMP_PARO_España_2025}} %. En los tres niveles, la brecha de empleo del conjunto de nacidos fuera es "
                      "{{F3_EMP_BRECHA_FUERA_bruto_2025}} pp en bruto, {{F3_EMP_BRECHA_FUERA_edad_y_sexo_2025}} pp a igual edad y sexo y "
                      "{{F3_EMP_BRECHA_FUERA_completo_2025}} pp al añadir educación, residencia y región; la de paro, {{F3_PARO_BRECHA_FUERA_bruto_2025}}, "
-                     "{{F3_PARO_BRECHA_FUERA_edad_y_sexo_2025}} y {{F3_PARO_BRECHA_FUERA_completo_2025}} pp.",
-     "causal": "No es causal.", "supuestos": "EPA; agrupación aproximada de los ocho grupos (D6).", "veredicto": "se sostiene con matices", "confianza": "media",
-     "razon": "Es cierta en bruto, que es lo que dice la afirmación: la tasa de empleo media es parecida. A igual edad y sexo los nacidos fuera trabajan menos, el "
-              "paro es mayor en los tres niveles y hay grupos con tasas de empleo muy inferiores (mismo criterio que A1: veredicto sobre la cantidad "
-              "literal, matizado por los niveles ajustados)."},
+                     "{{F3_PARO_BRECHA_FUERA_edad_y_sexo_2025}} y {{F3_PARO_BRECHA_FUERA_completo_2025}} pp. En bruto a 25-54 años, la tasa de empleo es "
+                     "{{F3_EMP_TASA_FUERA_25_54_2025}} % frente a {{F3_EMP_TASA_España_25_54_2025}} %, y a 25-64, {{F3_EMP_TASA_FUERA_25_64_2025}} % frente a "
+                     "{{F3_EMP_TASA_España_25_64_2025}} %.",
+     "causal": "No es causal.", "supuestos": "EPA; agrupación aproximada de los ocho grupos (D6).", "veredicto": "engañosa", "confianza": "media",
+     "razon": "La igualdad solo aparece en la tasa 16-64, porque entre los nativos hay más jóvenes de 16-24 años que estudian; en las edades centrales y a igual "
+              "edad y sexo los nacidos fuera trabajan menos, y el paro es mayor en los tres niveles (mismo criterio que A1: la cantidad principal "
+              "contradice la afirmación). Hay grupos con tasas de empleo iguales o mayores que las de los nativos."},
     {"id": "F5", "sentido": "favorable", "afirmacion": "A los inmigrantes se les paga menos por el mismo trabajo.",
      "contabilidad": "Brecha de salario por hora: {{F3_SAL_BRECHA_bruto_2022}} % bruta, {{F3_SAL_BRECHA_completo_2022}} % a igual edad, sexo, estudios y región y "
                      "{{F3_SAL_BRECHA_completo_inf_2022}} % si además se iguala ocupación, sector, contrato y jornada; alrededor de dos tercios es composición.",

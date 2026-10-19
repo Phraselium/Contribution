@@ -377,8 +377,8 @@ def main() -> int:
         cf.add(f"F5_{k}_NACIONALIDAD", round(nv["b"], 3), "pp por pp", f"{h}: variante con instrumento y tratamiento por nacionalidad "
                f"(F al nivel del shock = {nv['F_shock']:.1f}; IC: conjunto AKM0, acotado = {nv['akm0_acotado']})", "C4",
                "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España", clasificacion="ASOCIACIÓN",
-               ic_inf=round(nv["akm0_inf"], 3) if np.isfinite(nv["akm0_inf"]) else np.nan,
-               ic_sup=round(nv["akm0_sup"], 3) if np.isfinite(nv["akm0_sup"]) else np.nan)
+               ic_inf=round(nv["akm0_inf"], 2) if np.isfinite(nv["akm0_inf"]) else np.nan,
+               ic_sup=round(nv["akm0_sup"], 2) if np.isfinite(nv["akm0_sup"]) else np.nan)
     nv = salidas["P1-E3a"]["nacionalidad"]
     cf.add("F5_P1_E3a_NACIONALIDAD", round(nv["b"], 3), "pp por pp", "P1-E3a: variante con instrumento y tratamiento por nacionalidad "
            f"(F al nivel del shock = {nv['F_shock']:.1f}; IC: conjunto AKM0, acotado = {nv['akm0_acotado']}, convexo = {nv['akm0_convexo']})",
@@ -443,7 +443,8 @@ def main() -> int:
                "2005-2022", "50 provincias", "nacidos en España")
         cf.add(f"F5_{k}_WCBT_p", round(res[h]["p_wcb_ccaa"], 3), "p", f"{h}: p del wild bootstrap por comunidad (forma reducida)", "C4",
                "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España")
-        cf.add(f"F5_{k}_NACT", round(nv["b"], 2), "pp por pp", f"{h}: variante por nacionalidad (IC: envolvente del conjunto AKM0)", "C4",
+        cf.add(f"F5_{k}_NACT", round(nv["b"], 2), "log por pp" if hip[h].startswith("log") else "pp por pp",
+               f"{h}: variante por nacionalidad (IC: envolvente del conjunto AKM0)", "C4",
                "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España", clasificacion="ASOCIACIÓN",
                ic_inf=round(nv["akm0_inf"], 2) if np.isfinite(nv["akm0_inf"]) else np.nan,
                ic_sup=round(nv["akm0_sup"], 2) if np.isfinite(nv["akm0_sup"]) else np.nan)
@@ -451,6 +452,10 @@ def main() -> int:
                "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España")
         cf.add(f"F5_{k}_MREJ", int((x.akm0_p < 0.05).sum()), "especificaciones", f"{h}: especificaciones del multiverso que rechazan β = 0 "
                "al 5 % sin ajuste", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España")
+        cf.add(f"F5_{k}_MREJN", int(((x.akm0_p < 0.05) & (x.b < 0)).sum()), "especificaciones", f"{h}: especificaciones del multiverso que "
+               "rechazan β = 0 al 5 % sin ajuste con β negativo", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España")
+        cf.add(f"F5_{k}_MREJP", int(((x.akm0_p < 0.05) & (x.b > 0)).sum()), "especificaciones", f"{h}: especificaciones del multiverso que "
+               "rechazan β = 0 al 5 % sin ajuste con β positivo", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España")
     cf.add("F5_P1_APALANC_MAX", round(100 * res["P1-H1"]["apalancamiento_max"], 1), "% de la variación del instrumento", "Mayor cuota de una "
            f"comunidad autónoma ({res['P1-H1']['ccaa_max']}) en la variación del instrumento residualizado (condición del wild bootstrap con 17 "
            "grupos, docs/montecarlo.md)", "C4", "padrón, ECP (INE)", "2005-2022", "50 provincias", "todos")
@@ -476,7 +481,7 @@ def main() -> int:
     for h in hip:
         cf.add(f"F5_{h.replace('-', '_')}_p", round(float(p_holm.get(h, p_bh.get(h))), 3), "p ajustado",
                f"{h}: p de AKM0 frente a β = 0 ajustado ({'Holm' if h in p_holm else 'BH'}); el conjunto AKM0 puede no estar acotado aunque "
-               "el p sea pequeño (primera etapa débil al nivel del shock)", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias",
+               "el p sea pequeño", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias",
                "nacidos en España")
     cf.add("F5_P1_F_SHOCK", round(res["P1-H1"]["F_shock"], 1), "F", "F de primera etapa al nivel del shock (BHJ), especificación "
            "principal de P1 (umbral pre-registrado: 10)", "C4", "padrón, ECP (INE)", "2005-2022", "50 provincias", "todos")

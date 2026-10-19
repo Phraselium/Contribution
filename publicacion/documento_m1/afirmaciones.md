@@ -25,17 +25,17 @@ Se evalúan afirmaciones, no personas ni grupos. Las favorables y las desfavorab
 
 ## A4 · «Los inmigrantes colapsan la sanidad pública.»
 - Sentido: desfavorable.
-- Contabilidad: Uso declarado por persona, nacidos fuera / nacidos en España del mismo tramo de edad (ENSE 2017; 1 = igual). 15-34 años: consultas 1,02, días de hospital 0,60, urgencias 0,90. 35-54: consultas 0,84, hospital 0,82, urgencias 1,16, fármacos 0,89. 55-74: consultas 0,96, hospital 2,58 (pocas observaciones), urgencias 1,00. Su estructura por edad es más joven: el 9,2 % tiene 65 o más años frente al 23,5 % de los nacidos en España, lo que reduce el uso por persona del grupo, pero no el uso agregado, que crece con el tamaño de la población.
+- Contabilidad: Uso declarado por persona, nacidos fuera / nacidos en España del mismo tramo de edad (ENSE 2017; 1 = igual). 15-34 años: consultas 1,02, días de hospital 0,60, urgencias 0,90, fármacos 0,90. 35-54: consultas 0,84, hospital 0,82, urgencias 1,16, fármacos 0,89. 55-74: consultas 0,96, hospital 2,58 (pocas observaciones), urgencias 1,00, fármacos 0,85. Su estructura por edad es más joven: el 9,2 % tiene 65 o más años frente al 23,5 % de los nacidos en España, lo que reduce el uso por persona del grupo, pero no el uso agregado, que crece con el tamaño de la población.
 - Evidencia causal: P3 (listas de espera) NO ESTIMABLE con datos públicos procesables (SISLE solo en PDF por CCAA) y la congestión local no se observa. Giuntella, Nicodemo y Vargas-Silva (2018) no encuentran más espera en el NHS inglés.
 - Depende de supuestos: Uso declarado en encuesta (2017); razones por tramo con muestras pequeñas en los mayores.
 - **Veredicto: no se puede saber** (confianza media). El uso por persona a igual edad no es mayor en la mayoría de los tramos y partidas, pero la afirmación es agregada y contrafactual (congestión) y no hay datos públicos procesables para medirla (mismo estándar que A6).
 
 ## A5 · «Los inmigrantes suponen un coste fiscal neto para España.»
 - Sentido: desfavorable.
-- Contabilidad: Contribución neta estática por persona en 2024 (todas las partidas, incluido el déficit): nacidos en España -1.367 € (intervalo de supuestos [-1.953, -636]); resto de la UE [761, 5.949] €; resto del mundo [-2.087, 2.823] €; conjunto de nacidos fuera 525 € [-1.515, 3.339], positiva en 48 de 64 combinaciones, según el reparto de los bienes públicos y la asignación de los hijos. A igual edad y sexo, frente a los nativos, el resto de la UE aporta menos en las edades centrales (las únicas con datos suficientes) y el intervalo del resto del mundo contiene el cero. En el ciclo vital, para quienes llegan de fuera de la UE a los 20 o a los 50 años el valor actual es negativo en todas las combinaciones sin convergencia adicional.
+- Contabilidad: Contribución neta estática por persona en 2024 (todas las partidas, incluido el déficit): nacidos en España -1.367 € (intervalo de supuestos [-1.953, -636]); resto de la UE [761, 5.949] €; resto del mundo [-2.087, 2.823] €; conjunto de nacidos fuera 525 € [-1.515, 3.339], positiva en 48 de 64 combinaciones, según el reparto de los bienes públicos y la asignación de los hijos. A igual edad y sexo, frente a los nativos, el resto de la UE aporta menos en las edades centrales (las únicas con datos suficientes) y el intervalo del resto del mundo contiene el cero. En el ciclo vital, las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos; frente a un nativo de la misma edad, quienes llegan de fuera de la UE a los 20 o a los 30 años aportan menos en todas las combinaciones sin convergencia adicional.
 - Evidencia causal: No es causal: contabilidad (capa C2).
 - Depende de supuestos: En el resto del mundo el signo depende del reparto de los bienes públicos (coste medio o marginal) y de a quién se asignan los hijos nacidos en España (decisión D11: solo intervalos).
-- **Veredicto: no se puede saber** (confianza alta). Para el conjunto de los inmigrantes el signo de la contabilidad estática depende de dos supuestos defendibles: es un coste neto con bienes públicos a coste medio e hijos asignados a sus padres, y no lo es en las demás celdas; para los nacidos en la UE es incorrecta en las 64 combinaciones; en el ciclo vital es cierta para algunas edades de llegada de los nacidos fuera de la UE y depende de supuestos en las demás.
+- **Veredicto: no se puede saber** (confianza alta). Para el conjunto de los inmigrantes el signo de la contabilidad estática depende de dos supuestos defendibles: es un coste neto con bienes públicos a coste medio e hijos asignados a sus padres, y no lo es en las demás celdas; para los nacidos en la UE es incorrecta en las 64 combinaciones; en el ciclo vital el saldo depende de supuestos para todas las edades de llegada entre 20 y 50 años.
 
 ## A6 · «La inmigración es la causa de la subida del precio de la vivienda.»
 - Sentido: desfavorable.
@@ -46,9 +46,9 @@ Se evalúan afirmaciones, no personas ni grupos. Las favorables y las desfavorab
 
 ## F1 · «Los inmigrantes pagan nuestras pensiones.»
 - Sentido: favorable.
-- Contabilidad: En la contabilidad de 2024 los nacidos fuera aportan el 15,5 % de los impuestos sobre el trabajo y las cotizaciones (son el 18,5 % de la población de la ECV) y reciben pocas pensiones; en la regla demográfica mecánica, sin migración el gasto en pensiones de 2050 sería 4,4 puntos de PIB mayor que en la proyección base (Ageing Report 2024, referencia NO VERIFICADA: 16,1 % con un tercio más de migración frente a 18,7 % con un tercio menos; la regla mecánica da 3,1 puntos en la comparación equivalente).
+- Contabilidad: En la contabilidad de 2024 los nacidos fuera aportan el 15,5 % de los impuestos sobre el trabajo y las cotizaciones (son el 18,5 % de la población de la ECV) y reciben pocas pensiones; con la regla demográfica mecánica aplicada a EUROPOP2023, el gasto en pensiones de 2050 de la variante sin migración es 4,4 puntos de PIB mayor que el de la variante base, y la diferencia entre menos y más migración es de 3,1 puntos. En el Ageing Report 2024 (referencia NO VERIFICADA), 16,1 % con un tercio más de migración frente a 18,7 % con un tercio menos.
 - Evidencia causal: La comparación «sin migración» es una regla mecánica (empleo, cobertura y pensión relativa constantes), no un contrafactual identificado.
-- Depende de supuestos: Las cotizaciones de hoy generan derechos de pensión futuros: en el ciclo vital el valor actual de los nacidos fuera depende del retorno, la convergencia y los bienes públicos; para quienes llegan de fuera de la UE a los 20 o a los 50 años es negativo en todas las combinaciones sin convergencia, y en las demás edades el intervalo contiene el cero.
+- Depende de supuestos: Las cotizaciones de hoy generan derechos de pensión futuros: en el ciclo vital el valor actual de los nacidos fuera depende del retorno, la convergencia y los bienes públicos: para las llegadas entre 20 y 50 años el intervalo contiene el cero, y frente a un nativo de la misma edad quienes llegan de fuera de la UE a los 20 o 30 años aportan menos en todas las combinaciones.
 - **Veredicto: no se puede saber** (confianza media). Es cierto que sus cotizaciones financian una parte de las pensiones corrientes; que sostengan el sistema es una afirmación contrafactual y de largo plazo que no está identificada (mismo estándar que A6).
 
 ## F2 · «Sin inmigrantes no habría crecido el empleo.»
@@ -60,17 +60,17 @@ Se evalúan afirmaciones, no personas ni grupos. Las favorables y las desfavorab
 
 ## F3 · «Los inmigrantes aportan más de lo que reciben.»
 - Sentido: favorable.
-- Contabilidad: Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE, intervalo que contiene el cero para los nacidos fuera de la UE y, para el conjunto, positiva en 48 de 64; en el ciclo vital, negativa en todas las combinaciones sin convergencia para quienes llegan de fuera de la UE a los 20 o a los 50 años y con intervalos que contienen el cero en las demás edades.
+- Contabilidad: Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE, intervalo que contiene el cero para los nacidos fuera de la UE y, para el conjunto, negativa solo con bienes públicos a coste medio e hijos asignados a sus padres; en el ciclo vital, las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos, las llegadas a los 0 años son negativas, y frente a un nativo de la misma edad quienes llegan de fuera de la UE a los 20 o 30 años aportan menos en todas las combinaciones.
 - Evidencia causal: No es causal.
 - Depende de supuestos: Bienes públicos e hijos nacidos en España.
-- **Veredicto: no se puede saber** (confianza alta). En la contabilidad estática se sostiene para los nacidos en la UE; para el conjunto de inmigrantes depende de supuestos, y en el ciclo vital es falsa para algunas edades de llegada de los nacidos fuera de la UE (mismo estándar que A5).
+- **Veredicto: no se puede saber** (confianza alta). En la contabilidad estática se sostiene para los nacidos en la UE; para el conjunto de inmigrantes y en el ciclo vital depende de supuestos (mismo estándar que A5).
 
 ## F4 · «Los inmigrantes trabajan tanto como los españoles.»
 - Sentido: favorable.
-- Contabilidad: Tasa de empleo 16-64 de 2025: nacidos fuera 67,3 % frente a 68,4 %; con variación interna amplia (África 50,8 %, América Latina 71,7 %). Tasa de paro de nacidos fuera 14,0 % frente a 9,4 %. En los tres niveles, la brecha de empleo del conjunto de nacidos fuera es -1,2 pp en bruto, -5,3 pp a igual edad y sexo y -2,0 pp al añadir educación, residencia y región; la de paro, 4,5, 4,6 y 3,4 pp.
+- Contabilidad: Tasa de empleo 16-64 de 2025: nacidos fuera 67,3 % frente a 68,4 %; con variación interna amplia (África 50,8 %, América Latina 71,7 %). Tasa de paro de nacidos fuera 14,0 % frente a 9,4 %. En los tres niveles, la brecha de empleo del conjunto de nacidos fuera es -1,2 pp en bruto, -5,3 pp a igual edad y sexo y -2,0 pp al añadir educación, residencia y región; la de paro, 4,5, 4,6 y 3,4 pp. En bruto a 25-54 años, la tasa de empleo es 73,2 % frente a 82,3 %, y a 25-64, 71,1 % frente a 76,6 %.
 - Evidencia causal: No es causal.
 - Depende de supuestos: EPA; agrupación aproximada de los ocho grupos (D6).
-- **Veredicto: se sostiene con matices** (confianza media). Es cierta en bruto, que es lo que dice la afirmación: la tasa de empleo media es parecida. A igual edad y sexo los nacidos fuera trabajan menos, el paro es mayor en los tres niveles y hay grupos con tasas de empleo muy inferiores (mismo criterio que A1: veredicto sobre la cantidad literal, matizado por los niveles ajustados).
+- **Veredicto: engañosa** (confianza media). La igualdad solo aparece en la tasa 16-64, porque entre los nativos hay más jóvenes de 16-24 años que estudian; en las edades centrales y a igual edad y sexo los nacidos fuera trabajan menos, y el paro es mayor en los tres niveles (mismo criterio que A1: la cantidad principal contradice la afirmación). Hay grupos con tasas de empleo iguales o mayores que las de los nativos.
 
 ## F5 · «A los inmigrantes se les paga menos por el mismo trabajo.»
 - Sentido: favorable.
@@ -91,4 +91,4 @@ Se evalúan afirmaciones, no personas ni grupos. Las favorables y las desfavorab
 | sentido | engañosa | no se puede saber | se sostiene con matices |
 |---|---|---|---|
 | desfavorable | 1 | 5 | 0 |
-| favorable | 0 | 4 | 2 |
+| favorable | 1 | 4 | 1 |

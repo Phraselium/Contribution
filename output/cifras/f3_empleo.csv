@@ -29,6 +29,10 @@ F3_EMP_BRECHA_FUERA_completo_2025,-2.0,-3.3,-0.6,pp,Brecha de tasa de empleo 16-
 F3_PARO_BRECHA_FUERA_bruto_2025,4.5,3.3,5.8,pp,Brecha de tasa de paro del conjunto de nacidos fuera frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,nacidos fuera,bruto,src/m1/f3_empleo.py
 F3_PARO_BRECHA_FUERA_edad_y_sexo_2025,4.6,3.5,5.8,pp,Brecha de tasa de paro del conjunto de nacidos fuera frente a nacidos en España (edad y sexo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,nacidos fuera,edad y sexo,src/m1/f3_empleo.py
 F3_PARO_BRECHA_FUERA_completo_2025,3.4,2.5,4.3,pp,Brecha de tasa de paro del conjunto de nacidos fuera frente a nacidos en España (completo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,nacidos fuera,completo,src/m1/f3_empleo.py
+F3_EMP_TASA_España_25_54_2025,82.3,,,% de la población,Tasa de empleo 25-54 (nacidos en España),C1,,"EPA (INE, microdatos trimestrales)",2025,España,nacidos en España,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_FUERA_25_54_2025,73.2,,,% de la población,Tasa de empleo 25-54 (nacidos fuera),C1,,"EPA (INE, microdatos trimestrales)",2025,España,nacidos fuera,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_España_25_64_2025,76.6,,,% de la población,Tasa de empleo 25-64 (nacidos en España),C1,,"EPA (INE, microdatos trimestrales)",2025,España,nacidos en España,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_FUERA_25_64_2025,71.1,,,% de la población,Tasa de empleo 25-64 (nacidos fuera),C1,,"EPA (INE, microdatos trimestrales)",2025,España,nacidos fuera,bruto,src/m1/f3_empleo.py
 F3_EMP_BRECHA_América Latina_bruto_2025,3.3,1.0,5.5,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,América Latina,bruto,src/m1/f3_empleo.py
 F3_EMP_BRECHA_Asia_bruto_2025,0.0,-4.1,4.1,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,Asia,bruto,src/m1/f3_empleo.py
 F3_EMP_BRECHA_Resto_bruto_2025,-7.4,-15.6,0.8,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,Resto,bruto,src/m1/f3_empleo.py

@@ -29,6 +29,7 @@ def md_a_html(md: str) -> str:
         s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
         s = re.sub(r"\*(.+?)\*", r"<em>\1</em>", s)
         s = re.sub(r"`(.+?)`", r"<code>\1</code>", s)
+        s = re.sub(r"(?<!!)\[([^\]]+)\]\(([^)\s]+)\)", r'<a href="\2">\1</a>', s)
         return s
 
     def cerrar_tabla():
