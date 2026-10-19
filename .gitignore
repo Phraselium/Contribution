@@ -8,3 +8,4 @@ data/processed/**/grandes/
 *.part
 .DS_Store
 /tmp/
+.claude/worktrees/
