@@ -51,8 +51,11 @@ def registrar(ruta: Path, familia: str, url: str, licencia: str, edicion: str, d
     fila = dict(ruta=rel, familia=familia, url=url, licencia=licencia, edicion=edicion,
                 fecha_descarga=fecha or dt.date.today().isoformat(), sha256=sha256(ruta), bytes=size,
                 versionado="no (ignorado; checksum)" if "/grandes/" in rel else "sí", descripcion=descripcion)
-    filas = [f for f in _catalogo() if f["ruta"] != rel] + [fila]
-    _guardar_catalogo(filas)
+    import fcntl
+    with open(CATALOGO.with_suffix(".lock"), "w") as lk:   # varias descargas a la vez no pisan el catálogo
+        fcntl.flock(lk, fcntl.LOCK_EX)
+        filas = [f for f in _catalogo() if f["ruta"] != rel] + [fila]
+        _guardar_catalogo(filas)
     return fila
 
 
@@ -88,6 +91,8 @@ def descargar(url: str, familia: str, nombre: str, licencia: str, edicion: str, 
     if destino.exists():
         if sha256(destino) == sha256(tmp):
             tmp.unlink()
+            if str(destino.relative_to(RAIZ)) not in {f["ruta"] for f in _catalogo()}:
+                registrar(destino, familia, url, licencia, edicion, descripcion)
             return destino
         destino = destino.with_name(f"{destino.stem}_{dt.date.today():%Y%m%d}{destino.suffix}")
     tmp.rename(destino)

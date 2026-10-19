@@ -49,7 +49,9 @@ def ecv():
 
 def epf():
     for a in range(2016, 2026):
-        print("epf", a, _bajar(f"{BASE}/epf2006/epf_{a}.zip", "epf", f"epf_{a}.zip", str(a), f"EPF microdatos {a}"), flush=True)
+        print("epf", a, _bajar(f"{BASE}/epf2006/datos_{a}.zip", "epf", f"datos_{a}.zip", str(a), f"EPF microdatos {a}"), flush=True)
+    for d in ("dr_EPF_2024.zip", "dr_EPF_2025.zip", "Corresp_COICOP_2018_ECOICOP.xlsx"):
+        print("epf diseño", d, _bajar(f"{BASE}/epf2006/{d}", "epf", d, d[7:11], "EPF diseño de registro / correspondencias"))
     print("epf diseño", _bajar(f"{BASE}/epf2006/disreg_epf.zip", "epf", "disreg_epf.zip", "2006-", "EPF diseños de registro"))
 
 

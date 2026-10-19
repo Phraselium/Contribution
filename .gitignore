@@ -9,3 +9,4 @@ data/processed/**/grandes/
 .DS_Store
 /tmp/
 .claude/worktrees/
+data/fuentes.lock
