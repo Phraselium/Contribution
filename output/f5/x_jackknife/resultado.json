@@ -1,0 +1,45 @@
+{
+ "pregunta": "Jackknife por comunidad autónoma (exploratorio, a posteriori)",
+ "capa": "C4",
+ "clasificacion": "ASOCIACIÓN",
+ "datos": "padrón, ECP, EPA (INE)",
+ "N": 150,
+ "metodo": "especificación principal de P1 excluyendo una comunidad cada vez",
+ "estimacion": null,
+ "ic95": [
+  null,
+  null
+ ],
+ "p_ajustado": null,
+ "diagnosticos": {
+  "P1-E3a": {
+   "b_min": -1.0408402733347586,
+   "b_max": -0.18786198061105472,
+   "neg": 17,
+   "rechaza": 11,
+   "n": 17,
+   "F_min": 4.594063177181287,
+   "F_max": 15.246916587907608
+  },
+  "P1-H1": {
+   "b_min": -0.3700440790350411,
+   "b_max": 0.4867325012995522,
+   "neg": 4,
+   "rechaza": 0,
+   "n": 17,
+   "F_min": 4.594063177181287,
+   "F_max": 15.246916587907608
+  },
+  "P1-H2": {
+   "b_min": -0.971508773874004,
+   "b_max": -0.10974147806099409,
+   "neg": 17,
+   "rechaza": 0,
+   "n": 17,
+   "F_min": 4.594063177181287,
+   "F_max": 15.246916587907608
+  }
+ },
+ "notas": "No pre-registrado; no cambia ninguna clasificación (docs/desviaciones.md, 14).",
+ "prereg": "prereg-m1 c247555"
+}

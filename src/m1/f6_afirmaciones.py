@@ -19,38 +19,40 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from comun import OUT, Cifras, tabla_md  # noqa: E402
 
 O = OUT / "f6"
-CAUSAL_M1 = ("Estimación propia de M1 (fase 5, pre-registrada): con el shift-share provincial la primera etapa es débil al nivel del "
-             "shock (F = {{F5_P1_F_SHOCK}}, por debajo de 10) y el conjunto AKM0 no está acotado, de modo que todas las preguntas causales "
-             "quedan en ASOCIACIÓN: el efecto no se puede identificar con estos datos.")
+CAUSAL_M1 = ("Estimación propia de M1 (fase 5, pre-registrada; corregido un error de código en el control de cuotas que cambió los signos): "
+             "la primera etapa del shift-share provincial es fuerte al nivel del shock (F = {{F5_P1_F_SHOCK}}), pero los conjuntos AKM0 no están "
+             "acotados, de modo que todas las preguntas causales quedan en ASOCIACIÓN y ninguna rechaza el cero con la corrección por multiplicidad.")
 
 FICHAS = [
     {"id": "A1", "sentido": "desfavorable", "afirmacion": "Los inmigrantes viven de las ayudas: reciben más prestaciones que los nacidos en España.",
      "contabilidad": "Por persona, las prestaciones monetarias que reciben los nacidos fuera son menores en total: {{F6_PREST_MONETARIAS_PC_Resto_del_mundo}} € "
                      "(resto del mundo) y {{F6_PREST_MONETARIAS_PC_Resto_UE}} € (resto de la UE) frente a {{F6_PREST_MONETARIAS_PC_España}} € de los nacidos en "
-                     "España (2024), sobre todo porque reciben pocas pensiones contributivas (perciben jubilación el {{F3_PRE_jubilacion_Resto_del_mundo}} % de los "
-                     "mayores de 65 nacidos en el resto del mundo frente al {{F3_PRE_jubilacion_España}} %). En prestaciones no contributivas la relación se invierte: "
+                     "España (2024), sobre todo porque reciben pocas pensiones contributivas (perciben jubilación o viven en un hogar que la "
+                     "percibe el {{F3_PRE_jubilacion_Resto_del_mundo}} % de los mayores de 65 nacidos en el resto del mundo frente al {{F3_PRE_jubilacion_España}} %). A"
+                     " igual edad y sexo siguen recibiendo menos: "
+                     "{{F4_PREST_MONET_EST_DIF_Resto_del_mundo_2024}} € (resto del mundo) y {{F4_PREST_MONET_EST_DIF_Resto_UE_2024}} € (resto de la UE) por persona. En"
+                     " prestaciones no contributivas la relación se invierte: "
                      "viven en hogares que perciben rentas mínimas o IMV el {{F3_PRE_rentas_minimas_IMV_Resto_del_mundo}} % frente al {{F3_PRE_rentas_minimas_IMV_España}} %, "
                      "y ayudas a la vivienda el {{F3_PRE_ayuda_vivienda_Resto_del_mundo}} % frente al {{F3_PRE_ayuda_vivienda_España}} %; la diferencia en rentas mínimas "
                      "se mantiene a igual edad, sexo, educación y región ({{F3_PRE_BRECHA_perceptor_rentas_minimas_IMV_Resto_del_mundo_completo}} pp).",
      "causal": "No es una pregunta causal: es contabilidad.",
      "supuestos": "Prestaciones de la ECV calibradas a las cuentas públicas (COFOG); las del hogar se reparten por persona.",
      "veredicto": "engañosa", "confianza": "alta",
-     "razon": "En el total por persona es falsa (comparación bruta, en la que pesa la menor edad de los nacidos fuera); es cierta para las prestaciones no "
-              "contributivas, también a igualdad de características, que son el {{F6_PREST_NO_CONTRIB_CUOTA}} % de las prestaciones monetarias."},
+     "razon": "En el total por persona es falsa, en bruto y a igual edad y sexo; es cierta para las prestaciones no contributivas, también a igualdad "
+              "de características, que son el {{F6_PREST_NO_CONTRIB_CUOTA}} % de las prestaciones monetarias (2024, calibradas a COFOG). Las tasas se "
+              "refieren a personas que viven en hogares perceptores, no a hogares."},
     {"id": "A2", "sentido": "desfavorable", "afirmacion": "La inmigración quita empleo a los españoles.",
      "contabilidad": "Entre 2014 y 2025 la ocupación media aumentó en {{F3_EMP_AUMENTO_OCUPADOS_2014_2025}} millones; el {{F3_EMP_CONTRIB_FUERA_2014_2025}} % del "
                      "aumento corresponde a nacidos fuera y el resto a nacidos en España, cuya ocupación también creció. La tasa de empleo 16-64 de los nacidos en "
                      "España es del {{F3_EMP_TASA_España_2025}} % (2025).",
      "causal": CAUSAL_M1 + " Para la tasa de empleo de los nacidos en España, la estimación puntual es {{F5_P1_H1_beta}} puntos por punto de "
-               "aumento de la población nacida fuera (ASOCIACIÓN). En las 32 especificaciones del multiverso de la tasa de "
-               "empleo el signo es negativo (mediana {{F5_P1_H1_MULT_MED}}), sin que ninguna rechace el cero. La única estimación que rechaza el cero "
-               "es la exploratoria de los nacidos en España con educación baja: {{F5_P1_E3a_beta}} (p ajustado por BH = {{F5_P1_E3a_p}}), con un "
-               "conjunto AKM0 no acotado ni convexo; en la variante por nacionalidad, con primera etapa más fuerte, es {{F5_P1_E3a_NACIONALIDAD}} "
-               "con conjunto acotado [{{F5_P1_E3a_NACIONALIDAD:inf}}, {{F5_P1_E3a_NACIONALIDAD:sup}}]. Por la regla pre-registrada queda en "
-               "ASOCIACIÓN; es un indicio desfavorable que se publica igual que el resto. "
+               "aumento de la población nacida fuera (p de Holm = {{F5_P1_H1_p}}), y para la de paro {{F5_P1_H2_beta}}. El indicio más consistente es "
+               "desfavorable y exploratorio: los nacidos en España con educación baja, {{F5_P1_E3a_beta}} (p ajustado por BH = {{F5_P1_E3a_p}}; "
+               "conjunto AKM0 sin cota inferior; en la variante por nacionalidad, [{{F5_P1_E3a_NACIONALIDAD:inf}}, {{F5_P1_E3a_NACIONALIDAD:sup}}]). "
                "En España, los trabajos con datos de provincias y celdas (González y Ortega 2011; Carrasco, Jimeno y Ortega 2008; Banco de "
                "España 2026, Informe Anual 2025) no encuentran en general efectos negativos significativos sobre el empleo de los nativos, aunque Carrasco, Jimeno y "
-               "Ortega (2008) obtienen un efecto negativo (−0,17) cuando solo cuentan a los inmigrantes con permiso de trabajo, y la ficha del Banco de España no "
+               "Ortega (2008) obtienen una elasticidad negativa (−0,17; ficha en docs/literatura/trabajo.md) cuando solo cuentan a los inmigrantes con permiso de"
+               " trabajo, y la ficha del Banco de España no "
                "informa de inferencia adecuada para shift-share.",
      "supuestos": "La contabilidad no dice qué habría pasado sin inmigración.", "veredicto": "no se puede saber", "confianza": "media",
      "razon": "La contabilidad no responde a una pregunta contrafactual. La estimación propia queda en ASOCIACIÓN, con un indicio desfavorable para los "
@@ -64,7 +66,7 @@ FICHAS = [
                "La literatura internacional verificada da efectos medios pequeños sobre los salarios nativos (Dustmann, Schönberg y Stuhler 2016) y "
                "la española no documenta caídas generalizadas; con datos públicos no hay salarios provinciales por nacionalidad (la AEAT no fue accesible).",
      "supuestos": "—", "veredicto": "no se puede saber", "confianza": "media",
-     "razon": "Con datos públicos el efecto en España no queda identificado (fase 5: ASOCIACIÓN); la literatura verificada no documenta caídas "
+     "razon": "Con datos públicos el efecto en España no queda identificado (fase 5: ASOCIACIÓN, sin significación en salarios); la literatura verificada no documenta caídas "
               "generalizadas, pero eso no basta para afirmar ni descartar la versión fuerte («hunde»)."},
     {"id": "A4", "sentido": "desfavorable", "afirmacion": "Los inmigrantes colapsan la sanidad pública.",
      "contabilidad": "Uso declarado por persona, nacidos fuera / nacidos en España del mismo tramo de edad (ENSE 2017; 1 = igual). 15-34 años: consultas "
@@ -84,13 +86,18 @@ FICHAS = [
      "contabilidad": "Contribución neta estática por persona en 2024 (todas las partidas, incluido el déficit): nacidos en España {{F4_NETA_PC_RANGO_SUPUESTOS_España_2024}} € "
                      "(intervalo de supuestos [{{F4_NETA_PC_RANGO_SUPUESTOS_España_2024:inf}}, {{F4_NETA_PC_RANGO_SUPUESTOS_España_2024:sup}}]); resto de la UE "
                      "[{{F4_NETA_PC_RANGO_SUPUESTOS_Resto_UE_2024:inf}}, {{F4_NETA_PC_RANGO_SUPUESTOS_Resto_UE_2024:sup}}] €; resto del mundo "
-                     "[{{F4_NETA_PC_RANGO_SUPUESTOS_Resto_del_mundo_2024:inf}}, {{F4_NETA_PC_RANGO_SUPUESTOS_Resto_del_mundo_2024:sup}}] €.",
+                     "[{{F4_NETA_PC_RANGO_SUPUESTOS_Resto_del_mundo_2024:inf}}, {{F4_NETA_PC_RANGO_SUPUESTOS_Resto_del_mundo_2024:sup}}] €; conjunto de "
+                     "nacidos fuera {{F4_NETA_PC_FUERA_2024}} € [{{F4_NETA_PC_FUERA_2024:inf}}, {{F4_NETA_PC_FUERA_2024:sup}}], positiva en "
+                     "{{F4_NETA_PC_FUERA_POSITIVAS}} de 64 combinaciones. A igual edad y sexo, los nacidos fuera aportan menos que los nativos. En el ciclo "
+                     "vital, para quienes llegan de fuera de la UE a los 20 o a los 50 años el valor actual es negativo en todas las combinaciones sin "
+                     "convergencia adicional.",
      "causal": "No es causal: contabilidad (capa C2).",
      "supuestos": "En el resto del mundo el signo depende del reparto de los bienes públicos (coste medio o marginal) y de a quién se asignan los hijos nacidos en "
                   "España (decisión D11: solo intervalos).",
      "veredicto": "no se puede saber", "confianza": "alta",
-     "razon": "En la contabilidad estática, para los nacidos en la UE es incorrecta en las 64 combinaciones de supuestos; para los nacidos fuera de la UE el signo "
-              "depende de supuestos defendibles. En el ciclo vital los intervalos de los dos grupos contienen el cero."},
+     "razon": "Para el conjunto de los inmigrantes el signo de la contabilidad estática depende de supuestos defendibles (es un coste neto en 16 de "
+              "las 64 combinaciones); para los nacidos en la UE es incorrecta en las 64; en el ciclo vital es cierta para algunas edades de llegada de "
+              "los nacidos fuera de la UE y depende de supuestos en las demás."},
     {"id": "A6", "sentido": "desfavorable", "afirmacion": "La inmigración es la causa de la subida del precio de la vivienda.",
      "contabilidad": "Entre 2015 y 2022 el aumento de la población nacida fuera implica unos {{F3_VIV_DEMANDA_FUERA_2015_2022}} mil hogares a tasa de jefatura "
                      "constante, frente a {{F3_VIV_DEMANDA_ESPANA_2015_2022}} mil de los nacidos en España (cuya población se redujo); la formación de hogares por "
@@ -104,7 +111,7 @@ FICHAS = [
     {"id": "F1", "sentido": "favorable", "afirmacion": "Los inmigrantes pagan nuestras pensiones.",
      "contabilidad": "En la contabilidad de 2024 los nacidos fuera aportan el {{F6_TRABAJO_CUOTA_FUERA}} % de los impuestos sobre el trabajo y las cotizaciones "
                      "(son el {{F6_POB_CUOTA_FUERA_ECV}} % de la población de la ECV) y reciben pocas pensiones; en la regla demográfica mecánica, sin "
-                     "migración el gasto en pensiones de 2050 sería {{F4_PEN_EFECTO_SIN_MIGRACION_2050}} puntos de PIB mayor que en la proyección base "
+                     "migración el gasto en pensiones de 2050 sería {{F4_PEN_DIF_SIN_MIGRACION_2050}} puntos de PIB mayor que en la proyección base "
                      "(Ageing Report 2024: {{F4_PEN_AR2024_MAS_MIGRACION_2050}} % con un tercio más de migración frente a {{F4_PEN_AR2024_MENOS_MIGRACION_2050}} % "
                      "con un tercio menos).",
      "causal": "La comparación «sin migración» es una regla mecánica (empleo, cobertura y pensión relativa constantes), no un contrafactual identificado.",
@@ -122,17 +129,24 @@ FICHAS = [
      "razon": "Es cierto que la mayor parte del aumento del empleo corresponde a nacidos fuera, pero la afirmación es contrafactual («no habría crecido») y no "
               "está identificada (mismo estándar que A6)."},
     {"id": "F3", "sentido": "favorable", "afirmacion": "Los inmigrantes aportan más de lo que reciben.",
-     "contabilidad": "Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE e intervalo que contiene el cero para los "
-                     "nacidos fuera de la UE; en el ciclo vital, intervalos que contienen el cero para los dos grupos.",
+     "contabilidad": "Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE, intervalo que contiene el cero para los "
+                     "nacidos fuera de la UE y, para el conjunto, positiva en {{F4_NETA_PC_FUERA_POSITIVAS}} de 64; en el ciclo vital, negativa en todas las "
+                     "combinaciones sin convergencia para quienes llegan de fuera de la UE a los 20 o a los 50 años y con intervalos que contienen el cero en "
+                     "las demás edades.",
      "causal": "No es causal.", "supuestos": "Bienes públicos e hijos nacidos en España.", "veredicto": "no se puede saber", "confianza": "alta",
-     "razon": "En la contabilidad estática se sostiene para los nacidos en la UE; para los nacidos fuera de la UE, y en el ciclo vital para los dos "
-              "grupos, depende de supuestos (mismo estándar que A5)."},
+     "razon": "En la contabilidad estática se sostiene para los nacidos en la UE; para el conjunto de inmigrantes depende de supuestos, y en el ciclo vital "
+              "es falsa para algunas edades de llegada de los nacidos fuera de la UE (mismo estándar que A5)."},
     {"id": "F4", "sentido": "favorable", "afirmacion": "Los inmigrantes trabajan tanto como los españoles.",
      "contabilidad": "Tasa de empleo 16-64 de 2025: nacidos fuera {{F3_EMP_TASA_FUERA_2025}} % frente a {{F3_EMP_TASA_España_2025}} %; con variación interna amplia "
                      "(África {{F3_EMP_TASA_África_2025}} %, América Latina {{F3_EMP_TASA_América Latina_2025}} %). Tasa de paro de nacidos fuera "
-                     "{{F3_EMP_PARO_FUERA_2025}} % frente a {{F3_EMP_PARO_España_2025}} %.",
-     "causal": "No es causal.", "supuestos": "EPA; agrupación aproximada de los ocho grupos (D6).", "veredicto": "se sostiene con matices", "confianza": "alta",
-     "razon": "En la media de la tasa de empleo sí; el paro es mayor y hay grupos con tasas de empleo muy inferiores."},
+                     "{{F3_EMP_PARO_FUERA_2025}} % frente a {{F3_EMP_PARO_España_2025}} %. En los tres niveles, la brecha de empleo del conjunto de nacidos fuera es "
+                     "{{F3_EMP_BRECHA_FUERA_bruto_2025}} pp en bruto, {{F3_EMP_BRECHA_FUERA_edad_y_sexo_2025}} pp a igual edad y sexo y "
+                     "{{F3_EMP_BRECHA_FUERA_completo_2025}} pp al añadir educación, residencia y región; la de paro, {{F3_PARO_BRECHA_FUERA_bruto_2025}}, "
+                     "{{F3_PARO_BRECHA_FUERA_edad_y_sexo_2025}} y {{F3_PARO_BRECHA_FUERA_completo_2025}} pp.",
+     "causal": "No es causal.", "supuestos": "EPA; agrupación aproximada de los ocho grupos (D6).", "veredicto": "se sostiene con matices", "confianza": "media",
+     "razon": "Es cierta en bruto, que es lo que dice la afirmación: la tasa de empleo media es parecida. A igual edad y sexo los nacidos fuera trabajan menos, el "
+              "paro es mayor en los tres niveles y hay grupos con tasas de empleo muy inferiores (mismo criterio que A1: veredicto sobre la cantidad "
+              "literal, matizado por los niveles ajustados)."},
     {"id": "F5", "sentido": "favorable", "afirmacion": "A los inmigrantes se les paga menos por el mismo trabajo.",
      "contabilidad": "Brecha de salario por hora: {{F3_SAL_BRECHA_bruto_2022}} % bruta, {{F3_SAL_BRECHA_completo_2022}} % a igual edad, sexo, estudios y región y "
                      "{{F3_SAL_BRECHA_completo_inf_2022}} % si además se iguala ocupación, sector, contrato y jornada; alrededor de dos tercios es composición.",
@@ -158,8 +172,16 @@ def render(texto: str, cifras: pd.DataFrame) -> str:
         if pd.isna(v):
             return "n. d."
         v = float(v)
-        entero = any(k in str(unidad) for k in ("posición", "provincias", "€", "miles de hogares")) or abs(v) >= 100
-        s = f"{v:,.0f}" if entero else (f"{v:,.3f}" if "p ajustado" in str(unidad) else (f"{v:,.2f}" if "por p" in str(unidad) else f"{v:,.1f}"))
+        u = str(unidad)
+        entero = any(k in u for k in ("posición", "provincias", "€", "miles de hogares", "especificaciones", "combinaciones")) or abs(v) >= 100
+        if entero:
+            s = f"{v:,.0f}"
+        elif u in ("p", "p ajustado"):
+            s = f"{v:,.3f}"
+        elif "por p" in u or u.startswith(("razón", "elasticidad", "correlación", "t")):
+            s = f"{v:,.2f}"
+        else:
+            s = f"{v:,.1f}"
         return s.replace(",", "X").replace(".", ",").replace("X", ".")
 
     def rep(m):

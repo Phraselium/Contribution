@@ -5,21 +5,21 @@
  "datos": "padrón 1998-2022 (INE), ECP, EPA microdatos, afiliación TGSS",
  "N": 150,
  "metodo": "MC2E shift-share (Card), AKM0 agrupado por origen",
- "estimacion": -0.029310590364360012,
+ "estimacion": 0.12588914190059636,
  "ic95": [
   [
    -Infinity,
    Infinity
   ]
  ],
- "p_ajustado": 0.9954727233775228,
+ "p_ajustado": 0.9810379412572096,
  "diagnosticos": {
-  "b": -0.029310590364360012,
-  "se_cluster_prov": 0.6200939029713495,
-  "F_efectivo": 24.391455625386065,
-  "F_shock": 6.57303785142903,
-  "se_bhj": 0.9454507188956025,
-  "akm0_p": 0.7903806698972177,
+  "b": 0.12588914190059636,
+  "se_cluster_prov": 1.0081328496683926,
+  "F_efectivo": 17.89101537193269,
+  "F_shock": 13.48550799922243,
+  "se_bhj": 0.8026826420064048,
+  "akm0_p": 0.8755955964052814,
   "akm0_inf": -Infinity,
   "akm0_sup": Infinity,
   "akm0_acotado": false,
@@ -32,90 +32,184 @@
   ],
   "orig_efectivos": 356.8948008845452,
   "n": 150,
-  "forma_reducida": -0.010897421638889454,
+  "forma_reducida": 0.03747892856461743,
+  "p_wcb_ccaa": 0.9251,
+  "t": 0.1084053864970096,
+  "G": 17,
   "pretendencia": {
-   "coef_zA": -0.06109013012723662,
-   "ee": 0.3634037431843852,
-   "p": 0.8665003644318721,
+   "coef_zA": 0.14219582935067276,
+   "ee": 0.3563024008373768,
+   "p": 0.6898287427936474,
    "n": 49,
    "corr_zA_zP0": 0.9700475889640315
   },
+  "rotemberg_top": [
+   {
+    "origen_periodo": "Rumanía|A",
+    "alfa": 0.306005665999534,
+    "beta_o": 0.9850484408839824,
+    "origen": "Rumanía"
+   },
+   {
+    "origen_periodo": "Venezuela|C",
+    "alfa": 0.18817377776028116,
+    "beta_o": -3.208183585586386,
+    "origen": "Venezuela"
+   },
+   {
+    "origen_periodo": "Marruecos|A",
+    "alfa": 0.1522546819137596,
+    "beta_o": -1.863047981375836,
+    "origen": "Marruecos"
+   },
+   {
+    "origen_periodo": "Marruecos|C",
+    "alfa": 0.1494025372563799,
+    "beta_o": 0.18917335827770962,
+    "origen": "Marruecos"
+   },
+   {
+    "origen_periodo": "Reino Unido|A",
+    "alfa": -0.13415997457409237,
+    "beta_o": -0.6258343496187698,
+    "origen": "Reino Unido"
+   },
+   {
+    "origen_periodo": "Rumanía|B",
+    "alfa": 0.06297161280482332,
+    "beta_o": 0.5226936457580632,
+    "origen": "Rumanía"
+   },
+   {
+    "origen_periodo": "Portugal|A",
+    "alfa": -0.05877601474269669,
+    "beta_o": -3.7444405606994104,
+    "origen": "Portugal"
+   },
+   {
+    "origen_periodo": "Perú|C",
+    "alfa": 0.04112496526085317,
+    "beta_o": -2.301730462944931,
+    "origen": "Perú"
+   },
+   {
+    "origen_periodo": "Ecuador|B",
+    "alfa": 0.04047243692549767,
+    "beta_o": 0.18736337837086794,
+    "origen": "Ecuador"
+   },
+   {
+    "origen_periodo": "Bolivia|A",
+    "alfa": 0.03678336096034418,
+    "beta_o": 2.0241465759461517,
+    "origen": "Bolivia"
+   },
+   {
+    "origen_periodo": "Reino Unido|B",
+    "alfa": -0.030181911721104737,
+    "beta_o": 0.019926234879304214,
+    "origen": "Reino Unido"
+   },
+   {
+    "origen_periodo": "Bolivia|B",
+    "alfa": 0.0275737864521715,
+    "beta_o": -0.08784016940356235,
+    "origen": "Bolivia"
+   },
+   {
+    "origen_periodo": "Bulgaria|A",
+    "alfa": 0.02690977129690145,
+    "beta_o": 3.66110940282246,
+    "origen": "Bulgaria"
+   },
+   {
+    "origen_periodo": "Pakistán|C",
+    "alfa": 0.02515774628741209,
+    "beta_o": 0.6920793059294652,
+    "origen": "Pakistán"
+   },
+   {
+    "origen_periodo": "Venezuela|A",
+    "alfa": -0.02186810658193347,
+    "beta_o": 0.2837532940629085,
+    "origen": "Venezuela"
+   }
+  ],
   "excluidos": [
    "Rumanía",
    "Venezuela",
    "Marruecos"
   ],
   "sin_top3": {
-   "b": 0.5400981791382249,
-   "se_cluster_prov": 0.7381691420967768,
-   "F_efectivo": 11.380335891423789,
-   "F_shock": 0.21406255714586953,
-   "se_bhj": 3.0776528685412066,
-   "akm0_p": 0.07014604941197278,
+   "b": 2.754235918951178,
+   "se_cluster_prov": 2.885100163621619,
+   "F_efectivo": 2.689865735071744,
+   "F_shock": 0.9203910177902254,
+   "se_bhj": 3.6383324817871885,
+   "akm0_p": 0.11400625748154436,
    "akm0_inf": -Infinity,
    "akm0_sup": Infinity,
    "akm0_acotado": false,
-   "akm0_convexo": false,
+   "akm0_convexo": true,
    "akm0_conjunto": [
     [
      -Infinity,
-     -1.4603761854149795
-    ],
-    [
-     -0.2600915666839114,
      Infinity
     ]
    ],
    "orig_efectivos": 347.8969752672788,
    "n": 150,
-   "forma_reducida": 0.21865133720420235
+   "forma_reducida": 0.6070934350152317
   },
-  "exclusion_signo": "False",
+  "exclusion_signo": "True",
   "exclusion_solapa": true,
   "nacionalidad": {
-   "b": 0.006754296925234421,
-   "se_cluster_prov": 0.3183736518759007,
-   "F_efectivo": 29.023215129747314,
-   "F_shock": 11.05937121080266,
-   "se_bhj": 0.26740888493397214,
-   "akm0_p": 0.5740973950152264,
-   "akm0_inf": -0.47190760710622204,
-   "akm0_sup": 1.474829075213095,
+   "b": 0.19297180268388142,
+   "se_cluster_prov": 0.3211362461829792,
+   "F_efectivo": 22.27068182961164,
+   "F_shock": 18.355409752571045,
+   "se_bhj": 0.20226363643295606,
+   "akm0_p": 0.3634403740594154,
+   "akm0_inf": -0.30661936930570954,
+   "akm0_sup": 0.8887587220130606,
    "akm0_acotado": true,
    "akm0_convexo": true,
    "akm0_conjunto": [
     [
-     -0.47190760710622204,
-     1.474829075213095
+     -0.30661936930570954,
+     0.8887587220130606
     ]
    ],
    "orig_efectivos": 359.9168020025732,
    "n": 150,
-   "forma_reducida": 0.004542740084004358
+   "forma_reducida": 0.12241420740883248
   },
-  "nacionalidad_signo": "False",
+  "nacionalidad_signo": "True",
   "nacionalidad_solapa": true,
   "permutacion": {
-   "t_principal": -0.03100171143621132,
-   "p_permutacion": 0.942,
+   "t_principal": 0.15683551046515823,
+   "p_permutacion": 0.802,
+   "p_recentrado": 0.654,
+   "mediana_t": -0.1347915435773232,
    "cuantiles_t": [
-    -1.8437299356544679,
-    0.2957061253269422
-   ]
+    -1.835827049106397,
+    0.8554046252482672
+   ],
+   "fuera_95_central": false
   },
-  "F_shock_sin_top3": 0.21406255714586953,
-  "F_shock_nacionalidad": 11.05937121080266
+  "F_shock_sin_top3": 0.9203910177902254,
+  "F_shock_nacionalidad": 18.355409752571045
  },
  "notas": "pre-registro interno sin sello externo",
  "prereg": "prereg-m1 c247555",
  "dinamico": {
-  "corto": -0.2772990527055882,
-  "ee_corto": 0.779639230870848,
-  "largo": -0.08929308103517433,
-  "ee_largo": 0.6450275108829406,
+  "corto": -0.6240683338756134,
+  "ee_corto": 0.8271806710166963,
+  "largo": -0.13318433427396603,
+  "ee_largo": 0.8594396495103527,
   "F_SW": [
-   18.89274138455378,
-   62.4770016906939
+   12.222575665262301,
+   24.388846205254964
   ],
   "separable": false,
   "inferencia": "errores agrupados por provincia (convencional; no válida como inferencia del shift-share, solo descriptiva)"

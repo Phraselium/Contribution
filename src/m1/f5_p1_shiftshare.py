@@ -27,7 +27,10 @@ from comun import OUT, PROC, SEED, Cifras, Registry, bh, escribir_resultado, hol
 O = OUT / "f5"
 PERIODOS = {"P0": (1998, 2005), "A": (2005, 2009), "B": (2009, 2015), "C": (2015, 2022)}
 PRINCIPAL = dict(base=1998, solo_extranjera=True, pesos=True, controles="completo", muestra=50, diseno="apilado",
-                 suelo=False, excluir_ue14=False, tratamiento="15-64", loo=False)
+                 suelo=False, excluir_ue14=False, tratamiento="15-64", loo=False, control_cuotas="bhj")
+# control de cuotas incompletas (BHJ): suma de las exposiciones del instrumento, Σ_o s̃_lo = Σ_o cuota_lo / población 15-64 inicial,
+# por periodo. La primera versión del código usaba Σ_o cuota_lo sin dividir (error corregido en la cuarta revisión; desviación 13);
+# «original» la reproduce y «cuota_1998» usa la lectura literal del pre-registro (nacidos fuera en 1998 / población 1998).
 UE14 = ["Alemania", "Austria", "Bélgica", "Dinamarca", "Finlandia", "Francia", "Grecia", "Irlanda", "Italia", "Luxemburgo",
         "Países Bajos", "Portugal", "Suecia", "Reino Unido"]
 
@@ -114,7 +117,9 @@ def panel(spec: dict, P: pd.DataFrame, E: pd.DataFrame, Y: pd.DataFrame, ctrl, p
                 f0 = tot.loc[(a0, l)].sum() if (a0, l) in tot.index else np.nan
                 f1 = tot.loc[(a1, l)].sum() if (a1, l) in tot.index else np.nan
                 x = (f1 - f0) / E.loc[(l, a0), "Total"]
-            fila = {"prov": l, "periodo": k, "x": x, "pob0": pob0.loc[l], "suma_cuotas": cuota.loc[l].sum(),
+            suma = {"bhj": cuota.loc[l].sum() / pob0.loc[l], "original": cuota.loc[l].sum(),
+                    "cuota_1998": sh.loc[l].sum() / E.loc[(l, 2002), "Total"] if (l, 2002) in E.index else np.nan}[spec.get("control_cuotas", "bhj")]
+            fila = {"prov": l, "periodo": k, "x": x, "pob0": pob0.loc[l], "suma_cuotas": suma,
                     "paro0": paro.get((l, a0), np.nan), "construccion": ctrl[0]["construccion_2005"].get(l, np.nan),
                     "bartik": ctrl[1][k].get(l, np.nan) if k in ctrl[1] else ctrl[1].sum(1).get(l, np.nan)}
             if spec["loo"]:
@@ -171,6 +176,19 @@ def estimar(d, S, g, grupos, spec, y: str, ligero: bool = False) -> dict:
             "akm0_convexo": ak["convexo"], "akm0_conjunto": ak["conjunto"], "orig_efectivos": bh_["hhi_inv"], "n": int(m.sum()), "forma_reducida": float(rf["b"][0])}
 
 
+def wcb_ccaa(d, spec, y: str) -> dict:
+    """Wild cluster bootstrap restringido (Webb, B = 9.999) de la forma reducida agrupando por comunidad autónoma (preregistro §2 y
+    adenda A6: control de dependencia espacial; p ≤ 0,05 estricto)."""
+    from territorio import PROV
+    m = d[f"d_{y}"].notna().to_numpy()
+    dd = d[m]
+    W = W_de(dd, spec)
+    X = np.column_stack([dd.z.to_numpy(float), W])
+    cl = dd.prov.map(lambda p: PROV[p][1]).to_numpy()
+    r = econ.wcr_boot(dd[f"d_{y}"].to_numpy(float), X, 0, cl, B=9999, w=dd.pob0.to_numpy(float) if spec["pesos"] else None)
+    return {"p_wcb_ccaa": r["p"], "t": r["t"], "G": r["G"]}
+
+
 # ── pruebas ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 def rotemberg_top(d, S, g, spec, y, paises, periodos, k=5) -> pd.DataFrame:
     m = d[f"d_{y}"].notna().to_numpy()
@@ -199,8 +217,11 @@ def permutaciones(d, S, g, grupos, spec, y, n=500) -> dict:
         r = estimar(dd, S, gp, grupos, spec, y, ligero=True)
         ts.append(r["b"] / r["se_bhj"])
     ts = np.array(ts)
+    med = float(np.median(ts))
+    lo, hi = float(np.quantile(ts, 0.025)), float(np.quantile(ts, 0.975))
     return {"t_principal": float(t0), "p_permutacion": float(np.mean(np.abs(ts) >= abs(t0))),
-            "cuantiles_t": [float(np.quantile(ts, q)) for q in (0.025, 0.975)]}
+            "p_recentrado": float(np.mean(np.abs(ts - med) >= abs(t0 - med))), "mediana_t": med, "cuantiles_t": [lo, hi],
+            "fuera_95_central": bool(t0 < lo or t0 > hi)}
 
 
 def pretendencia(P, E, spec, ctrl, paro) -> dict:
@@ -237,7 +258,7 @@ def clasificar(r: dict, prueba: dict) -> str:
     ok_pre = prueba["pretendencia"]["p"] > 0.10
     ok_exc = prueba["exclusion_signo"] and prueba["exclusion_solapa"]
     ok_nac = prueba["nacionalidad_signo"] and prueba["nacionalidad_solapa"]
-    ok_perm = (r["akm0_p"] > 0.05) or (prueba["permutacion"]["p_permutacion"] <= 0.05)
+    ok_perm = (r["akm0_p"] > 0.05) or prueba["permutacion"]["fuera_95_central"]   # A6: t fuera del 95 % central
     if ok_pre and ok_exc and ok_nac and ok_perm:
         return "IDENTIFICADO (pendiente de replicador-ciego y abogado-del-diablo)"
     if prueba["pretendencia"]["p"] > 0.05 and (ok_exc or ok_nac):
@@ -266,6 +287,8 @@ def main() -> int:
         r = estimar(d, S, g, grupos, PRINCIPAL, y)
         res[h] = r
         reg.log("F5", h, "principal", json.dumps(PRINCIPAL), "50 prov × A-C", r["n"], r["b"], r["se_bhj"], r["akm0_p"])
+    for h, y in hip.items():
+        res[h].update(wcb_ccaa(d, PRINCIPAL, y))
     # pruebas para las confirmatorias
     pre = pretendencia(P, E, PRINCIPAL, ctrl, paro)
     salidas = {}
@@ -319,13 +342,15 @@ def main() -> int:
                                datos="padrón 1998-2022 (INE), ECP, EPA microdatos, afiliación TGSS", N=r["n"],
                                metodo="MC2E shift-share (Card), AKM0 agrupado por origen", estimacion=r["b"],
                                ic95=r["akm0_conjunto"], p_ajustado=p_holm.get(h, p_bh.get(h)),
-                               diagnosticos={**r, **({k: v for k, v in salidas[h].items() if k != "rotemberg_top"} if h in salidas else {})},
+                               diagnosticos={**r, **salidas[h]},
                                notas="pre-registro interno sin sello externo", prereg=f"prereg-m1 {commit}",
                                dinamico=jrs.get(h))
-            cf.add(f"F5_{h.replace('-', '_')}_beta", round(r["b"], 3), "pp por pp", f"{h}: asociación con {hip[h]} (MC2E, especificación "
+            gk = "nacidos en España con educación " + {"a": "baja", "b": "media", "c": "alta"}[h[-1]] if h.startswith("P1-E3") else "nacidos en España"
+            cf.add(f"F5_{h.replace('-', '_')}_beta", round(r["b"], 3), "log por pp" if hip[h].startswith("log") else "pp por pp",
+                   f"{h}: asociación con {hip[h]} (MC2E, especificación "
                    "principal; IC: envolvente del conjunto AKM0)",
                    "C3" if clas.startswith("IDENTIFICADO") else "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias",
-                   "nacidos en España", clasificacion="IDENTIFICADO" if clas.startswith("IDENTIFICADO") else
+                   gk, clasificacion="IDENTIFICADO" if clas.startswith("IDENTIFICADO") else
                    ("SUGESTIVO" if clas.startswith("SUGESTIVO") else "ASOCIACIÓN"),
                    ic_inf=round(r["akm0_inf"], 3) if np.isfinite(r["akm0_inf"]) else np.nan,
                    ic_sup=round(r["akm0_sup"], 3) if np.isfinite(r["akm0_sup"]) else np.nan)
@@ -352,9 +377,43 @@ def main() -> int:
            "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España con educación baja", clasificacion="ASOCIACIÓN",
            ic_inf=round(nv["akm0_inf"], 3) if np.isfinite(nv["akm0_inf"]) else np.nan,
            ic_sup=round(nv["akm0_sup"], 3) if np.isfinite(nv["akm0_sup"]) else np.nan)
-    cf.add("F5_P1_E3a_PERM_p", round(salidas["P1-E3a"]["permutacion"]["p_permutacion"], 3), "p ajustado", "P1-E3a: p del placebo de "
-           "permutación de shocks (500 permutaciones)", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias",
+    cf.add("F5_P1_E3a_PERM_p", round(salidas["P1-E3a"]["permutacion"]["p_recentrado"], 3), "p", "P1-E3a: p del placebo de "
+           "permutación de shocks (500 permutaciones), recentrado en la mediana de la distribución permutada", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias",
            "nacidos en España con educación baja")
+    for h in ("P1-H1", "P1-H2", "P1-E3a"):
+        cf.add(f"F5_{h.replace('-', '_')}_WCB_p", round(res[h]["p_wcb_ccaa"], 3), "p", f"{h}: p del wild cluster bootstrap de la forma "
+               "reducida agrupando por comunidad autónoma (Webb, 17 grupos; pre-registrado)", "C4", "padrón, ECP, EPA (INE)", "2005-2022",
+               "50 provincias", "nacidos en España")
+        pm = salidas[h]["permutacion"]
+        cf.add(f"F5_{h.replace('-', '_')}_PERM_MED", round(pm["mediana_t"], 2), "t", f"{h}: mediana del t de las 500 permutaciones de los "
+               "shocks (intervalo: 95 % central)", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España",
+               ic_inf=round(pm["cuantiles_t"][0], 2), ic_sup=round(pm["cuantiles_t"][1], 2))
+        cf.add(f"F5_{h.replace('-', '_')}_T", round(pm["t_principal"], 2), "t", f"{h}: t de la especificación principal con el error BHJ",
+               "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España")
+    cf.add("F5_P1_PRETEND_CORR", round(pre["corr_zA_zP0"], 2), "correlación", "Correlación entre el instrumento del periodo A y el del "
+           "periodo previo 1998-2005 (pretendencia)", "C4", "padrón (INE)", "1998-2009", "50 provincias", "todos")
+    cf.add("F5_P1_PRETEND_p", round(pre["p"], 3), "p", "p de la pretendencia (Δ log afiliación 1999-2001 sobre z_A, controlando z_P0)",
+           "C4", "TGSS y padrón", "1999-2001", "50 provincias", "todos")
+    for h in ("P1-H1", "P1-H2", "P1-E3a"):
+        x = mv[(mv.hipotesis == h) & mv.get("variante", pd.Series(index=mv.index, dtype=object)).isna()]
+        fu = x[x.F_shock >= 10]
+        k = h.replace("-", "_")
+        cf.add(f"F5_{k}_MULT_FUERTE_MED", round(float(fu.b.median()), 3) if len(fu) else np.nan, "pp por pp", f"{h}: mediana de β en las "
+               f"especificaciones del multiverso con F al nivel del shock ≥ 10 ({len(fu)} de {len(x)}; intervalo: mínimo y máximo)", "C4",
+               "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España", clasificacion="ASOCIACIÓN",
+               ic_inf=round(float(fu.b.min()), 3) if len(fu) else np.nan, ic_sup=round(float(fu.b.max()), 3) if len(fu) else np.nan)
+        cf.add(f"F5_{k}_MULT_FUERTE_N", int(len(fu)), "especificaciones", f"{h}: especificaciones del multiverso con F al nivel del shock ≥ 10",
+               "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España")
+        if h == "P1-E3a":
+            cf.add("F5_P1_E3a_MULT_MED", round(float(x.b.median()), 3), "pp por pp", f"P1-E3a: mediana de β en el multiverso ({len(x)} "
+                   "especificaciones; intervalo: mínimo y máximo)", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias",
+                   "nacidos en España con educación baja", clasificacion="ASOCIACIÓN", ic_inf=round(float(x.b.min()), 3),
+                   ic_sup=round(float(x.b.max()), 3))
+            cf.add("F5_P1_E3a_MULT_NEG", int((x.b < 0).sum()), "especificaciones", "P1-E3a: especificaciones del multiverso con β negativo",
+                   "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España con educación baja")
+            cf.add("F5_P1_E3a_MULT_RECHAZA", int((x.akm0_p < 0.05).sum()), "especificaciones", "P1-E3a: especificaciones del multiverso cuyo "
+                   "AKM0 rechaza β = 0 al 5 % sin ajuste", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias",
+                   "nacidos en España con educación baja")
     cf.add("F5_P1_F_NACIONALIDAD", round(salidas["P1-H1"]["F_shock_nacionalidad"], 1), "F", "F de primera etapa al nivel del shock en la "
            "variante por nacionalidad", "C4", "padrón (INE)", "2005-2022", "50 provincias", "todos")
     cf.add("F5_P1_F_SIN_TOP3", round(salidas["P1-H1"]["F_shock_sin_top3"], 2), "F", "F de primera etapa al nivel del shock al excluir "

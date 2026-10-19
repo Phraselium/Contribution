@@ -90,7 +90,7 @@ def perfil_sanitario() -> pd.DataFrame:
         fila = {"amplio": amp}
         for v in ("consultas", "hosp", "urg", "far"):
             gg = g.dropna(subset=[v])
-            if (~gg.nacido_fuera).sum() == 0 or gg.nacido_fuera.sum() < 30:
+            if (~gg.nacido_fuera).sum() == 0 or gg.nacido_fuera.sum() < 50:   # umbral de supresión de M1
                 fila[f"razon_{v}"] = 1.0
                 continue
             a = np.average(gg.loc[gg.nacido_fuera, v], weights=gg.loc[gg.nacido_fuera, "factor"]) if gg.nacido_fuera.any() else np.nan
@@ -161,7 +161,9 @@ def contribuciones(d: pd.DataFrame, ctas: dict, perf: pd.DataFrame, rat: pd.Data
     out["ing_irpf_cotiz_trab"] = cal(d.HY140G * cuota, t["D51A_C1"] + t["D613"])
     out["ing_cotiz_empresa"] = cal(d.PY030G, t["D611"])
     eq = d.HY020 / d.uc
-    q = pd.qcut(eq.rank(method="first"), 5, labels=False) + 1
+    orden = eq.sort_values(kind="mergesort").index                       # quintiles ponderados por el factor de la ECV
+    acum = d.w.loc[orden].cumsum() / d.w.sum()
+    q = pd.Series(np.minimum((acum * 5).apply(np.ceil).clip(lower=1), 5).astype(int), index=orden).reindex(d.index)
     if s["indirectos"] == "epf":
         m = rat.set_index(["origen_sp", "q"])
         k = pd.MultiIndex.from_arrays([d.origen_hogar, q])
@@ -235,7 +237,35 @@ def contribuciones(d: pd.DataFrame, ctas: dict, perf: pd.DataFrame, rat: pd.Data
     if s["educ_hijos"] == "padres":
         out.loc[d.grupo_padres.notna(), "grupo"] = d.grupo_padres[d.grupo_padres.notna()]
     out["nacionalidad3"], out["edad"], out["w"], out["hid"], out["DB040"] = d.nacionalidad3, d.edad, d.w, d.hid, d.DB040
+    out["sexo_"] = d.sexo
     return out
+
+
+MONET = ["gas_desempleo", "gas_vejez", "gas_supervivencia", "gas_enfermedad_incapacidad", "gas_familia", "gas_exclusion_social",
+         "gas_vivienda"]
+
+
+def estandarizar(c: pd.DataFrame) -> pd.DataFrame:
+    """Nivel «edad y sexo» de la regla de tres niveles: media de cada grupo con la estructura por edad (tramos de 5 años) y sexo de
+    los nacidos en España; solo celdas con ≥ 50 observaciones del grupo; los pesos nativos se renormalizan sobre las celdas
+    cubiertas (cobertura = peso nativo cubierto)."""
+    x = c.assign(e5=(c.edad.clip(upper=85) // 5) * 5, monet=c[MONET].sum(axis=1))
+    m = x.groupby(["grupo", "e5", "sexo_"]).apply(lambda g: pd.Series({"neta": np.average(g.neta, weights=g.w),
+                                                                       "monet": np.average(g.monet, weights=g.w), "n": len(g)}),
+                                                  include_groups=False)
+    wn = x[x.grupo == "España"].groupby(["e5", "sexo_"]).w.sum()
+    wn = wn / wn.sum()
+    filas = []
+    mn = m.loc["España"]
+    for g in m.index.get_level_values(0).unique():
+        mg = m.loc[g]
+        mg = mg[mg.n >= 50]
+        ww = wn.reindex(mg.index).fillna(0)
+        nn = mn.reindex(mg.index)          # nativos en las mismas celdas: la comparación solo vale sobre la cobertura común
+        filas.append({"grupo": g, "neta_est": float((mg.neta * ww).sum() / ww.sum()), "monet_est": float((mg.monet * ww).sum() / ww.sum()),
+                      "cobertura": float(ww.sum()), "nat_neta_mismas": float((nn.neta * ww).sum() / ww.sum()),
+                      "nat_monet_mismas": float((nn.monet * ww).sum() / ww.sum())})
+    return pd.DataFrame(filas).set_index("grupo")
 
 
 def resumen(c: pd.DataFrame, pib: float, por="grupo") -> pd.DataFrame:
@@ -268,10 +298,14 @@ def main() -> int:
             for comb in itertools.product([True, False], ["edad_sexo", "observado"], ["medio", "marginal"], ["hijo", "padres"],
                                           ["epf", "uniforme"], ["rentas", "persona"]):
                 s = dict(zip(["calibrar", "sanidad", "bienes", "educ_hijos", "indirectos", "capital"], comb))
-                rr = resumen(contribuciones(d, ctas, perf, rat, s), ctas["pib"])
+                cc = contribuciones(d, ctas, perf, rat, s)
+                rr = resumen(cc, ctas["pib"])
+                est = estandarizar(cc)
                 for _, x in rr.iterrows():
                     rej.append({**s, "grupo": x.grupo, "neta_pc": x.neta, "neta_total_pct_pib": x.neta_total_pct_pib,
-                                "poblacion": x.poblacion})
+                                "poblacion": x.poblacion, "neta_pc_est": est.loc[x.grupo, "neta_est"],
+                                "monet_est": est.loc[x.grupo, "monet_est"], "cobertura_est": est.loc[x.grupo, "cobertura"],
+                                "nat_neta_mismas": est.loc[x.grupo, "nat_neta_mismas"], "nat_monet_mismas": est.loc[x.grupo, "nat_monet_mismas"]})
     todos = pd.concat(res_anios)
     todos.to_csv(O / "neta_por_grupo_anios.csv", index=False)
     rej = pd.DataFrame(rej)
@@ -334,6 +368,46 @@ def main() -> int:
            "Cambio en la contribución neta por persona de los nacidos en España al pasar los bienes públicos puros de coste medio a "
            "coste marginal cero para los nacidos fuera (media de las combinaciones)", "C2", "ECV y cuentas de las AAPP", "2024",
            "España", "España")
+    # nacidos fuera en conjunto (la cantidad de las afirmaciones A5 y F3) y nivel «edad y sexo»
+    fu = rej[rej.grupo != "España"].groupby(sup_cols).apply(lambda x: pd.Series({
+        "neta_pc": np.average(x.neta_pc, weights=x.poblacion), "dif": np.average(x.dif_nativos, weights=x.poblacion)}), include_groups=False)
+    es_p = np.logical_and.reduce([fu.index.get_level_values(k) == v for k, v in PRINCIPAL.items()])
+    pf = fu[es_p].iloc[0]
+    cf.add("F4_NETA_PC_FUERA_2024", round(pf.neta_pc, 0), "€ por persona y año", "Contribución neta estática por persona del conjunto de "
+           f"nacidos fuera (principal e intervalo de las 64 combinaciones; positiva en {int((fu.neta_pc > 0).sum())} de 64)", "C2",
+           "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", "nacidos fuera", ic_inf=round(fu.neta_pc.min(), 0),
+           ic_sup=round(fu.neta_pc.max(), 0))
+    cf.add("F4_NETA_PC_FUERA_POSITIVAS", int((fu.neta_pc > 0).sum()), "combinaciones", "Combinaciones de supuestos (de 64) con contribución "
+           "neta positiva del conjunto de nacidos fuera", "C2", "ECV y cuentas de las AAPP", "2024", "España", "nacidos fuera")
+    cf.add("F4_NETA_DIF_NAT_FUERA_2024", round(pf.dif, 0), "€ por persona y año", "Contribución neta por persona del conjunto de nacidos "
+           f"fuera menos la de los nacidos en España (positiva en {int((fu.dif > 0).sum())} de 64)", "C2",
+           "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", "nacidos fuera", ic_inf=round(fu.dif.min(), 0), ic_sup=round(fu.dif.max(), 0))
+    for g in GR:
+        x = rej[rej.grupo == g].set_index(sup_cols)
+        pe = x[np.logical_and.reduce([x.index.get_level_values(k) == v for k, v in PRINCIPAL.items()])].iloc[0]
+        if g == "España":
+            continue
+        cf.add(f"F4_NETA_EST_PC_{g.replace(' ', '_')}_2024", round(pe.neta_pc_est, 0), "€ por persona y año", f"Contribución neta por "
+               f"persona de los nacidos en {g} con la estructura por edad y sexo de los nacidos en España (nivel «edad y sexo»; cobertura "
+               f"de celdas con ≥ 50 observaciones = {100 * pe.cobertura_est:.0f} % del peso nativo; intervalo: 64 combinaciones)", "C4",
+               "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", g, nivel_ajuste="edad y sexo",
+               ic_inf=round(x.neta_pc_est.min(), 0), ic_sup=round(x.neta_pc_est.max(), 0))
+        if g != "España":
+            dif = x.neta_pc_est - x.nat_neta_mismas
+            cob = f"{100 * pe.cobertura_est:.0f} % del peso nativo"
+            cf.add(f"F4_NETA_EST_DIF_NAT_{g.replace(' ', '_')}_2024", round(float(pe.neta_pc_est - pe.nat_neta_mismas), 0),
+                   "€ por persona y año", f"Diferencia con los nacidos en España a igual edad y sexo, nacidos en {g}, sobre las celdas de edad "
+                   f"y sexo con ≥ 50 observaciones del grupo ({cob}); positiva en {int((dif > 0).sum())} de 64 combinaciones", "C4",
+                   "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", g, nivel_ajuste="edad y sexo", ic_inf=round(dif.min(), 0),
+                   ic_sup=round(dif.max(), 0))
+            cf.add(f"F4_NETA_EST_DIF_NAT_POSITIVAS_{g.replace(' ', '_')}", int((dif > 0).sum()), "combinaciones", "Combinaciones (de 64) "
+                   f"con diferencia positiva frente a los nacidos en España a igual edad y sexo, nacidos en {g}", "C4", "ECV y cuentas de las AAPP",
+                   "2024", "España", g, nivel_ajuste="edad y sexo")
+            cf.add(f"F4_PREST_MONET_EST_DIF_{g.replace(' ', '_')}_2024", round(float(pe.monet_est - pe.nat_monet_mismas), 0),
+                   "€ por persona y año", f"Prestaciones monetarias por persona de los nacidos en {g} menos las de los nacidos en España a igual "
+                   f"edad y sexo, sobre las celdas comunes ({cob})", "C4", "ECV y COFOG", "2024", "España", g, nivel_ajuste="edad y sexo")
+            cf.add(f"F4_COBERTURA_EST_{g.replace(' ', '_')}", round(100 * pe.cobertura_est, 0), "% del peso nativo", "Cobertura de las celdas de "
+                   f"edad y sexo con ≥ 50 observaciones de los nacidos en {g}", "C4", "ECV (INE)", "2024", "España", g)
     sg = pd.DataFrame(signos)
     sg.to_csv(O / "signo_por_supuestos.csv", index=False)
     sensibilidad(rej).to_csv(O / "sensibilidad_supuestos.csv", index=False)

@@ -59,7 +59,7 @@ def main() -> int:
             cf.add(f"F4_PEN_GASTO_MECANICO_{v}_{a}", round(es.loc[(v, a), "gasto_pensiones_pib_mecanico"], 1), "% del PIB",
                    f"Gasto en pensiones / PIB con la regla mecánica demográfica (variante {v}; empleo, cobertura y pensión relativa "
                    "constantes)", "C2", "Eurostat proj_23np y gov_10a_exp", str(a), "España", "todos")
-    cf.add("F4_PEN_EFECTO_SIN_MIGRACION_2050", round(es.loc[("NMIGR", 2050), "gasto_pensiones_pib_mecanico"] -
+    cf.add("F4_PEN_DIF_SIN_MIGRACION_2050", round(es.loc[("NMIGR", 2050), "gasto_pensiones_pib_mecanico"] -
                                                      es.loc[("BSL", 2050), "gasto_pensiones_pib_mecanico"], 1), "pp del PIB",
            "Diferencia de gasto en pensiones / PIB entre la variante sin migración y la base en 2050 (regla mecánica)", "C2",
            "Eurostat proj_23np", "2050", "España", "todos")
@@ -69,6 +69,9 @@ def main() -> int:
            "C2", "Comisión Europea, Ageing Report 2024", "2050", "España", "todos")
     cf.add("F4_PEN_AR2024_MENOS_MIGRACION_2050", 18.7, "% del PIB", "Ageing Report 2024: escenario con 33 % menos de migración (publicado)",
            "C2", "Comisión Europea, Ageing Report 2024", "2050", "España", "todos")
+    cf.add("F4_PEN_AR2024_DIF_MIGRACION_2050", round(18.7 - 16.1, 1), "pp del PIB", "Ageing Report 2024: diferencia de gasto en "
+           "pensiones en 2050 entre el escenario con un tercio menos y con un tercio más de migración (publicado)", "C2",
+           "Comisión Europea, Ageing Report 2024", "2050", "España", "todos")
     cf.escribir()
     print(d[(d.geo == "ES") & d.TIME_PERIOD.isin([2025, 2050, 2070])][["projection", "TIME_PERIOD", "tasa_dependencia",
                                                                           "gasto_pensiones_pib_mecanico"]].round(3).to_string())

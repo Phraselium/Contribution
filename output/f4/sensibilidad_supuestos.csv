@@ -1,19 +1,19 @@
 supuesto,de,a,grupo,efecto_medio_eur_pc
-calibrar,True,False,España,237.17980568614166
-calibrar,True,False,Resto UE,264.2402801516696
-calibrar,True,False,Resto del mundo,232.88695096899067
-sanidad,edad_sexo,observado,España,15.602342557007887
-sanidad,edad_sexo,observado,Resto UE,-152.22516760357394
-sanidad,edad_sexo,observado,Resto del mundo,-39.23541458395641
+calibrar,True,False,España,237.1798056861419
+calibrar,True,False,Resto UE,264.2402801516705
+calibrar,True,False,Resto del mundo,232.88695096899073
+sanidad,edad_sexo,observado,España,15.588274063962672
+sanidad,edad_sexo,observado,Resto UE,-152.1598509600958
+sanidad,edad_sexo,observado,Resto del mundo,-39.223922786295816
 bienes,medio,marginal,España,-497.7326566005711
-bienes,medio,marginal,Resto UE,1946.0778825266407
-bienes,medio,marginal,Resto del mundo,1947.2612655848407
-educ_hijos,hijo,padres,España,441.57540602616837
-educ_hijos,hijo,padres,Resto UE,-2471.532864594499
-educ_hijos,hijo,padres,Resto del mundo,-2057.0421116236653
-indirectos,epf,uniforme,España,-26.33695339325959
-indirectos,epf,uniforme,Resto UE,36.0139898920861
-indirectos,epf,uniforme,Resto del mundo,118.43593571105367
-capital,rentas,persona,España,-97.23904916988658
-capital,rentas,persona,Resto UE,-285.05665666486084
-capital,rentas,persona,Resto del mundo,516.2662445905239
+bienes,medio,marginal,Resto UE,1946.0778825266416
+bienes,medio,marginal,Resto del mundo,1947.2612655848409
+educ_hijos,hijo,padres,España,442.8869282562032
+educ_hijos,hijo,padres,Resto UE,-2473.611709020967
+educ_hijos,hijo,padres,Resto del mundo,-2061.98018439269
+indirectos,epf,uniforme,España,-27.60617297989802
+indirectos,epf,uniforme,Resto UE,70.95848964423521
+indirectos,epf,uniforme,Resto del mundo,116.1013024393472
+capital,rentas,persona,España,-97.23904916988636
+capital,rentas,persona,Resto UE,-285.0566566648604
+capital,rentas,persona,Resto del mundo,516.266244590524

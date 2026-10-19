@@ -169,11 +169,17 @@ def main() -> int:
     princ = v[(v.descuento == 0.03) & (v.bienes == "medio") & ((v.retorno == "decreciente") | nat) & (v.convergencia == 0.0)]
     princ.to_csv(O / "ciclo_vital_principal.csv", index=False)
     txt = (f"principal: descuento 3 %, sin convergencia adicional, salida con riesgo decreciente calibrado a {100 * r_obs:.1f} % anual, "
-           "pensiones devengadas exportables, bienes públicos a coste medio; intervalo: las 72 combinaciones de supuestos")
+           "pensiones devengadas exportables, bienes públicos a coste medio; intervalo: las 24 combinaciones sin convergencia adicional, "
+           "porque el perfil transversal ya la contiene)")
     for g in ("Resto UE", "Resto del mundo"):
-        for a0 in (0, 20, 30, 40):
-            x = v[(v.grupo == g) & (v.edad_llegada == a0)]
+        for a0 in (0, 20, 30, 40, 50):
+            xc = v[(v.grupo == g) & (v.edad_llegada == a0)]
+            x = xc[xc.convergencia == 0]
             p = princ[(princ.grupo == g) & (princ.edad_llegada == a0)].iloc[0]
+            cf.add(f"F4_VA_CONVERG_{g.replace(' ', '_')}_LLEGADA_{a0}", round(xc[xc.convergencia > 0].va_total.median() / 1e3, 0),
+                   "miles de € (VA)", f"Sensibilidad: combinaciones con convergencia de 0,5 o 1 (cuentan dos veces la convergencia), llegada a "
+                   f"los {a0}: mediana e intervalo", "C2", "Perfiles M1", "2024", "España", g,
+                   ic_inf=round(xc[xc.convergencia > 0].va_total.min() / 1e3, 0), ic_sup=round(xc[xc.convergencia > 0].va_total.max() / 1e3, 0))
             cf.add(f"F4_VA_{g.replace(' ', '_')}_LLEGADA_{a0}", round(p.va_total / 1e3, 0), "miles de € (VA en 2024)",
                    f"Valor actual de la contribución neta de por vida de una persona nacida en {g} que llega a los {a0} años ({txt})",
                    "C2", "Perfiles M1 (ECV, EPF, ENSE, cuentas AAPP) y Eurostat", "2024", "España", g,
@@ -186,6 +192,8 @@ def main() -> int:
             cf.add(f"F4_VA_65MAS_{g.replace(' ', '_')}_LLEGADA_{a0}", round(p.va_65_mas / 1e3, 0), "miles de € (VA)",
                    f"Parte del valor actual de 65 y más años (pensiones y sanidad futuras, también las exportadas), llegada a los {a0}",
                    "C2", "Perfiles M1", "2024", "España", g)
+            if a0 == 50:
+                continue
             nat_a = princ[nat & (princ.edad_llegada == a0)].iloc[0]
             dif = x.merge(v[nat & (v.edad_llegada == a0)][["descuento", "bienes", "va_total"]], on=["descuento", "bienes"],
                           suffixes=("", "_nat"))
@@ -218,14 +226,18 @@ def main() -> int:
     s = []
     for g in ("Resto UE", "Resto del mundo"):
         for a0 in (0, 20, 30, 40, 50):
-            x = v[(v.grupo == g) & (v.edad_llegada == a0)]
-            for sup in ("retorno", "convergencia", "descuento", "bienes"):
+            xc = v[(v.grupo == g) & (v.edad_llegada == a0)]
+            x = xc[xc.convergencia == 0]
+            for sup in ("retorno", "descuento", "bienes"):
                 m = x.groupby(sup).va_total.mean()
                 s.append({"grupo": g, "edad_llegada": a0, "supuesto": sup, **{f"va_medio_{k}": val for k, val in m.items()},
                           "signo_cambia_con_supuesto": bool((m > 0).any() and (m < 0).any())})
             s.append({"grupo": g, "edad_llegada": a0, "supuesto": "todos", "min": x.va_total.min(), "max": x.va_total.max(),
                       "cuota_positivas": float((x.va_total > 0).mean()),
                       "signo_cambia_con_supuesto": bool(x.va_total.min() < 0 < x.va_total.max())})
+            s.append({"grupo": g, "edad_llegada": a0, "supuesto": "todos, con convergencia (sensibilidad)", "min": xc.va_total.min(),
+                      "max": xc.va_total.max(), "cuota_positivas": float((xc.va_total > 0).mean()),
+                      "signo_cambia_con_supuesto": bool(xc.va_total.min() < 0 < xc.va_total.max())})
     pd.DataFrame(s).to_csv(O / "ciclo_vital_signos.csv", index=False)
     sensibilidad_principal(cf, P, q, r_obs, h0)
     cf.escribir()
@@ -262,7 +274,7 @@ def sensibilidad_principal(cf, P, q, r_obs, h0) -> None:
         for a0 in (0, 30):
             cf.add(f"F4_VA_EQUILIBRADO_{g.replace(' ', '_')}_{a0}", round(k[(g, a0, "presupuesto equilibrado")] / 1e3, 0),
                    "miles de € (VA)", f"Valor actual del escenario principal con presupuesto equilibrado (se suma cada año el saldo medio "
-                   f"por persona de 2024, {-saldo:,.0f} €), {g}, {'nacimiento' if a0 == 0 else f'llegada o edad {a0}'}",
+                   f"por persona de 2024, {f'{-saldo:,.0f}'.replace(',', '.')} €), {g}, {'nacimiento' if a0 == 0 else f'llegada o edad {a0}'}",
                    "C2", "Perfiles M1", "2024", "España", g)
     for g in ("Resto UE", "Resto del mundo"):
         v = k.xs((g, 30), level=("grupo", "edad_llegada"))

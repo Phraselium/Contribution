@@ -4,8 +4,8 @@ ECV 2021-2025 (renta del año anterior): perceptores y cuantías medias de desem
 (PY110G), incapacidad (PY130G), rentas mínimas e IMV («exclusión social», HY060G, del hogar), ayudas a la vivienda (HY070G, del
 hogar) y prestaciones familiares (HY050G, del hogar). Las del hogar se atribuyen a todos sus miembros (la persona «vive en un
 hogar que percibe»). Tres niveles (bruto; edad y sexo; además educación y región). Errores agrupados por hogar (la ECV pública
-no trae estratos ni UPM). Los registros administrativos por nacionalidad (SEPE, IMV, pensiones), si están en data/raw/admin,
-se comparan en output/f3/prestaciones_admin.csv.
+no trae estratos ni UPM). El contraste con los registros administrativos por nacionalidad (SEPE, IMV, pensiones) no está
+hecho (mejora futura, docs/mejoras_futuras.md).
 """
 from __future__ import annotations
 
