@@ -267,6 +267,8 @@ def sensibilidad_principal(cf, P, q, r_obs, h0) -> None:
                               "va_total": vida(a0, g, P, q, **b, anos_min=0)["va_total"]})
                 filas.append({"grupo": g, "edad_llegada": a0, "variante": "sin suelo de pensión no contributiva",
                               "va_total": vida(a0, g, P, q, **b, suelo=False)["va_total"]})
+                filas.append({"grupo": g, "edad_llegada": a0, "variante": "mitad de salidas y sin mínimo de 15 años",
+                              "va_total": vida(a0, g, P, q, **dict(b, modo="decreciente_mitad"), anos_min=0)["va_total"]})
     s = pd.DataFrame(filas)
     s.to_csv(O / "ciclo_vital_sensibilidad.csv", index=False)
     k = s.set_index(["grupo", "edad_llegada", "variante"]).va_total
@@ -284,6 +286,9 @@ def sensibilidad_principal(cf, P, q, r_obs, h0) -> None:
         cf.add(f"F4_VA_SIN_MIN15_{g.replace(' ', '_')}_30", round(v["pensión contributiva sin mínimo de 15 años"] / 1e3, 0),
                "miles de € (VA)", f"Principal sin el mínimo de 15 años cotizados para la pensión contributiva, {g}, llegada a los 30",
                "C2", "Perfiles M1", "2024", "España", g)
+        cf.add(f"F4_VA_CONJUNTA_{g.replace(' ', '_')}_30", round(v["mitad de salidas y sin mínimo de 15 años"] / 1e3, 0), "miles de € (VA)",
+               f"Principal con la mitad del riesgo de salida y sin el mínimo de 15 años cotizados a la vez, {g}, llegada a los 30", "C2",
+               "Perfiles M1", "2024", "España", g)
         cf.add(f"F4_VA_SIN_SUELO_{g.replace(' ', '_')}_30", round(v["sin suelo de pensión no contributiva"] / 1e3, 0),
                "miles de € (VA)", f"Principal sin el suelo de pensión no contributiva, {g}, llegada a los 30", "C2", "Perfiles M1", "2024",
                "España", g)

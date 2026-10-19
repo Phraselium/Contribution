@@ -53,6 +53,14 @@ def main() -> int:
                ic_inf=round(float(r.b_min), 2), ic_sup=round(float(r.b_max), 2))
         cf.add(f"F5X_JK_{k}_RECHAZA", int(r.rechaza), "especificaciones", f"{h}: exclusiones en las que AKM0 rechaza β = 0 al 5 % sin ajuste "
                f"(de {int(r.n)}; exploratorio, a posteriori)", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España")
+    NOM = {"01": "Andalucía", "02": "Aragón", "03": "Asturias", "04": "Illes Balears", "05": "Canarias", "06": "Cantabria",
+           "07": "Castilla y León", "08": "Castilla-La Mancha", "09": "Cataluña", "10": "Comunitat Valenciana", "11": "Extremadura",
+           "12": "Galicia", "13": "Madrid", "14": "Murcia", "15": "Navarra", "16": "País Vasco", "17": "La Rioja"}
+    e = jk[jk.hipotesis == "P1-E3a"].set_index("ccaa_excluida")
+    k = e.b.idxmax()
+    cf.add("F5X_JK_E3a_MAX", round(float(e.loc[k, "b"]), 2), "pp por pp", f"P1-E3a al excluir la comunidad cuya exclusión más lo acerca a "
+           f"cero: {NOM.get(k, k)} (p AKM0 sin ajustar = {e.loc[k, 'akm0_p']:.2f}; exploratorio, a posteriori)", "C4", "padrón, ECP, EPA (INE)",
+           "2005-2022", "provincias", "nacidos en España con educación baja", clasificacion="ASOCIACIÓN")
     cf.escribir()
     print(resumen.round(3).to_string())
     return 0

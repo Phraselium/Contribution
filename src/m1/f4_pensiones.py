@@ -69,6 +69,10 @@ def main() -> int:
            "C2", "Comisión Europea, Ageing Report 2024", "2050", "España", "todos")
     cf.add("F4_PEN_AR2024_MENOS_MIGRACION_2050", 18.7, "% del PIB", "Ageing Report 2024: escenario con 33 % menos de migración (publicado)",
            "C2", "Comisión Europea, Ageing Report 2024", "2050", "España", "todos")
+    cf.add("F4_PEN_MEC_DIF_LMIGR_HMIGR_2050", round(es.loc[("LMIGR", 2050), "gasto_pensiones_pib_mecanico"] -
+                                                       es.loc[("HMIGR", 2050), "gasto_pensiones_pib_mecanico"], 1), "pp del PIB",
+           "Diferencia de gasto en pensiones / PIB en 2050 entre las variantes con menos y con más migración (regla mecánica; comparable "
+           "con la del Ageing Report)", "C2", "Eurostat proj_23np", "2050", "España", "todos")
     cf.add("F4_PEN_AR2024_DIF_MIGRACION_2050", round(18.7 - 16.1, 1), "pp del PIB", "Ageing Report 2024: diferencia de gasto en "
            "pensiones en 2050 entre el escenario con un tercio menos y con un tercio más de migración (publicado)", "C2",
            "Comisión Europea, Ageing Report 2024", "2050", "España", "todos")

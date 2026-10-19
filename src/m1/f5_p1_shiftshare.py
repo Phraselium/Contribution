@@ -30,7 +30,9 @@ PRINCIPAL = dict(base=1998, solo_extranjera=True, pesos=True, controles="complet
                  suelo=False, excluir_ue14=False, tratamiento="15-64", loo=False, control_cuotas="bhj")
 # control de cuotas incompletas (BHJ): suma de las exposiciones del instrumento, Σ_o s̃_lo = Σ_o cuota_lo / población 15-64 inicial,
 # por periodo. La primera versión del código usaba Σ_o cuota_lo sin dividir (error corregido en la cuarta revisión; desviación 13);
-# «original» la reproduce y «cuota_1998» usa la lectura literal del pre-registro (nacidos fuera en 1998 / población 1998).
+# «original» la reproduce y «cuota_1998» usa la lectura literal del texto original del pre-registro, que equivale a expresar los
+# shocks como tasas de crecimiento (nacidos fuera con nacionalidad extranjera en 1998 / población 15-64 de 2002, primer año de la ECP).
+# La adenda A1 define s̃ = cuota / población inicial con shocks en niveles, que es la variante «bhj» (principal).
 UE14 = ["Alemania", "Austria", "Bélgica", "Dinamarca", "Finlandia", "Francia", "Grecia", "Irlanda", "Italia", "Luxemburgo",
         "Países Bajos", "Portugal", "Suecia", "Reino Unido"]
 
@@ -185,8 +187,14 @@ def wcb_ccaa(d, spec, y: str) -> dict:
     W = W_de(dd, spec)
     X = np.column_stack([dd.z.to_numpy(float), W])
     cl = dd.prov.map(lambda p: PROV[p][1]).to_numpy()
-    r = econ.wcr_boot(dd[f"d_{y}"].to_numpy(float), X, 0, cl, B=9999, w=dd.pob0.to_numpy(float) if spec["pesos"] else None)
-    return {"p_wcb_ccaa": r["p"], "t": r["t"], "G": r["G"]}
+    w = dd.pob0.to_numpy(float) if spec["pesos"] else None
+    r = econ.wcr_boot(dd[f"d_{y}"].to_numpy(float), X, 0, cl, B=9999, w=w)
+    # apalancamiento por cluster (docs/montecarlo.md: condición de wcr_boot con G = 17): cuota de Σ w·z̃² de cada comunidad
+    wv = np.ones(len(dd)) if w is None else w
+    zr = econ._resid(dd.z.to_numpy(float), W, wv)
+    lev = pd.Series(wv * zr ** 2).groupby(cl).sum()
+    return {"p_wcb_ccaa": r["p"], "t": r["t"], "G": r["G"], "apalancamiento_max": float(lev.max() / lev.sum()),
+            "ccaa_max": str(lev.idxmax())}
 
 
 # ── pruebas ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -322,7 +330,7 @@ def main() -> int:
             mult.append({**s, "hipotesis": h, **r})
             reg.log("F5", h, "multiverso", json.dumps(s), "", r["n"], r["b"], r["se_bhj"], r["akm0_p"])
     for extra in ({"solo_extranjera": False}, {"suelo": True}, {"excluir_ue14": True}, {"tratamiento": "todas"},
-                  {"controles": "basico"}, {"loo": True}):
+                  {"controles": "basico"}, {"loo": True}, {"control_cuotas": "original"}, {"control_cuotas": "cuota_1998"}):
         s = dict(PRINCIPAL, **extra)
         dm, Sm, gm, grm, _, _ = panel(s, P, E, Y, ctrl, paro)
         for h in hip:
@@ -414,6 +422,46 @@ def main() -> int:
             cf.add("F5_P1_E3a_MULT_RECHAZA", int((x.akm0_p < 0.05).sum()), "especificaciones", "P1-E3a: especificaciones del multiverso cuyo "
                    "AKM0 rechaza β = 0 al 5 % sin ajuste", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias",
                    "nacidos en España con educación baja")
+    # las tres lecturas del control de cuotas incompletas, con el mismo rango (desviación 13)
+    for v in ("original", "cuota_1998"):
+        x = mv[mv.get("variante", pd.Series(index=mv.index, dtype=object)) == json.dumps({"control_cuotas": v})]
+        for h in ("P1-H1", "P1-H2", "P1-E3a"):
+            r = x[x.hipotesis == h].iloc[0]
+            cf.add(f"F5_{h.replace('-', '_')}_CTRL_{v.upper()}", round(float(r.b), 3), "pp por pp", f"{h} con el control de cuotas «{v}» "
+                   f"(F al nivel del shock = {r.F_shock:.1f}; p AKM0 sin ajustar = {r.akm0_p:.3f})", "C4", "padrón, ECP, EPA (INE)", "2005-2022",
+                   "50 provincias", "nacidos en España", clasificacion="ASOCIACIÓN")
+            cf.add(f"F5_{h.replace('-', '_')}_CTRL_{v.upper()}_p", round(float(r.akm0_p), 3), "p", f"{h}, control «{v}»: p AKM0 sin ajustar",
+                   "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España")
+        cf.add(f"F5_P1_F_CTRL_{v.upper()}", round(float(x[x.hipotesis == "P1-H1"].iloc[0].F_shock), 1), "F", f"F al nivel del shock con el "
+               f"control «{v}»", "C4", "padrón, ECP (INE)", "2005-2022", "50 provincias", "todos")
+    # tabla de señales por hipótesis, con el mismo formato para lo favorable y lo desfavorable
+    for h in hip:
+        k = h.replace("-", "_")
+        pm, nv = salidas[h]["permutacion"], salidas[h]["nacionalidad"]
+        x = mv[(mv.hipotesis == h) & mv.get("variante", pd.Series(index=mv.index, dtype=object)).isna()]
+        cf.add(f"F5_{k}_PERMR_p", round(pm["p_recentrado"], 3), "p", f"{h}: p de permutación recentrado", "C4", "padrón, ECP, EPA (INE)",
+               "2005-2022", "50 provincias", "nacidos en España")
+        cf.add(f"F5_{k}_WCBT_p", round(res[h]["p_wcb_ccaa"], 3), "p", f"{h}: p del wild bootstrap por comunidad (forma reducida)", "C4",
+               "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España")
+        cf.add(f"F5_{k}_NACT", round(nv["b"], 2), "pp por pp", f"{h}: variante por nacionalidad (IC: envolvente del conjunto AKM0)", "C4",
+               "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España", clasificacion="ASOCIACIÓN",
+               ic_inf=round(nv["akm0_inf"], 2) if np.isfinite(nv["akm0_inf"]) else np.nan,
+               ic_sup=round(nv["akm0_sup"], 2) if np.isfinite(nv["akm0_sup"]) else np.nan)
+        cf.add(f"F5_{k}_MNEG", int((x.b < 0).sum()), "especificaciones", f"{h}: especificaciones del multiverso (de {len(x)}) con β negativo",
+               "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España")
+        cf.add(f"F5_{k}_MREJ", int((x.akm0_p < 0.05).sum()), "especificaciones", f"{h}: especificaciones del multiverso que rechazan β = 0 "
+               "al 5 % sin ajuste", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España")
+    cf.add("F5_P1_APALANC_MAX", round(100 * res["P1-H1"]["apalancamiento_max"], 1), "% de la variación del instrumento", "Mayor cuota de una "
+           f"comunidad autónoma ({res['P1-H1']['ccaa_max']}) en la variación del instrumento residualizado (condición del wild bootstrap con 17 "
+           "grupos, docs/montecarlo.md)", "C4", "padrón, ECP (INE)", "2005-2022", "50 provincias", "todos")
+    rot = pd.DataFrame(salidas["P1-H1"]["rotemberg_top"])
+    alfa_all = pd.Series({r["origen_periodo"]: r["alfa"] for r in salidas["P1-H1"]["rotemberg_top"]})
+    for i, r in rot.head(5).reset_index(drop=True).iterrows():
+        cf.add(f"F5_P1_ROT_{i + 1}", round(float(r.alfa), 3), "peso de Rotemberg", f"Peso de Rotemberg n.º {i + 1}: {r.origen_periodo} "
+               f"(β del origen = {r.beta_o:.2f}), P1-H1", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "todos")
+    cf.add("F5_P1_ROT_NEG", round(100 * float(-alfa_all[alfa_all < 0].sum() / alfa_all.abs().sum()), 1), "% del peso absoluto",
+           "Peso de Rotemberg negativo entre los 15 mayores pesos absolutos, P1-H1", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias",
+           "todos")
     cf.add("F5_P1_F_NACIONALIDAD", round(salidas["P1-H1"]["F_shock_nacionalidad"], 1), "F", "F de primera etapa al nivel del shock en la "
            "variante por nacionalidad", "C4", "padrón (INE)", "2005-2022", "50 provincias", "todos")
     cf.add("F5_P1_F_SIN_TOP3", round(salidas["P1-H1"]["F_shock_sin_top3"], 2), "F", "F de primera etapa al nivel del shock al excluir "

@@ -107,7 +107,11 @@ def ratios_epf() -> pd.DataFrame:
     e = pd.read_csv(PROC / "epf_hogares.csv.gz")
     e = e[(e.ingreso_anual_neto > 0) & e.origen_sp.notna() & e.anio.isin([2022, 2023])]
     e["eq"] = e.ingreso_anual_neto / e.UC2.where(e.UC2 > 0, 1)
-    e["q"] = e.groupby("anio").eq.transform(lambda s: pd.qcut(s.rank(method="first"), 5, labels=False)) + 1
+    def q_pond(x):   # quintiles ponderados por el factor de la EPF
+        o = x["eq"].sort_values(kind="mergesort").index
+        acum = x.FACTOR.loc[o].cumsum() / x.FACTOR.sum()
+        return pd.Series(np.minimum(np.ceil(acum * 5).clip(lower=1), 5).astype(int), index=o).reindex(x.index)
+    e["q"] = pd.concat([q_pond(x) for _, x in e.groupby("anio")])
     r = e.groupby(["origen_sp", "q"]).apply(lambda g: pd.Series({
         "iva_renta": np.average(g.iva, weights=g.FACTOR) / np.average(g.ingreso_anual_neto, weights=g.FACTOR),
         "esp_renta": np.average(g.base_especiales, weights=g.FACTOR) / np.average(g.ingreso_anual_neto, weights=g.FACTOR),
@@ -249,7 +253,7 @@ def estandarizar(c: pd.DataFrame) -> pd.DataFrame:
     """Nivel «edad y sexo» de la regla de tres niveles: media de cada grupo con la estructura por edad (tramos de 5 años) y sexo de
     los nacidos en España; solo celdas con ≥ 50 observaciones del grupo; los pesos nativos se renormalizan sobre las celdas
     cubiertas (cobertura = peso nativo cubierto)."""
-    x = c.assign(e5=(c.edad.clip(upper=85) // 5) * 5, monet=c[MONET].sum(axis=1))
+    x = c[c.w > 0].assign(e5=lambda d: (d.edad.clip(upper=85) // 5) * 5, monet=lambda d: d[MONET].sum(axis=1))
     m = x.groupby(["grupo", "e5", "sexo_"]).apply(lambda g: pd.Series({"neta": np.average(g.neta, weights=g.w),
                                                                        "monet": np.average(g.monet, weights=g.w), "n": len(g)}),
                                                   include_groups=False)
@@ -377,6 +381,17 @@ def main() -> int:
            f"nacidos fuera (principal e intervalo de las 64 combinaciones; positiva en {int((fu.neta_pc > 0).sum())} de 64)", "C2",
            "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", "nacidos fuera", ic_inf=round(fu.neta_pc.min(), 0),
            ic_sup=round(fu.neta_pc.max(), 0))
+    tab = fu.groupby(level=["bienes", "educ_hijos"]).neta_pc.agg(["min", "max"])
+    for (bi, eh), r in tab.iterrows():
+        cf.add(f"F4_NETA_FUERA_{bi.upper()}_{eh.upper()}", round(float(r["max"]), 0), "€ por persona y año", "Contribución neta del conjunto de "
+               f"nacidos fuera con bienes públicos a coste {bi} e hijos nacidos en España asignados {'al hijo' if eh == 'hijo' else 'a los padres'}: "
+               "máximo (valor) e intervalo de las 16 combinaciones de los demás supuestos", "C2", "ECV, EPF, ENSE y cuentas de las AAPP", "2024",
+               "España", "nacidos fuera", ic_inf=round(float(r["min"]), 0), ic_sup=round(float(r["max"]), 0))
+    ecp = pd.read_csv(OUT / "f3" / "poblacion_ecp_nacional.csv").set_index("anio").Extranjero
+    pob_fuera_ecv = float(r25.loc[[g for g in GR if g != "España"], "poblacion"].sum())
+    cf.add("F4_ECV_DEFICIT_ECP_FUERA", round((ecp[2025] - pob_fuera_ecv) / 1e6, 2), "millones de personas", "Nacidos fuera en la ECP a 1-1-2025 "
+           "menos los ponderados por la ECV 2025 (hogares privados): población no cubierta por la contabilidad fiscal", "C1", "ECP y ECV (INE)",
+           "2025", "España", "nacidos fuera")
     cf.add("F4_NETA_PC_FUERA_POSITIVAS", int((fu.neta_pc > 0).sum()), "combinaciones", "Combinaciones de supuestos (de 64) con contribución "
            "neta positiva del conjunto de nacidos fuera", "C2", "ECV y cuentas de las AAPP", "2024", "España", "nacidos fuera")
     cf.add("F4_NETA_DIF_NAT_FUERA_2024", round(pf.dif, 0), "€ por persona y año", "Contribución neta por persona del conjunto de nacidos "
@@ -408,6 +423,21 @@ def main() -> int:
                    f"edad y sexo, sobre las celdas comunes ({cob})", "C4", "ECV y COFOG", "2024", "España", g, nivel_ajuste="edad y sexo")
             cf.add(f"F4_COBERTURA_EST_{g.replace(' ', '_')}", round(100 * pe.cobertura_est, 0), "% del peso nativo", "Cobertura de las celdas de "
                    f"edad y sexo con ≥ 50 observaciones de los nacidos en {g}", "C4", "ECV (INE)", "2024", "España", g)
+    # error de muestreo de la diferencia estandarizada (bootstrap por hogares del principal, 100 réplicas)
+    bsd = []
+    rng2 = np.random.default_rng(SEED + 1)
+    for _ in range(100):
+        hh = rng2.choice(hogares, len(hogares), replace=True)
+        cnt = pd.Series(hh).value_counts()
+        es = estandarizar(principal.assign(w=principal.w * principal.hid.map(cnt).fillna(0)))
+        bsd.append((es.neta_est - es.nat_neta_mismas).drop("España"))
+    bsd = pd.DataFrame(bsd)
+    for g in ("Resto UE", "Resto del mundo"):
+        lo, hi = np.percentile(bsd[g], [2.5, 97.5])
+        cf.add(f"F4_NETA_EST_DIF_NAT_MUESTREO_{g.replace(' ', '_')}", round(float(bsd[g].median()), 0), "€ por persona y año",
+               f"Diferencia con los nativos a igual edad y sexo, nacidos en {g}, escenario principal: mediana e IC 95 % por muestreo (bootstrap "
+               "por hogares, 100 réplicas, sin recalibrar)", "C4", "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", g,
+               nivel_ajuste="edad y sexo", ic_inf=round(float(lo), 0), ic_sup=round(float(hi), 0))
     sg = pd.DataFrame(signos)
     sg.to_csv(O / "signo_por_supuestos.csv", index=False)
     sensibilidad(rej).to_csv(O / "sensibilidad_supuestos.csv", index=False)

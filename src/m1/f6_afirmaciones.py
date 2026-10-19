@@ -29,7 +29,8 @@ FICHAS = [
                      "(resto del mundo) y {{F6_PREST_MONETARIAS_PC_Resto_UE}} € (resto de la UE) frente a {{F6_PREST_MONETARIAS_PC_España}} € de los nacidos en "
                      "España (2024), sobre todo porque reciben pocas pensiones contributivas (perciben jubilación o viven en un hogar que la "
                      "percibe el {{F3_PRE_jubilacion_Resto_del_mundo}} % de los mayores de 65 nacidos en el resto del mundo frente al {{F3_PRE_jubilacion_España}} %). A"
-                     " igual edad y sexo siguen recibiendo menos: "
+                     " igual edad y sexo, sobre las celdas con datos suficientes ({{F4_COBERTURA_EST_Resto_del_mundo}} % del peso nativo para el resto del "
+                     "mundo y {{F4_COBERTURA_EST_Resto_UE}} %, edades centrales, para el resto de la UE), siguen recibiendo menos: "
                      "{{F4_PREST_MONET_EST_DIF_Resto_del_mundo_2024}} € (resto del mundo) y {{F4_PREST_MONET_EST_DIF_Resto_UE_2024}} € (resto de la UE) por persona. En"
                      " prestaciones no contributivas la relación se invierte: "
                      "viven en hogares que perciben rentas mínimas o IMV el {{F3_PRE_rentas_minimas_IMV_Resto_del_mundo}} % frente al {{F3_PRE_rentas_minimas_IMV_España}} %, "
@@ -37,7 +38,7 @@ FICHAS = [
                      "se mantiene a igual edad, sexo, educación y región ({{F3_PRE_BRECHA_perceptor_rentas_minimas_IMV_Resto_del_mundo_completo}} pp).",
      "causal": "No es una pregunta causal: es contabilidad.",
      "supuestos": "Prestaciones de la ECV calibradas a las cuentas públicas (COFOG); las del hogar se reparten por persona.",
-     "veredicto": "engañosa", "confianza": "alta",
+     "veredicto": "engañosa", "confianza": "media",
      "razon": "En el total por persona es falsa, en bruto y a igual edad y sexo; es cierta para las prestaciones no contributivas, también a igualdad "
               "de características, que son el {{F6_PREST_NO_CONTRIB_CUOTA}} % de las prestaciones monetarias (2024, calibradas a COFOG). Las tasas se "
               "refieren a personas que viven en hogares perceptores, no a hogares."},
@@ -60,7 +61,7 @@ FICHAS = [
               "(mismo estándar que A3 y F2)."},
     {"id": "A3", "sentido": "desfavorable", "afirmacion": "La inmigración hunde los salarios de los españoles.",
      "contabilidad": "Los extranjeros cobran por hora un {{F3_SAL_BRECHA_bruto_2022:abs}} % menos que los españoles (bruto, 2022); a igual edad, sexo, estudios y "
-                     "región la diferencia es {{F3_SAL_BRECHA_completo_2022}} %. Es una brecha entre grupos, no un efecto sobre los salarios de los nativos.",
+                     "región la diferencia es un {{F3_SAL_BRECHA_completo_2022:abs}} % menos. Es una brecha entre grupos, no un efecto sobre los salarios de los nativos.",
      "causal": CAUSAL_M1 + " Para salarios, el diseño de celdas educación × edad (Borjas) da {{F5_P1_E4_beta}} en log por punto de cuota, "
                "sin significación (ASOCIACIÓN por diseño, sin instrumento). "
                "La literatura internacional verificada da efectos medios pequeños sobre los salarios nativos (Dustmann, Schönberg y Stuhler 2016) y "
@@ -88,7 +89,9 @@ FICHAS = [
                      "[{{F4_NETA_PC_RANGO_SUPUESTOS_Resto_UE_2024:inf}}, {{F4_NETA_PC_RANGO_SUPUESTOS_Resto_UE_2024:sup}}] €; resto del mundo "
                      "[{{F4_NETA_PC_RANGO_SUPUESTOS_Resto_del_mundo_2024:inf}}, {{F4_NETA_PC_RANGO_SUPUESTOS_Resto_del_mundo_2024:sup}}] €; conjunto de "
                      "nacidos fuera {{F4_NETA_PC_FUERA_2024}} € [{{F4_NETA_PC_FUERA_2024:inf}}, {{F4_NETA_PC_FUERA_2024:sup}}], positiva en "
-                     "{{F4_NETA_PC_FUERA_POSITIVAS}} de 64 combinaciones. A igual edad y sexo, los nacidos fuera aportan menos que los nativos. En el ciclo "
+                     "{{F4_NETA_PC_FUERA_POSITIVAS}} de 64 combinaciones, según el reparto de los bienes públicos y la asignación de los hijos. A igual "
+                     "edad y sexo, frente a los nativos, el resto de la UE aporta menos en las edades centrales (las únicas con datos suficientes) y el "
+                     "intervalo del resto del mundo contiene el cero. En el ciclo "
                      "vital, para quienes llegan de fuera de la UE a los 20 o a los 50 años el valor actual es negativo en todas las combinaciones sin "
                      "convergencia adicional.",
      "causal": "No es causal: contabilidad (capa C2).",
@@ -112,11 +115,13 @@ FICHAS = [
      "contabilidad": "En la contabilidad de 2024 los nacidos fuera aportan el {{F6_TRABAJO_CUOTA_FUERA}} % de los impuestos sobre el trabajo y las cotizaciones "
                      "(son el {{F6_POB_CUOTA_FUERA_ECV}} % de la población de la ECV) y reciben pocas pensiones; en la regla demográfica mecánica, sin "
                      "migración el gasto en pensiones de 2050 sería {{F4_PEN_DIF_SIN_MIGRACION_2050}} puntos de PIB mayor que en la proyección base "
-                     "(Ageing Report 2024: {{F4_PEN_AR2024_MAS_MIGRACION_2050}} % con un tercio más de migración frente a {{F4_PEN_AR2024_MENOS_MIGRACION_2050}} % "
-                     "con un tercio menos).",
+                     "(Ageing Report 2024, referencia NO VERIFICADA: {{F4_PEN_AR2024_MAS_MIGRACION_2050}} % con un tercio más de migración frente a "
+                     "{{F4_PEN_AR2024_MENOS_MIGRACION_2050}} % con un tercio menos; la regla mecánica da {{F4_PEN_MEC_DIF_LMIGR_HMIGR_2050}} puntos en la "
+                     "comparación equivalente).",
      "causal": "La comparación «sin migración» es una regla mecánica (empleo, cobertura y pensión relativa constantes), no un contrafactual identificado.",
      "supuestos": "Las cotizaciones de hoy generan derechos de pensión futuros: en el ciclo vital el valor actual de los nacidos fuera depende del retorno, la "
-                  "convergencia y los bienes públicos (intervalos que contienen el cero).",
+                  "convergencia y los bienes públicos; para quienes llegan de fuera de la UE a los 20 o a los 50 años es negativo en todas las "
+                  "combinaciones sin convergencia, y en las demás edades el intervalo contiene el cero.",
      "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Es cierto que sus cotizaciones financian una parte de las pensiones corrientes; que sostengan el sistema es una afirmación contrafactual y de "
               "largo plazo que no está identificada (mismo estándar que A6)."},
@@ -124,7 +129,7 @@ FICHAS = [
      "contabilidad": "El {{F3_EMP_CONTRIB_FUERA_2014_2025}} % del aumento de la ocupación de 2014-2025 y el {{F3_EMP_CONTRIB_HORAS_FUERA_2014_2025}} % del de las horas "
                      "corresponden a nacidos fuera.",
      "causal": "El contrafactual (qué empleo habría sin inmigración) no está identificado: en la fase 5 la primera etapa del shift-share es "
-               "débil y todas las estimaciones quedan en ASOCIACIÓN; la contabilidad no lo dice.",
+               "fuerte al nivel del shock, pero los conjuntos AKM0 no están acotados y todas las estimaciones quedan en ASOCIACIÓN; la contabilidad no lo dice.",
      "supuestos": "—", "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Es cierto que la mayor parte del aumento del empleo corresponde a nacidos fuera, pero la afirmación es contrafactual («no habría crecido») y no "
               "está identificada (mismo estándar que A6)."},
@@ -157,7 +162,9 @@ FICHAS = [
      "contabilidad": "Ocupados en ocupaciones elementales: {{F3_EMP_OCUP_ELEMENTALES_FUERA_2025}} % de los nacidos fuera frente al "
                      "{{F3_EMP_OCUP_ELEMENTALES_España_2025}} % de los nacidos en España (2025); titulados superiores en ocupaciones que no lo requieren: "
                      "{{F3_EMP_SOBRECUALIFICACION_FUERA_2025}} % frente al {{F3_EMP_SOBRECUALIFICACION_España_2025}} %.",
-     "causal": CAUSAL_M1 + " Peri y Sparber (2009) y Amuedo-Dorantes y De la Rica (2011) documentan especialización de tareas entre nativos e inmigrantes.",
+     "causal": CAUSAL_M1 + " Peri y Sparber (2009) y Amuedo-Dorantes y De la Rica (2011) documentan especialización de tareas entre nativos e inmigrantes. "
+               "En M1, la cuota de nativos en ocupaciones no manuales (P2-E1, {{F5_P2_E1_beta}}) y de alta cualificación (P2-E2, {{F5_P2_E2_beta}}) "
+               "no se asocia de forma significativa con la inmigración (ASOCIACIÓN).",
      "supuestos": "—", "veredicto": "no se puede saber", "confianza": "media",
      "razon": "La especialización por ocupaciones se observa; el núcleo de la afirmación («que no quieren») es sobre preferencias, que los datos no miden."},
 ]
