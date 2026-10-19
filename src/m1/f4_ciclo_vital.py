@@ -51,7 +51,7 @@ BP = "gas_bienes_publicos_puros"
 
 OTROS = ["ing_otros_ingresos"]   # ingresos no tributarios repartidos por persona (contrapartida de gas_resto_servicios); faltaban en la
 #                                  primera versión del ciclo vital, lo que añadía su cuantía al déficit cada año (corregido en la ronda 3)
-BLOQUES = {"tax": TAX + OTROS, "conv": CONV, "pens": PENS}
+BLOQUES = {"tax": TAX, "conv": CONV, "pens": PENS}   # OTROS no se escala: es igual por persona para todos
 DUR = [(0, 5, 1.0), (5, 10, 0.5), (10, 20, 0.25), (20, 200, 0.1)]   # riesgos relativos de salida por años de residencia
 
 
@@ -223,6 +223,13 @@ def main() -> int:
             cf.add(f"F4_VA_DIF_NAT_{g.replace(' ', '_')}_LLEGADA_{a0}", round((p.va_total - nat_a.va_total) / 1e3, 0),
                    "miles de € (VA)", f"Diferencia con un nacido en España de la misma edad (vida restante), llegada a los {a0}",
                    "C2", "Perfiles M1", "2024", "España", g, ic_inf=round(dif.min() / 1e3, 0), ic_sup=round(dif.max() / 1e3, 0))
+            difc = xc[xc.convergencia > 0].merge(v[nat & (v.edad_llegada == a0)][["descuento", "bienes", "va_total"]],
+                                                 on=["descuento", "bienes"], suffixes=("", "_nat"))
+            difc = difc.va_total - difc.va_total_nat
+            cf.add(f"F4_VA_DIF_NAT_CONV_{g.replace(' ', '_')}_LLEGADA_{a0}", round(float(difc.median()) / 1e3, 0), "miles de € (VA)",
+                   f"Diferencia con un nacido en España de la misma edad en las combinaciones con convergencia de 0,5 o 1 (sensibilidad), llegada a "
+                   f"los {a0}: mediana e intervalo", "C2", "Perfiles M1", "2024", "España", g,
+                   ic_inf=round(difc.min() / 1e3, 0), ic_sup=round(difc.max() / 1e3, 0))
             if a0 == 50:
                 continue
             mit = x[(x.retorno == "decreciente_mitad") & (x.convergencia == 0) & (x.descuento == 0.03) & (x.bienes == "medio")].iloc[0]

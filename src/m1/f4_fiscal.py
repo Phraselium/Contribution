@@ -250,12 +250,13 @@ MONET = ["gas_desempleo", "gas_vejez", "gas_supervivencia", "gas_enfermedad_inca
 
 
 def estandarizar(c: pd.DataFrame) -> pd.DataFrame:
-    """Nivel «edad y sexo» de la regla de tres niveles: media de cada grupo con la estructura por edad (tramos de 10 años, 80 y más
-    agrupado) y sexo de los nacidos en España, con cobertura completa. Donde una celda de edad × sexo del grupo tiene menos de 10
+    """Nivel «edad y sexo» de la regla de tres niveles: media de cada grupo con la estructura por edad (tramos de 5 años, 85 y más
+    agrupado; los de 10 años sesgaban a favor porque los nacidos fuera son más jóvenes dentro de cada tramo, ronda 4) y sexo de los
+    nacidos en España, con cobertura completa. Donde una celda de edad × sexo del grupo tiene menos de 10
     observaciones se usa la media del tramo de edad con los dos sexos juntos; si el tramo entero tiene menos de 10, el tramo contiguo.
     El umbral de 50 observaciones de M1 se aplica a las celdas que se publican, no a los términos de un agregado (corrección de la
     ronda 3: la versión con celdas ≥ 50 dejaba fuera las edades en las que los nacidos fuera salen mejor, sobre todo los mayores)."""
-    x = c[c.w > 0].assign(e10=lambda d: (d.edad.clip(upper=80) // 10) * 10, monet=lambda d: d[MONET].sum(axis=1))
+    x = c[c.w > 0].assign(e10=lambda d: (d.edad.clip(upper=85) // 5) * 5, monet=lambda d: d[MONET].sum(axis=1))
     def medias(df, keys):
         return df.groupby(keys).apply(lambda g: pd.Series({"neta": np.average(g.neta, weights=g.w), "monet": np.average(g.monet, weights=g.w),
                                                            "n": len(g)}), include_groups=False)

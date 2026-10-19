@@ -92,9 +92,11 @@ FICHAS = [
                      "nacidos fuera {{F4_NETA_PC_FUERA_2024}} € [{{F4_NETA_PC_FUERA_2024:inf}}, {{F4_NETA_PC_FUERA_2024:sup}}], positiva en "
                      "{{F4_NETA_PC_FUERA_POSITIVAS}} de 64 combinaciones, según el reparto de los bienes públicos y la asignación de los hijos. A igual "
                      "edad y sexo, frente a los nativos, la ventaja del resto de la UE se reduce mucho (positiva en las 64 combinaciones, pero no "
-                     "distinguible de cero por muestreo) y el intervalo del resto del mundo contiene el cero. En el ciclo vital, "
+                     "distinguible de cero por muestreo) y la del resto del mundo es negativa en el principal pero positiva con bienes públicos a "
+                     "coste marginal cero. En el ciclo vital, "
                      "las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos; frente a un nativo de la misma edad, "
-                     "quienes llegan de fuera de la UE a los 20 o a los 30 años aportan menos en todas las combinaciones sin convergencia adicional.",
+                     "quien llega de fuera de la UE a los 20 años aporta menos y quien llega del resto de la UE a los 50 aporta más en todas las "
+                     "combinaciones sin convergencia adicional.",
      "causal": "No es causal: contabilidad (capa C2).",
      "supuestos": "En el resto del mundo el signo depende del reparto de los bienes públicos (coste medio o marginal) y de a quién se asignan los hijos nacidos en "
                   "España (decisión D11: solo intervalos).",
@@ -120,9 +122,10 @@ FICHAS = [
                      "En el Ageing Report 2024 (referencia NO VERIFICADA), {{F4_PEN_AR2024_MAS_MIGRACION_2050}} % con un tercio más de migración frente a "
                      "{{F4_PEN_AR2024_MENOS_MIGRACION_2050}} % con un tercio menos.",
      "causal": "La comparación «sin migración» es una regla mecánica (empleo, cobertura y pensión relativa constantes), no un contrafactual identificado.",
-     "supuestos": "Las cotizaciones de hoy generan derechos de pensión futuros: en el ciclo vital el valor actual de los nacidos fuera depende del retorno, la "
-                  "convergencia y los bienes públicos: para las llegadas entre 20 y 50 años el intervalo contiene el cero, y frente a un nativo de "
-                  "la misma edad quienes llegan de fuera de la UE a los 20 o 30 años aportan menos en todas las combinaciones.",
+     "supuestos": "Las cotizaciones de hoy generan derechos de pensión futuros: en el ciclo vital el valor actual de los nacidos fuera depende de la salida, el "
+                  "descuento y los bienes públicos: para las llegadas entre 20 y 50 años el intervalo contiene el cero, y frente a un nativo de "
+                  "la misma edad quien llega de fuera de la UE a los 20 años aporta menos y quien llega del resto de la UE a los 50, más, en todas "
+                  "las combinaciones sin convergencia.",
      "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Es cierto que sus cotizaciones financian una parte de las pensiones corrientes; que sostengan el sistema es una afirmación contrafactual y de "
               "largo plazo que no está identificada (mismo estándar que A6)."},
@@ -138,8 +141,8 @@ FICHAS = [
      "contabilidad": "Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE, intervalo que contiene el cero para los "
                      "nacidos fuera de la UE y, para el conjunto, negativa solo con bienes públicos a coste medio e hijos asignados a sus padres; en el "
                      "ciclo vital, las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos, las llegadas a los 0 años "
-                     "son negativas, y frente a un nativo de la misma edad quienes llegan de fuera de la UE a los 20 o 30 años aportan menos en todas las "
-                     "combinaciones.",
+                     "son negativas, y frente a un nativo de la misma edad quien llega de fuera de la UE a los 20 años aporta menos y quien llega "
+                     "del resto de la UE a los 50, más, en todas las combinaciones sin convergencia.",
      "causal": "No es causal.", "supuestos": "Bienes públicos e hijos nacidos en España.", "veredicto": "no se puede saber", "confianza": "alta",
      "razon": "En la contabilidad estática se sostiene para los nacidos en la UE; para el conjunto de inmigrantes y en el ciclo vital depende de "
               "supuestos (mismo estándar que A5)."},
@@ -153,7 +156,7 @@ FICHAS = [
                      "{{F3_EMP_TASA_FUERA_25_54_2025}} % frente a {{F3_EMP_TASA_España_25_54_2025}} %, y a 25-64, {{F3_EMP_TASA_FUERA_25_64_2025}} % frente a "
                      "{{F3_EMP_TASA_España_25_64_2025}} %.",
      "causal": "No es causal.", "supuestos": "EPA; agrupación aproximada de los ocho grupos (D6).", "veredicto": "engañosa", "confianza": "media",
-     "razon": "La igualdad solo aparece en la tasa 16-64, porque entre los nativos hay más jóvenes de 16-24 años que estudian; en las edades centrales y a igual "
+     "razon": "La igualdad solo aparece en la tasa 16-64, que incluye a los menores de 25; en las edades centrales y a igual "
               "edad y sexo los nacidos fuera trabajan menos, y el paro es mayor en los tres niveles (mismo criterio que A1: la cantidad principal "
               "contradice la afirmación). Hay grupos con tasas de empleo iguales o mayores que las de los nativos."},
     {"id": "F5", "sentido": "favorable", "afirmacion": "A los inmigrantes se les paga menos por el mismo trabajo.",
