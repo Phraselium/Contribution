@@ -203,3 +203,12 @@ def sha256(ruta: Path) -> str:
 
 def rng():
     return np.random.default_rng(SEED)
+
+
+def tabla_md(df: pd.DataFrame, indice: bool = True) -> str:
+    """Tabla Markdown sin dependencias externas."""
+    d = df.reset_index() if indice else df
+    cab = "| " + " | ".join(str(c) for c in d.columns) + " |"
+    sep = "|" + "|".join("---" for _ in d.columns) + "|"
+    filas = ["| " + " | ".join("" if pd.isna(v) else str(v) for v in r) + " |" for r in d.itertuples(index=False)]
+    return "\n".join([cab, sep, *filas])

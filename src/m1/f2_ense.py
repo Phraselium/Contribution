@@ -9,7 +9,6 @@ Posiciones del diseño de registro (disreg_ensalud17.zip). Salida: data/processe
 """
 from __future__ import annotations
 
-import io
 import sys
 import zipfile
 from pathlib import Path

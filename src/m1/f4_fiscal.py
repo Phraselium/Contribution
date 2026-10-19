@@ -261,7 +261,7 @@ def main() -> int:
         r["anio_cuentas"] = anio_ecv - 1
         res_anios.append(r)
         if anio_ecv == 2025:
-            principal, d25, ctas25 = c, d, ctas
+            principal, ctas25 = c, ctas
             rn = resumen(c, ctas["pib"], "nacionalidad3")
             rn.to_csv(O / "neta_por_nacionalidad_2024.csv", index=False)
             # rejilla de supuestos (64 combinaciones)

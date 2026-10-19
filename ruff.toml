@@ -1,4 +1,5 @@
-line-length = 140
+line-length = 180
 [lint]
 select = ["E", "F", "W", "B"]
-ignore = ["B905", "E741"]
+# B023: las funciones anónimas de los bucles se aplican en la misma iteración (groupby.apply), no se guardan.
+ignore = ["B905", "E741", "B023", "B007"]
