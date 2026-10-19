@@ -119,13 +119,16 @@ FICHAS = [
 
 
 def render(texto: str, cifras: pd.DataFrame) -> str:
+    """Sustituye {{id}}, {{id:inf}}, {{id:sup}} y {{id:abs}} (valor absoluto, para «un 18 % menos»). Recuentos y posiciones sin
+    decimales; euros y miles de euros sin decimales; el resto con un decimal si |v| < 100."""
     c = cifras.set_index("id")
 
-    def fmt(v):
+    def fmt(v, unidad: str):
         if pd.isna(v):
             return "n. d."
         v = float(v)
-        s = f"{v:,.0f}" if abs(v) >= 100 else f"{v:,.1f}"
+        entero = any(k in str(unidad) for k in ("posición", "provincias", "€", "miles de hogares")) or abs(v) >= 100
+        s = f"{v:,.0f}" if entero else f"{v:,.1f}"
         return s.replace(",", "X").replace(".", ",").replace("X", ".")
 
     def rep(m):
@@ -133,8 +136,11 @@ def render(texto: str, cifras: pd.DataFrame) -> str:
         if k not in c.index:
             return f"[FALTA CIFRA: {k}]"
         col = {"inf": "ic_inf", "sup": "ic_sup"}.get(parte, "valor")
-        return fmt(c.loc[k, col])
-    return re.sub(r"\{\{([^}:]+)(?::(inf|sup))?\}\}", rep, texto)
+        v = c.loc[k, col]
+        if parte == "abs" and pd.notna(v):
+            v = abs(float(v))
+        return fmt(v, c.loc[k, "unidad"])
+    return re.sub(r"\{\{([^}:]+)(?::(inf|sup|abs))?\}\}", rep, texto)
 
 
 def main() -> int:
@@ -145,6 +151,17 @@ def main() -> int:
     for g in r.index:
         cf.add(f"F6_PREST_MONETARIAS_PC_{g.replace(' ', '_')}", round(float(r.loc[g, monet].sum()), 0), "€ por persona y año",
                f"Prestaciones monetarias por persona (calibradas a COFOG), nacidos en {g}", "C2", "ECV (INE) y Eurostat COFOG", "2024", "España", g)
+    rz = pd.read_csv(OUT / "f4" / "razones_uso_sanitario_ense.csv").set_index("amplio")
+    for v, dsc in (("consultas", "consultas de primaria y especialista"), ("hosp", "días de hospital"), ("urg", "urgencias"),
+                   ("far", "uso de medicamentos recetados")):
+        cf.add(f"F6_ENSE_RAZON_{v.upper()}_35_54", round(float(rz.loc["35-54", f"razon_{v}"]), 2), "razón (nativos = 1)",
+               f"Uso relativo de {dsc}: nacidos fuera / nacidos en España, 35-54 años", "C4", "ENSE 2017 (INE)", "2017", "España",
+               "nacidos fuera")
+    tot = r.loc[:, monet].mul(r.poblacion, axis=0).sum()
+    nc = tot[["gas_exclusion_social", "gas_vivienda"]].sum() / tot.sum()
+    cf.add("F6_PREST_NO_CONTRIB_CUOTA", round(100 * float(nc), 1), "% de las prestaciones monetarias",
+           "Rentas mínimas, IMV y ayudas a la vivienda sobre el total de prestaciones monetarias (calibradas a COFOG)", "C2",
+           "ECV (INE) y Eurostat COFOG", "2024", "España", "todos")
     cf.escribir()
     import cifras as cmod
     todas = cmod.consolidar()

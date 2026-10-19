@@ -72,6 +72,14 @@ def main() -> int:
     cf.add(f"F3_EMP_PARO_FUERA_{ult}", round(100 * tf.loc[ult, "tasa_paro"], 1), "%", "Tasa de paro, nacidos fuera de España",
            "C1", EPA, str(ult), "España", "nacidos fuera")
 
+    for etq, fila in (("España", x.loc["España"] if "España" in x.index else None), ("FUERA", tf.loc[ult])):
+        grp = "España" if etq == "España" else "nacidos fuera"
+        for v, u, dsc in (("temporalidad", "% de asalariados", "Asalariados con contrato temporal"),
+                          ("ocup_elementales", "% de ocupados", "Ocupados en ocupaciones elementales (CNO 9)"),
+                          ("ocup_alta_cualif", "% de ocupados", "Ocupados en ocupaciones de alta cualificación (CNO 1-3)"),
+                          ("sobrecualificacion", "% de ocupados con estudios superiores", "Titulados superiores en ocupaciones CNO 4-9")):
+            cf.add(f"F3_EMP_{v.upper()}_{etq}_{ult}", round(100 * fila[v], 1), u, f"{dsc}, {grp}", "C1", EPA, str(ult), "España", grp)
+
     # 2. tres niveles (16-64) en años seleccionados
     filas = []
     for a in (2008, 2013, 2019, ult):
@@ -162,6 +170,11 @@ def main() -> int:
     _sup(rr).to_csv(O / "empleo_residencia.csv", index=False)
     coh = cohortes(c)
     coh.to_csv(O / "empleo_cohortes.csv", index=False)
+    k15 = coh.set_index("termino").loc["cohorte_2015+"]
+    cf.add("F3_EMP_COHORTE_2015_REL", round(100 * k15.coef, 1), "pp", "Tasa de empleo 25-54 relativa a los nativos de la cohorte llegada "
+           "en 2015 o después frente a la de 1995-2001, a igual tramo de residencia (pseudopanel; supuesto: efectos de periodo comunes)",
+           "C4", EPA, "2005-2025", "España", "nacidos fuera", ic_inf=round(100 * (k15.coef - 1.96 * k15.ee), 1),
+           ic_sup=round(100 * (k15.coef + 1.96 * k15.ee), 1))
 
     # 7. nacionalizados y segunda generación
     gen = []
@@ -177,7 +190,14 @@ def main() -> int:
         t = tasas(x[m])
         t["categoria"] = etiqueta
         gen.append(t)
-    _sup(pd.DataFrame(gen)).to_csv(O / "empleo_generaciones.csv", index=False)
+    gdf = _sup(pd.DataFrame(gen)).set_index("categoria")
+    gdf.reset_index().to_csv(O / "empleo_generaciones.csv", index=False)
+    for tramo in ("16-24", "25-34"):
+        a_ = gdf.loc[f"nacidos en España que conviven con un progenitor nacido fuera ({tramo})", "tasa_empleo"]
+        b_ = gdf.loc[f"nacidos en España que conviven con progenitores nacidos en España ({tramo})", "tasa_empleo"]
+        cf.add(f"F3_EMP_SEGUNDA_GEN_{tramo.replace('-', '_')}", round(100 * (a_ - b_), 1), "pp",
+               f"Tasa de empleo de nacidos en España que conviven con un progenitor nacido fuera menos la de quienes conviven con progenitores "
+               f"nacidos en España, {tramo} años", "C4", EPA, str(ult), "España", "segunda generación")
 
     # 8. Europa (Eurostat, EU-LFS): tasas de empleo 20-64 por país de nacimiento
     eu = europa()

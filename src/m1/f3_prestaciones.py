@@ -59,7 +59,7 @@ def main() -> int:
     md.to_csv(O / "prestaciones_medias.csv", index=False)
     for _, r in md.iterrows():
         cf.add(f"F3_PRE_{r.prestacion}_{r.nacimiento3.replace(' ', '_')}", round(100 * r.tasa_perceptores, 1), "% de personas",
-               f"Personas ({r.poblacion}) que perciben {r.prestacion.replace('_', ' ')} (o viven en un hogar que la percibe), media 2021-2025",
+               f"Personas ({r.poblacion}) que perciben {r.prestacion.replace('_', ' ')} (o viven en un hogar que la percibe), media de las ECV 2021-2025 (rentas de 2020-2024)",
                "C1", ECV, "2020-2024 (renta)", "España", r.nacimiento3)
     for _, r in tn[tn.nivel_ajuste.isin(["edad y sexo", "completo"])].iterrows():
         cf.add(f"F3_PRE_BRECHA_{r.variable}_{r.grupo.replace(' ', '_')}_{r.nivel_ajuste.replace(' ', '_')}", round(100 * r.brecha, 1), "pp",

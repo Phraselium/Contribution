@@ -78,7 +78,7 @@ def main() -> int:
     for _, r in tabs[tabs.nivel_ajuste == "bruto"].iterrows():
         cf.add(f"F3_VIV_{r.variable}_{r.grupo.replace(' ', '_')}_2021_2025", round(100 * r.media_grupo, 1), "% de personas",
                f"{r.variable.replace('_', ' ')}: personas nacidas en {r.grupo} (media 2021-2025)", "C1", ECV, "2021-2025", "España", r.grupo)
-    for v in ("propietario", "sobrecarga"):
+    for v in ("propietario", "sobrecarga", "alquiler_mercado"):
         cf.add(f"F3_VIV_{v}_España_2021_2025", round(100 * tabs[tabs.variable == v].media_espana.iloc[0], 1), "% de personas",
                f"{v}: personas nacidas en España (media 2021-2025)", "C1", ECV, "2021-2025", "España", "España")
         for _, r in tabs[(tabs.variable == v) & (tabs.nivel_ajuste == "completo")].iterrows():
