@@ -21,3 +21,7 @@ data/fuentes.lock
 /data/raw/eurostat/migr_pop1ctz.csv.gz
 /data/raw/eurostat/migr_pop3ctb.csv.gz
 /data/raw/eurostat/proj_23np.csv.gz
+
+# derivados grandes de microdatos (se regeneran sin red con make m1_f2)
+/data/processed/ecv_personas.csv.gz
+/data/processed/epa_*.csv.gz
