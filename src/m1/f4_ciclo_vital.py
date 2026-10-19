@@ -138,7 +138,8 @@ def vida(a0: int, g: str, P: dict, q: pd.Series, modo: str, c: float, dto: float
         else:
             pens = pens_nat if nativo else max(pens_nat * fr, PNC if (y >= 10 and suelo) else 0.0)
         edad_g = sum(nat.loc[x, v] for v in EDAD)   # gasto en especie por edad: mismo perfil para todos (criterio OCDE)
-        bp = nat.loc[x, BP] if (bienes == "medio" or nativo) else 0.0
+        # con coste marginal cero para los nacidos fuera, el nativo asume su parte (traslado medido en la contabilidad estática)
+        bp = nat.loc[x, BP] if bienes == "medio" else (nat.loc[x, BP] + TRASLADO_BP["valor"] if nativo else 0.0)
         neta = sobrev * (imp + otros - conv - pens - edad_g - bp + ajuste_pc) - (derechos_fuera * pens_nat if x >= 65 else 0.0)
         fac = ((1 + crec) / (1 + dto)) ** y
         if x < 65:
@@ -152,6 +153,17 @@ def vida(a0: int, g: str, P: dict, q: pd.Series, modo: str, c: float, dto: float
 
 
 MODOS = ["ninguno", "decreciente_mitad", "decreciente", "constante"]
+TRASLADO_BP = {"valor": 0.0}
+
+
+def traslado_bienes() -> float:
+    """Gasto adicional en bienes públicos puros por nativo y año cuando a los nacidos fuera se les imputa coste marginal cero (media de
+    la rejilla de la contabilidad estática)."""
+    r = pd.read_csv(O / "rejilla.csv")
+    x = r[r.grupo == "España"].copy()
+    cols = ["calibrar", "sanidad", "educ_hijos", "indirectos", "capital"]
+    m = x.pivot_table(index=cols, columns="bienes", values="neta_pc")
+    return float(-(m["marginal"] - m["medio"]).mean())
 
 
 def main() -> int:
@@ -159,6 +171,7 @@ def main() -> int:
     P, q = perfiles(), supervivencia()
     r_obs = tasa_retorno()
     h0 = riesgo_inicial(r_obs)
+    TRASLADO_BP["valor"] = traslado_bienes()
     filas = []
     for g, a0, modo, c, dto, bienes in itertools.product(["España", "Resto UE", "Resto del mundo"], [0, 20, 30, 40, 50], MODOS,
                                                          [0.0, 0.5, 1.0], [0.02, 0.03, 0.04], ["medio", "marginal"]):
@@ -195,8 +208,6 @@ def main() -> int:
             cf.add(f"F4_VA_65MAS_{g.replace(' ', '_')}_LLEGADA_{a0}", round(p.va_65_mas / 1e3, 0), "miles de € (VA)",
                    f"Parte del valor actual de 65 y más años (pensiones y sanidad futuras, también las exportadas), llegada a los {a0}",
                    "C2", "Perfiles M1", "2024", "España", g)
-            if a0 == 50:
-                continue
             nat_a = princ[nat & (princ.edad_llegada == a0)].iloc[0]
             dif = x.merge(v[nat & (v.edad_llegada == a0)][["descuento", "bienes", "va_total"]], on=["descuento", "bienes"],
                           suffixes=("", "_nat"))
@@ -204,6 +215,8 @@ def main() -> int:
             cf.add(f"F4_VA_DIF_NAT_{g.replace(' ', '_')}_LLEGADA_{a0}", round((p.va_total - nat_a.va_total) / 1e3, 0),
                    "miles de € (VA)", f"Diferencia con un nacido en España de la misma edad (vida restante), llegada a los {a0}",
                    "C2", "Perfiles M1", "2024", "España", g, ic_inf=round(dif.min() / 1e3, 0), ic_sup=round(dif.max() / 1e3, 0))
+            if a0 == 50:
+                continue
             mit = x[(x.retorno == "decreciente_mitad") & (x.convergencia == 0) & (x.descuento == 0.03) & (x.bienes == "medio")].iloc[0]
             cf.add(f"F4_VA_MITAD_SALIDA_{g.replace(' ', '_')}_LLEGADA_{a0}", round(mit.va_total / 1e3, 0), "miles de € (VA)",
                    f"Como el principal pero con la mitad del riesgo de salida (por si las bajas por caducidad no son salidas reales), "
