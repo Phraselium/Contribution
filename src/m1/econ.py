@@ -241,3 +241,36 @@ def dfl(y, X, grupo, w=None, cuantiles=(0.1, 0.25, 0.5, 0.75, 0.9)):
             A, B, C = cuantil_pond(y[grupo], w[grupo], q), cuantil_pond(y[~grupo], w[~grupo], q), cuantil_pond(y[~grupo], wb, q)
         out[q] = {"brecha": A - B, "composicion": C - B, "resto": A - C}
     return out
+
+
+def akm0(y, x, S, g, W, w=None, beta0=0.0, rejilla=None, alfa=0.05):
+    """Inferencia AKM0 (Adão, Kolesár y Morales 2019) para el MC2E shift-share: t² con residuos impuestos bajo H0 al nivel del
+    shock (validada por Monte Carlo en docs/montecarlo.md, a diferencia del Wald de bhj). Devuelve el p de H0: beta = beta0 y
+    el intervalo al (1-alfa) por inversión del test en una rejilla."""
+    from scipy import stats
+    y, x, S, g, W = (np.asarray(a, float) for a in (y, x, S, g, W))
+    w = _w(len(y), w)
+    yr, xr = _resid(y, W, w), _resid(x, W, w)
+    so = (w[:, None] * S).sum(0)
+    k = so > 0
+    Sk, gk, so = S[:, k], g[k], so[k]
+    gd = gk - (so * gk).sum() / so.sum()
+    yo = (w[:, None] * Sk * yr[:, None]).sum(0) / so
+    xo = (w[:, None] * Sk * xr[:, None]).sum(0) / so
+
+    def t2(b0):
+        e0 = yo - b0 * xo
+        return float((so * gd * e0).sum() ** 2 / ((so * gd * e0) ** 2).sum())
+    crit = stats.chi2.ppf(1 - alfa, 1)
+    b = bhj(y, x, S, g, W, w)
+    if rejilla is None:
+        rejilla = np.linspace(b["b"] - 15 * b["se"], b["b"] + 15 * b["se"], 3001)
+    acc = np.array([t2(r) <= crit for r in rejilla])
+    idx = np.where(acc)[0]
+    if len(idx) == 0:
+        inf = sup = np.nan
+    else:
+        inf = -np.inf if acc[0] else float(rejilla[idx[0]])
+        sup = np.inf if acc[-1] else float(rejilla[idx[-1]])
+    return {"b": b["b"], "p": float(1 - stats.chi2.cdf(t2(beta0), 1)), "ic_inf": inf, "ic_sup": sup, "O": b["O"],
+            "hhi_inv": b["hhi_inv"], "F_shock": b["F_shock"]}

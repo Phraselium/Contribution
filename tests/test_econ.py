@@ -139,3 +139,23 @@ def test_dfl_identidades_y_saturado():
     # efectos principales es correcto y la composición en la media ≈ dx·b (error de muestreo pequeño).
     dx = np.average(X[A], 0, w[A]) - np.average(X[~A], 0, w[~A])
     assert f["media"]["composicion"] == pytest.approx(dx @ b, abs=0.03)
+
+
+def test_akm0_coincide_con_referencia_mc():
+    """econ.akm0 reproduce el estadístico AKM0 validado en src/m1/montecarlo/bhj.py (akm0_t2)."""
+    import importlib.util
+    from scipy import stats
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src/m1/montecarlo"))
+    spec = importlib.util.spec_from_file_location("mc_bhj", Path(__file__).resolve().parents[1] / "src/m1/montecarlo/bhj.py")
+    mc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mc)
+    rng = np.random.default_rng(1)
+    n, O = 52, 15
+    S = rng.dirichlet(np.ones(O) * 0.3, n) * rng.uniform(0.05, 0.2, (n, 1))
+    g = rng.normal(size=O)
+    W = np.column_stack([np.ones(n), S.sum(1)])
+    x = S @ g * 2 + rng.normal(size=n)
+    y = 0.3 * x + rng.normal(size=n)
+    r = econ.akm0(y, x, S, g, W, beta0=0.0)
+    assert abs(r["p"] - (1 - stats.chi2.cdf(mc.akm0_t2(y, x, S, g, W, 0.0), 1))) < 1e-10
+    assert r["ic_inf"] < r["b"] < r["ic_sup"]
