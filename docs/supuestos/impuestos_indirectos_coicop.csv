@@ -1,0 +1,29 @@
+prefijo_coicop,descripcion,tipo_iva_efectivo,peso_especial,nota
+011,Alimentos,0.06,0,"mezcla de tipos superreducido (4 %, 0 % en 2023-2024 para básicos) y reducido (10 %)"
+012,Bebidas no alcohólicas,0.10,0,reducido
+021,Bebidas alcohólicas,0.21,1,"general; impuestos especiales sobre el alcohol"
+022,Tabaco,0.21,6,"general; impuesto especial sobre labores del tabaco (≈ 55 % del precio de venta)"
+03,Vestido y calzado,0.21,0,general
+041,Alquiler real de la vivienda,0.00,0,exento (alquiler de vivienda habitual)
+042,Alquiler imputado,0.00,0,no monetario: sin impuestos
+043,Mantenimiento y reparación de la vivienda,0.21,0,general (reducido en algunas obras: se ignora)
+044,Agua y otros servicios de la vivienda,0.10,0,reducido
+045,Electricidad gas y otros combustibles,0.08,1,"tipo temporalmente reducido (5-10 %) en 2022-2024; impuesto especial sobre la electricidad e hidrocarburos"
+05,Muebles y artículos del hogar,0.21,0,general
+061,Productos farmacéuticos y aparatos,0.06,0,superreducido (4 %) en medicamentos; general en otros
+062,Servicios médicos ambulatorios,0.00,0,exento
+063,Servicios hospitalarios,0.00,0,exento
+071,Compra de vehículos,0.21,0.3,"general; impuesto de matriculación"
+0722,Carburantes y lubricantes,0.21,3,"general; impuesto especial sobre hidrocarburos (≈ 35-40 % del precio)"
+072,Otros gastos de uso de vehículos,0.21,0,general
+073,Servicios de transporte,0.10,0,reducido (viajeros)
+08,Comunicaciones,0.21,0,general
+09,Ocio y cultura,0.18,0,"general salvo libros y prensa (4 %) y espectáculos (10 %)"
+10,Enseñanza,0.00,0,exento
+111,Restauración,0.10,0,reducido
+112,Alojamiento,0.10,0,reducido
+121,Cuidados personales,0.21,0,general
+124,Protección social,0.00,0,exento
+125,Seguros,0.00,0.2,"exentos de IVA; impuesto sobre primas de seguros (6-8 %)"
+126,Servicios financieros,0.00,0,exentos
+12,Otros bienes y servicios,0.21,0,general

@@ -25,3 +25,5 @@ data/fuentes.lock
 # derivados grandes de microdatos (se regeneran sin red con make m1_f2)
 /data/processed/ecv_personas.csv.gz
 /data/processed/epa_*.csv.gz
+/data/processed/ees.csv.gz
+/data/processed/epf_hogares.csv.gz
