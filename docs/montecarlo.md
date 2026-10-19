@@ -259,3 +259,23 @@ Script: `src/m1/montecarlo/oaxaca_dfl.py`; salida: `output/montecarlo/dfl/result
 - `tests/test_econ.py`: `ols` = statsmodels OLS/WLS con CR1 y HC1; `iv2sls` = linearmodels IV2SLS (coeficientes y EE agrupado). econ aplica G/(G-1)·(n-1)/(n-k), igual que linearmodels con `debiased=True`; con su opción por defecto (`debiased=False`) linearmodels 7.1 no aplica ninguna corrección, de modo que V_econ = V_lm·G/(G-1)·(n-1)/(n-k). No se cambia econ (se mantiene la convención de Stata). También: f_efectivo = F_primera, bhj = MC2E de ubicación con W que incluye la suma de cuotas, e identidades de oaxaca y dfl.
 
 - Corrección en `econ.oaxaca`: si X no traía constante, la regresión agrupada no tenía término independiente y la parte explicada quedaba sesgada (el indicador de grupo hacía de constante solo para A). Ahora se añade una constante cuando X no tiene ninguna columna constante; con constante el resultado no cambia.
+
+## Adenda A5 · AKM0 con shocks persistentes y MC2E con dos endógenas
+
+Código: `src/m1/montecarlo/adenda_a5.py`; resultados: `output/montecarlo/adenda_a5/resultado.json`. R = 500, SEED=20261019.
+
+| diseño | ρ de los shocks | β | AKM0 sin agrupar (cobertura) | AKM0 agrupado por origen (cobertura) | potencia agrupado (β = 0,5) |
+|---|---|---|---|---|---|
+| apilado 3 periodos, 40 orígenes (≈ 14 efectivos por periodo) | 0,6 | 0 | 0,900 | 0,968 | — |
+| ídem | 0,6 | 0,5 | 0,872 | 0,962 | 0,826 |
+| ídem | −0,5 | 0 | 0,936 | 0,966 | — |
+| ídem | −0,5 | 0,5 | 0,920 | 0,968 | 0,696 |
+
+**Veredicto: AKM0 agrupado por origen, APTO; AKM0 sin agrupar con shocks persistentes, NO APTO (ρ = 0,6).**
+
+| MC2E con dos endógenas (econ.iv2sls_k) | corr(z_p, z_p−1) = 0,5 | corr = 0,8 |
+|---|---|---|
+| cobertura corto plazo / largo plazo | 0,950 / 0,950 | 0,946 / 0,938 |
+| sesgo corto / largo | 0,006 / −0,009 | −0,016 / −0,018 |
+
+**Veredicto: APTO** (F de Sanderson-Windmeijer ≈ 75 en el DGP; con instrumentos débiles no está validado).

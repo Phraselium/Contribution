@@ -243,10 +243,12 @@ def dfl(y, X, grupo, w=None, cuantiles=(0.1, 0.25, 0.5, 0.75, 0.9)):
     return out
 
 
-def akm0(y, x, S, g, W, w=None, beta0=0.0, rejilla=None, alfa=0.05):
+def akm0(y, x, S, g, W, w=None, beta0=0.0, rejilla=None, alfa=0.05, grupos=None):
     """Inferencia AKM0 (Adão, Kolesár y Morales 2019) para el MC2E shift-share: t² con residuos impuestos bajo H0 al nivel del
     shock (validada por Monte Carlo en docs/montecarlo.md, a diferencia del Wald de bhj). Devuelve el p de H0: beta = beta0 y
-    el intervalo al (1-alfa) por inversión del test en una rejilla."""
+    el intervalo al (1-alfa) por inversión del test en una rejilla, con indicación de si el conjunto aceptado es convexo.
+    grupos (opcional, una etiqueta por columna de S): agrupa los términos de varianza de los shocks del mismo origen en
+    distintos periodos (apilado con shocks persistentes; adenda A5)."""
     from scipy import stats
     y, x, S, g, W = (np.asarray(a, float) for a in (y, x, S, g, W))
     w = _w(len(y), w)
@@ -254,13 +256,16 @@ def akm0(y, x, S, g, W, w=None, beta0=0.0, rejilla=None, alfa=0.05):
     so = (w[:, None] * S).sum(0)
     k = so > 0
     Sk, gk, so = S[:, k], g[k], so[k]
+    gr = None if grupos is None else np.unique(np.asarray(grupos)[k], return_inverse=True)[1]
     gd = gk - (so * gk).sum() / so.sum()
     yo = (w[:, None] * Sk * yr[:, None]).sum(0) / so
     xo = (w[:, None] * Sk * xr[:, None]).sum(0) / so
 
     def t2(b0):
-        e0 = yo - b0 * xo
-        return float((so * gd * e0).sum() ** 2 / ((so * gd * e0) ** 2).sum())
+        a = so * gd * (yo - b0 * xo)
+        if gr is not None:
+            a = np.bincount(gr, weights=a)
+        return float(a.sum() ** 2 / (a ** 2).sum())
     crit = stats.chi2.ppf(1 - alfa, 1)
     b = bhj(y, x, S, g, W, w)
     if rejilla is None:
@@ -269,8 +274,50 @@ def akm0(y, x, S, g, W, w=None, beta0=0.0, rejilla=None, alfa=0.05):
     idx = np.where(acc)[0]
     if len(idx) == 0:
         inf = sup = np.nan
+        convexo = False
     else:
         inf = -np.inf if acc[0] else float(rejilla[idx[0]])
         sup = np.inf if acc[-1] else float(rejilla[idx[-1]])
+        convexo = bool(idx[-1] - idx[0] + 1 == len(idx))
     return {"b": b["b"], "p": float(1 - stats.chi2.cdf(t2(beta0), 1)), "ic_inf": inf, "ic_sup": sup, "O": b["O"],
-            "hhi_inv": b["hhi_inv"], "F_shock": b["F_shock"]}
+            "hhi_inv": b["hhi_inv"], "F_shock": b["F_shock"], "acotado": bool(np.isfinite(inf) and np.isfinite(sup)),
+            "convexo": convexo}
+
+
+def iv2sls_k(y, X, Z, W, cluster=None, w=None):
+    """MC2E con k endógenas X (n×k) e instrumentos Z (n×q, q ≥ k), exógenas W. Devuelve b (las k primeras son las endógenas),
+    V agrupada CR1 y el F de Sanderson-Windmeijer de cada endógena (debilidad con varias endógenas)."""
+    y = np.asarray(y, float)
+    X, Z, W = (np.atleast_2d(np.asarray(a, float).T).T for a in (X, Z, W))
+    n, k = X.shape
+    w = _w(n, w)
+    sw = np.sqrt(w)
+    XX, ZZ = np.hstack([X, W]), np.hstack([Z, W])
+    Xw, Zw, yw = XX * sw[:, None], ZZ * sw[:, None], y * sw
+    PZ = Zw @ np.linalg.pinv(Zw.T @ Zw) @ Zw.T
+    Xh = PZ @ Xw
+    A = np.linalg.pinv(Xh.T @ Xw)
+    b = A @ Xh.T @ yw
+    u = y - XX @ b
+    M, G = _meat((Xh / sw[:, None]) * (w * u)[:, None], cluster)
+    kk = XX.shape[1]
+    c = (G / max(G - 1, 1) * (n - 1) / max(n - kk, 1)) if cluster is not None else n / max(n - kk, 1)
+    V = c * A @ M @ A.T
+    fsw = []
+    q = Z.shape[1]
+    for j in range(k):
+        otras = np.delete(X, j, axis=1)
+        if otras.shape[1]:
+            # Sanderson-Windmeijer: x_j sobre las demás endógenas instrumentadas
+            xo_hat = np.column_stack([iv_fitted(otras[:, m], Z, W, w) for m in range(otras.shape[1])])
+            r = ols(X[:, j], np.column_stack([Z, xo_hat, W]), cluster, w)
+        else:
+            r = ols(X[:, j], np.column_stack([Z, W]), cluster, w)
+        bz, Vz = r["b"][:q], r["V"][:q, :q]
+        fsw.append(float(bz @ np.linalg.pinv(Vz) @ bz / max(q - (k - 1), 1)))
+    return {"b": b, "V": V, "se": np.sqrt(np.abs(np.diag(V))), "u": u, "G": G, "n": n, "F_sw": fsw}
+
+
+def iv_fitted(x, Z, W, w=None):
+    r = ols(x, np.column_stack([Z, W]), None, w)
+    return np.column_stack([Z, W]) @ r["b"]

@@ -96,12 +96,13 @@ def trimestre(ruta: Path) -> pd.DataFrame:
     oc = d["OCUP1"]
     d["ocu_alta"] = (d["ocu"] == 1) & oc.isin(["1", "2", "3"])
     d["ocu_elem"] = (d["ocu"] == 1) & oc.eq("9")
+    d["ocu_nomanual"] = (d["ocu"] == 1) & oc.isin(["1", "2", "3", "4"])   # P2: ocupaciones no manuales (CNO 1-4)
     d["sobrecual"] = (d["ocu"] == 1) & d["educ"].eq("alta") & oc.isin(["4", "5", "6", "7", "8", "9"])
     d["sector"] = d["ACT1"].where(d["ocu"] == 1)
     return d
 
 
-VARS = ["act", "ocu", "par", "asal", "temp", "parc", "horas", "ocu_alta", "ocu_elem", "sobrecual"]
+VARS = ["act", "ocu", "par", "asal", "temp", "parc", "horas", "ocu_alta", "ocu_elem", "ocu_nomanual", "sobrecual"]
 
 
 def agregar_trimestre(ruta: str):

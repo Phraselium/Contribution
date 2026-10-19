@@ -1,0 +1,101 @@
+{
+ "akm0_persistente": [
+  {
+   "rho": 0.6,
+   "beta": 0.0,
+   "agrupado_por_origen": false,
+   "cobertura": 0.9,
+   "rechazo_beta0": 0.1,
+   "orig_efectivos_1_hhi": 41.775492651380674,
+   "R": 500
+  },
+  {
+   "rho": 0.6,
+   "beta": 0.0,
+   "agrupado_por_origen": true,
+   "cobertura": 0.968,
+   "rechazo_beta0": 0.032,
+   "orig_efectivos_1_hhi": 41.775492651380674,
+   "R": 500
+  },
+  {
+   "rho": 0.6,
+   "beta": 0.5,
+   "agrupado_por_origen": false,
+   "cobertura": 0.872,
+   "rechazo_beta0": 0.902,
+   "orig_efectivos_1_hhi": 41.775492651380674,
+   "R": 500
+  },
+  {
+   "rho": 0.6,
+   "beta": 0.5,
+   "agrupado_por_origen": true,
+   "cobertura": 0.962,
+   "rechazo_beta0": 0.826,
+   "orig_efectivos_1_hhi": 41.775492651380674,
+   "R": 500
+  },
+  {
+   "rho": -0.5,
+   "beta": 0.0,
+   "agrupado_por_origen": false,
+   "cobertura": 0.936,
+   "rechazo_beta0": 0.064,
+   "orig_efectivos_1_hhi": 41.775492651380674,
+   "R": 500
+  },
+  {
+   "rho": -0.5,
+   "beta": 0.0,
+   "agrupado_por_origen": true,
+   "cobertura": 0.966,
+   "rechazo_beta0": 0.034,
+   "orig_efectivos_1_hhi": 41.775492651380674,
+   "R": 500
+  },
+  {
+   "rho": -0.5,
+   "beta": 0.5,
+   "agrupado_por_origen": false,
+   "cobertura": 0.92,
+   "rechazo_beta0": 0.886,
+   "orig_efectivos_1_hhi": 41.775492651380674,
+   "R": 500
+  },
+  {
+   "rho": -0.5,
+   "beta": 0.5,
+   "agrupado_por_origen": true,
+   "cobertura": 0.968,
+   "rechazo_beta0": 0.696,
+   "orig_efectivos_1_hhi": 41.775492651380674,
+   "R": 500
+  }
+ ],
+ "veredicto_akm0_agrupado": "APTO",
+ "iv_dos_endogenas": [
+  {
+   "corr_instrumentos": 0.5,
+   "sesgo_corto": 0.005676544126556882,
+   "cobertura_corto": 0.95,
+   "sesgo_largo": -0.009237222602565542,
+   "cobertura_largo": 0.95,
+   "F_SW_min_medio": 75.3733990748075,
+   "R": 500
+  },
+  {
+   "corr_instrumentos": 0.8,
+   "sesgo_corto": -0.01591943462255191,
+   "cobertura_corto": 0.946,
+   "sesgo_largo": -0.017754806107658117,
+   "cobertura_largo": 0.938,
+   "F_SW_min_medio": 74.8704759277615,
+   "R": 500
+  }
+ ],
+ "veredicto_iv_dos": {
+  "0.5": "APTO",
+  "0.8": "APTO"
+ }
+}
