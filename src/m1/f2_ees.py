@@ -5,6 +5,7 @@ declarada). Territorio: NUTS1. Ganancia por hora del mes de octubre (definición
 + pagos por horas extraordinarias) / horas del mes (jornada semanal pactada × 4,345 + horas extraordinarias), solo para
 trabajadores sin días de situación especial en el mes (SIESPM1 = 6). Ganancia anual: retribución bruta del año más especie
 (RETRINOIN + RETRIIN + VESPNOIN + VESPIN, o SALBRUTO + VESP en 2010), anualizada con los días de alta (DRELABAM, DRELABAD).
+Diseño: bietápico (establecimientos y trabajadores); el establecimiento (IDENCCC/ORDENCCC) se usa como conglomerado.
 Salida: data/processed/ees.csv.gz (una fila por trabajador con FACTOTAL).
 """
 from __future__ import annotations
@@ -38,7 +39,7 @@ def leer(a: int) -> pd.DataFrame:
     dias = num("DRELABAM") * 30.4 + num("DRELABAD")
     anual_eq = (anual * 365 / dias).where(dias >= 30)
     return pd.DataFrame({
-        "anio": a, "nuts1": d["NUTS1"], "sexo": d["SEXO"].map({"1": "hombre", "6": "mujer"}),
+        "anio": a, "establecimiento": d["IDENCCC"] if "IDENCCC" in d else d["ORDENCCC"], "nuts1": d["NUTS1"], "sexo": d["SEXO"].map({"1": "hombre", "6": "mujer"}),
         "extranjero": d["TIPOPAIS"].eq("2"), "edad": d["ANOS2"], "estudios": d["ESTU"], "cno1": d["CNO1"].str[0],
         "cnace": d["CNACE"].str[0], "jornada": d["TIPOJOR"].map({"1": "completa", "2": "parcial"}),
         "contrato": d["TIPOCON"].map({"1": "indefinido", "2": "temporal"}),

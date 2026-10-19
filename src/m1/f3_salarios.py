@@ -5,6 +5,7 @@ ECV (rendimientos del trabajo por cuenta ajena PY010G de asalariados a jornada c
 Tercera: tablas de deciles de la EPA por nacionalidad (t66240).
 Tres niveles para el logaritmo del salario por hora: bruto; edad y sexo; además estudios y región (NUTS1). Los años de
 residencia no están en la EES ni en la ECV: ese nivel queda NO ESTIMABLE con datos públicos (haría falta la MCVL).
+Errores agrupados por establecimiento (conglomerado del diseño de la EES).
 Descomposiciones: Oaxaca-Blinder de la media del log y DFL en los deciles. Salidas en output/f3/salarios_*.csv.
 """
 from __future__ import annotations
@@ -26,7 +27,8 @@ DEC = (0.1, 0.25, 0.5, 0.75, 0.9)
 
 
 def ees() -> pd.DataFrame:
-    d = pd.read_csv(PROC / "ees.csv.gz", dtype={"nuts1": str, "edad": str, "estudios": str, "cno1": str, "cnace": str})
+    d = pd.read_csv(PROC / "ees.csv.gz", dtype={"nuts1": str, "edad": str, "estudios": str, "cno1": str, "cnace": str,
+                                                "establecimiento": str})
     d = d[(d.salario_hora > 1) & (d.salario_hora < 500) & (d.factor > 0)].copy()
     d["lw"] = np.log(d.salario_hora)
     d["grupo"] = np.where(d.extranjero, "Resto del mundo (nacionalidad)", "España (nacionalidad)")
@@ -36,7 +38,7 @@ def ees() -> pd.DataFrame:
 def niveles_ees(x: pd.DataFrame) -> list[dict]:
     g = x.extranjero.to_numpy(float)
     w, y = x.factor.to_numpy(float), x.lw.to_numpy(float)
-    cl = x.nuts1.to_numpy()
+    cl = (x.anio.astype(str) + "_" + x.establecimiento.astype(str)).to_numpy()   # conglomerado del diseño: establecimiento
     c = np.ones((len(x), 1))
     x = x.assign(es=x.edad + "|" + x.sexo)
     out = []
