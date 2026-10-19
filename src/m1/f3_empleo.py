@@ -118,6 +118,14 @@ def main() -> int:
                    f"Brecha de tasa de {'empleo 16-64' if v == 'EMP' else 'paro'} del conjunto de nacidos fuera frente a nacidos en España "
                    f"({r.nivel_ajuste})", "C1" if r.nivel_ajuste == "bruto" else "C4", EPA, str(ult), "España", "nacidos fuera",
                    nivel_ajuste=r.nivel_ajuste, ic_inf=round(100 * (r.brecha - 1.96 * r.ee), 1), ic_sup=round(100 * (r.brecha + 1.96 * r.ee), 1))
+    # tasas brutas en otros tramos de edad (la tasa 16-64 incluye a los estudiantes de 16-24, más frecuentes entre los nativos)
+    for tramo, edades in (("25_54", ["25-34", "35-44", "45-54"]), ("25_64", ["25-34", "35-44", "45-54", "55-64"])):
+        x = c[(c.anio == ult) & (c.origen_def == "nacimiento") & c.edad6.isin(edades)]
+        tf = x.assign(f=np.where(x.grupo == "España", "España", "FUERA")).groupby("f")[["ocu", "pob"]].sum()
+        for g_, r in tf.iterrows():
+            cf.add(f"F3_EMP_TASA_{g_}_{tramo}_{ult}", round(100 * r.ocu / r.pob, 1), "% de la población", f"Tasa de empleo {tramo.replace('_', '-')} "
+                   f"({'nacidos en España' if g_ == 'España' else 'nacidos fuera'})", "C1", EPA, str(ult), "España",
+                   "nacidos en España" if g_ == "España" else "nacidos fuera")
     k = tn[(tn.anio == ult) & (tn.variable == "tasa_empleo_16_64")]
     for _, r in k.iterrows():
         cf.add(f"F3_EMP_BRECHA_{r.grupo}_{r.nivel_ajuste.replace(' ', '_')}_{ult}", round(100 * r.brecha, 1), "pp",

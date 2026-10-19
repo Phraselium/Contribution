@@ -49,7 +49,9 @@ EDAD = ["gas_sanidad", "gas_educacion", "gas_prot_social_especie", "gas_otras_pr
 BP = "gas_bienes_publicos_puros"
 
 
-BLOQUES = {"tax": TAX + ["ing_otros_ingresos"], "conv": CONV, "pens": PENS}
+OTROS = ["ing_otros_ingresos"]   # ingresos no tributarios repartidos por persona (contrapartida de gas_resto_servicios); faltaban en la
+#                                  primera versión del ciclo vital, lo que añadía su cuantía al déficit cada año (corregido en la ronda 3)
+BLOQUES = {"tax": TAX + OTROS, "conv": CONV, "pens": PENS}
 DUR = [(0, 5, 1.0), (5, 10, 0.5), (10, 20, 0.25), (20, 200, 0.1)]   # riesgos relativos de salida por años de residencia
 
 
@@ -124,6 +126,7 @@ def vida(a0: int, g: str, P: dict, q: pd.Series, modo: str, c: float, dto: float
         k = 0.0 if nativo else min(1.0, y / 20) * c
         mezcla = lambda cols: sum(imm.loc[x, v] + k * (nat.loc[x, v] - imm.loc[x, v]) for v in cols)  # noqa: E731
         imp = sum(nat.loc[x, v] for v in TAX) if nativo else mezcla(TAX)
+        otros = sum((nat if nativo else imm).loc[x, v] for v in OTROS)
         conv = sum(nat.loc[x, v] for v in CONV) if nativo else mezcla(CONV)
         fr = (np.mean(contrib_rel_acum) if contrib_rel_acum else 0.0) * min(1.0, anos_trab / 37) if anos_trab >= anos_min else 0.0
         fr = min(fr, 1.2)
@@ -136,7 +139,7 @@ def vida(a0: int, g: str, P: dict, q: pd.Series, modo: str, c: float, dto: float
             pens = pens_nat if nativo else max(pens_nat * fr, PNC if (y >= 10 and suelo) else 0.0)
         edad_g = sum(nat.loc[x, v] for v in EDAD)   # gasto en especie por edad: mismo perfil para todos (criterio OCDE)
         bp = nat.loc[x, BP] if (bienes == "medio" or nativo) else 0.0
-        neta = sobrev * (imp - conv - pens - edad_g - bp + ajuste_pc) - (derechos_fuera * pens_nat if x >= 65 else 0.0)
+        neta = sobrev * (imp + otros - conv - pens - edad_g - bp + ajuste_pc) - (derechos_fuera * pens_nat if x >= 65 else 0.0)
         fac = ((1 + crec) / (1 + dto)) ** y
         if x < 65:
             va_joven += fac * neta

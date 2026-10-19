@@ -16,7 +16,7 @@ from comun import OUT, Cifras, escribir_resultado  # noqa: E402
 from territorio import PROV  # noqa: E402
 
 O = OUT / "f5"
-HIP = {"P1-H1": "tasa_empleo", "P1-H2": "tasa_paro", "P1-E3a": "tasa_empleo_educ_baja"}
+HIP = {"P1-H1": "tasa_empleo", "P1-H2": "tasa_paro", "P1-E3a": "tasa_empleo_educ_baja", "P1-E3c": "tasa_empleo_educ_alta"}
 
 
 def main() -> int:
