@@ -1,0 +1,189 @@
+{
+ "herramienta": "conley",
+ "seed": 20261019,
+ "datos": "simulados (nunca datos reales)",
+ "dgp": {
+  "N": 52,
+  "radio_km": 200,
+  "lambdas_km": [
+   50,
+   100,
+   200
+  ],
+  "betas": [
+   0.0,
+   0.5
+  ],
+  "R": 500,
+  "vecinos_medios_en_radio": 5.269230769230769,
+  "descripcion": "M1 · Monte Carlo de econ.conley (MCO con varianza de Conley, núcleo uniforme, radio 200 km) frente a HC1.\n\nDGP (declarado antes de simular):\n- 52 puntos FIJOS (dibujados una vez) uniformes en el rectángulo lat 36-43,8, lon -9,3 a 3,3 (escala de las provincias).\n- Regresor y error: campos gaussianos independientes con covarianza exp(-d/lambda) (d en km, gran círculo) más un 20 % de ruido\n  propio (pepita): x = 0,9·F1 + 0,45·N(0,1), e = 0,9·F2 + 0,45·N(0,1). lambda ∈ {50, 100, 200} km.\n- y = 1 + beta·x + e; beta = 0 (tamaño) y beta = 0,5 (potencia). IC95 normal b ± 1,96·EE.\n"
+ },
+ "disenos": [
+  {
+   "diseno": "lambda_50km",
+   "lambda_km": 50,
+   "beta": 0.0,
+   "conley": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": -0.0035208363998464314,
+    "sesgo": -0.0035208363998464314,
+    "mediana_sesgo": -0.0038529591238697855,
+    "rmse": 0.15298856147898754,
+    "de_mc": 0.1531012201835729,
+    "cobertura95": 0.87,
+    "ee_mc_cobertura": 0.015039946808416579,
+    "tamano": 0.128
+   },
+   "hc1": {
+    "cobertura95": 0.922,
+    "ee_mc_cobertura": 0.01199299795714149,
+    "tamano": 0.078
+   },
+   "frac_var_conley_negativa": 0.002,
+   "var_conley_media/var_mc_b": 0.8152999456365108,
+   "var_hc1_media/var_mc_b": 0.8611487908455503,
+   "conley_apto": false
+  },
+  {
+   "diseno": "lambda_50km",
+   "lambda_km": 50,
+   "beta": 0.5,
+   "conley": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.4997465862344176,
+    "sesgo": -0.0002534137655824109,
+    "mediana_sesgo": 0.0011881255306667171,
+    "rmse": 0.1444232526620251,
+    "de_mc": 0.1445676703608718,
+    "cobertura95": 0.872,
+    "ee_mc_cobertura": 0.014940950438308804,
+    "potencia": 0.922
+   },
+   "hc1": {
+    "cobertura95": 0.916,
+    "ee_mc_cobertura": 0.012405160216619531,
+    "potencia": 0.934
+   },
+   "frac_var_conley_negativa": 0.008,
+   "var_conley_media/var_mc_b": 0.8550220777498504,
+   "var_hc1_media/var_mc_b": 0.9091018298978712,
+   "conley_apto": false
+  },
+  {
+   "diseno": "lambda_100km",
+   "lambda_km": 100,
+   "beta": 0.0,
+   "conley": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": -0.0015162349356985468,
+    "sesgo": -0.0015162349356985468,
+    "mediana_sesgo": 0.0020119789978875063,
+    "rmse": 0.17178915753270887,
+    "de_mc": 0.17195450672251078,
+    "cobertura95": 0.828,
+    "ee_mc_cobertura": 0.0168769665520792,
+    "tamano": 0.168
+   },
+   "hc1": {
+    "cobertura95": 0.846,
+    "ee_mc_cobertura": 0.016142118820031033,
+    "tamano": 0.154
+   },
+   "frac_var_conley_negativa": 0.004,
+   "var_conley_media/var_mc_b": 0.6822143275567701,
+   "var_hc1_media/var_mc_b": 0.6466359471491225,
+   "conley_apto": false
+  },
+  {
+   "diseno": "lambda_100km",
+   "lambda_km": 100,
+   "beta": 0.5,
+   "conley": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.49723115279623087,
+    "sesgo": -0.0027688472037691314,
+    "mediana_sesgo": -0.001945269855463283,
+    "rmse": 0.16152383320206123,
+    "de_mc": 0.16166184237478395,
+    "cobertura95": 0.862,
+    "ee_mc_cobertura": 0.01542439626046997,
+    "potencia": 0.898
+   },
+   "hc1": {
+    "cobertura95": 0.89,
+    "ee_mc_cobertura": 0.013992855319769442,
+    "potencia": 0.918
+   },
+   "frac_var_conley_negativa": 0.006,
+   "var_conley_media/var_mc_b": 0.7969354638828161,
+   "var_hc1_media/var_mc_b": 0.7396136716204533,
+   "conley_apto": false
+  },
+  {
+   "diseno": "lambda_200km",
+   "lambda_km": 200,
+   "beta": 0.0,
+   "conley": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.0,
+    "media": 0.018621113210529495,
+    "sesgo": 0.018621113210529495,
+    "mediana_sesgo": 0.01620545553700489,
+    "rmse": 0.20171262253977157,
+    "de_mc": 0.20105243195610425,
+    "cobertura95": 0.808,
+    "ee_mc_cobertura": 0.017614539448989292,
+    "tamano": 0.19
+   },
+   "hc1": {
+    "cobertura95": 0.782,
+    "ee_mc_cobertura": 0.018464885594013304,
+    "tamano": 0.218
+   },
+   "frac_var_conley_negativa": 0.002,
+   "var_conley_media/var_mc_b": 0.6172385357549153,
+   "var_hc1_media/var_mc_b": 0.4865074984417983,
+   "conley_apto": false
+  },
+  {
+   "diseno": "lambda_200km",
+   "lambda_km": 200,
+   "beta": 0.5,
+   "conley": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": 0.5,
+    "media": 0.5087956956733675,
+    "sesgo": 0.008795695673367465,
+    "mediana_sesgo": 0.00882300641357392,
+    "rmse": 0.18951264864225426,
+    "de_mc": 0.189498017748168,
+    "cobertura95": 0.836,
+    "ee_mc_cobertura": 0.0165592270351004,
+    "potencia": 0.858
+   },
+   "hc1": {
+    "cobertura95": 0.814,
+    "ee_mc_cobertura": 0.017401379255679708,
+    "potencia": 0.912
+   },
+   "frac_var_conley_negativa": 0.002,
+   "var_conley_media/var_mc_b": 0.6715779115842131,
+   "var_hc1_media/var_mc_b": 0.5270442615329668,
+   "conley_apto": false
+  }
+ ],
+ "veredicto": "NO APTO",
+ "condicion": "lambda=50 km, beta=0.0: cobertura Conley 0.870 (HC1 0.922); lambda=50 km, beta=0.5: cobertura Conley 0.872 (HC1 0.916); lambda=100 km, beta=0.0: cobertura Conley 0.828 (HC1 0.846); lambda=100 km, beta=0.5: cobertura Conley 0.862 (HC1 0.890); lambda=200 km, beta=0.0: cobertura Conley 0.808 (HC1 0.782); lambda=200 km, beta=0.5: cobertura Conley 0.836 (HC1 0.814). Con 52 puntos y ~5 vecinos por radio el estimador infraestima la varianza (residuos estimados y núcleo truncado): no cumple en ningún diseño.",
+ "criterio": "APTO si cobertura en [0.92, 0.98] y tamaño ≤ 0.08",
+ "segundos": 1.0
+}

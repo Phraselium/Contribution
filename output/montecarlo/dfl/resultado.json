@@ -1,0 +1,290 @@
+{
+ "herramienta": "dfl",
+ "seed": 20261019,
+ "datos": "simulados (nunca datos reales)",
+ "dgp": {
+  "N": 4000,
+  "proporcion_A": 0.3,
+  "probabilidades": {
+   "A": {
+    "educ": [
+     0.45,
+     0.35,
+     0.2
+    ],
+    "edad": [
+     0.5,
+     0.35,
+     0.15
+    ],
+    "mujer": 0.45
+   },
+   "B": {
+    "educ": [
+     0.25,
+     0.45,
+     0.3
+    ],
+    "edad": [
+     0.3,
+     0.4,
+     0.3
+    ],
+    "mujer": 0.5
+   }
+  },
+  "coeficientes_B": [
+   0.3,
+   0.7,
+   0.2,
+   0.35,
+   -0.15
+  ],
+  "delta": -0.1,
+  "disenos": [
+   "lineal",
+   "lineal_pesos",
+   "heterogeneo"
+  ],
+  "R": 500,
+  "cuantiles": [
+   0.1,
+   0.25,
+   0.5,
+   0.75,
+   0.9
+  ],
+  "descripcion": "M1 · Monte Carlo de econ.oaxaca y econ.dfl: identidades contables exactas e insesgadez de la parte explicada (composición).\n\nDGP (declarado antes de simular; composición conocida, todo se redibuja en cada réplica):\n- n = 4000 con 30 % del grupo A y 70 % del grupo B (grupos genéricos; sin atribuir rasgos a ningún colectivo real).\n- Covariables discretas independientes dentro de cada grupo: educación (3 niveles), edad (3 tramos), sexo.\n  P(educ | A) = (0,45; 0,35; 0,20), P(educ | B) = (0,25; 0,45; 0,30); P(edad | A) = (0,50; 0,35; 0,15), P(edad | B) = (0,30; 0,40; 0,30);\n  P(mujer | A) = 0,45, P(mujer | B) = 0,50. Con esta estructura el logit con efectos principales de DFL está bien especificado.\n- «lineal»: y = 2 + 0,3·e2 + 0,7·e3 + 0,2·a2 + 0,35·a3 − 0,15·mujer − 0,10·A + error, error ~ N(0, (0,4 + 0,2·e3)²).\n  Verdad: explicada = (E[x|A] − E[x|B])·b (poblacional); no explicada = −0,10.\n- «lineal_pesos»: igual, pero la muestra sobrerrepresenta educación alta (probabilidad ×2) y se usan pesos 1/probabilidad.\n- «heterogeneo»: A tiene la mitad de rendimiento educativo (0,15; 0,35). Verdad de composición con estructura de B:\n  (E[x|A] − E[x|B])·b_B. DFL debe ser insesgado; Oaxaca con coeficientes agrupados estima otra cantidad (se informa, no se exige).\n- Cuantiles de DFL: verdad por simulación grande (2·10⁶) de la distribución contrafactual (composición de A, estructura de B).\n- Criterio (las herramientas no dan EE, así que no hay cobertura): identidades con error < 1e-10 y |sesgo| < max(3·EE_MC; 2 % de |verdad|).\n"
+ },
+ "disenos": [
+  {
+   "diseno": "lineal",
+   "composicion_media": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": -0.155,
+    "media": -0.15507745630721417,
+    "sesgo": -7.745630721417429e-05,
+    "mediana_sesgo": 0.00045336177404473044,
+    "rmse": 0.01190426306837204,
+    "de_mc": 0.011915932973911726
+   },
+   "max_error_identidades": 0.0,
+   "composicion_cuantiles": {
+    "0.1": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.1305821609649802,
+     "media": -0.12869559192844743,
+     "sesgo": 0.0018865690365327814,
+     "mediana_sesgo": 0.002934905335926774,
+     "rmse": 0.018082324604753706,
+     "de_mc": 0.01800165101485412
+    },
+    "0.25": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.14243770063516203,
+     "media": -0.14265801571169692,
+     "sesgo": -0.00022031507653488824,
+     "mediana_sesgo": -5.8246250267068866e-05,
+     "rmse": 0.015792228692669143,
+     "de_mc": 0.01580650624356533
+    },
+    "0.5": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.15399430855892193,
+     "media": -0.1543459961295148,
+     "sesgo": -0.0003516875705928679,
+     "mediana_sesgo": 8.311366799973463e-05,
+     "rmse": 0.015213666143557963,
+     "de_mc": 0.015224833150785952
+    },
+    "0.75": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.16951008837279646,
+     "media": -0.16935759747366716,
+     "sesgo": 0.00015249089912930391,
+     "mediana_sesgo": -5.020944083833356e-05,
+     "rmse": 0.017248157769600744,
+     "de_mc": 0.017264757068780587
+    },
+    "0.9": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.18734014872788007,
+     "media": -0.18748425310985192,
+     "sesgo": -0.00014410438197184905,
+     "mediana_sesgo": 0.00042358983064016975,
+     "rmse": 0.02357112255936631,
+     "de_mc": 0.02359428815418616
+    }
+   },
+   "identidades_ok": true,
+   "media_insesgada": true,
+   "cuantiles_insesgados": {
+    "0.1": true,
+    "0.25": true,
+    "0.5": true,
+    "0.75": true,
+    "0.9": true
+   }
+  },
+  {
+   "diseno": "lineal_pesos",
+   "composicion_media": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": -0.155,
+    "media": -0.1550699231854108,
+    "sesgo": -6.992318541079734e-05,
+    "mediana_sesgo": -1.431073267380012e-05,
+    "rmse": 0.0117333628987636,
+    "de_mc": 0.011744905332302755
+   },
+   "max_error_identidades": 0.0,
+   "composicion_cuantiles": {
+    "0.1": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.129869441980079,
+     "media": -0.13169585407019405,
+     "sesgo": -0.0018264120901150538,
+     "mediana_sesgo": -0.0016597036631669226,
+     "rmse": 0.020227521149972234,
+     "de_mc": 0.02016507106190104
+    },
+    "0.25": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.14180853066766907,
+     "media": -0.1420624498257742,
+     "sesgo": -0.00025391915810513144,
+     "mediana_sesgo": 8.320427731001168e-05,
+     "rmse": 0.015990785123959333,
+     "de_mc": 0.01600478178613598
+    },
+    "0.5": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.1542505760965267,
+     "media": -0.15435166697357197,
+     "sesgo": -0.00010109087704526787,
+     "mediana_sesgo": 0.00013100591379333615,
+     "rmse": 0.015225382369288231,
+     "de_mc": 0.0152402946851362
+    },
+    "0.75": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.16989890166612653,
+     "media": -0.16976419168931695,
+     "sesgo": 0.0001347099768095883,
+     "mediana_sesgo": 6.591284102031025e-05,
+     "rmse": 0.017820920363070807,
+     "de_mc": 0.017838258399701712
+    },
+    "0.9": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.18670070392536475,
+     "media": -0.18595853937446377,
+     "sesgo": 0.0007421645509009811,
+     "mediana_sesgo": 0.0003253398324540857,
+     "rmse": 0.022503210029130093,
+     "de_mc": 0.022513493023757745
+    }
+   },
+   "identidades_ok": true,
+   "media_insesgada": true,
+   "cuantiles_insesgados": {
+    "0.1": true,
+    "0.25": true,
+    "0.5": true,
+    "0.75": true,
+    "0.9": true
+   }
+  },
+  {
+   "diseno": "heterogeneo",
+   "composicion_media": {
+    "R": 500,
+    "R_validas": 500,
+    "verdad": -0.155,
+    "media": -0.15495196481725285,
+    "sesgo": 4.803518274715257e-05,
+    "mediana_sesgo": -0.0004251812091009832,
+    "rmse": 0.012992750667434704,
+    "de_mc": 0.013005674055681569
+   },
+   "max_error_identidades": 0.0,
+   "composicion_cuantiles": {
+    "0.1": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.13143951578716906,
+     "media": -0.1301593034873229,
+     "sesgo": 0.0012802122998461507,
+     "mediana_sesgo": 0.001818347505880169,
+     "rmse": 0.018294257692257638,
+     "de_mc": 0.01826768561294389
+    },
+    "0.25": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.1414987961627272,
+     "media": -0.1418810411491706,
+     "sesgo": -0.000382244986443403,
+     "mediana_sesgo": -0.0007138827459696184,
+     "rmse": 0.015109690075417554,
+     "de_mc": 0.015119981833547427
+    },
+    "0.5": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.15474321097763166,
+     "media": -0.15373147148288577,
+     "sesgo": 0.0010117394947458946,
+     "mediana_sesgo": 0.0015616463531646918,
+     "rmse": 0.016424136642527322,
+     "de_mc": 0.01640936263269242
+    },
+    "0.75": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.17130474152426922,
+     "media": -0.16967615604120412,
+     "sesgo": 0.0016285854830651036,
+     "mediana_sesgo": 0.0022740170450707975,
+     "rmse": 0.018425804550732533,
+     "de_mc": 0.018372072522273384
+    },
+    "0.9": {
+     "R": 500,
+     "R_validas": 500,
+     "verdad": -0.18832895074240863,
+     "media": -0.18667727776586995,
+     "sesgo": 0.0016516729765386762,
+     "mediana_sesgo": 0.0014518478780025657,
+     "rmse": 0.02690180656793034,
+     "de_mc": 0.026877946741501475
+    }
+   },
+   "identidades_ok": true,
+   "media_insesgada": true,
+   "cuantiles_insesgados": {
+    "0.1": true,
+    "0.25": true,
+    "0.5": true,
+    "0.75": true,
+    "0.9": true
+   }
+  }
+ ],
+ "veredicto": "APTO",
+ "condicion": "identidades exactas (error máx. 0.0e+00); composición en la media lineal: sesgo -0.0001; lineal_pesos: sesgo -0.0001; heterogeneo: sesgo +0.0000; cuantiles insesgados en todos los diseños. Logit bien especificado por construcción; con covariables continuas o interacciones omitidas hay que validar el logit.",
+ "criterio": "APTO si cobertura en [0.92, 0.98] y tamaño ≤ 0.08",
+ "segundos": 24.5
+}
