@@ -20,3 +20,7 @@ Estas correcciones se hicieron **después** de ver los resultados de la primera 
 11. **P5.** El IC difundido es ahora el orientativo de la estimación leave-one-country-out (errores agrupados por país); el conjunto AKM0 de la variante con shocks comunes se guarda aparte. La regla adicional para SUGESTIVO en P5 (desviación 5) se fijó al programar el script de P5, que se escribió y ejecutó en la misma sesión que P1: no puede acreditarse que se fijara antes de ver las estimaciones de P1. Con la regla de A6 sola (techo SUGESTIVO), P5 tampoco pasaría de ASOCIACIÓN, porque su forma reducida no es significativa (p del wild bootstrap = 0,38).
 
 **Trazabilidad.** El código de la fase 5, las desviaciones 1-6 y los resultados entraron en un único commit (ea10513), por lo que el orden entre las desviaciones 3-6 y la primera estimación no es verificable con el historial; solo el pre-registro (c247555) es anterior y está en el remoto. En adelante, las desviaciones se registran en un commit propio antes de ejecutar.
+
+## Análisis exploratorios a posteriori (tercera fase de revisión)
+
+12. **Lectura de P1-E3a** (src/m1/f5_x_e3a_lectura.py): MCO, descomposición de la tasa de empleo de los nativos con educación baja en ocupados y población, elasticidad y aritmética de la variante por nacionalidad. Pedido por el autor tras ver los resultados; rotulado «exploratorio, a posteriori» en el documento; no cambia ninguna clasificación.

@@ -1,0 +1,128 @@
+{
+ "pregunta": "Lectura de P1-E3a (exploratorio, a posteriori)",
+ "capa": "C4",
+ "clasificacion": "ASOCIACIÓN",
+ "datos": "padrón, ECP, EPA (INE)",
+ "N": 150,
+ "metodo": "misma especificación que P1; MCO y descomposición en ocupados y población",
+ "estimacion": null,
+ "ic95": [
+  null,
+  null
+ ],
+ "p_ajustado": null,
+ "diagnosticos": {
+  "lineas": {
+   "tasa_empleo_educ_baja": {
+    "mc2e": -0.6891854485365112,
+    "akm0_p": 0.001529667358839637,
+    "akm0_conjunto": [
+     [
+      -Infinity,
+      -0.8482288841747829
+     ],
+     [
+      1.808732040577799,
+      Infinity
+     ]
+    ],
+    "mco": -0.19994664833095444,
+    "ee_mco_cluster": 0.09059516721096293
+   },
+   "log_ocu_baja": {
+    "mc2e": -2.5831658303792366,
+    "akm0_p": 0.020556926516705043,
+    "akm0_conjunto": [
+     [
+      -Infinity,
+      -1.7460109603850356
+     ],
+     [
+      5.759515460200532,
+      Infinity
+     ]
+    ],
+    "mco": -0.06186486845738304,
+    "ee_mco_cluster": 0.370011582498185
+   },
+   "log_pob_baja": {
+    "mc2e": -1.240314313101523,
+    "akm0_p": 0.15833900055205608,
+    "akm0_conjunto": [
+     [
+      -Infinity,
+      Infinity
+     ]
+    ],
+    "mco": 0.21478182471866836,
+    "ee_mco_cluster": 0.3005962344163628
+   },
+   "log_pob_media_alta": {
+    "mc2e": 0.6301235433481415,
+    "akm0_p": 0.16443238963885998,
+    "akm0_conjunto": [
+     [
+      -Infinity,
+      0.3391307134416959
+     ],
+     [
+      4.292619506015669,
+      Infinity
+     ]
+    ],
+    "mco": 0.48495712982151024,
+    "ee_mco_cluster": 0.24828261473450278
+   }
+  },
+  "peso_educ_baja_nativos": 0.4866368313335411,
+  "pesos": {
+   "baja": 0.4866368313335411,
+   "media": 0.21835535562065517,
+   "alta": 0.2950078130458037
+  },
+  "tasa_empleo_baja_media": 0.5045174564540222,
+  "cuota_nacidos_fuera_15_64_media": 0.12885733576042632,
+  "elasticidad_E3a": -0.1760228503636769,
+  "nacionalidad": {
+   "P1-E3a": {
+    "b": -0.3606741564370037,
+    "conjunto": [
+     [
+      -1.0143935293090327,
+      -0.25729042174908745
+     ]
+    ]
+   },
+   "P1-E3b": {
+    "b": 0.006754296925234421,
+    "conjunto": [
+     [
+      -0.47190760710622204,
+      1.474829075213095
+     ]
+    ]
+   },
+   "P1-E3c": {
+    "b": 0.05888002384971063,
+    "conjunto": [
+     [
+      -0.37913222621101195,
+      1.3287313277559654
+     ]
+    ]
+   },
+   "P1-H1": {
+    "b": -0.11778649216523851,
+    "conjunto": [
+     [
+      -0.6223946091170611,
+      0.6771441030342595
+     ]
+    ]
+   }
+  },
+  "tasa_total_implicita_por_niveles_nacionalidad": -0.15667242465733638
+ },
+ "notas": "No pre-registrado; no cambia ninguna clasificación (docs/desviaciones.md, 12).",
+ "prereg": "prereg-m1 c247555"
+}

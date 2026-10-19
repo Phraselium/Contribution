@@ -13,3 +13,5 @@ git push origin prereg-m1
 Comprobación: `git ls-remote origin refs/tags/prereg-m1` debe devolver la etiqueta, y `git rev-list -n1 prereg-m1` debe dar c247555d37e8d0dee45b87c3b959f35a47b762fb.
 
 Nota: la etiqueta local original tiene fecha de etiquetado anterior a cualquier estimación de la fase 5; la que se cree desde tu ordenador tendrá la fecha de creación nueva. En ninguno de los dos casos hay sello de tiempo externo; la garantía es que el commit c247555 está en el historial remoto antes de los commits de la fase 5.
+
+**Estado (19-10-2026, cierre autónomo):** la etiqueta prereg-m1 sigue pendiente de subir desde tu ordenador con las órdenes de arriba. El trabajo no se ha detenido por ello.
