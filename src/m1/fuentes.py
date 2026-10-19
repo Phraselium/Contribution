@@ -25,6 +25,7 @@ CATALOGO = RAIZ / "data" / "fuentes.csv"
 CHECKSUMS = RAIZ / "data" / "CHECKSUMS.sha256"
 COLS = ["ruta", "familia", "url", "licencia", "edicion", "fecha_descarga", "sha256", "bytes", "versionado", "descripcion"]
 GRANDE = 50 * 1024 * 1024
+VERSIONAR_MAX = 10 * 1024 * 1024   # D10: los crudos de más de 10 MB no se versionan
 UA = "M1-estudio-publico/1.0 (investigacion; solo datos publicos)"
 
 
@@ -45,12 +46,24 @@ def _guardar_catalogo(filas: list[dict]) -> None:
     CHECKSUMS.write_text("".join(f"{f['sha256']}  {f['ruta']}\n" for f in filas), encoding="utf-8")
 
 
+def _ignorar(rel: str) -> None:
+    gi = RAIZ / ".gitignore"
+    texto = gi.read_text(encoding="utf-8") if gi.exists() else ""
+    if f"/{rel}\n" not in texto:
+        if "# crudos > 10 MB" not in texto:
+            texto = texto.rstrip("\n") + "\n# crudos > 10 MB (D10; generado por src/m1/fuentes.py)\n"
+        gi.write_text(texto + f"/{rel}\n", encoding="utf-8")
+
+
 def registrar(ruta: Path, familia: str, url: str, licencia: str, edicion: str, descripcion: str, fecha: str | None = None) -> dict:
     rel = str(ruta.relative_to(RAIZ))
     size = ruta.stat().st_size
     fila = dict(ruta=rel, familia=familia, url=url, licencia=licencia, edicion=edicion,
                 fecha_descarga=fecha or dt.date.today().isoformat(), sha256=sha256(ruta), bytes=size,
-                versionado="no (ignorado; checksum)" if "/grandes/" in rel else "sí", descripcion=descripcion)
+                versionado="no (ignorado; checksum)" if ("/grandes/" in rel or size > VERSIONAR_MAX) else "sí",
+                descripcion=descripcion)
+    if size > VERSIONAR_MAX and "/grandes/" not in rel:
+        _ignorar(rel)
     import fcntl
     with open(CATALOGO.with_suffix(".lock"), "w") as lk:   # varias descargas a la vez no pisan el catálogo
         fcntl.flock(lk, fcntl.LOCK_EX)

@@ -76,7 +76,12 @@ def consultar(doi: str, cache: dict, red: bool) -> dict:
         except urllib.error.HTTPError as e2:
             if e2.code != 404:
                 raise
-            cache[doi] = {"existe": False, "consulta": hoy}
+            h = _get("https://doi.org/api/handles/" + urllib.parse.quote(doi))
+            if h.get("responseCode") == 1:   # existe en doi.org con otra agencia (p. ej. Oficina de Publicaciones de la UE)
+                ra = (_get("https://doi.org/ra/" + urllib.parse.quote(doi.split("/")[0])) or [{}])[0].get("RA", "otra agencia")
+                cache[doi] = {"existe": True, "registro": ra, "consulta": hoy}
+            else:
+                cache[doi] = {"existe": False, "consulta": hoy}
     return cache[doi]
 
 
@@ -85,6 +90,8 @@ def estado(cab: str, cr: dict | None) -> str:
         return "NO VERIFICADA (sin DOI)"
     if not cr.get("existe"):
         return "NO VERIFICADA (el DOI no existe en Crossref ni en DataCite)"
+    if cr.get("registro") not in ("Crossref", "DataCite"):
+        return f"NO VERIFICADA (el DOI existe en doi.org, agencia {cr['registro']}, sin metadatos comparables)"
     problemas = []
     tit = cab.split(". ", 1)[1] if ". " in cab else cab
     ft, ct = _palabras(tit), _palabras(cr.get("titulo", ""))

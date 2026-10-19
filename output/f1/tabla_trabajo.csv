@@ -1,0 +1,27 @@
+trabajo,diseño,datos,resultado (unidad),validez para España
+Card (2001),"espacial, ciudad × ocupación; asentamientos previos",Censo EE. UU. 1990,−1 a −3 pp en salario y tasa de empleo de nativos poco cualificados en ciudades de entrada; sin salida de nativos,alta como diseño; replicable con EPA + padrón
+Borjas (2003),celdas nacionales educación × experiencia,censos y CPS EE. UU.,"elasticidad salarial −0,3 a −0,4 (10 % más oferta → −3/−4 % salario)",efecto relativo; sesgo por downgrading
+Ottaviano y Peri (2012),estructural CES anidada,EE. UU. 1990–2006,"+0,6 % a +1,7 % salario nativos sin secundaria; +0,6 % media nativa; −6,7 % inmigrantes previos (largo plazo)",depende de elasticidades y del capital
+Peri y Sparber (2009),especialización por tareas,censos EE. UU. + O*NET,nativos hacia tareas comunicativas; efecto salarial modesto (sin cifra en resumen),relevante para P2; canal idioma más débil
+"Dustmann, Schönberg y Stuhler (2016)",revisión y modelo canónico,—,efectos relativos no comparables; preferir efecto total,guía del pre-registro
+"Jaeger, Ruist y Stuhler (2018)",shift-share con instrumentación múltiple,"censos EE. UU. 1960–2010, áreas metropolitanas",impacto inicial más negativo y recuperación posterior de magnitud similar,crítica central; España tiene cambios de composición útiles
+"Goldsmith-Pinkham, Sorkin y Swift (2020)",econometría de Bartik (cuotas),EE. UU.,pesos de Rotemberg (metodológico),prueba obligatoria
+"Adão, Kolesár y Morales (2019)",inferencia shift-share,"EE. UU., placebo",rechazo del nulo hasta 55 % con errores convencionales al 5 %,inferencia obligatoria
+"Borusyak, Hull y Jaravel (2022)",shift-share por choques,EE. UU. (ADH),metodológico,exige muchos orígenes con peso disperso
+"Carrasco, Jimeno y Ortega (2008)",celdas región × ocupación,"permisos de trabajo, EPA, censos 1991–2001","elasticidad de la tasa de empleo nativa ≈ −0,17 (legales), no significativa (totales)",directa; periodo previo al auge
+González y Ortega (2011),"IV regional, asentamientos de los ochenta",regiones españolas 2001–2006,sin efecto en salarios ni empleo de poco cualificados; ajuste por intensidad de factores dentro de ramas,directa; réplica prevista
+Amuedo-Dorantes y De la Rica (2007),asimilación en sección cruzada,"Censo 2001, EES 2002",asimilación de empleo y ocupacional heterogénea (sin cifra en resumen),directa
+Amuedo-Dorantes y De la Rica (2011),tareas por sexo y origen,España (cuota 4 %→13 %),cambio de tareas nativas ≈ 2 veces el de EE. UU.; empleo nativo sin cambio,directa; P2
+Amuedo-Dorantes y De la Rica (2010),elección regional y disparidades,EPA 1999–2007,localización endógena; menor disparidad regional solo temporal,directa
+"Izquierdo, Lacuesta y Vegas (2009)",panel longitudinal,datos administrativos (probable MCVL),−15 pp de brecha salarial en 5–6 años,directa; réplica NO ESTIMABLE si es MCVL
+"Simón, Sanromá y Ramos (2008)",descomposición de distribuciones,emparejados empresa-trabajador,brechas explicadas sobre todo por segregación ocupacional y de centro,directa; base de Oaxaca/DFL
+"Simón, Ramos y Sanromá (2014)",movilidad ocupacional origen-destino,encuesta longitudinal retrospectiva,downgrading inicial fuerte y movilidad lenta (asimilación segmentada),directa
+"Fernández-Huertas Moraga, Ferrer-i-Carbonell y Saiz (2019)",cuasi experimento residencial,España 1998–2008,desplazamiento leve de nativos; segregación agregada sin cambio,unidad geográfica de P1
+Fernández-Huertas Moraga (2021),síntesis institucional,España hasta 2020,"14,8 % nacidos fuera; entrada latinoamericana por tratados",contexto del instrumento
+Gálvez-Iniesta (2025),IV por celdas educación × experiencia,EPA 2005–2024,"coef. log-log empleo nativo: 0,038 (2005–24, 10 %), 0,191 (2005–13), −0,028 (2014–24)","directa, reproducible"
+"Cuadrado, Gómez y Sastre (2024)",descriptivo comparado UE,"Eurostat, INE hasta 2024","actividad de extranjeros mayor que la de nacionales; 17,1 % extranjeros (2022)",hechos C1
+Cuadrado y Regil (2025),descomposición contable,"CN, EPA, EES 2022–2024","0,4–0,7 pp del 2,9 % anual de crecimiento del PIB per cápita","C2, no causal"
+Banco de España (2026),MC2E provincia-año con shift-share de Card,"EPA 1999–2025, padrón","empleo nativo: efecto no significativo; reasignación a servicios; salarios provinciales sin diferencia significativa; 1,7 pp del PIB 2022–2025",directa; falta AKM/BHJ y JRS
+"Dustmann, Frattini y Preston (2013)",efectos por percentil,Reino Unido,"caída bajo el percentil 20, ligera subida arriba; media ligeramente positiva",método aplicable con EES
+Foged y Peri (2016),"dispersión de refugiados, panel",registros daneses 1991–2008,"efectos positivos en salario, empleo y movilidad de nativos poco cualificados",mecanismo sí; panel NO ESTIMABLE
+Edo (2019),revisión,internacional,efecto medio nulo o ligeramente positivo; distributivo y de corto plazo negativo posible,marco para fase 6

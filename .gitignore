@@ -10,3 +10,14 @@ data/processed/**/grandes/
 /tmp/
 .claude/worktrees/
 data/fuentes.lock
+# crudos > 10 MB (D10; generado por src/m1/fuentes.py)
+/data/raw/eurostat/lfsa_pgacws.csv.gz
+/data/raw/eurostat/lfst_r_lfe2emprc.csv.gz
+/data/raw/eurostat/lfst_r_lfp2actrc.csv.gz
+/data/raw/eurostat/lfst_r_lfsd2pwc.csv.gz
+/data/raw/eurostat/lfst_r_lfsd2pwn.csv.gz
+/data/raw/eurostat/migr_emi4ctb.csv.gz
+/data/raw/eurostat/migr_imm3ctb.csv.gz
+/data/raw/eurostat/migr_pop1ctz.csv.gz
+/data/raw/eurostat/migr_pop3ctb.csv.gz
+/data/raw/eurostat/proj_23np.csv.gz

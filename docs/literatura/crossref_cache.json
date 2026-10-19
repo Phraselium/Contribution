@@ -53,6 +53,15 @@
   "revista": "European Journal of Population",
   "consulta": "2026-10-19"
  },
+ "10.1007/s10797-023-09787-9": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "Migration and public finances in the EU",
+  "primer_autor": "Fiorio",
+  "anio": 2023,
+  "revista": "International Tax and Public Finance",
+  "consulta": "2026-10-19"
+ },
  "10.1007/s13209-009-0002-y": {
   "existe": true,
   "registro": "Crossref",
@@ -206,6 +215,33 @@
   "revista": "Journal of Labor Economics",
   "consulta": "2026-10-19"
  },
+ "10.1086/262120": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "Sustaining Fiscal Policy through Immigration",
+  "primer_autor": "Storesletten",
+  "anio": 2000,
+  "revista": "Journal of Political Economy",
+  "consulta": "2026-10-19"
+ },
+ "10.1086/654705": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "The Fiscal Effect of U.S. Immigration: A Generational-Accounting Perspective",
+  "primer_autor": "Auerbach",
+  "anio": 2000,
+  "revista": "Tax Policy and the Economy",
+  "consulta": "2026-10-19"
+ },
+ "10.1093/oxrep/grn025": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "The fiscal impact of immigration on the advanced economies",
+  "primer_autor": "Rowthorn",
+  "anio": 2008,
+  "revista": "Oxford Review of Economic Policy",
+  "consulta": "2026-10-19"
+ },
  "10.1093/qje/qjz025": {
   "existe": true,
   "registro": "Crossref",
@@ -233,6 +269,24 @@
   "revista": "The Review of Economic Studies",
   "consulta": "2026-10-19"
  },
+ "10.1111/1467-9442.t01-2-00009": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "Fiscal Implications of Immigration—A Net Present Value Calculation",
+  "primer_autor": "Storesletten",
+  "anio": 2003,
+  "revista": "The Scandinavian Journal of Economics",
+  "consulta": "2026-10-19"
+ },
+ "10.1111/1475-5890.12314": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "Projecting the fiscal impact of immigration in the European Union",
+  "primer_autor": "Christl",
+  "anio": 2022,
+  "revista": "Fiscal Studies",
+  "consulta": "2026-10-19"
+ },
  "10.1111/ecoj.12052": {
   "existe": true,
   "registro": "Crossref",
@@ -256,6 +310,15 @@
   "registro": "Crossref",
   "titulo": "Immigration and House Prices in the UK",
   "primer_autor": "Sá",
+  "anio": 2014,
+  "revista": "The Economic Journal",
+  "consulta": "2026-10-19"
+ },
+ "10.1111/ecoj.12181": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "The Fiscal Effects of Immigration to the UK",
+  "primer_autor": "Dustmann",
   "anio": 2014,
   "revista": "The Economic Journal",
   "consulta": "2026-10-19"
@@ -368,6 +431,38 @@
   "revista": "American Economic Journal: Economic Policy",
   "consulta": "2026-10-19"
  },
+ "10.1787/29f23e9d-en": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "International Migration Outlook 2021",
+  "primer_autor": "OECD",
+  "anio": 2021,
+  "revista": "International Migration Outlook",
+  "consulta": "2026-10-19"
+ },
+ "10.24241/AnuarioCIDOBInmi.2017.206": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "Inmigración y Estado de bienestar en España",
+  "primer_autor": "Catedrático de Economía Aplicada, Departamento de Economía Aplicada, Universidad de Salamanca",
+  "anio": 2017,
+  "revista": "Anuario CIDOB de la Inmigración 2017",
+  "consulta": "2026-10-19"
+ },
+ "10.2765/022983": {
+  "existe": true,
+  "registro": "OP",
+  "consulta": "2026-10-19"
+ },
+ "10.32796/cice.2008.75.5940": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "Inmigración y pensiones: ¿qué sabemos?",
+  "primer_autor": "Conde-Ruiz",
+  "anio": 2008,
+  "revista": "Cuadernos Económicos de ICE",
+  "consulta": "2026-10-19"
+ },
  "10.3368/jhr.52.4.0115-6913R1": {
   "existe": true,
   "registro": "Crossref",
@@ -383,6 +478,15 @@
   "titulo": "Shift-Share Instruments and the Impact of Immigration",
   "primer_autor": "Jaeger",
   "anio": 2018,
+  "revista": "",
+  "consulta": "2026-10-19"
+ },
+ "10.3386/w7041": {
+  "existe": true,
+  "registro": "Crossref",
+  "titulo": "Generational Accounting and Immigration in the United States",
+  "primer_autor": "Auerbach",
+  "anio": 1999,
   "revista": "",
   "consulta": "2026-10-19"
  },
