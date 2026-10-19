@@ -56,7 +56,7 @@ def resid(a: pd.Series, nativo: pd.Series) -> pd.Series:
 
 def trimestre(ruta: Path) -> pd.DataFrame:
     with zipfile.ZipFile(ruta) as z:
-        n = [x for x in z.namelist() if re.match(r"(?i)^csv/.*\.(csv|txt)$", x)][0]
+        n = [x for x in z.namelist() if re.match(r"(?i)^csv/.*\.(csv|txt|tab)$", x)][0]
         d = pd.read_csv(io.BytesIO(z.read(n)), sep="\t", dtype=str, usecols=lambda c: c in COLS, keep_default_na=False)
     d = d.apply(lambda s: s.str.strip())
     m = re.search(r"datos_(\d)t(\d\d)", ruta.name)
