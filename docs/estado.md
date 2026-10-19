@@ -15,7 +15,7 @@ Leer docs/plan.md y este fichero al empezar o tras compactar.
 - **F4** · Contabilidad fiscal estática 2022-2024 con 64 combinaciones de supuestos y bootstrap; ciclo vital por edad de llegada; pensiones con EUROPOP2023 (variante sin migración) frente al Ageing Report 2024.
 - **F5** · Pre-registro, revisión del abogado del diablo («resiste con limitaciones»), adenda, Monte Carlo (AKM0 agrupado APTO; MC2E con dos endógenas APTO; Wald BHJ y Conley NO APTO), datos de apoyo (ECP 15-64, afiliación 1999-2003), código de P1/P2. Sin estimaciones.
 - **F6** · 12 fichas (6 favorables, 6 desfavorables) con veredicto.
-- **F7** · Documento generado (publicacion/documento_m1/), versión web, figuras y mapas por provincia y NUTS2, tablas_m1.xlsx con la convención de colores. Revisión del árbitro y del verificador de cifras: en curso.
+- **F7** · Documento generado (publicacion/documento_m1/), versión web, figuras y mapas por provincia y NUTS2, tablas_m1.xlsx con la convención de colores. Revisión del verificador de cifras (19 puntos) y del árbitro (veredicto REVISAR, 15 hallazgos) incorporada: ciclo vital rehecho (D14), veredictos armonizados (D15: balance 1/5/0 desfavorables y 0/4/2 favorables), presupuesto equilibrado y diferencia con nativos, D11 aplicado a todos los grupos, edad −1 de la ECV corregida. Segunda ronda del árbitro: no lanzada.
 
 ## Subagentes y tokens por fase
 | fase | subagentes | tokens aprox. |
@@ -24,9 +24,8 @@ Leer docs/plan.md y este fichero al empezar o tras compactar.
 | 1 | 3 bibliotecario | ≈ 585.000 |
 | 2 | 1 adquisidor-datos | ≈ 330.000 |
 | 5 (preparación) | 1 montecarlo, 1 abogado-del-diablo | ≈ 260.000 |
-| 7 | 1 arbitro-final, 1 verificador-cifras | en curso |
+| 7 | 1 arbitro-final, 1 verificador-cifras | ≈ 328.000 |
 Ninguna fase supera 6 millones de tokens.
 
 ## Siguiente
-1. Incorporar la revisión del árbitro y del verificador.
-2. Cuando exista el remoto: push de la rama y de prereg-m1; `make m1_f5`; replicador-ciego y abogado-del-diablo para lo que quede IDENTIFICADO o SUGESTIVO; regenerar F6-F7.
+1. Cuando exista el remoto: push de la rama y de prereg-m1; `make m1_f5`; replicador-ciego y abogado-del-diablo para lo que quede IDENTIFICADO o SUGESTIVO; regenerar F6-F7.

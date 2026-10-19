@@ -99,7 +99,7 @@ def anio(a: int) -> pd.DataFrame | None:
     r = _num(r, num)
     r["anio"] = a
     r["anio_renta"] = a - 1
-    r["edad"] = r["RB081"] if "RB081" in r and r["RB081"].notna().any() else (a - 1 - r["RB080"])
+    r["edad"] = r["RB081"] if "RB081" in r and r["RB081"].notna().any() else (a - 1 - r["RB080"]).clip(lower=0)
     r["nacionalizado"] = (r["nacimiento3"] != "España") & (r["nacionalidad3"] == "España")
     return r.drop(columns=[c for c in ("PB030", "RB220", "RB230", "PB210", "PB220A", "RB280", "RB290") if c in r])
 

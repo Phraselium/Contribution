@@ -103,6 +103,10 @@ def main() -> int:
     ep = ep.pivot_table(index="prov", columns="nacimiento", values="valor", aggfunc="sum")
     ep["cuota_fuera"] = ep["Extranjero"] / ep["Total"]
     ep.reset_index().to_csv(O / "poblacion_provincias_ecp.csv", index=False)
+    # serie nacional de nacidos fuera a 1 de enero (denominador del mismo periodo para la tasa de salida del ciclo vital)
+    sn = e[(e.Provincias == "Total Nacional") & (e.edad == "Todas las edades") & e.nacimiento.isin(["Total", "Extranjero"])]
+    sn.pivot_table(index="anio", columns="nacimiento", values="valor", aggfunc="sum").reset_index().to_csv(
+        O / "poblacion_ecp_nacional.csv", index=False)
     # 4. flujos 2021-2024
     fl = flujos()
     fl.to_csv(O / "poblacion_flujos.csv", index=False)

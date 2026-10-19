@@ -3,17 +3,28 @@ supuestos explícitos; no identifica efectos). Sin red.
 
 Perfiles por edad (tramos de 5 años) de la contabilidad estática de 2024 (output/f4/perfil_edad_2024.csv, escenario principal):
 impuestos y cotizaciones, prestaciones no contributivas y de desempleo, pensiones (vejez y supervivencia), sanidad, educación y
-bienes públicos. Para una persona que llega a la edad a0 en 2024 se proyecta cada año de vida hasta los 100 con:
+bienes públicos. Los tramos con menos de 50 observaciones (suprimidos) NO se interpolan: se usa el perfil de los nacidos en España de
+esa edad escalado por la razón grupo/nativos del tramo observado más próximo, bloque a bloque (impuestos, prestaciones, pensiones).
+Para una persona que llega a la edad a0 en 2024 se proyecta cada año de vida hasta los 100 con:
 - supervivencia de la tabla de mortalidad de España (Eurostat demo_mlifetable, último año);
-- probabilidad anual de retorno o reemigración r (0 %, la tasa observada 2021-2024 en la Estadística de Migraciones y el doble);
+- salida (retorno o reemigración) con riesgo que decrece con la duración de la residencia: riesgos relativos 1; 0,5; 0,25; 0,1 en
+  0-4, 5-9, 10-19 y 20+ años (supuesto), calibrados para que el riesgo medio sobre el stock por años de residencia (EPA) iguale la
+  tasa observada: emigraciones de nacidos fuera 2021-2024 (Estadística de Migraciones) / stock medio de nacidos fuera del mismo
+  periodo (ECP). La tasa observada incluye bajas por caducidad de inscripciones de extranjeros no comunitarios sin residencia
+  permanente, que no siempre son salidas reales: es una cota superior de las salidas. Variantes: sin salida, la mitad del riesgo y
+  riesgo constante (el supuesto anterior);
+- quien sale conserva la pensión contributiva devengada (exportable) y la cobra desde los 65 con la misma mortalidad, sin más flujos;
 - convergencia de impuestos y prestaciones no contributivas hacia el perfil de los nacidos en España de la misma edad: una fracción
-  c (0, 0,5 o 1) de la brecha se cierra linealmente en 20 años de residencia;
-- pensión futura = pensión media de los nacidos en España a esa edad × (contribución relativa acumulada en la vida laboral) ×
-  min(1, años cotizables / 37), con suelo de pensión no contributiva (7.250 € al año, 2024) si residió al menos 10 años;
+  c (0, 0,5 o 1) de la brecha se cierra linealmente en 20 años. El perfil transversal por edad de los nacidos fuera ya mezcla
+  duraciones de residencia (contiene convergencia), por lo que c > 0 la contaría dos veces: el principal es c = 0;
+- pensión contributiva = pensión media de los nacidos en España a esa edad × (contribución relativa media en la vida laboral) ×
+  min(1, años cotizables / 37), solo con al menos 15 años cotizables; suelo de pensión no contributiva (7.250 € al año, 2024) para
+  quien reside y residió al menos 10 años;
 - crecimiento real de la productividad del 1 % anual y tasas reales de descuento del 2, 3 y 4 %;
-- bienes públicos con coste medio o con coste marginal cero;
+- bienes públicos con coste medio o con coste marginal cero (el cero traslada su coste a los demás residentes);
 - gasto en especie ligado a la edad (sanidad, educación, protección social en especie, resto de servicios): perfil de los nacidos en
-  España para todos (el perfil transversal de los nacidos fuera mayores de 65 tiene pocas observaciones).
+  España para todos (D12).
+No se incluyen los descendientes (sus impuestos y su educación), que en la contabilidad estática son el componente que más pesa.
 Comparadores: un nacido en España de la misma edad a0 (vida restante) y un recién nacido en España.
 Descomposición: valor actual de los años hasta los 64 («población joven hoy») frente al de 65 y más (pensiones y sanidad futuras).
 """
@@ -38,14 +49,30 @@ EDAD = ["gas_sanidad", "gas_educacion", "gas_prot_social_especie", "gas_otras_pr
 BP = "gas_bienes_publicos_puros"
 
 
+BLOQUES = {"tax": TAX + ["ing_otros_ingresos"], "conv": CONV, "pens": PENS}
+DUR = [(0, 5, 1.0), (5, 10, 0.5), (10, 20, 0.25), (20, 200, 0.1)]   # riesgos relativos de salida por años de residencia
+
+
 def perfiles() -> dict[str, pd.DataFrame]:
     p = pd.read_csv(O / "perfil_edad_2024.csv")
+    p = p[p.e >= 0]
+    num = [c for c in p.columns if c not in ("grupo", "e", "n_muestral") and pd.api.types.is_numeric_dtype(p[c])]
+    nat = p[p.grupo == "España"].set_index("e")[num].sort_index()
     out = {}
     for g, x in p.groupby("grupo"):
-        x = x.set_index("e").sort_index().drop(columns=["grupo"], errors="ignore").select_dtypes("number")
+        x = x.set_index("e").sort_index()
+        x = x[num].where(x.n_muestral >= 50).reindex(nat.index)
+        obs = x.dropna(how="all").index
+        for e in x.index[x.isna().all(axis=1)]:          # tramo suprimido: perfil nativo escalado por el tramo observado más próximo
+            e0 = min(obs, key=lambda o: (abs(o - e), o))
+            for cols in BLOQUES.values():
+                den = nat.loc[e0, cols].sum()
+                x.loc[e, cols] = nat.loc[e, cols] * (x.loc[e0, cols].sum() / den if den > 0 else 1.0)
+            otros = [c for c in num if not any(c in b for b in BLOQUES.values())]
+            x.loc[e, otros] = nat.loc[e, otros]
         idx = pd.DataFrame(index=range(0, 101))
         idx["e"] = (idx.index.to_series().clip(upper=85) // 5) * 5
-        out[g] = idx.join(x, on="e").drop(columns=["e"]).interpolate(limit_direction="both")
+        out[g] = idx.join(x, on="e").drop(columns=["e"])
     return out
 
 
@@ -60,97 +87,142 @@ def supervivencia() -> pd.Series:
 
 
 def tasa_retorno() -> float:
+    """Emigraciones anuales de nacidos fuera / stock medio de nacidos fuera en el mismo año (ECP a 1 de enero de t y t+1)."""
     f = pd.read_csv(OUT / "f3" / "poblacion_flujos.csv")
-    e = f[f.prov.isna() & (f.nacimiento == "Extranjero")].emigraciones.sum() / 4
-    stock = pd.read_csv(OUT / "f3" / "poblacion_padron_nacional.csv")
-    s = stock[(stock.origen_def == "nacimiento") & (stock.anio == stock.anio.max()) & (stock.grupo != "España")].valor.sum()
-    return float(e / s)
+    e = f[f.prov.isna() & (f.nacimiento == "Extranjero")].set_index("anio").emigraciones
+    s = pd.read_csv(OUT / "f3" / "poblacion_ecp_nacional.csv").set_index("anio").Extranjero
+    return float(np.mean([e[a] / ((s[a] + s[a + 1]) / 2) for a in e.index]))
 
 
-def vida(a0: int, g: str, P: dict, q: pd.Series, r: float, c: float, dto: float, bienes: str, crec=0.01) -> dict:
+def riesgo_inicial(r_obs: float) -> float:
+    """h0 tal que la media del riesgo por duración, ponderada por el stock según años de residencia (EPA), iguale r_obs."""
+    res = pd.read_csv(OUT / "f3" / "poblacion_residencia.csv").groupby("resid").pob.sum()
+    w = res / res.sum()
+    rel = {"0-4": 1.0, "5-9": 0.5, "10-19": 0.25, "20+": 0.1}
+    return float(r_obs / sum(w[k] * v for k, v in rel.items()))
+
+
+def riesgo(y: int, modo: str, r_obs: float, h0: float) -> float:
+    if modo == "ninguno":
+        return 0.0
+    if modo == "constante":
+        return r_obs
+    h = h0 * next(v for a, b, v in DUR if a <= y < b)
+    return h / 2 if modo == "decreciente_mitad" else h
+
+
+def vida(a0: int, g: str, P: dict, q: pd.Series, modo: str, c: float, dto: float, bienes: str, r_obs: float, h0: float,
+         crec=0.01) -> dict:
     nat, imm = P["España"], P[g]
+    nativo = g == "España"
     sobrev, va_joven, va_mayor, contrib_rel_acum, anos_trab = 1.0, 0.0, 0.0, [], 0
+    derechos_fuera = 0.0     # masa superviviente de quienes salieron × fracción de pensión devengada
     for x in range(a0, 101):
         y = x - a0
-        k = min(1.0, y / 20) * c if g != "España" else 0.0
+        k = 0.0 if nativo else min(1.0, y / 20) * c
         mezcla = lambda cols: sum(imm.loc[x, v] + k * (nat.loc[x, v] - imm.loc[x, v]) for v in cols)  # noqa: E731
-        imp = mezcla(TAX) if g != "España" else sum(nat.loc[x, v] for v in TAX)
-        conv = mezcla(CONV) if g != "España" else sum(nat.loc[x, v] for v in CONV)
+        imp = sum(nat.loc[x, v] for v in TAX) if nativo else mezcla(TAX)
+        conv = sum(nat.loc[x, v] for v in CONV) if nativo else mezcla(CONV)
+        fr = (np.mean(contrib_rel_acum) if contrib_rel_acum else 0.0) * min(1.0, anos_trab / 37) if anos_trab >= 15 else 0.0
+        fr = min(fr, 1.2)
+        pens_nat = sum(nat.loc[x, v] for v in PENS)
         if x < 65:
-            rel = imp / max(sum(nat.loc[x, v] for v in TAX), 1.0)
-            contrib_rel_acum.append(rel)
+            contrib_rel_acum.append(imp / max(sum(nat.loc[x, v] for v in TAX), 1.0))
             anos_trab += 1 if x >= 18 else 0
-            pens = sum((imm if g != "España" else nat).loc[x, v] for v in PENS)
+            pens = sum((nat if nativo else imm).loc[x, v] for v in PENS)
         else:
-            if g == "España":
-                pens = sum(nat.loc[x, v] for v in PENS)
-            else:
-                fr = (np.mean(contrib_rel_acum) if contrib_rel_acum else 0.0) * min(1.0, anos_trab / 37)
-                pens = max(sum(nat.loc[x, v] for v in PENS) * min(fr, 1.2), PNC if (65 - a0) >= 10 or y >= 10 else 0.0)
+            pens = pens_nat if nativo else max(pens_nat * fr, PNC if y >= 10 else 0.0)
         edad_g = sum(nat.loc[x, v] for v in EDAD)   # gasto en especie por edad: mismo perfil para todos (criterio OCDE)
-        bp = nat.loc[x, BP] if (bienes == "medio" or g == "España") else 0.0
-        neta = imp - conv - pens - edad_g - bp
-        fac = sobrev * ((1 + crec) / (1 + dto)) ** y
+        bp = nat.loc[x, BP] if (bienes == "medio" or nativo) else 0.0
+        neta = sobrev * (imp - conv - pens - edad_g - bp) - (derechos_fuera * pens_nat if x >= 65 else 0.0)
+        fac = ((1 + crec) / (1 + dto)) ** y
         if x < 65:
             va_joven += fac * neta
         else:
             va_mayor += fac * neta
-        sobrev *= (1 - q.loc[x]) * (1 - (r if g != "España" else 0.0))
+        h = 0.0 if nativo else riesgo(y, modo, r_obs, h0)
+        derechos_fuera = derechos_fuera * (1 - q.loc[x]) + sobrev * (1 - q.loc[x]) * h * fr
+        sobrev *= (1 - q.loc[x]) * (1 - h)
     return {"va_total": va_joven + va_mayor, "va_hasta_64": va_joven, "va_65_mas": va_mayor}
+
+
+MODOS = ["ninguno", "decreciente_mitad", "decreciente", "constante"]
 
 
 def main() -> int:
     cf = Cifras("f4_ciclo_vital", "src/m1/f4_ciclo_vital.py")
     P, q = perfiles(), supervivencia()
     r_obs = tasa_retorno()
+    h0 = riesgo_inicial(r_obs)
     filas = []
-    for g, a0, r, c, dto, bienes in itertools.product(["España", "Resto UE", "Resto del mundo"], [0, 20, 30, 40, 50],
-                                                      [0.0, r_obs, 2 * r_obs], [0.0, 0.5, 1.0], [0.02, 0.03, 0.04],
-                                                      ["medio", "marginal"]):
-        if g == "España" and (r > 0 or c > 0):
+    for g, a0, modo, c, dto, bienes in itertools.product(["España", "Resto UE", "Resto del mundo"], [0, 20, 30, 40, 50], MODOS,
+                                                         [0.0, 0.5, 1.0], [0.02, 0.03, 0.04], ["medio", "marginal"]):
+        if g == "España" and (modo != "ninguno" or c > 0):
             continue
-        filas.append({"grupo": g, "edad_llegada": a0, "retorno": r, "convergencia": c, "descuento": dto, "bienes": bienes,
-                      **vida(a0, g, P, q, r, c, dto, bienes)})
+        filas.append({"grupo": g, "edad_llegada": a0, "retorno": modo, "convergencia": c, "descuento": dto, "bienes": bienes,
+                      **vida(a0, g, P, q, modo, c, dto, bienes, r_obs, h0)})
     v = pd.DataFrame(filas)
     v.to_csv(O / "ciclo_vital.csv", index=False)
-    princ = v[(v.descuento == 0.03) & (v.bienes == "medio") & ((v.retorno == r_obs) | (v.grupo == "España")) &
-              ((v.convergencia == 0.5) | (v.grupo == "España"))]
+    nat = v.grupo == "España"
+    princ = v[(v.descuento == 0.03) & (v.bienes == "medio") & ((v.retorno == "decreciente") | nat) & (v.convergencia == 0.0)]
     princ.to_csv(O / "ciclo_vital_principal.csv", index=False)
+    txt = (f"principal: descuento 3 %, sin convergencia adicional, salida con riesgo decreciente calibrado a {100 * r_obs:.1f} % anual, "
+           "pensiones devengadas exportables, bienes públicos a coste medio; intervalo: las 72 combinaciones de supuestos")
     for g in ("Resto UE", "Resto del mundo"):
-        for a0 in (20, 30, 40):
+        for a0 in (0, 20, 30, 40):
             x = v[(v.grupo == g) & (v.edad_llegada == a0)]
             p = princ[(princ.grupo == g) & (princ.edad_llegada == a0)].iloc[0]
             cf.add(f"F4_VA_{g.replace(' ', '_')}_LLEGADA_{a0}", round(p.va_total / 1e3, 0), "miles de € (VA en 2024)",
-                   f"Valor actual de la contribución neta de por vida de una persona nacida en {g} que llega a los {a0} años "
-                   f"(principal: descuento 3 %, convergencia 50 %, retorno observado {100 * r_obs:.1f} %, bienes públicos a coste medio; "
-                   "intervalo: todas las combinaciones)", "C2", "Perfiles M1 (ECV, EPF, ENSE, cuentas AAPP) y Eurostat", "2024",
-                   "España", g, ic_inf=round(x.va_total.min() / 1e3, 0), ic_sup=round(x.va_total.max() / 1e3, 0))
+                   f"Valor actual de la contribución neta de por vida de una persona nacida en {g} que llega a los {a0} años ({txt})",
+                   "C2", "Perfiles M1 (ECV, EPF, ENSE, cuentas AAPP) y Eurostat", "2024", "España", g,
+                   ic_inf=round(x.va_total.min() / 1e3, 0), ic_sup=round(x.va_total.max() / 1e3, 0))
+            if a0 == 0:
+                continue
             cf.add(f"F4_VA_HASTA64_{g.replace(' ', '_')}_LLEGADA_{a0}", round(p.va_hasta_64 / 1e3, 0), "miles de € (VA)",
                    f"Parte del valor actual hasta los 64 años («población joven hoy»), llegada a los {a0}", "C2", "Perfiles M1", "2024",
                    "España", g)
             cf.add(f"F4_VA_65MAS_{g.replace(' ', '_')}_LLEGADA_{a0}", round(p.va_65_mas / 1e3, 0), "miles de € (VA)",
-                   f"Parte del valor actual de 65 y más años (pensiones y sanidad futuras), llegada a los {a0}", "C2", "Perfiles M1", "2024",
+                   f"Parte del valor actual de 65 y más años (pensiones y sanidad futuras, también las exportadas), llegada a los {a0}",
+                   "C2", "Perfiles M1", "2024", "España", g)
+            nat_a = princ[nat & (princ.edad_llegada == a0)].iloc[0]
+            dif = x.merge(v[nat & (v.edad_llegada == a0)][["descuento", "bienes", "va_total"]], on=["descuento", "bienes"],
+                          suffixes=("", "_nat"))
+            dif = dif.va_total - dif.va_total_nat
+            cf.add(f"F4_VA_DIF_NAT_{g.replace(' ', '_')}_LLEGADA_{a0}", round((p.va_total - nat_a.va_total) / 1e3, 0),
+                   "miles de € (VA)", f"Diferencia con un nacido en España de la misma edad (vida restante), llegada a los {a0}",
+                   "C2", "Perfiles M1", "2024", "España", g, ic_inf=round(dif.min() / 1e3, 0), ic_sup=round(dif.max() / 1e3, 0))
+            ret0 = x[(x.retorno == "ninguno") & (x.convergencia == 0) & (x.descuento == 0.03) & (x.bienes == "medio")].iloc[0]
+            cf.add(f"F4_VA_SIN_SALIDA_{g.replace(' ', '_')}_LLEGADA_{a0}", round(ret0.va_total / 1e3, 0), "miles de € (VA)",
+                   f"Como el principal pero sin salidas (toda la vida en España), llegada a los {a0}", "C2", "Perfiles M1", "2024",
                    "España", g)
     for a0 in (0, 20, 30, 40):
-        p = princ[(princ.grupo == "España") & (princ.edad_llegada == a0)].iloc[0]
+        p = princ[nat & (princ.edad_llegada == a0)].iloc[0]
+        x = v[nat & (v.edad_llegada == a0)]
         cf.add(f"F4_VA_España_EDAD_{a0}", round(p.va_total / 1e3, 0), "miles de € (VA)",
-               f"Valor actual de la contribución neta de la vida restante de una persona nacida en España de {a0} años (comparador)",
-               "C2", "Perfiles M1", "2024", "España", "España")
-    cf.add("F4_RETORNO_OBSERVADO", round(100 * r_obs, 2), "% anual", "Emigraciones anuales de nacidos fuera / población nacida fuera",
-           "C1", "Estadística de Migraciones y padrón (INE)", "2021-2024", "España", "nacidos fuera")
-    # qué supuestos cambian el signo
+               f"Valor actual de la contribución neta de la vida restante de una persona nacida en España de {a0} años (comparador; "
+               "intervalo: descuento y bienes públicos)", "C2", "Perfiles M1", "2024", "España", "España",
+               ic_inf=round(x.va_total.min() / 1e3, 0), ic_sup=round(x.va_total.max() / 1e3, 0))
+    cf.add("F4_RETORNO_OBSERVADO", round(100 * r_obs, 2), "% anual", "Emigraciones anuales de nacidos fuera / stock medio de nacidos "
+           "fuera del mismo año (incluye bajas por caducidad: cota superior de las salidas)", "C1",
+           "Estadística de Migraciones y ECP (INE)", "2021-2024", "España", "nacidos fuera")
+    cf.add("F4_RIESGO_SALIDA_0_4", round(100 * h0, 1), "% anual", "Riesgo anual de salida en los primeros 5 años de residencia "
+           "(calibrado; supuesto de riesgos relativos 1; 0,5; 0,25; 0,1)", "C2", "Estadística de Migraciones, ECP y EPA (INE)",
+           "2021-2024", "España", "nacidos fuera")
+    # qué supuestos cambian el signo (D11)
     s = []
     for g in ("Resto UE", "Resto del mundo"):
-        for a0 in (20, 30, 40):
+        for a0 in (0, 20, 30, 40, 50):
             x = v[(v.grupo == g) & (v.edad_llegada == a0)]
             for sup in ("retorno", "convergencia", "descuento", "bienes"):
                 m = x.groupby(sup).va_total.mean()
                 s.append({"grupo": g, "edad_llegada": a0, "supuesto": sup, **{f"va_medio_{k}": val for k, val in m.items()},
                           "signo_cambia_con_supuesto": bool((m > 0).any() and (m < 0).any())})
             s.append({"grupo": g, "edad_llegada": a0, "supuesto": "todos", "min": x.va_total.min(), "max": x.va_total.max(),
+                      "cuota_positivas": float((x.va_total > 0).mean()),
                       "signo_cambia_con_supuesto": bool(x.va_total.min() < 0 < x.va_total.max())})
     pd.DataFrame(s).to_csv(O / "ciclo_vital_signos.csv", index=False)
     cf.escribir()
+    print(f"r_obs={r_obs:.4f} h0={h0:.4f}")
     print(princ[["grupo", "edad_llegada", "va_total", "va_hasta_64", "va_65_mas"]].round(0).to_string())
     return 0
 

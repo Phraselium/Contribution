@@ -270,10 +270,18 @@ def main() -> int:
                 s = dict(zip(["calibrar", "sanidad", "bienes", "educ_hijos", "indirectos", "capital"], comb))
                 rr = resumen(contribuciones(d, ctas, perf, rat, s), ctas["pib"])
                 for _, x in rr.iterrows():
-                    rej.append({**s, "grupo": x.grupo, "neta_pc": x.neta, "neta_total_pct_pib": x.neta_total_pct_pib})
+                    rej.append({**s, "grupo": x.grupo, "neta_pc": x.neta, "neta_total_pct_pib": x.neta_total_pct_pib,
+                                "poblacion": x.poblacion})
     todos = pd.concat(res_anios)
     todos.to_csv(O / "neta_por_grupo_anios.csv", index=False)
     rej = pd.DataFrame(rej)
+    # presupuesto equilibrado (OCDE): el saldo de las AAPP se reparte por igual por persona, de modo que la suma de las contribuciones
+    # netas es cero; y diferencia con los nacidos en España en cada combinación (la comparación de Fiorio et al. 2023)
+    sup_cols = ["calibrar", "sanidad", "bienes", "educ_hijos", "indirectos", "capital"]
+    saldo_pc = rej.groupby(sup_cols).apply(lambda x: np.average(x.neta_pc, weights=x.poblacion), include_groups=False)
+    rej["neta_pc_equilibrada"] = rej.neta_pc - rej.set_index(sup_cols).index.map(saldo_pc).values
+    nat = rej[rej.grupo == "España"].set_index(sup_cols).neta_pc
+    rej["dif_nativos"] = rej.neta_pc - rej.set_index(sup_cols).index.map(nat).values
     rej.to_csv(O / "rejilla.csv", index=False)
     # bootstrap por hogares del escenario principal (muestreo)
     rng = np.random.default_rng(SEED)
@@ -304,7 +312,28 @@ def main() -> int:
         cf.add(f"F4_NETA_TOTAL_PIB_{g.replace(' ', '_')}_2024", round(r25.loc[g, "neta_total_pct_pib"], 2), "% del PIB",
                f"Contribución neta total del grupo nacidos en {g} (escenario principal)", "C2", "ECV y cuentas de las AAPP", "2024",
                "España", g, ic_inf=round(x.neta_total_pct_pib.min(), 2), ic_sup=round(x.neta_total_pct_pib.max(), 2))
-        signos.append({"grupo": g, "min": lo, "max": hi, "cambia_signo": bool(lo < 0 < hi)})
+        es_p = np.logical_and.reduce([x[k] == v for k, v in PRINCIPAL.items()])
+        pe = x[es_p].iloc[0]
+        cf.add(f"F4_NETA_EQUILIBRADA_PC_{g.replace(' ', '_')}_2024", round(pe.neta_pc_equilibrada, 0), "€ por persona y año",
+               f"Contribución neta por persona con presupuesto equilibrado (saldo de las AAPP repartido por igual), nacidos en {g}: "
+               "principal e intervalo de las 64 combinaciones", "C2", "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", g,
+               ic_inf=round(x.neta_pc_equilibrada.min(), 0), ic_sup=round(x.neta_pc_equilibrada.max(), 0))
+        if g != "España":
+            cf.add(f"F4_NETA_DIF_NAT_{g.replace(' ', '_')}_2024", round(pe.dif_nativos, 0), "€ por persona y año",
+                   f"Contribución neta por persona de los nacidos en {g} menos la de los nacidos en España: principal e intervalo de las "
+                   "64 combinaciones", "C2", "ECV, EPF, ENSE y cuentas de las AAPP", "2024", "España", g,
+                   ic_inf=round(x.dif_nativos.min(), 0), ic_sup=round(x.dif_nativos.max(), 0))
+        signos.append({"grupo": g, "principal": pe.neta_pc, "min": lo, "max": hi, "cuota_positivas": float((x.neta_pc > 0).mean()),
+                       "cambia_signo": bool(lo < 0 < hi), "equilibrada_principal": pe.neta_pc_equilibrada,
+                       "equilibrada_min": x.neta_pc_equilibrada.min(), "equilibrada_max": x.neta_pc_equilibrada.max(),
+                       "dif_nativos_principal": pe.dif_nativos, "dif_nativos_min": x.dif_nativos.min(),
+                       "dif_nativos_max": x.dif_nativos.max()})
+    bm = rej.set_index(sup_cols + ["grupo"]).neta_pc.unstack("bienes")
+    tras = (bm["marginal"] - bm["medio"]).groupby("grupo").mean()
+    cf.add("F4_BIENES_MARGINAL_TRASLADO_España_2024", round(float(tras["España"]), 0), "€ por persona y año",
+           "Cambio en la contribución neta por persona de los nacidos en España al pasar los bienes públicos puros de coste medio a "
+           "coste marginal cero para los nacidos fuera (media de las combinaciones)", "C2", "ECV y cuentas de las AAPP", "2024",
+           "España", "España")
     sg = pd.DataFrame(signos)
     sg.to_csv(O / "signo_por_supuestos.csv", index=False)
     sensibilidad(rej).to_csv(O / "sensibilidad_supuestos.csv", index=False)

@@ -34,30 +34,40 @@ FICHAS = [
      "causal": "No es una pregunta causal: es contabilidad.",
      "supuestos": "Prestaciones de la ECV calibradas a las cuentas públicas (COFOG); las del hogar se reparten por persona.",
      "veredicto": "engañosa", "confianza": "alta",
-     "razon": "En el total por persona es falsa; es cierta solo para las prestaciones no contributivas, que son una parte pequeña del gasto."},
+     "razon": "En el total por persona es falsa (comparación bruta, en la que pesa la menor edad de los nacidos fuera); es cierta para las prestaciones no "
+              "contributivas, también a igualdad de características, que son el {{F6_PREST_NO_CONTRIB_CUOTA}} % de las prestaciones monetarias."},
     {"id": "A2", "sentido": "desfavorable", "afirmacion": "La inmigración quita empleo a los españoles.",
      "contabilidad": "Entre 2014 y 2025 la ocupación media aumentó en {{F3_EMP_AUMENTO_OCUPADOS_2014_2025}} millones; el {{F3_EMP_CONTRIB_FUERA_2014_2025}} % del "
                      "aumento corresponde a nacidos fuera y el resto a nacidos en España, cuya ocupación también creció. La tasa de empleo 16-64 de los nacidos en "
                      "España es del {{F3_EMP_TASA_España_2025}} % (2025).",
      "causal": CAUSAL_M1 + " En España, los trabajos con datos de provincias y celdas (González y Ortega 2011; Carrasco, Jimeno y Ortega 2008; Banco de "
-               "España, Informe Anual 2025) no encuentran efectos negativos significativos sobre el empleo de los nativos.",
-     "supuestos": "La contabilidad no dice qué habría pasado sin inmigración.", "veredicto": "engañosa", "confianza": "media",
-     "razon": "La contabilidad no la apoya y la literatura española no encuentra desplazamiento; falta la estimación propia de M1."},
+               "España 2026, Informe Anual 2025) no encuentran en general efectos negativos significativos sobre el empleo de los nativos, aunque Carrasco, Jimeno y "
+               "Ortega (2008) obtienen un efecto negativo (−0,17) cuando solo cuentan a los inmigrantes con permiso de trabajo, y la ficha del Banco de España no "
+               "informa de inferencia adecuada para shift-share.",
+     "supuestos": "La contabilidad no dice qué habría pasado sin inmigración.", "veredicto": "no se puede saber", "confianza": "media",
+     "razon": "La contabilidad no muestra desplazamiento agregado y la literatura española no encuentra efectos negativos grandes, pero sin estimación propia el "
+              "efecto en España no está identificado (mismo estándar que A3 y F2)."},
     {"id": "A3", "sentido": "desfavorable", "afirmacion": "La inmigración hunde los salarios de los españoles.",
-     "contabilidad": "Los extranjeros cobran por hora un {{F3_SAL_BRECHA_bruto_2022}} % menos que los españoles (bruto, 2022); a igual edad, sexo, estudios y "
+     "contabilidad": "Los extranjeros cobran por hora un {{F3_SAL_BRECHA_bruto_2022:abs}} % menos que los españoles (bruto, 2022); a igual edad, sexo, estudios y "
                      "región la diferencia es {{F3_SAL_BRECHA_completo_2022}} %. Es una brecha entre grupos, no un efecto sobre los salarios de los nativos.",
      "causal": CAUSAL_M1 + " La literatura internacional verificada da efectos medios pequeños sobre los salarios nativos (Dustmann, Schönberg y Stuhler 2016) y "
                "la española no documenta caídas generalizadas; con datos públicos no hay salarios provinciales por nacionalidad (la AEAT no fue accesible).",
      "supuestos": "—", "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Con datos públicos y sin la fase 5 no se puede estimar el efecto en España; la versión fuerte («hunde») no tiene apoyo en la literatura."},
     {"id": "A4", "sentido": "desfavorable", "afirmacion": "Los inmigrantes colapsan la sanidad pública.",
-     "contabilidad": "A igual edad (25-54), los nacidos fuera declaran menos consultas de especialista, menos días de hospital y menos fármacos recetados, y algo "
-                     "más de urgencias (ENSE 2017). Su estructura por edad es más joven: el {{F3_POB_65MAS_nacidos fuera_2025}} % tiene 65 o más años frente al "
-                     "{{F3_POB_65MAS_España_2025}} % de los nacidos en España.",
+     "contabilidad": "Uso declarado por persona, nacidos fuera / nacidos en España del mismo tramo de edad (ENSE 2017; 1 = igual). 15-34 años: consultas "
+                     "{{F6_ENSE_RAZON_CONSULTAS_15_34}}, días de hospital {{F6_ENSE_RAZON_HOSP_15_34}}, urgencias {{F6_ENSE_RAZON_URG_15_34}}. 35-54: consultas "
+                     "{{F6_ENSE_RAZON_CONSULTAS_35_54}}, hospital {{F6_ENSE_RAZON_HOSP_35_54}}, urgencias {{F6_ENSE_RAZON_URG_35_54}}, fármacos "
+                     "{{F6_ENSE_RAZON_FAR_35_54}}. 55-74: consultas {{F6_ENSE_RAZON_CONSULTAS_55_74}}, hospital {{F6_ENSE_RAZON_HOSP_55_74}} (pocas observaciones), "
+                     "urgencias {{F6_ENSE_RAZON_URG_55_74}}. Su estructura por edad es más joven: el {{F3_POB_65MAS_nacidos fuera_2025}} % tiene 65 o más años "
+                     "frente al {{F3_POB_65MAS_España_2025}} % de los nacidos en España, lo que reduce el uso por persona del grupo, pero no el uso agregado, "
+                     "que crece con el tamaño de la población.",
      "causal": "P3 (listas de espera) no es estimable con datos públicos procesables (SISLE solo en PDF por CCAA) y la congestión local no se observa. "
                "Giuntella, Nicodemo y Vargas-Silva (2018) no encuentran más espera en el NHS inglés.",
-     "supuestos": "Uso declarado en encuesta (2017).", "veredicto": "engañosa", "confianza": "media",
-     "razon": "El uso por persona no es mayor; la congestión local en zonas concretas no se puede medir con datos públicos."},
+     "supuestos": "Uso declarado en encuesta (2017); razones por tramo con muestras pequeñas en los mayores.", "veredicto": "no se puede saber",
+     "confianza": "media",
+     "razon": "El uso por persona a igual edad no es mayor en la mayoría de los tramos y partidas, pero la afirmación es agregada y contrafactual (congestión) y "
+              "no hay datos públicos procesables para medirla (mismo estándar que A6)."},
     {"id": "A5", "sentido": "desfavorable", "afirmacion": "Los inmigrantes suponen un coste fiscal neto para España.",
      "contabilidad": "Contribución neta estática por persona en 2024 (todas las partidas, incluido el déficit): nacidos en España {{F4_NETA_PC_RANGO_SUPUESTOS_España_2024}} € "
                      "(intervalo de supuestos [{{F4_NETA_PC_RANGO_SUPUESTOS_España_2024:inf}}, {{F4_NETA_PC_RANGO_SUPUESTOS_España_2024:sup}}]); resto de la UE "
@@ -67,26 +77,30 @@ FICHAS = [
      "supuestos": "En el resto del mundo el signo depende del reparto de los bienes públicos (coste medio o marginal) y de a quién se asignan los hijos nacidos en "
                   "España (decisión D11: solo intervalos).",
      "veredicto": "no se puede saber", "confianza": "alta",
-     "razon": "Para los nacidos en la UE es incorrecta en todos los supuestos; para los nacidos fuera de la UE el signo depende de supuestos defendibles."},
+     "razon": "En la contabilidad estática, para los nacidos en la UE es incorrecta en las 64 combinaciones de supuestos; para los nacidos fuera de la UE el signo "
+              "depende de supuestos defendibles. En el ciclo vital los intervalos de los dos grupos contienen el cero."},
     {"id": "A6", "sentido": "desfavorable", "afirmacion": "La inmigración es la causa de la subida del precio de la vivienda.",
      "contabilidad": "Entre 2015 y 2022 el aumento de la población nacida fuera implica unos {{F3_VIV_DEMANDA_FUERA_2015_2022}} mil hogares a tasa de jefatura "
                      "constante, frente a {{F3_VIV_DEMANDA_ESPANA_2015_2022}} mil de los nacidos en España (cuya población se redujo); la formación de hogares por "
                      "envejecimiento no está incluida. Los nacidos fuera viven sobre todo de alquiler.",
-     "causal": "P4 no se duplica en M1: el estudio de vivienda de Econometr-a no encuentra efectos que sobrevivan a la inferencia con pocos grupos; González y "
+     "causal": "P4 no se duplica en M1. El estudio de vivienda del repositorio de referencia Econometr-a (trabajo no publicado ni revisado, sin ficha "
+               "verificada) no encuentra efectos que sobrevivan a la inferencia con pocos grupos; González y "
                "Ortega (2013) atribuyen a la inmigración una parte de la subida de 2000-2010.",
      "supuestos": "Tasa de jefatura constante por grupo y región.", "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Es cierto que la población nacida fuera explica la mayor parte del aumento demográfico de la demanda de hogares; que sea «la causa» de los "
               "precios es una afirmación contrafactual no identificada con datos públicos recientes (mismo estándar que F2)."},
     {"id": "F1", "sentido": "favorable", "afirmacion": "Los inmigrantes pagan nuestras pensiones.",
-     "contabilidad": "En la contabilidad de 2024 los nacidos fuera pagan cotizaciones e impuestos y reciben pocas pensiones; en la regla demográfica mecánica, sin "
+     "contabilidad": "En la contabilidad de 2024 los nacidos fuera aportan el {{F6_TRABAJO_CUOTA_FUERA}} % de los impuestos sobre el trabajo y las cotizaciones "
+                     "(son el {{F6_POB_CUOTA_FUERA_ECV}} % de la población de la ECV) y reciben pocas pensiones; en la regla demográfica mecánica, sin "
                      "migración el gasto en pensiones de 2050 sería {{F4_PEN_EFECTO_SIN_MIGRACION_2050}} puntos de PIB mayor que en la proyección base "
                      "(Ageing Report 2024: {{F4_PEN_AR2024_MAS_MIGRACION_2050}} % con un tercio más de migración frente a {{F4_PEN_AR2024_MENOS_MIGRACION_2050}} % "
                      "con un tercio menos).",
-     "causal": "No es causal: contabilidad y proyección.",
+     "causal": "La comparación «sin migración» es una regla mecánica (empleo, cobertura y pensión relativa constantes), no un contrafactual identificado.",
      "supuestos": "Las cotizaciones de hoy generan derechos de pensión futuros: en el ciclo vital el valor actual de los nacidos fuera depende del retorno, la "
                   "convergencia y los bienes públicos (intervalos que contienen el cero).",
-     "veredicto": "se sostiene con matices", "confianza": "media",
-     "razon": "Alivian la financiación corriente y la tasa de dependencia, pero también acumulan derechos; no resuelven por sí solos la sostenibilidad."},
+     "veredicto": "no se puede saber", "confianza": "media",
+     "razon": "Es cierto que sus cotizaciones financian una parte de las pensiones corrientes; que sostengan el sistema es una afirmación contrafactual y de "
+              "largo plazo que no está identificada (mismo estándar que A6)."},
     {"id": "F2", "sentido": "favorable", "afirmacion": "Sin inmigrantes no habría crecido el empleo.",
      "contabilidad": "El {{F3_EMP_CONTRIB_FUERA_2014_2025}} % del aumento de la ocupación de 2014-2025 y el {{F3_EMP_CONTRIB_HORAS_FUERA_2014_2025}} % del de las horas "
                      "corresponden a nacidos fuera.",
@@ -95,7 +109,8 @@ FICHAS = [
      "razon": "Es cierto que la mayor parte del aumento del empleo corresponde a nacidos fuera, pero la afirmación es contrafactual («no habría crecido») y no "
               "está identificada (mismo estándar que A6)."},
     {"id": "F3", "sentido": "favorable", "afirmacion": "Los inmigrantes aportan más de lo que reciben.",
-     "contabilidad": "Véase A5: positiva en todos los supuestos para los nacidos en la UE; intervalo que contiene el cero para los nacidos fuera de la UE.",
+     "contabilidad": "Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE e intervalo que contiene el cero para los "
+                     "nacidos fuera de la UE; en el ciclo vital, intervalos que contienen el cero para los dos grupos.",
      "causal": "No es causal.", "supuestos": "Bienes públicos e hijos nacidos en España.", "veredicto": "no se puede saber", "confianza": "alta",
      "razon": "Generalizada a todos los inmigrantes no se sostiene con el mismo estándar que A5."},
     {"id": "F4", "sentido": "favorable", "afirmacion": "Los inmigrantes trabajan tanto como los españoles.",
@@ -111,10 +126,12 @@ FICHAS = [
      "supuestos": "EES solo distingue nacionalidad.", "veredicto": "se sostiene con matices", "confianza": "media",
      "razon": "Queda una diferencia pequeña a igualdad de características observables; su causa no se puede saber con datos públicos."},
     {"id": "F6", "sentido": "favorable", "afirmacion": "Los inmigrantes hacen los trabajos que los españoles no quieren.",
-     "contabilidad": "Los nacidos fuera están sobrerrepresentados en ocupaciones elementales y tienen más sobrecualificación (output/f3/empleo_nacional.csv).",
-     "causal": CAUSAL_M1 + " Peri y Sparber (2009) y Amuedo-Dorantes y De la Rica documentan especialización de tareas entre nativos e inmigrantes.",
-     "supuestos": "—", "veredicto": "se sostiene con matices", "confianza": "baja",
-     "razon": "Hay especialización por ocupaciones; «que no quieren» es una afirmación sobre preferencias que los datos no miden."},
+     "contabilidad": "Ocupados en ocupaciones elementales: {{F3_EMP_OCUP_ELEMENTALES_FUERA_2025}} % de los nacidos fuera frente al "
+                     "{{F3_EMP_OCUP_ELEMENTALES_España_2025}} % de los nacidos en España (2025); titulados superiores en ocupaciones que no lo requieren: "
+                     "{{F3_EMP_SOBRECUALIFICACION_FUERA_2025}} % frente al {{F3_EMP_SOBRECUALIFICACION_España_2025}} %.",
+     "causal": CAUSAL_M1 + " Peri y Sparber (2009) y Amuedo-Dorantes y De la Rica (2011) documentan especialización de tareas entre nativos e inmigrantes.",
+     "supuestos": "—", "veredicto": "no se puede saber", "confianza": "media",
+     "razon": "La especialización por ocupaciones se observa; el núcleo de la afirmación («que no quieren») es sobre preferencias, que los datos no miden."},
 ]
 
 
@@ -152,11 +169,19 @@ def main() -> int:
         cf.add(f"F6_PREST_MONETARIAS_PC_{g.replace(' ', '_')}", round(float(r.loc[g, monet].sum()), 0), "€ por persona y año",
                f"Prestaciones monetarias por persona (calibradas a COFOG), nacidos en {g}", "C2", "ECV (INE) y Eurostat COFOG", "2024", "España", g)
     rz = pd.read_csv(OUT / "f4" / "razones_uso_sanitario_ense.csv").set_index("amplio")
-    for v, dsc in (("consultas", "consultas de primaria y especialista"), ("hosp", "días de hospital"), ("urg", "urgencias"),
-                   ("far", "uso de medicamentos recetados")):
-        cf.add(f"F6_ENSE_RAZON_{v.upper()}_35_54", round(float(rz.loc["35-54", f"razon_{v}"]), 2), "razón (nativos = 1)",
-               f"Uso relativo de {dsc}: nacidos fuera / nacidos en España, 35-54 años", "C4", "ENSE 2017 (INE)", "2017", "España",
-               "nacidos fuera")
+    for tramo in ("15-34", "35-54", "55-74"):
+        for v, dsc in (("consultas", "consultas de primaria y especialista"), ("hosp", "días de hospital"), ("urg", "urgencias"),
+                       ("far", "uso de medicamentos recetados")):
+            cf.add(f"F6_ENSE_RAZON_{v.upper()}_{tramo.replace('-', '_')}", round(float(rz.loc[tramo, f"razon_{v}"]), 2), "razón (nativos = 1)",
+                   f"Uso relativo de {dsc}: nacidos fuera / nacidos en España, {tramo} años (n nacidos fuera = "
+                   f"{int(rz.loc[tramo, 'n_nacidos_fuera'])})", "C4", "ENSE 2017 (INE)", "2017", "España", "nacidos fuera")
+    trab = r[["ing_irpf_cotiz_trab", "ing_cotiz_empresa"]].sum(axis=1) * r.poblacion
+    fuera = [g for g in r.index if g != "España"]
+    cf.add("F6_TRABAJO_CUOTA_FUERA", round(100 * float(trab[fuera].sum() / trab.sum()), 1), "% del total",
+           "Cuota de los nacidos fuera en IRPF del trabajo y cotizaciones sociales (calibradas a las cuentas de las AAPP)", "C2",
+           "ECV (INE) y Eurostat", "2024", "España", "nacidos fuera")
+    cf.add("F6_POB_CUOTA_FUERA_ECV", round(100 * float(r.poblacion[fuera].sum() / r.poblacion.sum()), 1), "% de la población",
+           "Cuota de los nacidos fuera en la población de la ECV (hogares privados)", "C2", "ECV (INE)", "2024", "España", "nacidos fuera")
     tot = r.loc[:, monet].mul(r.poblacion, axis=0).sum()
     nc = tot[["gas_exclusion_social", "gas_vivienda"]].sum() / tot.sum()
     cf.add("F6_PREST_NO_CONTRIB_CUOTA", round(100 * float(nc), 1), "% de las prestaciones monetarias",

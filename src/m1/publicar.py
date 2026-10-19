@@ -1,7 +1,8 @@
 """M1 · make publicacion / make web: genera publicacion/documento_m1/ desde docs/documento/documento.md sustituyendo cada marcador
 {{id}} (o {{id:inf}}, {{id:sup}}) por su valor de output/cifras_clave.csv, copia figuras, tablas_m1.xlsx y las fichas de
-afirmaciones, y escribe publicacion/MANIFIESTO.sha256 (make check comprueba que nada se edite a mano). Con --web genera además
-publicacion/web/index.html. Sin red. Falla si queda algún «[FALTA CIFRA».
+afirmaciones, y escribe publicacion/MANIFIESTO.sha256 (make check comprueba que nada se edite a mano). Los bloques {{TABLA_AFIRMACIONES}} y
+{{TEXTO_BALANCE}} se generan desde output/f6/afirmaciones.csv para que el documento no pueda separarse de las fichas. Con --web
+genera además publicacion/web/index.html. Sin red. Falla si queda algún «[FALTA CIFRA».
 """
 from __future__ import annotations
 
@@ -73,10 +74,27 @@ def md_a_html(md: str) -> str:
             f"<title>Documento M1</title><style>{estilo}</style></head><body>{''.join(out)}</body></html>")
 
 
+NUM = {1: "una", 2: "dos", 3: "tres", 4: "cuatro", 5: "cinco", 6: "seis", 7: "siete", 8: "ocho", 9: "nueve", 10: "diez", 11: "once", 12: "doce"}
+
+
+def bloques(texto: str) -> str:
+    import pandas as pd
+    a = pd.read_csv(OUT / "f6" / "afirmaciones.csv")
+    filas = ["| id | Afirmación | Sentido | Veredicto |", "|---|---|---|---|"]
+    filas += [f"| {r.id} | «{r.afirmacion}» | {r.sentido} | {r.veredicto} ({r.confianza}) |" for r in a.itertuples()]
+    partes = []
+    for s in ("desfavorable", "favorable"):
+        x = a[a.sentido == s].veredicto.value_counts()
+        partes.append(f"de las {NUM.get(int(x.sum()), x.sum())} {s}s a la inmigración, " +
+                      " y ".join(f"{NUM.get(int(n), n)} con veredicto «{v}»" for v, n in x.items()))
+    bal = f"Se evalúan {NUM.get(len(a), len(a))} afirmaciones: " + "; ".join(partes)
+    return texto.replace("{{TABLA_AFIRMACIONES}}", "\n".join(filas)).replace("{{TEXTO_BALANCE}}", bal)
+
+
 def main() -> int:
     web = "--web" in sys.argv
     c = cmod.consolidar()
-    texto = render((DOCS / "documento" / "documento.md").read_text(encoding="utf-8"), c)
+    texto = render(bloques((DOCS / "documento" / "documento.md").read_text(encoding="utf-8")), c)
     faltan = re.findall(r"\[FALTA CIFRA: [^\]]+\]", texto)
     if faltan:
         print("faltan cifras:", faltan)
