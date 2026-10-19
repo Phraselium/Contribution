@@ -45,7 +45,7 @@ Que la inmigración cambie el empleo o los salarios de los nacidos en España es
 
 ## 1. Introducción
 
-Este documento mide la contribución de cada grupo de origen al empleo, a los salarios, a la vivienda y a las cuentas públicas en España (nacional, comunidad y provincia) y en Europa (país y NUTS2). Además prepara, con un pre-registro interno, la estimación del impacto causal de la inmigración sobre la población local.
+Este documento mide la contribución de cada grupo de origen al empleo, a los salarios, a la vivienda y a las cuentas públicas en España (nacional, comunidad y provincia) y en Europa (país y NUTS2). Además prepara, con un pre-registro interno, la estimación del impacto de la inmigración sobre la población local (pregunta B).
 
 Las dos preguntas se responden por separado. La contribución (A) es contabilidad, capas C1 y C2. El impacto (B) exige identificación, capa C3, y solo se describe con lenguaje causal si queda IDENTIFICADO según reglas fijadas antes de estimar.
 
@@ -226,7 +226,7 @@ Las fichas completas están en `afirmaciones.md`. Resumen:
 | A3 | Hunden los salarios | no se puede saber (media) |
 | A4 | Colapsan la sanidad | engañosa (media) |
 | A5 | Suponen un coste fiscal neto | no se puede saber (alta) |
-| A6 | Son la causa de la subida de la vivienda | no se puede saber (media) |
+| A6 | «Son la causa de la subida de la vivienda» | no se puede saber (media) |
 | F1 | Pagan nuestras pensiones | se sostiene con matices (media) |
 | F2 | Sin ellos no habría crecido el empleo | no se puede saber (media) |
 | F3 | Aportan más de lo que reciben | no se puede saber (alta) |

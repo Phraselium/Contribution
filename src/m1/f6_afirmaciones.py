@@ -31,7 +31,8 @@ FICHAS = [
                      "viven en hogares que perciben rentas mínimas o IMV el {{F3_PRE_rentas_minimas_IMV_Resto_del_mundo}} % frente al {{F3_PRE_rentas_minimas_IMV_España}} %, "
                      "y ayudas a la vivienda el {{F3_PRE_ayuda_vivienda_Resto_del_mundo}} % frente al {{F3_PRE_ayuda_vivienda_España}} %; la diferencia en rentas mínimas "
                      "se mantiene a igual edad, sexo, educación y región ({{F3_PRE_BRECHA_perceptor_rentas_minimas_IMV_Resto_del_mundo_completo}} pp).",
-     "causal": "No es una pregunta causal: es contabilidad.", "supuestos": "Prestaciones de la ECV calibradas a las cuentas públicas (COFOG); las del hogar se reparten por persona.",
+     "causal": "No es una pregunta causal: es contabilidad.",
+     "supuestos": "Prestaciones de la ECV calibradas a las cuentas públicas (COFOG); las del hogar se reparten por persona.",
      "veredicto": "engañosa", "confianza": "alta",
      "razon": "En el total por persona es falsa; es cierta solo para las prestaciones no contributivas, que son una parte pequeña del gasto."},
     {"id": "A2", "sentido": "desfavorable", "afirmacion": "La inmigración quita empleo a los españoles.",
