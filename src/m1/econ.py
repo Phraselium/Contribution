@@ -279,7 +279,15 @@ def akm0(y, x, S, g, W, w=None, beta0=0.0, rejilla=None, alfa=0.05, grupos=None)
         inf = -np.inf if acc[0] else float(rejilla[idx[0]])
         sup = np.inf if acc[-1] else float(rejilla[idx[-1]])
         convexo = bool(idx[-1] - idx[0] + 1 == len(idx))
-    return {"b": b["b"], "p": float(1 - stats.chi2.cdf(t2(beta0), 1)), "ic_inf": inf, "ic_sup": sup, "O": b["O"],
+    # conjunto aceptado como unión de intervalos (los extremos de la rejilla aceptados se abren a ±∞)
+    tramos = []
+    for i in idx:
+        if tramos and i == tramos[-1][1] + 1:
+            tramos[-1][1] = i
+        else:
+            tramos.append([i, i])
+    conjunto = [[-np.inf if a == 0 else float(rejilla[a]), np.inf if c == len(rejilla) - 1 else float(rejilla[c])] for a, c in tramos]
+    return {"b": b["b"], "p": float(1 - stats.chi2.cdf(t2(beta0), 1)), "ic_inf": inf, "ic_sup": sup, "conjunto": conjunto, "O": b["O"],
             "hhi_inv": b["hhi_inv"], "F_shock": b["F_shock"], "acotado": bool(np.isfinite(inf) and np.isfinite(sup)),
             "convexo": convexo}
 

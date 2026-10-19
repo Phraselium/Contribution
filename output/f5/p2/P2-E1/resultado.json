@@ -7,8 +7,10 @@
  "metodo": "MC2E shift-share (Card), AKM0 agrupado por origen",
  "estimacion": 0.025334425924219896,
  "ic95": [
-  -Infinity,
-  Infinity
+  [
+   -Infinity,
+   Infinity
+  ]
  ],
  "p_ajustado": 0.984642135449144,
  "diagnosticos": {
@@ -22,9 +24,83 @@
   "akm0_sup": Infinity,
   "akm0_acotado": false,
   "akm0_convexo": true,
+  "akm0_conjunto": [
+   [
+    -Infinity,
+    Infinity
+   ]
+  ],
   "orig_efectivos": 356.8948008845452,
   "n": 150,
-  "forma_reducida": 0.009419118407679398
+  "forma_reducida": 0.009419118407679398,
+  "pretendencia": {
+   "coef_zA": -0.06109013012723662,
+   "ee": 0.3634037431843852,
+   "p": 0.8665003644318721,
+   "n": 49,
+   "corr_zA_zP0": 0.9700475889640315
+  },
+  "excluidos": [
+   "Rumanía",
+   "Venezuela",
+   "Marruecos"
+  ],
+  "sin_top3": {
+   "b": 0.10657551393459007,
+   "se_cluster_prov": 0.283681000700783,
+   "F_efectivo": 11.380335891423789,
+   "F_shock": 0.21406255714586953,
+   "se_bhj": 1.9929872909807658,
+   "akm0_p": 0.7646903266685745,
+   "akm0_inf": -Infinity,
+   "akm0_sup": Infinity,
+   "akm0_acotado": false,
+   "akm0_convexo": true,
+   "akm0_conjunto": [
+    [
+     -Infinity,
+     Infinity
+    ]
+   ],
+   "orig_efectivos": 347.8969752672788,
+   "n": 150,
+   "forma_reducida": 0.04314563450840299
+  },
+  "exclusion_signo": "True",
+  "exclusion_solapa": true,
+  "nacionalidad": {
+   "b": 0.0553088817108207,
+   "se_cluster_prov": 0.11782090857998855,
+   "F_efectivo": 29.023215129747314,
+   "F_shock": 11.05937121080266,
+   "se_bhj": 0.12451841024055961,
+   "akm0_p": 0.3125236110805192,
+   "akm0_inf": -0.09660357878179915,
+   "akm0_sup": 0.7725349246973068,
+   "akm0_acotado": true,
+   "akm0_convexo": true,
+   "akm0_conjunto": [
+    [
+     -0.09660357878179915,
+     0.7725349246973068
+    ]
+   ],
+   "orig_efectivos": 359.9168020025732,
+   "n": 150,
+   "forma_reducida": 0.03719911586810266
+  },
+  "nacionalidad_signo": "True",
+  "nacionalidad_solapa": true,
+  "permutacion": {
+   "t_principal": 0.05568153863609114,
+   "p_permutacion": 0.778,
+   "cuantiles_t": [
+    -0.8353487136660116,
+    0.7343555008309083
+   ]
+  },
+  "F_shock_sin_top3": 0.21406255714586953,
+  "F_shock_nacionalidad": 11.05937121080266
  },
  "notas": "pre-registro interno sin sello externo",
  "prereg": "prereg-m1 c247555",
@@ -37,6 +113,7 @@
    18.89274138455378,
    62.4770016906939
   ],
-  "separable": true
+  "separable": false,
+  "inferencia": "errores agrupados por provincia (convencional; no válida como inferencia del shift-share, solo descriptiva)"
  }
 }

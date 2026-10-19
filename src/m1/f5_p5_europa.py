@@ -95,7 +95,8 @@ def estimar(d: pd.DataFrame, S: np.ndarray, g: np.ndarray, zcol: str) -> dict:
     if S is not None:
         bh_ = econ.bhj(y, x, S, g, W, w)
         ak = econ.akm0(y, x, S, g, W, w)
-        out.update({"F_shock": bh_["F_shock"], "se_bhj": bh_["se"], "akm0_p": ak["p"], "akm0_inf": ak["ic_inf"],
+        out.update({"F_shock": bh_["F_shock"], "se_bhj": bh_["se"], "akm0_p": ak["p"], "akm0_conjunto": ak["conjunto"],
+                    "akm0_inf": ak["ic_inf"],
                     "akm0_sup": ak["ic_sup"], "akm0_acotado": ak["acotado"], "akm0_convexo": ak["convexo"]})
     return out
 
@@ -126,11 +127,13 @@ def main() -> int:
         x = d[d.pais.isin(ps)]
         if x.pais.nunique() >= 2 and len(x) >= 15:
             het[k] = estimar(x, None, None, "z_loo")
+        else:
+            het[k] = {"no_estimable": f"{x.pais.nunique()} país(es) y {len(x)} regiones: no hay variación suficiente con efectos de país"}
     for k, r in (("principal_loo", pr), ("shocks_comunes", com), ("sin_ucrania", sua)):
         reg.log("F5", "P5", k, "NUTS2 UE-27, efectos de país", "2021-2024", r["n"], r["b"], r["ee_cluster_pais"], r["p_wcb_forma_reducida"])
     fuerte = com["F_shock"] >= 10 and pr["F_efectivo"] >= 10 and com["akm0_acotado"] and com["akm0_convexo"]
     clas = "SUGESTIVO" if fuerte and pr["p_wcb_forma_reducida"] <= 0.05 else "ASOCIACIÓN"
-    ic = [com["akm0_inf"], com["akm0_sup"]]
+    ic = [pr["b"] - 1.96 * pr["ee_cluster_pais"], pr["b"] + 1.96 * pr["ee_cluster_pais"]]   # orientativo; la inferencia es el WCB
     escribir_resultado(O / "p5" / "P5" / "resultado.json",
                        pregunta="P5: Δ tasa de empleo 20-64 de los nativos 2021→2024 por punto de aumento de la población nacida fuera "
                                 "de 20-64 sobre la población 20-64, regiones NUTS2 de la UE-27",
@@ -139,17 +142,25 @@ def main() -> int:
                        "forma reducida por país (Webb); AKM0 en la variante con shocks comunes", estimacion=pr["b"], ic95=ic,
                        p_ajustado=pr["p_wcb_forma_reducida"], diagnosticos={"principal": pr, "shocks_comunes": com, "sin_ucrania": sua,
                                                                            "heterogeneidad": het},
-                       notas="Techo SUGESTIVO (A8): periodo corto y cuotas de un censo posterior a la COVID. El IC es el conjunto "
-                             "AKM0 de la variante con shocks comunes.", prereg=f"prereg-m1 {commit}")
+                       notas="Techo SUGESTIVO (A8): periodo corto y cuotas de un censo posterior a la COVID. El IC es orientativo "
+                             "(errores agrupados por país); la inferencia es el p del wild bootstrap. El conjunto AKM0 corresponde a otra "
+                             "especificación (shocks comunes) y se guarda aparte en diagnosticos. La regla adicional para SUGESTIVO (F al "
+                             "nivel del shock ≥ 10 y AKM0 acotado) se fijó al programar el script, sin poder acreditar que fuera antes de "
+                             "ver estimaciones (docs/desviaciones.md).", prereg=f"prereg-m1 {commit}")
     cf.add("F5_P5_beta", round(pr["b"], 3), "pp por pp", "P5: asociación entre la llegada de población nacida fuera y la tasa de "
            f"empleo de los nativos, NUTS2 de la UE-27, 2021-2024 (MC2E leave-one-country-out; p wild bootstrap por país = "
-           f"{pr['p_wcb_forma_reducida']:.2f}; IC: AKM0 con shocks comunes)", "C4", "Eurostat (censo 2021, migr_imm3ctb, EU-LFS)",
+           f"{pr['p_wcb_forma_reducida']:.2f}; IC orientativo por errores agrupados por país)", "C4", "Eurostat (censo 2021, migr_imm3ctb, EU-LFS)",
            "2021-2024", "NUTS2 UE-27", "nativos", clasificacion=clas,
            ic_inf=round(ic[0], 3) if np.isfinite(ic[0]) else np.nan, ic_sup=round(ic[1], 3) if np.isfinite(ic[1]) else np.nan)
+    for k, r in het.items():
+        if "b" in r:
+            cf.add(f"F5_P5_HET_{k.replace(' ', '_')}", round(r["b"], 3), "pp por pp", f"P5, países {k}: β leave-one-country-out "
+                   f"({r['n']} regiones; p wild bootstrap = {r['p_wcb_forma_reducida']:.2f})", "C4", "Eurostat", "2021-2024", f"NUTS2, {k}",
+                   "nativos", clasificacion="ASOCIACIÓN")
     reg.flush()
     cf.escribir()
     print({"principal": pr, "comunes": com, "sin_ua": sua})
-    print({k: (round(v["b"], 3), round(v["p_wcb_forma_reducida"], 3), v["n"]) for k, v in het.items()})
+    print({k: (round(v["b"], 3), round(v["p_wcb_forma_reducida"], 3), v["n"]) if "b" in v else v for k, v in het.items()})
     return 0
 
 

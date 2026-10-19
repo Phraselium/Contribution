@@ -25,9 +25,12 @@ Leer docs/plan.md y este fichero al empezar o tras compactar.
 | 1 | 3 bibliotecario | ≈ 585.000 |
 | 2 | 1 adquisidor-datos | ≈ 330.000 |
 | 5 (preparación) | 1 montecarlo, 1 abogado-del-diablo | ≈ 260.000 |
-| 7 | 1 arbitro-final, 1 verificador-cifras | ≈ 328.000 |
+| 7 | 2 arbitro-final, 1 verificador-cifras | ≈ 462.000 |
 Ninguna fase supera 6 millones de tokens.
 
 ## Siguiente
-1. Segunda ronda del árbitro sobre el documento con la fase 5.
-2. El autor sube la etiqueta prereg-m1 (docs/tareas_autor.md).
+1. El autor sube la etiqueta prereg-m1 (docs/tareas_autor.md).
+2. Opcional: tercera ronda del árbitro tras las correcciones de la segunda.
+
+## Segunda ronda del árbitro (REVISAR) incorporada
+Conjuntos AKM0 como unión de intervalos; P1-E6 añadida y BH con seis; batería y multiverso para todas las hipótesis; separabilidad JRS por periodo (no separable); P1-E3a con variante por nacionalidad (conjunto acotado y negativo) y permutación; multiverso en el texto (signo desfavorable sistemático, sin significación); D11 en la comparación con Fiorio; variante de mitad de salidas del ciclo vital; neutralidad de A2, A3 y F3; P5 con IC orientativo y heterogeneidad publicada; desviaciones 7-11 declaradas como posteriores a ver estimaciones.

@@ -7,10 +7,12 @@
  "metodo": "MC2E shift-share (Card), AKM0 agrupado por origen",
  "estimacion": -0.029310590364360012,
  "ic95": [
-  -Infinity,
-  Infinity
+  [
+   -Infinity,
+   Infinity
+  ]
  ],
- "p_ajustado": 0.9954727233775229,
+ "p_ajustado": 0.9954727233775228,
  "diagnosticos": {
   "b": -0.029310590364360012,
   "se_cluster_prov": 0.6200939029713495,
@@ -22,9 +24,87 @@
   "akm0_sup": Infinity,
   "akm0_acotado": false,
   "akm0_convexo": true,
+  "akm0_conjunto": [
+   [
+    -Infinity,
+    Infinity
+   ]
+  ],
   "orig_efectivos": 356.8948008845452,
   "n": 150,
-  "forma_reducida": -0.010897421638889454
+  "forma_reducida": -0.010897421638889454,
+  "pretendencia": {
+   "coef_zA": -0.06109013012723662,
+   "ee": 0.3634037431843852,
+   "p": 0.8665003644318721,
+   "n": 49,
+   "corr_zA_zP0": 0.9700475889640315
+  },
+  "excluidos": [
+   "Rumanía",
+   "Venezuela",
+   "Marruecos"
+  ],
+  "sin_top3": {
+   "b": 0.5400981791382249,
+   "se_cluster_prov": 0.7381691420967768,
+   "F_efectivo": 11.380335891423789,
+   "F_shock": 0.21406255714586953,
+   "se_bhj": 3.0776528685412066,
+   "akm0_p": 0.07014604941197278,
+   "akm0_inf": -Infinity,
+   "akm0_sup": Infinity,
+   "akm0_acotado": false,
+   "akm0_convexo": false,
+   "akm0_conjunto": [
+    [
+     -Infinity,
+     -1.4603761854149795
+    ],
+    [
+     -0.2600915666839114,
+     Infinity
+    ]
+   ],
+   "orig_efectivos": 347.8969752672788,
+   "n": 150,
+   "forma_reducida": 0.21865133720420235
+  },
+  "exclusion_signo": "False",
+  "exclusion_solapa": true,
+  "nacionalidad": {
+   "b": 0.006754296925234421,
+   "se_cluster_prov": 0.3183736518759007,
+   "F_efectivo": 29.023215129747314,
+   "F_shock": 11.05937121080266,
+   "se_bhj": 0.26740888493397214,
+   "akm0_p": 0.5740973950152264,
+   "akm0_inf": -0.47190760710622204,
+   "akm0_sup": 1.474829075213095,
+   "akm0_acotado": true,
+   "akm0_convexo": true,
+   "akm0_conjunto": [
+    [
+     -0.47190760710622204,
+     1.474829075213095
+    ]
+   ],
+   "orig_efectivos": 359.9168020025732,
+   "n": 150,
+   "forma_reducida": 0.004542740084004358
+  },
+  "nacionalidad_signo": "False",
+  "nacionalidad_solapa": true,
+  "permutacion": {
+   "t_principal": -0.03100171143621132,
+   "p_permutacion": 0.942,
+   "cuantiles_t": [
+    -1.8437299356544679,
+    0.2957061253269422
+   ]
+  },
+  "F_shock_sin_top3": 0.21406255714586953,
+  "F_shock_nacionalidad": 11.05937121080266
  },
  "notas": "pre-registro interno sin sello externo",
  "prereg": "prereg-m1 c247555",
@@ -37,6 +117,7 @@
    18.89274138455378,
    62.4770016906939
   ],
-  "separable": true
+  "separable": false,
+  "inferencia": "errores agrupados por provincia (convencional; no válida como inferencia del shift-share, solo descriptiva)"
  }
 }

@@ -31,7 +31,7 @@ Las cifras incluyen el déficit de las administraciones, que se reparte entre to
 
 **Pensiones.** Con una regla demográfica mecánica, el gasto en pensiones de 2050 de la variante de EUROPOP2023 sin migración es 4,4 puntos de PIB mayor que el de la variante base. Es una comparación de escenarios con supuestos, no una proyección del sistema ni un efecto estimado. En el Ageing Report 2024, que modeliza empleo y reformas, la diferencia entre un tercio menos y un tercio más de migración es de 2,6 puntos (18,7 % frente a 16,1 %; referencia NO VERIFICADA, sin DOI).
 
-**Impacto sobre la población local.** La estimación causal se hizo con el diseño pre-registrado (shift-share provincial con cuotas de 1998). La primera etapa es débil al nivel del shock (F = 6,6, por debajo del umbral de 10) y los conjuntos de confianza AKM0 no están acotados. Por las reglas fijadas antes de estimar, **ningún efecto queda IDENTIFICADO ni SUGESTIVO**: todas las preguntas causales son ASOCIACIÓN o NO ESTIMABLE. Los datos públicos no permiten afirmar ni descartar un efecto de la inmigración sobre el empleo, los salarios o los servicios de la población local. La única estimación que rechaza el cero es exploratoria y desfavorable: una asociación negativa con la tasa de empleo de los nacidos en España con educación baja (-0,7 puntos por punto), cuyo conjunto de confianza no está acotado (sección 5).
+**Impacto sobre la población local.** La estimación causal se hizo con el diseño pre-registrado (shift-share provincial con cuotas de 1998). La primera etapa es débil al nivel del shock (F = 6,6, por debajo del umbral de 10) y los conjuntos de confianza AKM0 no están acotados. Por las reglas fijadas antes de estimar, **ningún efecto queda IDENTIFICADO ni SUGESTIVO**: todas las preguntas causales son ASOCIACIÓN o NO ESTIMABLE. Los datos públicos no permiten afirmar ni descartar un efecto de la inmigración sobre el empleo, los salarios o los servicios de la población local. La única estimación que rechaza el cero es exploratoria y desfavorable: una asociación negativa con la tasa de empleo de los nacidos en España con educación baja (-0,69 puntos por punto), cuyo conjunto de confianza no está acotado; en la variante por nacionalidad, con primera etapa más fuerte, el conjunto sí está acotado y es también negativo (sección 5).
 
 **Afirmaciones del debate.** Se evalúan doce afirmaciones: de las seis desfavorables a la inmigración, cinco con veredicto «no se puede saber» y una con veredicto «engañosa»; de las seis favorables a la inmigración, cuatro con veredicto «no se puede saber» y dos con veredicto «se sostiene con matices» (sección 7).
 
@@ -201,7 +201,7 @@ Resultados en miles de euros (principal y, entre corchetes, el intervalo de las 
 Todos los intervalos de llegada entre 20 y 50 años contienen el cero, y por D11 no se les asigna signo. La diferencia con un nacido en España de la misma edad también contiene el cero (llegada a los 30: resto del mundo -51 [-148, 80]). Para la llegada a los 30, la parte hasta los 64 años («población joven hoy») es 12 y la de 65 y más años -24 (resto del mundo).
 
 **Qué supuesto empuja en qué dirección** (output/f4/ciclo_vital_signos.csv):
-- Las salidas cuentan mucho. Sin salidas (toda la vida en España), la llegada a los 30 da -101 (resto del mundo) y -28 (resto de la UE). La razón es que quien sale deja de generar gasto en sanidad y servicios en la vejez, aunque se lleve la pensión devengada. Si las bajas por caducidad sobrestiman las salidas, el principal está sesgado al alza.
+- Las salidas cuentan mucho. Sin salidas (toda la vida en España), la llegada a los 30 da -101 (resto del mundo) y -28 (resto de la UE). La razón es que quien sale deja de generar gasto en sanidad y servicios en la vejez, aunque se lleve la pensión devengada. El principal usa la tasa observada, que es una cota superior de las salidas porque incluye bajas por caducidad; si las salidas reales fueran la mitad, la llegada a los 30 daría -39 (resto del mundo) y 1 (resto de la UE). Es decir, el principal está sesgado al alza en la dirección del sesgo de las caducidades.
 - La convergencia, un descuento más alto y los bienes públicos a coste marginal cero mejoran el resultado.
 - Los perfiles incluyen el déficit de 2024: todos los valores, también los de los nativos, salen más negativos que con presupuesto equilibrado.
 - No se cuentan los descendientes ni su educación.
@@ -210,7 +210,7 @@ Todos los intervalos de llegada entre 20 y 50 años contienen el cero, y por D11
 
 **Sensibilidad.** En la contabilidad estática lo que más mueve el resultado es la asignación de los hijos nacidos en España y el reparto de los bienes públicos. Imputar coste marginal cero a los nacidos fuera traslada su parte de los bienes públicos a los nacidos en España (-498 € por persona). Los impuestos indirectos, el uso sanitario observado frente a igual uso por edad, la calibración y el reparto del capital mueven menos (output/f4/sensibilidad_supuestos.csv).
 
-**Europa.** No se replica: hacen falta los microdatos de investigación de la EU-SILC, que no son públicos. Se comparan los resultados publicados. Fiorio et al. (2023, *International Tax and Public Finance*) estiman para España, en 2014-2018, una contribución neta por persona de los inmigrantes mayor que la de los nativos, sin diferencia significativa a igual composición demográfica. La cantidad comparable de este estudio es la diferencia con los nativos. En el escenario principal es positiva para los dos grupos: la dirección coincide. Para los nacidos fuera de la UE, sin embargo, el intervalo de supuestos contiene el cero. Las cifras por país de la OCDE (2021) no se pudieron leer en el original (anexo XLS inaccesible) y no se citan.
+**Europa.** No se replica: hacen falta los microdatos de investigación de la EU-SILC, que no son públicos. Se comparan los resultados publicados. Fiorio et al. (2023, *International Tax and Public Finance*) estiman para España, en 2014-2018, una contribución neta por persona de los inmigrantes mayor que la de los nativos, sin diferencia significativa a igual composición demográfica. La cantidad comparable de este estudio es la diferencia con los nativos, con dos diferencias de diseño: el periodo (2024 frente a 2014-2018) y que M1 no ajusta esa diferencia por composición. Para el resto de la UE la diferencia es positiva en las 64 combinaciones, en la dirección de Fiorio et al.; para el resto del mundo el intervalo contiene el cero y no permite contrastar la dirección. Las cifras por país de la OCDE (2021) no se pudieron leer en el original (anexo XLS inaccesible) y no se citan.
 
 ![Gráfico 3](figuras/fig3_fiscal_intervalos.png)
 
@@ -222,27 +222,39 @@ Todos los intervalos de llegada entre 20 y 50 años contienen el cero, y por D11
 - inferencia AKM0 agrupada por origen, validada por Monte Carlo;
 - ajuste dinámico de Jaeger, Ruist y Stuhler; pretendencia con la afiliación de 1999-2001; permutaciones; exclusión de los orígenes con mayor peso de Rotemberg; sensibilidad por nacionalidad; multiverso de 38 especificaciones por hipótesis confirmatoria.
 
-**Primera etapa.** El instrumento predice bien el tratamiento entre provincias (F efectivo = 24,4), pero no al nivel de los shocks, que es el relevante en un shift-share (F = 6,6, por debajo de 10). En consecuencia, los conjuntos AKM0 de todas las hipótesis de P1 y P2 son la recta real entera: los datos son compatibles con efectos grandes en cualquier sentido.
+**Primera etapa.** El instrumento predice bien el tratamiento entre provincias (F efectivo = 24,4), pero no al nivel de los shocks, que es el relevante en un shift-share (F = 6,6, por debajo de 10). En consecuencia, los conjuntos AKM0 no están acotados: en ocho de las diez hipótesis de P1 y P2 son la recta real entera; en P1-E2 y P1-E3a excluyen un tramo que contiene el cero pero siguen abiertos por los dos lados. Los datos son compatibles con efectos grandes en cualquier sentido.
 
 **Resultados (estimación puntual de MC2E; clasificación según las reglas pre-registradas):**
 
 | Pregunta | Resultado de los nacidos en España | Estimación | Clasificación |
 |---|---|---|---|
-| P1-H1 | tasa de empleo (pp por pp) | -0,2 | ASOCIACIÓN |
-| P1-H2 | tasa de paro (pp por pp) | 0,3 | ASOCIACIÓN |
-| P1-E1 | tasa de actividad | -0,0 | ASOCIACIÓN |
-| P1-E2 | log de ocupados | -0,6 | ASOCIACIÓN |
-| P1-E3 | tasa de empleo, educación baja / media / alta | -0,7 / -0,0 / 0,2 | ASOCIACIÓN |
-| P1-E4 | log salario por hora de los españoles, celdas educación × edad (Borjas) | -0,1 [-0,6, 0,4] | ASOCIACIÓN (techo) |
+| P1-H1 | tasa de empleo (pp por pp) | -0,23 | ASOCIACIÓN |
+| P1-H2 | tasa de paro (pp por pp) | 0,28 | ASOCIACIÓN |
+| P1-E1 | tasa de actividad | -0,02 | ASOCIACIÓN |
+| P1-E2 | log de ocupados | -0,64 | ASOCIACIÓN |
+| P1-E3 | tasa de empleo, educación baja / media / alta | -0,69 / -0,03 / 0,18 | ASOCIACIÓN |
+| P1-E4 | log salario por hora de los españoles, celdas educación × edad (Borjas) | -0,10 [-0,56, 0,36] | ASOCIACIÓN (techo) |
 | P1-E5 | salarios provinciales | — | NO ESTIMABLE (AEAT no accesible) |
-| P2-E1 | cuota en ocupaciones no manuales | 0,0 | ASOCIACIÓN |
-| P2-E2 | cuota en ocupaciones de alta cualificación | 0,5 | ASOCIACIÓN |
-| P3 | alumnos por profesor en la enseñanza pública (por pp, 17 CCAA) | -0,2 [-0,8, 0,4] | ASOCIACIÓN (techo) |
+| P1-E6 | log de la población nacida en España de 15-64 (movilidad interna) | 0,43 | ASOCIACIÓN |
+| P2-E1 | cuota en ocupaciones no manuales | 0,03 | ASOCIACIÓN |
+| P2-E2 | cuota en ocupaciones de alta cualificación | 0,50 | ASOCIACIÓN |
+| P3 | alumnos por profesor en la enseñanza pública (por pp, 17 CCAA) | -0,17 [-0,75, 0,41] | ASOCIACIÓN (techo) |
 | P3 | listas de espera quirúrgicas | — | NO ESTIMABLE (solo PDF) |
 | P4 | vivienda | — | no se duplica (Econometr-a) |
-| P5 | tasa de empleo 20-64 de los nativos, NUTS2 de la UE-27 (pp por pp) | -0,3 | ASOCIACIÓN |
+| P5 | tasa de empleo 20-64 de los nativos, NUTS2 de la UE-27 (pp por pp) | -0,33 | ASOCIACIÓN |
 
-Lectura: las dos confirmatorias no rechazan el cero (p de Holm = 0,4), ni P1-E4, P3 ni P5 con el wild bootstrap. **La única estimación que rechaza el cero es la exploratoria P1-E3a**: la tasa de empleo de los nacidos en España con educación baja, -0,7 puntos por punto (p de AKM0 ajustado por BH = 0,0; en el ajuste dinámico de Jaeger, Ruist y Stuhler los efectos de corto y de largo plazo también son negativos). Su conjunto AKM0, sin embargo, no está acotado ni es convexo: con la primera etapa débil, los datos rechazan el cero pero no excluyen efectos grandes de signo contrario, y por la regla pre-registrada queda en ASOCIACIÓN. Es un indicio desfavorable, coherente con Carrasco, Jimeno y Ortega (2008), que se publica con el mismo peso que el resto. En general, las estimaciones puntuales no deben leerse como efectos: con una primera etapa débil al nivel del shock su signo y su tamaño no están determinados por los datos. La pretendencia (afiliación 1999-2001) no es significativa, pero el instrumento del periodo previo está casi colineal con el del primer periodo (correlación 0,97), lo que resta poder a esa prueba. El placebo de permutación y la exclusión de los tres orígenes de mayor peso (Rumanía, Venezuela y Marruecos) no cambian la conclusión. El detalle está en output/f5 (resultado.json por pregunta, multiverso y registro de especificaciones).
+Lectura: las dos confirmatorias no rechazan el cero (p de Holm = 0,388), ni P1-E4, P3 ni P5 con el wild bootstrap.
+
+**P1-E3a, la única estimación que rechaza el cero.** La tasa de empleo de los nacidos en España con educación baja tiene una estimación de -0,69 puntos por punto (p de AKM0 ajustado por BH entre las seis exploratorias de P1 = 0,009). Su conjunto AKM0 es (−∞, -0,85] ∪ [1,81, ∞): excluye el cero, pero no efectos grandes de ninguno de los dos signos. Pruebas de robustez:
+- variante por nacionalidad, la única con primera etapa fuerte al nivel del shock (F = 11,1): -0,36, con conjunto AKM0 acotado [-1,01, -0,26], también negativo;
+- placebo de permutación de los shocks: p = 0,082;
+- la exclusión de los tres orígenes de mayor peso de Rotemberg (Rumanía, Venezuela y Marruecos) no es informativa, porque deja la primera etapa sin fuerza (F al nivel del shock = 0,2).
+
+Por la regla pre-registrada, que exige una primera etapa fuerte en la especificación principal, queda en ASOCIACIÓN. Es el indicio desfavorable más sólido del estudio y se publica con el mismo peso que el resto. El ajuste dinámico de Jaeger, Ruist y Stuhler no sirve de apoyo: los instrumentos de periodos consecutivos están demasiado correlacionados para separar el corto y el largo plazo (adenda A2), y su inferencia es convencional.
+
+**Multiverso y variante por nacionalidad.** En las 32 especificaciones del multiverso de la tasa de empleo (P1-H1), 32,0 tienen β negativo; la mediana es -0,42 (de -0,65 a -0,17), mayor en magnitud que el principal, y ninguna rechaza el cero. En la tasa de paro (P1-H2) todas tienen β positivo (mediana 0,31, de 0,04 a 0,60) y 3,0 rechazan el cero al 5 % sin ajuste por multiplicidad. El signo es, pues, sistemáticamente desfavorable para los nativos, sin significación. En la variante por nacionalidad, con conjuntos acotados, la tasa de empleo da -0,12 [-0,62, 0,68] y la de paro 0,18 [-0,73, 1,23]: no se detecta efecto, y se descartan efectos mayores de unos 0,6-0,7 puntos por punto en la tasa de empleo, en los dos sentidos. Distribución completa por hipótesis en output/f5/multiverso_p1.csv.
+
+**Otras pruebas.** La pretendencia (afiliación 1999-2001) no es significativa, pero el instrumento del periodo previo está casi colineal con el del primer periodo (correlación 0,97), lo que resta poder a esa prueba. En P5 la heterogeneidad por grupos de países (pre-registrada) no muestra ningún grupo con p del wild bootstrap por debajo de 0,3; con un solo país, el grupo anglosajón no es estimable. En general, las estimaciones puntuales no deben leerse como efectos: con una primera etapa débil al nivel del shock su signo y su tamaño no están determinados por los datos. El detalle está en output/f5 (resultado.json por pregunta, con los conjuntos AKM0 como unión de intervalos, multiverso y registro de especificaciones).
 
 **Revisión.** El replicador ciego y el abogado del diablo solo actúan, según el pre-registro, sobre lo que quede IDENTIFICADO o SUGESTIVO; no hay nada en esas categorías. Las desviaciones de implementación respecto al texto pre-registrado se documentan en docs/desviaciones.md; ninguna cambia la clasificación.
 
@@ -265,8 +277,6 @@ La regla mecánica es una comparación de escenarios, no un efecto estimado: sob
 
 Las fichas completas están en `afirmaciones.md`. Resumen:
 
-| id | Afirmación | Veredicto |
-|---|---|---|
 | id | Afirmación | Sentido | Veredicto |
 |---|---|---|---|
 | A1 | «Los inmigrantes viven de las ayudas: reciben más prestaciones que los nacidos en España.» | desfavorable | engañosa (alta) |

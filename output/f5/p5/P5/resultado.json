@@ -7,8 +7,8 @@
  "metodo": "MC2E shift-share leave-one-country-out con efectos de país; wild cluster bootstrap de la forma reducida por país (Webb); AKM0 en la variante con shocks comunes",
  "estimacion": -0.3251785742889751,
  "ic95": [
-  -Infinity,
-  Infinity
+  -0.9679992877780071,
+  0.3176421392000569
  ],
  "p_ajustado": 0.3824,
  "diagnosticos": {
@@ -32,6 +32,16 @@
    "F_shock": 1.7576607017746357,
    "se_bhj": 0.36969463526484875,
    "akm0_p": 0.4434625167747388,
+   "akm0_conjunto": [
+    [
+     -Infinity,
+     -1.0072300635030071
+    ],
+    [
+     -0.3195980419103881,
+     Infinity
+    ]
+   ],
    "akm0_inf": -Infinity,
    "akm0_sup": Infinity,
    "akm0_acotado": false,
@@ -74,6 +84,9 @@
     "G": 3,
     "n": 17
    },
+   "anglosajón": {
+    "no_estimable": "1 país(es) y 3 regiones: no hay variación suficiente con efectos de país"
+   },
    "centro y este": {
     "b": 0.02712639464884356,
     "ee_cluster_pais": 0.4037848615959118,
@@ -85,6 +98,6 @@
    }
   }
  },
- "notas": "Techo SUGESTIVO (A8): periodo corto y cuotas de un censo posterior a la COVID. El IC es el conjunto AKM0 de la variante con shocks comunes.",
+ "notas": "Techo SUGESTIVO (A8): periodo corto y cuotas de un censo posterior a la COVID. El IC es orientativo (errores agrupados por país); la inferencia es el p del wild bootstrap. El conjunto AKM0 corresponde a otra especificación (shocks comunes) y se guarda aparte en diagnosticos. La regla adicional para SUGESTIVO (F al nivel del shock ≥ 10 y AKM0 acotado) se fijó al programar el script, sin poder acreditar que fuera antes de ver estimaciones (docs/desviaciones.md).",
  "prereg": "prereg-m1 c247555"
 }

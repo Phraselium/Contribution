@@ -152,7 +152,7 @@ def W_de(d: pd.DataFrame, spec: dict) -> np.ndarray:
     return np.column_stack(cols)
 
 
-def estimar(d, S, g, grupos, spec, y: str) -> dict:
+def estimar(d, S, g, grupos, spec, y: str, ligero: bool = False) -> dict:
     m = d[f"d_{y}"].notna().to_numpy() & d.x.notna().to_numpy()
     dd, SS = d[m], S[m]
     W = W_de(dd, spec)
@@ -160,13 +160,15 @@ def estimar(d, S, g, grupos, spec, y: str) -> dict:
     yv, xv = dd[f"d_{y}"].to_numpy(float), dd.x.to_numpy(float)
     z = dd.z_loo.to_numpy(float) if spec.get("loo") else dd.z.to_numpy(float)
     iv = econ.iv2sls(yv, xv, z, W, dd.prov.to_numpy(), w)
+    if ligero:      # permutaciones: solo el t con el error BHJ
+        return {"b": float(iv["b"][0]), "se_bhj": econ.bhj(yv, xv, SS, g, W, w)["se"]}
     fe = econ.f_efectivo(xv, z, W, dd.prov.to_numpy(), w)
     bh_ = econ.bhj(yv, xv, SS, g, W, w)
     ak = econ.akm0(yv, xv, SS, g, W, w, grupos=grupos)
     rf = econ.ols(yv, np.column_stack([z, W]), dd.prov.to_numpy(), w)
     return {"b": float(iv["b"][0]), "se_cluster_prov": float(iv["se"][0]), "F_efectivo": fe, "F_shock": bh_["F_shock"],
             "se_bhj": bh_["se"], "akm0_p": ak["p"], "akm0_inf": ak["ic_inf"], "akm0_sup": ak["ic_sup"], "akm0_acotado": ak["acotado"],
-            "akm0_convexo": ak["convexo"], "orig_efectivos": bh_["hhi_inv"], "n": int(m.sum()), "forma_reducida": float(rf["b"][0])}
+            "akm0_convexo": ak["convexo"], "akm0_conjunto": ak["conjunto"], "orig_efectivos": bh_["hhi_inv"], "n": int(m.sum()), "forma_reducida": float(rf["b"][0])}
 
 
 # ── pruebas ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -194,7 +196,7 @@ def permutaciones(d, S, g, grupos, spec, y, n=500) -> dict:
             gp[i * Ob:(i + 1) * Ob] = seg[rng.permutation(Ob)]
         dd = d.copy()
         dd["z"] = S @ gp
-        r = estimar(dd, S, gp, grupos, spec, y)
+        r = estimar(dd, S, gp, grupos, spec, y, ligero=True)
         ts.append(r["b"] / r["se_bhj"])
     ts = np.array(ts)
     return {"t_principal": float(t0), "p_permutacion": float(np.mean(np.abs(ts) >= abs(t0))),
@@ -251,12 +253,14 @@ def main() -> int:
     cf = Cifras("f5_p1", "src/m1/f5_p1_shiftshare.py")
     P, E, c = padron(), ecp(), epa_nativos()
     Y = resultados_nativos(c)
+    # P1-E6 (adenda A3): movilidad interna de los nativos, Δ log población nacida en España de 15-64 (ECP)
+    Y["log_pob_nativos"] = np.log((E["Total"] - E["Extranjero"]).reindex(Y.index))
     ctrl0, bart, paro = controles(c)
     ctrl = (ctrl0, bart)
     d, S, g, grupos, paises, periodos = panel(PRINCIPAL, P, E, Y, ctrl, paro)
     hip = {"P1-H1": "tasa_empleo", "P1-H2": "tasa_paro", "P1-E1": "tasa_actividad", "P1-E2": "log_ocupados",
            "P1-E3a": "tasa_empleo_educ_baja", "P1-E3b": "tasa_empleo_educ_media", "P1-E3c": "tasa_empleo_educ_alta",
-           "P2-E1": "cuota_nomanual", "P2-E2": "cuota_alta_cualif"}
+           "P1-E6": "log_pob_nativos", "P2-E1": "cuota_nomanual", "P2-E2": "cuota_alta_cualif"}
     res = {}
     for h, y in hip.items():
         r = estimar(d, S, g, grupos, PRINCIPAL, y)
@@ -265,7 +269,7 @@ def main() -> int:
     # pruebas para las confirmatorias
     pre = pretendencia(P, E, PRINCIPAL, ctrl, paro)
     salidas = {}
-    for h in ("P1-H1", "P1-H2"):
+    for h in hip:      # la batería completa también para las exploratorias (revisión del árbitro, segunda ronda)
         y = hip[h]
         rot = rotemberg_top(d, S, g, PRINCIPAL, y, paises, periodos)
         top3 = list(dict.fromkeys(rot.origen))[:3]
@@ -279,7 +283,8 @@ def main() -> int:
         prueba = {"pretendencia": pre, "rotemberg_top": rot.to_dict("records"), "excluidos": top3, "sin_top3": rex,
                   "exclusion_signo": np.sign(rex["b"]) == np.sign(base["b"]), "exclusion_solapa": solapa(rex, base),
                   "nacionalidad": nacv, "nacionalidad_signo": np.sign(nacv["b"]) == np.sign(base["b"]),
-                  "nacionalidad_solapa": solapa(nacv, base), "permutacion": perm}
+                  "nacionalidad_solapa": solapa(nacv, base), "permutacion": perm, "F_shock_sin_top3": rex["F_shock"],
+                  "F_shock_nacionalidad": nacv["F_shock"]}
         salidas[h] = prueba
     p_holm = holm({h: res[h]["akm0_p"] for h in ("P1-H1", "P1-H2")})
     p_bh = bh({h: res[h]["akm0_p"] for h in hip if h.startswith("P1-E")})
@@ -289,7 +294,7 @@ def main() -> int:
     for comb in itertools.product([1998, 2002], [True, False], ["basico", "completo"], [50, 52], ["apilado", "larga"]):
         s = dict(PRINCIPAL, base=comb[0], pesos=comb[1], controles=comb[2], muestra=comb[3], diseno=comb[4])
         dm, Sm, gm, grm, _, _ = panel(s, P, E, Y, ctrl, paro)
-        for h in ("P1-H1", "P1-H2"):
+        for h in hip:
             r = estimar(dm, Sm, gm, grm, s, hip[h])
             mult.append({**s, "hipotesis": h, **r})
             reg.log("F5", h, "multiverso", json.dumps(s), "", r["n"], r["b"], r["se_bhj"], r["akm0_p"])
@@ -297,35 +302,70 @@ def main() -> int:
                   {"controles": "basico"}, {"loo": True}):
         s = dict(PRINCIPAL, **extra)
         dm, Sm, gm, grm, _, _ = panel(s, P, E, Y, ctrl, paro)
-        for h in ("P1-H1", "P1-H2"):
+        for h in hip:
             r = estimar(dm, Sm, gm, grm, s, hip[h])
             mult.append({**s, "hipotesis": h, "variante": json.dumps(extra), **r})
-    pd.DataFrame(mult).to_csv(O / "multiverso_p1.csv", index=False)
+    mv = pd.DataFrame(mult)
+    mv.to_csv(O / "multiverso_p1.csv", index=False)
     # JRS (secundaria): dos endógenas con el retardo
     jrs = dinamico(P, E, Y, ctrl, paro, hip)
     for parte, hs in (("p1", [h for h in hip if h.startswith("P1")]), ("p2", [h for h in hip if h.startswith("P2")])):
         for h in hs:
             r = res[h]
-            if h in salidas:
-                clas = clasificar(r, salidas[h])
-            else:
-                clas = "ASOCIACIÓN" if not (r["F_shock"] >= 10 and r["F_efectivo"] >= 10 and r["akm0_acotado"]) else "SUGESTIVO"
-                clas = clas if clas != "SUGESTIVO" else "SUGESTIVO (exploratoria: sin la batería completa de pruebas)"
+            clas = clasificar(r, salidas[h])
             escribir_resultado(O / parte / h / "resultado.json", pregunta=f"{h}: Δ {hip[h]} de los nacidos en España (16-64) por "
                                "punto de aumento de la población nacida fuera de 15-64 sobre la población 15-64",
                                capa="C3" if clas.startswith("IDENTIFICADO") else "C4", clasificacion=clas,
                                datos="padrón 1998-2022 (INE), ECP, EPA microdatos, afiliación TGSS", N=r["n"],
                                metodo="MC2E shift-share (Card), AKM0 agrupado por origen", estimacion=r["b"],
-                               ic95=[r["akm0_inf"], r["akm0_sup"]], p_ajustado=p_holm.get(h, p_bh.get(h)),
+                               ic95=r["akm0_conjunto"], p_ajustado=p_holm.get(h, p_bh.get(h)),
                                diagnosticos={**r, **({k: v for k, v in salidas[h].items() if k != "rotemberg_top"} if h in salidas else {})},
                                notas="pre-registro interno sin sello externo", prereg=f"prereg-m1 {commit}",
                                dinamico=jrs.get(h))
-            cf.add(f"F5_{h.replace('-', '_')}_beta", round(r["b"], 3), "pp por pp", f"{h}: efecto sobre {hip[h]} (MC2E, especificación principal)",
+            cf.add(f"F5_{h.replace('-', '_')}_beta", round(r["b"], 3), "pp por pp", f"{h}: asociación con {hip[h]} (MC2E, especificación "
+                   "principal; IC: envolvente del conjunto AKM0)",
                    "C3" if clas.startswith("IDENTIFICADO") else "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias",
                    "nacidos en España", clasificacion="IDENTIFICADO" if clas.startswith("IDENTIFICADO") else
                    ("SUGESTIVO" if clas.startswith("SUGESTIVO") else "ASOCIACIÓN"),
                    ic_inf=round(r["akm0_inf"], 3) if np.isfinite(r["akm0_inf"]) else np.nan,
                    ic_sup=round(r["akm0_sup"], 3) if np.isfinite(r["akm0_sup"]) else np.nan)
+    for h in ("P1-H1", "P1-H2"):
+        x = mv[(mv.hipotesis == h) & mv.get("variante", pd.Series(index=mv.index, dtype=object)).isna()]
+        k = h.replace("-", "_")
+        cf.add(f"F5_{k}_MULT_MED", round(float(x.b.median()), 3), "pp por pp", f"{h}: mediana de β en el multiverso pre-registrado "
+               f"({len(x)} especificaciones; intervalo: mínimo y máximo)", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias",
+               "nacidos en España", clasificacion="ASOCIACIÓN", ic_inf=round(float(x.b.min()), 3), ic_sup=round(float(x.b.max()), 3))
+        cf.add(f"F5_{k}_MULT_NEG", int((x.b < 0).sum()), "especificaciones", f"{h}: especificaciones del multiverso con β negativo "
+               f"(de {len(x)})", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias", "nacidos en España")
+        cf.add(f"F5_{k}_MULT_RECHAZA", int((x.akm0_p < 0.05).sum()), "especificaciones", f"{h}: especificaciones del multiverso cuyo "
+               f"AKM0 rechaza β = 0 al 5 % sin ajuste (de {len(x)})", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "provincias",
+               "nacidos en España")
+        nv = salidas[h]["nacionalidad"]
+        cf.add(f"F5_{k}_NACIONALIDAD", round(nv["b"], 3), "pp por pp", f"{h}: variante con instrumento y tratamiento por nacionalidad "
+               f"(F al nivel del shock = {nv['F_shock']:.1f}; IC: conjunto AKM0, acotado = {nv['akm0_acotado']})", "C4",
+               "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España", clasificacion="ASOCIACIÓN",
+               ic_inf=round(nv["akm0_inf"], 3) if np.isfinite(nv["akm0_inf"]) else np.nan,
+               ic_sup=round(nv["akm0_sup"], 3) if np.isfinite(nv["akm0_sup"]) else np.nan)
+    nv = salidas["P1-E3a"]["nacionalidad"]
+    cf.add("F5_P1_E3a_NACIONALIDAD", round(nv["b"], 3), "pp por pp", "P1-E3a: variante con instrumento y tratamiento por nacionalidad "
+           f"(F al nivel del shock = {nv['F_shock']:.1f}; IC: conjunto AKM0, acotado = {nv['akm0_acotado']}, convexo = {nv['akm0_convexo']})",
+           "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España con educación baja", clasificacion="ASOCIACIÓN",
+           ic_inf=round(nv["akm0_inf"], 3) if np.isfinite(nv["akm0_inf"]) else np.nan,
+           ic_sup=round(nv["akm0_sup"], 3) if np.isfinite(nv["akm0_sup"]) else np.nan)
+    cf.add("F5_P1_E3a_PERM_p", round(salidas["P1-E3a"]["permutacion"]["p_permutacion"], 3), "p ajustado", "P1-E3a: p del placebo de "
+           "permutación de shocks (500 permutaciones)", "C4", "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias",
+           "nacidos en España con educación baja")
+    cf.add("F5_P1_F_NACIONALIDAD", round(salidas["P1-H1"]["F_shock_nacionalidad"], 1), "F", "F de primera etapa al nivel del shock en la "
+           "variante por nacionalidad", "C4", "padrón (INE)", "2005-2022", "50 provincias", "todos")
+    cf.add("F5_P1_F_SIN_TOP3", round(salidas["P1-H1"]["F_shock_sin_top3"], 2), "F", "F de primera etapa al nivel del shock al excluir "
+           "los tres orígenes de mayor peso de Rotemberg (prueba no informativa si es < 10)", "C4", "padrón (INE)", "2005-2022",
+           "50 provincias", "todos")
+    conj = res["P1-E3a"]["akm0_conjunto"]
+    if len(conj) == 2 and conj[0][0] == -np.inf and conj[1][1] == np.inf:
+        cf.add("F5_P1_E3a_CONJ_A", round(conj[0][1], 2), "pp por pp", "P1-E3a: el conjunto AKM0 es (−∞, a] ∪ [b, ∞); este es a", "C4",
+               "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España con educación baja")
+        cf.add("F5_P1_E3a_CONJ_B", round(conj[1][0], 2), "pp por pp", "P1-E3a: el conjunto AKM0 es (−∞, a] ∪ [b, ∞); este es b", "C4",
+               "padrón, ECP, EPA (INE)", "2005-2022", "50 provincias", "nacidos en España con educación baja")
     for h in hip:
         cf.add(f"F5_{h.replace('-', '_')}_p", round(float(p_holm.get(h, p_bh.get(h))), 3), "p ajustado",
                f"{h}: p de AKM0 frente a β = 0 ajustado ({'Holm' if h in p_holm else 'BH'}); el conjunto AKM0 puede no estar acotado aunque "
@@ -369,7 +409,9 @@ def dinamico(P, E, Y, ctrl, paro, hip) -> dict:
         f1 = tot.loc[(a1, r.prov)].sum()
         xl.append((f1 - f0) / r.pob0)
     d["z_l"], d["x_l"] = zl, xl
-    out = {"corr_z_zlag": float(np.corrcoef(d.z, d.z_l)[0, 1])}
+    pares = {k: float(np.corrcoef(d[d.periodo == k].z, d[d.periodo == k].z_l)[0, 1]) for k in ("A", "B", "C")}
+    out = {"corr_z_zlag": float(np.corrcoef(d.z, d.z_l)[0, 1]), "corr_por_periodo": pares,
+           "separable": all(abs(v) <= 0.8 for v in pares.values())}
     for h, y in hip.items():
         m = d[f"d_{y}"].notna()
         dd = d[m]
@@ -377,7 +419,8 @@ def dinamico(P, E, Y, ctrl, paro, hip) -> dict:
                           dd.prov.to_numpy(), dd.pob0.to_numpy(float))
         out[h] = {"corto": float(r["b"][0]), "ee_corto": float(r["se"][0]), "largo": float(r["b"][0] + r["b"][1]),
                   "ee_largo": float(np.sqrt(r["V"][0, 0] + r["V"][1, 1] + 2 * r["V"][0, 1])), "F_SW": r["F_sw"],
-                  "separable": abs(out["corr_z_zlag"]) <= 0.8}
+                  "separable": out["separable"], "inferencia": "errores agrupados por provincia (convencional; no válida como "
+                  "inferencia del shift-share, solo descriptiva)"}
     return out
 
 

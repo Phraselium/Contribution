@@ -193,6 +193,10 @@ def main() -> int:
             cf.add(f"F4_VA_DIF_NAT_{g.replace(' ', '_')}_LLEGADA_{a0}", round((p.va_total - nat_a.va_total) / 1e3, 0),
                    "miles de € (VA)", f"Diferencia con un nacido en España de la misma edad (vida restante), llegada a los {a0}",
                    "C2", "Perfiles M1", "2024", "España", g, ic_inf=round(dif.min() / 1e3, 0), ic_sup=round(dif.max() / 1e3, 0))
+            mit = x[(x.retorno == "decreciente_mitad") & (x.convergencia == 0) & (x.descuento == 0.03) & (x.bienes == "medio")].iloc[0]
+            cf.add(f"F4_VA_MITAD_SALIDA_{g.replace(' ', '_')}_LLEGADA_{a0}", round(mit.va_total / 1e3, 0), "miles de € (VA)",
+                   f"Como el principal pero con la mitad del riesgo de salida (por si las bajas por caducidad no son salidas reales), "
+                   f"llegada a los {a0}", "C2", "Perfiles M1", "2024", "España", g)
             ret0 = x[(x.retorno == "ninguno") & (x.convergencia == 0) & (x.descuento == 0.03) & (x.bienes == "medio")].iloc[0]
             cf.add(f"F4_VA_SIN_SALIDA_{g.replace(' ', '_')}_LLEGADA_{a0}", round(ret0.va_total / 1e3, 0), "miles de € (VA)",
                    f"Como el principal pero sin salidas (toda la vida en España), llegada a los {a0}", "C2", "Perfiles M1", "2024",

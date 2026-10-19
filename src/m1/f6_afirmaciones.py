@@ -42,16 +42,20 @@ FICHAS = [
                      "aumento corresponde a nacidos fuera y el resto a nacidos en España, cuya ocupación también creció. La tasa de empleo 16-64 de los nacidos en "
                      "España es del {{F3_EMP_TASA_España_2025}} % (2025).",
      "causal": CAUSAL_M1 + " Para la tasa de empleo de los nacidos en España, la estimación puntual es {{F5_P1_H1_beta}} puntos por punto de "
-               "aumento de la población nacida fuera (ASOCIACIÓN). La única estimación que rechaza el cero es la exploratoria de "
-               "los nacidos en España con educación baja: {{F5_P1_E3a_beta}} (p ajustado por BH = {{F5_P1_E3a_p}}), con un conjunto AKM0 no acotado "
-               "ni convexo, por lo que también queda en ASOCIACIÓN; es un indicio desfavorable que se publica igual que el resto. "
+               "aumento de la población nacida fuera (ASOCIACIÓN). En las 32 especificaciones del multiverso de la tasa de "
+               "empleo el signo es negativo (mediana {{F5_P1_H1_MULT_MED}}), sin que ninguna rechace el cero. La única estimación que rechaza el cero "
+               "es la exploratoria de los nacidos en España con educación baja: {{F5_P1_E3a_beta}} (p ajustado por BH = {{F5_P1_E3a_p}}), con un "
+               "conjunto AKM0 no acotado ni convexo; en la variante por nacionalidad, con primera etapa más fuerte, es {{F5_P1_E3a_NACIONALIDAD}} "
+               "con conjunto acotado [{{F5_P1_E3a_NACIONALIDAD:inf}}, {{F5_P1_E3a_NACIONALIDAD:sup}}]. Por la regla pre-registrada queda en "
+               "ASOCIACIÓN; es un indicio desfavorable que se publica igual que el resto. "
                "En España, los trabajos con datos de provincias y celdas (González y Ortega 2011; Carrasco, Jimeno y Ortega 2008; Banco de "
                "España 2026, Informe Anual 2025) no encuentran en general efectos negativos significativos sobre el empleo de los nativos, aunque Carrasco, Jimeno y "
                "Ortega (2008) obtienen un efecto negativo (−0,17) cuando solo cuentan a los inmigrantes con permiso de trabajo, y la ficha del Banco de España no "
                "informa de inferencia adecuada para shift-share.",
      "supuestos": "La contabilidad no dice qué habría pasado sin inmigración.", "veredicto": "no se puede saber", "confianza": "media",
-     "razon": "La contabilidad no muestra desplazamiento agregado y la literatura española no encuentra efectos negativos grandes, pero la estimación "
-              "propia queda en ASOCIACIÓN y el efecto en España no está identificado (mismo estándar que A3 y F2)."},
+     "razon": "La contabilidad no responde a una pregunta contrafactual. La estimación propia queda en ASOCIACIÓN, con un indicio desfavorable para los "
+              "nacidos en España con educación baja; la literatura española no encuentra en general efectos negativos. El efecto no está identificado "
+              "(mismo estándar que A3 y F2)."},
     {"id": "A3", "sentido": "desfavorable", "afirmacion": "La inmigración hunde los salarios de los españoles.",
      "contabilidad": "Los extranjeros cobran por hora un {{F3_SAL_BRECHA_bruto_2022:abs}} % menos que los españoles (bruto, 2022); a igual edad, sexo, estudios y "
                      "región la diferencia es {{F3_SAL_BRECHA_completo_2022}} %. Es una brecha entre grupos, no un efecto sobre los salarios de los nativos.",
@@ -60,8 +64,8 @@ FICHAS = [
                "La literatura internacional verificada da efectos medios pequeños sobre los salarios nativos (Dustmann, Schönberg y Stuhler 2016) y "
                "la española no documenta caídas generalizadas; con datos públicos no hay salarios provinciales por nacionalidad (la AEAT no fue accesible).",
      "supuestos": "—", "veredicto": "no se puede saber", "confianza": "media",
-     "razon": "Con datos públicos el efecto en España no queda identificado (fase 5: ASOCIACIÓN); la versión fuerte («hunde») no tiene apoyo en "
-              "la literatura ni en la asociación estimada."},
+     "razon": "Con datos públicos el efecto en España no queda identificado (fase 5: ASOCIACIÓN); la literatura verificada no documenta caídas "
+              "generalizadas, pero eso no basta para afirmar ni descartar la versión fuerte («hunde»)."},
     {"id": "A4", "sentido": "desfavorable", "afirmacion": "Los inmigrantes colapsan la sanidad pública.",
      "contabilidad": "Uso declarado por persona, nacidos fuera / nacidos en España del mismo tramo de edad (ENSE 2017; 1 = igual). 15-34 años: consultas "
                      "{{F6_ENSE_RAZON_CONSULTAS_15_34}}, días de hospital {{F6_ENSE_RAZON_HOSP_15_34}}, urgencias {{F6_ENSE_RAZON_URG_15_34}}. 35-54: consultas "
@@ -121,7 +125,8 @@ FICHAS = [
      "contabilidad": "Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE e intervalo que contiene el cero para los "
                      "nacidos fuera de la UE; en el ciclo vital, intervalos que contienen el cero para los dos grupos.",
      "causal": "No es causal.", "supuestos": "Bienes públicos e hijos nacidos en España.", "veredicto": "no se puede saber", "confianza": "alta",
-     "razon": "Generalizada a todos los inmigrantes no se sostiene con el mismo estándar que A5."},
+     "razon": "En la contabilidad estática se sostiene para los nacidos en la UE; para los nacidos fuera de la UE, y en el ciclo vital para los dos "
+              "grupos, depende de supuestos (mismo estándar que A5)."},
     {"id": "F4", "sentido": "favorable", "afirmacion": "Los inmigrantes trabajan tanto como los españoles.",
      "contabilidad": "Tasa de empleo 16-64 de 2025: nacidos fuera {{F3_EMP_TASA_FUERA_2025}} % frente a {{F3_EMP_TASA_España_2025}} %; con variación interna amplia "
                      "(África {{F3_EMP_TASA_África_2025}} %, América Latina {{F3_EMP_TASA_América Latina_2025}} %). Tasa de paro de nacidos fuera "
@@ -154,7 +159,7 @@ def render(texto: str, cifras: pd.DataFrame) -> str:
             return "n. d."
         v = float(v)
         entero = any(k in str(unidad) for k in ("posición", "provincias", "€", "miles de hogares")) or abs(v) >= 100
-        s = f"{v:,.0f}" if entero else f"{v:,.1f}"
+        s = f"{v:,.0f}" if entero else (f"{v:,.3f}" if "p ajustado" in str(unidad) else (f"{v:,.2f}" if "por p" in str(unidad) else f"{v:,.1f}"))
         return s.replace(",", "X").replace(".", ",").replace("X", ".")
 
     def rep(m):
@@ -205,8 +210,8 @@ def main() -> int:
         md += [f"## {f['id']} · «{f['afirmacion']}»", f"- Sentido: {f['sentido']}.",
                f"- Contabilidad: {render(f['contabilidad'], todas)}", f"- Evidencia causal: {render(f['causal'], todas)}",
                f"- Depende de supuestos: {render(f['supuestos'], todas)}",
-               f"- **Veredicto: {f['veredicto']}** (confianza {f['confianza']}). {f['razon']}", ""]
-        filas.append({k: f[k] for k in ("id", "sentido", "afirmacion", "veredicto", "confianza", "razon")})
+               f"- **Veredicto: {f['veredicto']}** (confianza {f['confianza']}). {render(f['razon'], todas)}", ""]
+        filas.append({**{k: f[k] for k in ("id", "sentido", "afirmacion", "veredicto", "confianza")}, "razon": render(f["razon"], todas)})
     t = pd.DataFrame(filas)
     t.to_csv(O / "afirmaciones.csv", index=False)
     bal = t.groupby(["sentido", "veredicto"]).size().unstack(fill_value=0)
