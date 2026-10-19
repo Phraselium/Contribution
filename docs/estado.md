@@ -34,3 +34,6 @@ Ninguna fase supera 6 millones de tokens.
 
 ## Segunda ronda del árbitro (REVISAR) incorporada
 Conjuntos AKM0 como unión de intervalos; P1-E6 añadida y BH con seis; batería y multiverso para todas las hipótesis; separabilidad JRS por periodo (no separable); P1-E3a con variante por nacionalidad (conjunto acotado y negativo) y permutación; multiverso en el texto (signo desfavorable sistemático, sin significación); D11 en la comparación con Fiorio; variante de mitad de salidas del ciclo vital; neutralidad de A2, A3 y F3; P5 con IC orientativo y heterogeneidad publicada; desviaciones 7-11 declaradas como posteriores a ver estimaciones.
+
+## Cierre autónomo · Ronda 1 de autocrítica (docs/rondas/ronda_1.md)
+Cuatro revisores (≈ 630.000 tokens): árbitro REVISAR, 18 discrepancias de cifras. Errores corregidos: control de cuotas incompletas de P1 mal construido (al corregirlo, F del shock 13,5; P1-H1 +0,06 y P1-H2 −0,55, sin significación; P1-E3a −0,61 deja de rechazar tras BH), descomposición de P1-E3a, permutaciones no centradas, intervalo del ciclo vital con convergencia (el resto del mundo queda negativo a los 20 y 50 años), umbral ENSE, edad −1, quintiles. Robustez: wild bootstrap por CCAA, Rotemberg, nivel «edad y sexo» fiscal (a igual edad los nacidos fuera aportan menos que los nativos) y de empleo. Exploratorio: jackknife por CCAA.
