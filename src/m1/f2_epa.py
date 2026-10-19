@@ -10,7 +10,8 @@ a 1 dígito).
 Grupos de origen (decisión D6, aproximación fijada antes de mirar datos; REGNA1 / EXREGNA1):
 115 → UE-14 (UE-15) · 125, 127, 128, 100 → UE-13 y otros de Europa · 200 → África (Magreb y resto juntos) ·
 310, 350 → América Latina · 400, 410, 420 → Asia · 300, 500, 999 → Resto. Nacionalidad: NAC1 1 o 2 (doble) → España.
-Segunda generación: nacido en España con padre o madre conviviente (NPADRE, NMADRE) nacido fuera. Diseño: solo FACTOREL.
+Segunda generación: nacido en España con padre o madre conviviente (NPADRE, NMADRE) nacido fuera; con_padres marca a quien
+convive con alguno de sus padres (la comparación válida es entre quienes conviven). Diseño: solo FACTOREL.
 """
 from __future__ import annotations
 
@@ -76,6 +77,7 @@ def trimestre(ruta: Path) -> pd.DataFrame:
         k = d["NVIVI"] + "_" + d[col]
         return k.map(nac_fuera).fillna(False).astype(bool) & ~d[col].isin(["", "00"])
     d["sg"] = nativo & (fuera("NPADRE") | fuera("NMADRE"))
+    d["con_padres"] = ~d["NPADRE"].isin(["", "00"]) | ~d["NMADRE"].isin(["", "00"])
     d["nacionalizado"] = ~nativo & d["NAC1"].isin(["1", "2"])
     d["sexo"] = d["SEXO1"].map({"1": "hombre", "6": "mujer"})
     d["edad6"] = edad6(d["edad"])
@@ -110,7 +112,7 @@ def agregar_trimestre(ruta: str):
     d["n"] = 1
     filas = []
     for od, g in (("nacimiento", "g_nac"), ("nacionalidad", "g_ncl")):
-        dims = ["anio", "trim", "PROV", g, "sexo", "edad6", "educ", "resid", "sg", "nacionalizado"]
+        dims = ["anio", "trim", "PROV", g, "sexo", "edad6", "educ", "resid", "sg", "con_padres", "nacionalizado"]
         a = d.groupby(dims, dropna=False)[["pob"] + VARS + ["n"]].sum().reset_index().rename(columns={g: "grupo"})
         a["origen_def"] = od
         filas.append(a)
@@ -125,7 +127,7 @@ def main() -> int:
     c = pd.concat([r[0] for r in res], ignore_index=True)
     s = pd.concat([r[1] for r in res], ignore_index=True)
     ntrim = c.groupby("anio")["trim"].nunique()
-    dims = ["anio", "PROV", "origen_def", "grupo", "sexo", "edad6", "educ", "resid", "sg", "nacionalizado"]
+    dims = ["anio", "PROV", "origen_def", "grupo", "sexo", "edad6", "educ", "resid", "sg", "con_padres", "nacionalizado"]
     c = c.groupby(dims, dropna=False)[["pob"] + VARS + ["n"]].sum().reset_index()
     for v in ["pob"] + VARS:
         c[v] = c[v] / c["anio"].map(ntrim)

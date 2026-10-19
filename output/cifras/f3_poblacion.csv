@@ -1,0 +1,26 @@
+id,valor,ic_inf,ic_sup,unidad,descripcion,capa,clasificacion,fuente,periodo,ambito,grupo_origen,nivel_ajuste,script
+F3_POB_FUERA_PADRON_2022,15.9,,,% de la población,Población nacida fuera de España (padrón),C1,,Padrón continuo (INE),1-1-2022,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_CUOTA_América Latina_2022,7.02,,,% de la población,Cuota de población del grupo América Latina,C1,,Padrón continuo (INE),1-1-2022,España,América Latina,bruto,src/m1/f3_poblacion.py
+F3_POB_CUOTA_Asia_2022,1.11,,,% de la población,Cuota de población del grupo Asia,C1,,Padrón continuo (INE),1-1-2022,España,Asia,bruto,src/m1/f3_poblacion.py
+F3_POB_CUOTA_España_2022,84.13,,,% de la población,Cuota de población del grupo España,C1,,Padrón continuo (INE),1-1-2022,España,España,bruto,src/m1/f3_poblacion.py
+F3_POB_CUOTA_Magreb_2022,2.26,,,% de la población,Cuota de población del grupo Magreb,C1,,Padrón continuo (INE),1-1-2022,España,Magreb,bruto,src/m1/f3_poblacion.py
+F3_POB_CUOTA_Resto_2022,0.16,,,% de la población,Cuota de población del grupo Resto,C1,,Padrón continuo (INE),1-1-2022,España,Resto,bruto,src/m1/f3_poblacion.py
+F3_POB_CUOTA_Resto de África_2022,0.63,,,% de la población,Cuota de población del grupo Resto de África,C1,,Padrón continuo (INE),1-1-2022,España,Resto de África,bruto,src/m1/f3_poblacion.py
+F3_POB_CUOTA_UE-13 y otros de Europa_2022,2.38,,,% de la población,Cuota de población del grupo UE-13 y otros de Europa,C1,,Padrón continuo (INE),1-1-2022,España,UE-13 y otros de Europa,bruto,src/m1/f3_poblacion.py
+F3_POB_CUOTA_UE-14_2022,2.31,,,% de la población,Cuota de población del grupo UE-14,C1,,Padrón continuo (INE),1-1-2022,España,UE-14,bruto,src/m1/f3_poblacion.py
+F3_POB_FUERA_PADRON_1998,2.9,,,% de la población,Población nacida fuera de España (padrón),C1,,Padrón continuo (INE),1-1-1998,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_NACIONALIZADOS_2022,33.4,,,% de los nacidos fuera,Nacidos fuera con nacionalidad española (incluye hijos de españoles nacidos fuera),C1,,Padrón continuo (INE),1-1-2022,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_FUERA_PROV_MAX_2022,24.7,,,%,Provincia con mayor cuota de nacidos fuera (07),C1,,Padrón continuo (INE),1-1-2022,provincia 07,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_FUERA_PROV_MIN_2022,3.9,,,%,Provincia con menor cuota de nacidos fuera (23),C1,,Padrón continuo (INE),1-1-2022,provincia 23,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_FUERA_ECP_2025,19.3,,,% de la población,"Población nacida fuera de España (ECP, segunda fuente)",C1,,Estadística Continua de Población (INE),1-1-2025,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_65MAS_España_2025,23.5,,,% del grupo,Población de 65 y más años,C1,,Estadística Continua de Población (INE),1-1-2025,España,España,bruto,src/m1/f3_poblacion.py
+F3_POB_EDADMEDIA_España_2025,45.3,,,años,Edad media aproximada (marcas de clase quinquenales),C1,,Estadística Continua de Población (INE),1-1-2025,España,España,bruto,src/m1/f3_poblacion.py
+F3_POB_65MAS_nacidos fuera_2025,9.2,,,% del grupo,Población de 65 y más años,C1,,Estadística Continua de Población (INE),1-1-2025,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_EDADMEDIA_nacidos fuera_2025,41.2,,,años,Edad media aproximada (marcas de clase quinquenales),C1,,Estadística Continua de Población (INE),1-1-2025,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_SALDO_EXTERIOR_FUERA_2021_2024,2.31,,,millones,"Saldo migratorio con el extranjero de nacidos fuera, acumulado 2021-2024",C1,,Estadística de Migraciones (INE),2021-2024,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_SALDO_EXTERIOR_ESPANA_2021_2024,-0.124,,,millones,"Saldo migratorio con el extranjero de nacidos en España, acumulado 2021-2024",C1,,Estadística de Migraciones (INE),2021-2024,España,España,bruto,src/m1/f3_poblacion.py
+F3_POB_RESID_20MAS_2025,35.2,,,% de los nacidos fuera de 16+,Nacidos fuera con 20 o más años de residencia en España,C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_RESID_0A4_2025,23.7,,,% de los nacidos fuera de 16+,Nacidos fuera con menos de 5 años de residencia en España,C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_FUERA_UE27_2025,14.4,,,% de la población,"Población nacida fuera del país de residencia, UE-27",C1,,Eurostat migr_pop3ctb,1-1-2025,UE-27,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_FUERA_ES_EUROSTAT_2025,19.3,,,% de la población,"Población nacida fuera, España (Eurostat)",C1,,Eurostat migr_pop3ctb,1-1-2025,España,nacidos fuera,bruto,src/m1/f3_poblacion.py
+F3_POB_FUERA_ES_RANKING_2025,12.0,,,posición,Posición de España por cuota de nacidos fuera entre 31 países europeos con dato,C1,,Eurostat migr_pop3ctb,1-1-2025,Europa,nacidos fuera,bruto,src/m1/f3_poblacion.py

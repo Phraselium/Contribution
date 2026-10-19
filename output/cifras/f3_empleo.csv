@@ -1,0 +1,43 @@
+id,valor,ic_inf,ic_sup,unidad,descripcion,capa,clasificacion,fuente,periodo,ambito,grupo_origen,nivel_ajuste,script
+F3_EMP_TASA_España_2025,68.4,,,% (16-64),"Tasa de empleo 16-64, nacidos en España",C1,,"EPA (INE, microdatos trimestrales)",2025,España,España,bruto,src/m1/f3_empleo.py
+F3_EMP_PARO_España_2025,9.4,,,%,"Tasa de paro, grupo España",C1,,"EPA (INE, microdatos trimestrales)",2025,España,España,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_UE-14_2025,73.3,,,% (16-64),"Tasa de empleo 16-64, nacidos en UE-14",C1,,"EPA (INE, microdatos trimestrales)",2025,España,UE-14,bruto,src/m1/f3_empleo.py
+F3_EMP_PARO_UE-14_2025,8.6,,,%,"Tasa de paro, grupo UE-14",C1,,"EPA (INE, microdatos trimestrales)",2025,España,UE-14,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_UE-13 y otros de Europa_2025,69.4,,,% (16-64),"Tasa de empleo 16-64, nacidos en UE-13 y otros de Europa",C1,,"EPA (INE, microdatos trimestrales)",2025,España,UE-13 y otros de Europa,bruto,src/m1/f3_empleo.py
+F3_EMP_PARO_UE-13 y otros de Europa_2025,12.3,,,%,"Tasa de paro, grupo UE-13 y otros de Europa",C1,,"EPA (INE, microdatos trimestrales)",2025,España,UE-13 y otros de Europa,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_América Latina_2025,71.7,,,% (16-64),"Tasa de empleo 16-64, nacidos en América Latina",C1,,"EPA (INE, microdatos trimestrales)",2025,España,América Latina,bruto,src/m1/f3_empleo.py
+F3_EMP_PARO_América Latina_2025,13.1,,,%,"Tasa de paro, grupo América Latina",C1,,"EPA (INE, microdatos trimestrales)",2025,España,América Latina,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_África_2025,50.8,,,% (16-64),"Tasa de empleo 16-64, nacidos en África",C1,,"EPA (INE, microdatos trimestrales)",2025,España,África,bruto,src/m1/f3_empleo.py
+F3_EMP_PARO_África_2025,23.1,,,%,"Tasa de paro, grupo África",C1,,"EPA (INE, microdatos trimestrales)",2025,España,África,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_Asia_2025,68.4,,,% (16-64),"Tasa de empleo 16-64, nacidos en Asia",C1,,"EPA (INE, microdatos trimestrales)",2025,España,Asia,bruto,src/m1/f3_empleo.py
+F3_EMP_PARO_Asia_2025,8.9,,,%,"Tasa de paro, grupo Asia",C1,,"EPA (INE, microdatos trimestrales)",2025,España,Asia,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_Resto_2025,61.0,,,% (16-64),"Tasa de empleo 16-64, nacidos en Resto",C1,,"EPA (INE, microdatos trimestrales)",2025,España,Resto,bruto,src/m1/f3_empleo.py
+F3_EMP_PARO_Resto_2025,15.6,,,%,"Tasa de paro, grupo Resto",C1,,"EPA (INE, microdatos trimestrales)",2025,España,Resto,bruto,src/m1/f3_empleo.py
+F3_EMP_TASA_FUERA_2025,67.3,,,% (16-64),"Tasa de empleo 16-64, nacidos fuera de España",C1,,"EPA (INE, microdatos trimestrales)",2025,España,nacidos fuera,bruto,src/m1/f3_empleo.py
+F3_EMP_PARO_FUERA_2025,14.0,,,%,"Tasa de paro, nacidos fuera de España",C1,,"EPA (INE, microdatos trimestrales)",2025,España,nacidos fuera,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_América Latina_bruto_2025,3.3,1.0,5.5,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,América Latina,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_Asia_bruto_2025,0.0,-4.1,4.1,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,Asia,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_Resto_bruto_2025,-7.4,-15.6,0.8,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,Resto,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_UE-13 y otros de Europa_bruto_2025,0.9,-2.6,4.5,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,UE-13 y otros de Europa,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_UE-14_bruto_2025,4.9,1.5,8.3,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,UE-14,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_África_bruto_2025,-17.6,-20.1,-15.1,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (bruto),C1,,"EPA (INE, microdatos trimestrales)",2025,España,África,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_América Latina_edad_y_sexo_2025,-0.4,-2.2,1.3,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (edad y sexo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,América Latina,edad y sexo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_Asia_edad_y_sexo_2025,-4.2,-7.1,-1.3,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (edad y sexo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,Asia,edad y sexo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_Resto_edad_y_sexo_2025,-8.8,-18.5,0.8,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (edad y sexo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,Resto,edad y sexo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_UE-13 y otros de Europa_edad_y_sexo_2025,-3.8,-6.7,-0.9,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (edad y sexo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,UE-13 y otros de Europa,edad y sexo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_UE-14_edad_y_sexo_2025,0.6,-2.3,3.5,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (edad y sexo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,UE-14,edad y sexo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_África_edad_y_sexo_2025,-22.2,-24.6,-19.7,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (edad y sexo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,África,edad y sexo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_América Latina_completo_2025,4.9,3.6,6.2,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (completo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,América Latina,completo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_Asia_completo_2025,-0.9,-3.5,1.7,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (completo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,Asia,completo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_Resto_completo_2025,-13.5,-24.4,-2.7,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (completo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,Resto,completo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_UE-13 y otros de Europa_completo_2025,-2.6,-4.9,-0.3,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (completo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,UE-13 y otros de Europa,completo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_UE-14_completo_2025,0.3,-2.6,3.2,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (completo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,UE-14,completo,src/m1/f3_empleo.py
+F3_EMP_BRECHA_África_completo_2025,-13.5,-16.2,-10.7,pp,Brecha de tasa de empleo 16-64 frente a nacidos en España (completo),C4,,"EPA (INE, microdatos trimestrales)",2025,España,África,completo,src/m1/f3_empleo.py
+F3_EMP_CONTRIB_FUERA_2014_2025,55.6,,,% del aumento,"Parte del aumento de la ocupación 2014-2025 que corresponde a nacidos fuera de España (contabilidad, no causal)",C1,,"EPA (INE, microdatos trimestrales)",2014-2025,España,nacidos fuera,bruto,src/m1/f3_empleo.py
+F3_EMP_AUMENTO_OCUPADOS_2014_2025,4.88,,,millones,Aumento de la ocupación media anual 2014-2025,C1,,"EPA (INE, microdatos trimestrales)",2014-2025,España,todos,bruto,src/m1/f3_empleo.py
+F3_EMP_CONTRIB_HORAS_FUERA_2014_2025,71.8,,,% del aumento,Parte del aumento de las horas efectivas semanales 2014-2025 de nacidos fuera,C1,,"EPA (INE, microdatos trimestrales)",2014-2025,España,nacidos fuera,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_PROV_MIN_2025,-16.6,,,pp,"Brecha provincial mínima de tasa de empleo 16-64 (nacidos fuera menos nacidos en España), provincia 01",C4,,"EPA (INE, microdatos trimestrales)",2025,provincia 01,nacidos fuera,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_PROV_MAX_2025,3.0,,,pp,"Brecha provincial máxima, provincia 28",C4,,"EPA (INE, microdatos trimestrales)",2025,provincia 28,nacidos fuera,bruto,src/m1/f3_empleo.py
+F3_EMP_BRECHA_PROV_POSITIVAS_2025,9.0,,,provincias,Provincias donde la tasa de empleo 16-64 de los nacidos fuera supera a la de los nacidos en España,C4,,"EPA (INE, microdatos trimestrales)",2025,provincias,nacidos fuera,bruto,src/m1/f3_empleo.py
+F3_EMP_EU_ES_BRECHA_2025,-3.7,,,pp,"Brecha de tasa de empleo 20-64 nacidos fuera menos nativos en España (Eurostat, segunda fuente)",C1,,Eurostat lfsa_ergacob,2025,España,nacidos fuera,bruto,src/m1/f3_empleo.py
+F3_EMP_EU_UE27_BRECHA_2025,-6.4,,,pp,Brecha de tasa de empleo 20-64 nacidos fuera menos nativos en la UE-27,C1,,Eurostat lfsa_ergacob,2025,UE-27,nacidos fuera,bruto,src/m1/f3_empleo.py
