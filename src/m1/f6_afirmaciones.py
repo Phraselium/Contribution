@@ -92,7 +92,7 @@ FICHAS = [
                      "nacidos fuera {{F4_NETA_PC_FUERA_2024}} € [{{F4_NETA_PC_FUERA_2024:inf}}, {{F4_NETA_PC_FUERA_2024:sup}}], positiva en "
                      "{{F4_NETA_PC_FUERA_POSITIVAS}} de 64 combinaciones, según el reparto de los bienes públicos y la asignación de los hijos. A igual "
                      "edad y sexo, frente a los nativos, la ventaja del resto de la UE se reduce mucho (positiva en las 64 combinaciones, pero no "
-                     "distinguible de cero por muestreo) y la del resto del mundo es negativa en el principal pero positiva con bienes públicos a "
+                     "distinguible de cero por muestreo) y la del resto del mundo, con un principal negativo solo de referencia, es positiva con bienes públicos a "
                      "coste marginal cero. En el ciclo vital, "
                      "las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos; frente a un nativo de la misma edad, "
                      "quien llega de fuera de la UE a los 20 años aporta menos y quien llega del resto de la UE a los 50 aporta más en todas las "
@@ -112,7 +112,7 @@ FICHAS = [
                "verificada) no encuentra efectos que sobrevivan a la inferencia con pocos grupos; González y "
                "Ortega (2013) atribuyen a la inmigración una parte de la subida de 2000-2010.",
      "supuestos": "Tasa de jefatura constante por grupo y región.", "veredicto": "no se puede saber", "confianza": "media",
-     "razon": "Es cierto que la población nacida fuera explica la mayor parte del aumento demográfico de la demanda de hogares; que sea «la causa» de los "
+     "razon": "Es cierto que a la población nacida fuera corresponde la mayor parte del aumento demográfico de la demanda de hogares; que sea «la causa» de los "
               "precios es una afirmación contrafactual no identificada con datos públicos recientes (mismo estándar que F2)."},
     {"id": "F1", "sentido": "favorable", "afirmacion": "Los inmigrantes pagan nuestras pensiones.",
      "contabilidad": "En la contabilidad de 2024 los nacidos fuera aportan el {{F6_TRABAJO_CUOTA_FUERA}} % de los impuestos sobre el trabajo y las cotizaciones "
@@ -149,7 +149,8 @@ FICHAS = [
     {"id": "F4", "sentido": "favorable", "afirmacion": "Los inmigrantes trabajan tanto como los españoles.",
      "contabilidad": "Tasa de empleo 16-64 de 2025: nacidos fuera {{F3_EMP_TASA_FUERA_2025}} % frente a {{F3_EMP_TASA_España_2025}} %; con variación interna amplia "
                      "(África {{F3_EMP_TASA_África_2025}} %, América Latina {{F3_EMP_TASA_América Latina_2025}} %). Tasa de paro de nacidos fuera "
-                     "{{F3_EMP_PARO_FUERA_2025}} % frente a {{F3_EMP_PARO_España_2025}} %. En los tres niveles, la brecha de empleo del conjunto de nacidos fuera es "
+                     "{{F3_EMP_PARO_FUERA_2025}} % frente a {{F3_EMP_PARO_España_2025}} %. En los tres niveles (estimados con decimales, por lo que la bruta puede"
+                     " diferir en una décima de la resta de las tasas redondeadas), la brecha de empleo del conjunto de nacidos fuera es "
                      "{{F3_EMP_BRECHA_FUERA_bruto_2025}} pp en bruto, {{F3_EMP_BRECHA_FUERA_edad_y_sexo_2025}} pp a igual edad y sexo y "
                      "{{F3_EMP_BRECHA_FUERA_completo_2025}} pp al añadir educación, residencia y región; la de paro, {{F3_PARO_BRECHA_FUERA_bruto_2025}}, "
                      "{{F3_PARO_BRECHA_FUERA_edad_y_sexo_2025}} y {{F3_PARO_BRECHA_FUERA_completo_2025}} pp. En bruto a 25-54 años, la tasa de empleo es "

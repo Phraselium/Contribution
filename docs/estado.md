@@ -46,3 +46,6 @@ Cuatro revisores (≈ 630.000 tokens): árbitro REVISAR, 18 discrepancias de cif
 
 ## Ronda 4 de autocrítica (última; docs/rondas/ronda_4.md)
 Árbitro REVISAR («cambios menores en extensión»), abogados «resiste con limitaciones», 11 discrepancias de cifras sin errores de valor. Corregido: diferencia del ciclo vital a los 50 años (favorable para el resto de la UE) y bienes públicos del comparador nativo; estandarización por tramos de 5 años (la ventaja del resto de la UE a igual edad baja a +239 €, no distinguible de cero); resumen no técnico coherente con F4; Fiorio en los dos sentidos. Se alcanzan las 4 rondas; los abiertos están en ronda_4.md. Tokens ≈ 635.000 (acumulado ≈ 2,65 M).
+
+## Cierre (sección C)
+Revisión final de coherencia (10 incoherencias, una grave en tablas_m1.xlsx: ocupados de todas las edades junto a la población 16-64) corregida; docs/mejoras_futuras.md y docs/autoevaluacion.md escritos; publicación y web regeneradas; make check limpio. Tokens de subagentes desde el inicio del cierre ≈ 2,8 millones (por debajo del límite de 6). Pendiente del autor: subir la etiqueta prereg-m1 (docs/tareas_autor.md) y una revisión externa.

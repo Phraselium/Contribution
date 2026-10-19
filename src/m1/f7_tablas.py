@@ -89,8 +89,9 @@ def main() -> int:
     e = pd.read_csv(OUT / "f3" / "empleo_nacional.csv")
     e = e[(e.origen_def == "nacimiento") & (e.anio == 2025)]
     ws3 = wb.create_sheet("Empleo_2025")
-    cabecera(ws3, 1, ["Grupo (nacimiento)", "Población 16-64", "Tasa de empleo", "Tasa de paro", "Temporalidad", "Ocupados",
-                      "Cuota de los ocupados"])
+    cabecera(ws3, 1, ["Grupo (nacimiento)", "Población 16-64", "Tasa de empleo 16-64", "Tasa de paro (16 años o más)",
+                      "Temporalidad (asalariados de 16 años o más)", "Ocupados de 16 años o más (no dividir por la población 16-64)",
+                      "Cuota de los ocupados de 16 años o más"])
     for i, (_, x) in enumerate(e.iterrows(), 2):
         ws3.cell(i, 1, x.grupo)
         for j, v in enumerate(["pob_16_64", "tasa_empleo", "tasa_paro", "temporalidad", "ocupados"], 2):
