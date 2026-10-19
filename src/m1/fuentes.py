@@ -50,14 +50,16 @@ def registrar(ruta: Path, familia: str, url: str, licencia: str, edicion: str, d
     size = ruta.stat().st_size
     fila = dict(ruta=rel, familia=familia, url=url, licencia=licencia, edicion=edicion,
                 fecha_descarga=fecha or dt.date.today().isoformat(), sha256=sha256(ruta), bytes=size,
-                versionado="no (>50 MB; checksum)" if size > GRANDE else "sí", descripcion=descripcion)
+                versionado="no (ignorado; checksum)" if "/grandes/" in rel else "sí", descripcion=descripcion)
     filas = [f for f in _catalogo() if f["ruta"] != rel] + [fila]
     _guardar_catalogo(filas)
     return fila
 
 
 def descargar(url: str, familia: str, nombre: str, licencia: str, edicion: str, descripcion: str,
-              reintentos: int = 4, timeout: int = 180) -> Path:
+              reintentos: int = 4, timeout: int = 300, no_versionar: bool = False) -> Path:
+    """no_versionar=True deja el fichero en grandes/ (ignorado, con checksum) aunque pese menos de 50 MB: para series
+    voluminosas (p. ej. 86 trimestres de la EPA) que se reconstruyen con el script de descarga."""
     m = motivo_bloqueo(url)
     if m:
         raise PermissionError(f"fuente no pública: {m} ({url})")
@@ -78,7 +80,9 @@ def descargar(url: str, familia: str, nombre: str, licencia: str, edicion: str, 
             time.sleep(espera)
             espera *= 2
     destino = destino_dir / nombre
-    if tmp.stat().st_size > GRANDE:
+    if (destino_dir / "grandes" / nombre).exists():
+        destino = destino_dir / "grandes" / nombre
+    if tmp.stat().st_size > GRANDE or no_versionar:
         (destino_dir / "grandes").mkdir(exist_ok=True)
         destino = destino_dir / "grandes" / nombre
     if destino.exists():
@@ -89,6 +93,14 @@ def descargar(url: str, familia: str, nombre: str, licencia: str, edicion: str, 
     tmp.rename(destino)
     registrar(destino, familia, url, licencia, edicion, descripcion)
     return destino
+
+
+def ya_descargado(url: str) -> Path | None:
+    """Ruta del crudo ya registrado para esa URL si existe en disco con su checksum (para reanudar descargas)."""
+    for f in _catalogo():
+        if f["url"] == url and (RAIZ / f["ruta"]).exists():
+            return RAIZ / f["ruta"]
+    return None
 
 
 def comprobar() -> list[str]:

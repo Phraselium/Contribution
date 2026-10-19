@@ -20,7 +20,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): la inmigración redujo los tiempos de espera de las derivaciones a consultas externas y no tuvo efectos significativos en urgencias ni en cirugía programada; la reducción se explica porque la inmigración aumenta la movilidad interna de los nativos y porque los inmigrantes tienden a estar más sanos que los nativos que se marchan. En áreas más desfavorecidas fuera de Londres la espera de consultas externas aumentó, sobre todo en los años inmediatamente posteriores a la ampliación de la UE de 2004, y el efecto desaparece a medio plazo (3-4 años). El resumen no da magnitudes en minutos o días.
 - Validez para España: (inferencia) sistema nacional de salud universal comparable; el mecanismo de movilidad de nativos y el efecto transitorio en zonas desfavorecidas son trasladables, pero en España no hay microdatos hospitalarios públicos equivalentes por área pequeña: las listas de espera publicadas son agregadas por comunidad.
 - Replicación pública: no público (los registros HES son de acceso restringido)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Wadsworth, J. (2013). Mustn't Grumble: Immigration, Health and Health Service Use in the UK and Germany
 - DOI: 10.1111/j.1475-5890.2013.00177.x · Revista: Fiscal Studies, 34(1), 55-82
@@ -30,7 +30,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): los inmigrantes en Alemania, no en el Reino Unido, declaran peor salud con más frecuencia que los nativos, pero en ambos países usan los servicios hospitalarios y de medicina general a tasas muy parecidas a las de los nativos; los controles apenas cambian esa conclusión.
 - Validez para España: (inferencia) útil como contraste de la hipótesis de uso diferencial que se aplicará en la imputación del gasto sanitario de la fase 4; en España la comparación equivalente se hace con la Encuesta Nacional de Salud y la Encuesta Europea de Salud (públicas).
 - Replicación pública: no público (no se ha localizado paquete; las encuestas BHPS/UKHLS y SOEP requieren registro o solicitud)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Antón, J.-I. y Muñoz de Bustillo, R. (2010). Health care utilisation and immigration in Spain
 - DOI: 10.1007/s10198-009-0204-z · Revista: The European Journal of Health Economics, 11(5), 487-498 (en línea en 2009)
@@ -40,7 +40,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): no hay diferencias estadísticamente significativas entre inmigrantes y nativos en las visitas al médico ni en las estancias hospitalarias; los inmigrantes acceden menos al especialista y acuden a urgencias con más frecuencia. El resumen no da magnitudes.
 - Validez para España: alta en ámbito; (inferencia) es anterior a la reforma de 2012 que restringió la cobertura de los inmigrantes en situación irregular y a la llegada de 2015-2025, por lo que conviene reproducirlo con encuestas más recientes.
 - Replicación pública: no público (no se ha localizado paquete; la Encuesta Nacional de Salud tiene microdatos públicos del INE y del Ministerio de Sanidad, lo que permitiría reproducirlo)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Jiménez-Rubio, D. y Hernández-Quevedo, C. (2011). Inequalities in the use of health services between immigrants and the native population in Spain: what is driving the differences?
 - DOI: 10.1007/s10198-010-0220-z · Revista: The European Journal of Health Economics, 12(1), 17-28 (en línea en 2010)
@@ -50,7 +50,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): las diferencias en la probabilidad de usar hospital, especialista y urgencias se deben en gran medida a factores no explicados ligados a la condición de inmigrante; en medicina general pesan mucho más las características individuales, sobre todo la salud declarada y las enfermedades crónicas. El resumen no da magnitudes ni el signo de cada brecha.
 - Validez para España: alta en ámbito y en método (coincide con la descomposición que exige M1 en la sección A); (inferencia) la parte «no explicada» puede recoger barreras de acceso o diferencias de información, no solo preferencias.
 - Replicación pública: no público (no se ha localizado paquete)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Juanmarti Mestres, A., López Casasnovas, G. y Vall Castelló, J. (2021). The deadly effects of losing health insurance
 - DOI: 10.1016/j.euroecorev.2020.103608 · Revista: European Economic Review, 131, 103608
@@ -60,7 +60,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): la restricción elevó la tasa de mortalidad mensual de los inmigrantes irregulares en 0,31 muertes por 100.000 personas, equivalente a 82 muertes adicionales al año; los cambios de composición de la población tratada explican solo un 3,45 % del efecto.
 - Validez para España: alta; (inferencia) no mide congestión, sino el efecto de restringir el acceso; es relevante para valorar políticas que reducen el gasto imputado a este grupo y sus costes en salud.
 - Replicación pública: no público (no se ha localizado paquete)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ## Educación
 
@@ -72,7 +72,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): la correlación negativa de los datos brutos es sobre todo un artefacto de selección (los no nativos asisten más a escuelas con nativos desfavorecidos); el efecto estimado es cero y los autores descartan efectos negativos. El resumen no da magnitudes.
 - Validez para España: (inferencia) la lección de selección es directamente aplicable: en España una parte del alumnado extranjero es hispanohablante, lo que reduce la barrera lingüística respecto al caso inglés.
 - Replicación pública: no público (no se ha localizado paquete; los datos de alumnos ingleses son de acceso restringido)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Ohinata, A. y van Ours, J. C. (2013). How Immigrant Children Affect the Academic Achievement of Native Dutch Children
 - DOI: 10.1111/ecoj.12052 · Revista: The Economic Journal, 123(570), F308-F331; versión previa IZA DP 6212 (2011)
@@ -82,7 +82,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): no hay evidencia sólida de efectos negativos de desbordamiento sobre los nativos; los propios inmigrantes sufren efectos negativos de lengua cuando su proporción en el aula es alta, pero no en matemáticas ni ciencias. El resumen no da magnitudes.
 - Validez para España: (inferencia) sistema europeo con escolarización comparable; transferible como orden de magnitud cualitativo.
 - Replicación pública: no público (no se ha localizado paquete)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Jensen, P. y Rasmussen, A. W. (2011). The effect of immigrant concentration in schools on native and immigrant children's reading and math skills
 - DOI: 10.1016/j.econedurev.2011.08.002 · Revista: Economics of Education Review, 30(6), 1503-1515
@@ -92,7 +92,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): los alumnos de escuelas con alta concentración de inmigrantes obtienen peores resultados en lectura y matemáticas; con IV el efecto se mantiene en matemáticas y es impreciso en lectura; el efecto es mayor para los nativos que para los inmigrantes, sobre todo en matemáticas. El resumen no da magnitudes.
 - Validez para España: (inferencia) contrasta con Geay et al. y Ohinata y van Ours; muestra que el resultado depende del país y del diseño, por lo que España requiere evidencia propia.
 - Replicación pública: no público (no se ha localizado paquete; la ampliación danesa de PISA no es pública)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Hunt, J. (2017). The Impact of Immigration on the Educational Attainment of Natives
 - DOI: 10.3368/jhr.52.4.0115-6913R1 · Revista: Journal of Human Resources, 52(4), 1060-1118 (en línea en 2016); versión previa NBER WP 18047 (2012)
@@ -102,7 +102,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): un aumento de 1 punto porcentual del porcentaje de inmigrantes en la población de 11 a 64 años eleva en 0,3 puntos porcentuales la probabilidad de que los nativos de 11 a 17 años completen 12 años de escolarización; la autora encuentra tanto un canal escolar como uno de expectativas laborales, con efecto neto positivo.
 - Validez para España: (inferencia) periodo y sistema muy distintos; el canal de expectativas laborales (más incentivo a estudiar si los inmigrantes compiten en empleos poco cualificados) es plausible en España.
 - Replicación pública: no público (no se ha localizado paquete; los datos censales de EE. UU. son públicos vía IPUMS con registro gratuito)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Farré, L., Ortega, F. y Tanaka, R. (2018). Immigration and the public–private school choice
 - DOI: 10.1016/j.labeco.2018.01.001 · Revista: Labour Economics, 51, 184-201
@@ -112,7 +112,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): el aumento de la densidad inmigrante en las escuelas desencadenó una salida importante de nativos de la escuela pública gratuita hacia la privada, más intensa en los hogares nativos más educados; la inmigración elevó la ratio alumnos/profesor en la pública. El resumen no da magnitudes.
 - Validez para España: alta; (inferencia) es la principal evidencia española de congestión educativa (ratio alumnos/profesor) y de reordenación entre redes; las estadísticas públicas del Ministerio de Educación permiten un análisis agregado parecido por provincia.
 - Replicación pública: no público (no se ha localizado paquete)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Tanaka, R., Farré, L. y Ortega, F. (2018). Immigration, assimilation, and the future of public education
 - DOI: 10.1016/j.ejpoleco.2017.06.001 · Revista: European Journal of Political Economy, 52, 141-165
@@ -122,7 +122,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): a corto plazo la inmigración llevó a un aumento del 15 % de la matrícula pública, una reducción del 3 % del gasto en educación pública y casi 1 punto porcentual más de hogares nativos en la privada; según el grado de asimilación, estas tendencias se intensifican o se atenúan cuando los inmigrantes se naturalizan y votan.
 - Validez para España: alta en ámbito; capa equivalente a C2/C4 (simulación con supuestos), no a efecto identificado.
 - Replicación pública: no público (no se ha localizado paquete)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Zinovyeva, N., Felgueroso, F. y Vázquez, P. (2014). Immigration and student achievement in Spain: evidence from PISA
 - DOI: 10.1007/s13209-013-0101-7 · Revista: SERIEs, 5(1), 25-60 (en línea en 2013)
@@ -132,7 +132,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): el alumnado inmigrante obtiene peores resultados que el nativo y mejora con el tiempo de estancia; la ventaja lingüística inicial de los latinoamericanos no acelera su convergencia; la mayor parte de la brecha se explica por características individuales y familiares y menos del 15 % por la escuela a la que asisten.
 - Validez para España: alta; reproducible con PISA posteriores (públicos); (inferencia) que la escuela explique poco de la brecha limita, pero no descarta, un canal de congestión.
 - Replicación pública: datos públicos (PISA, https://www.oecd.org/pisa/data/); no se ha localizado paquete de código
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Cabrales, A. y Anghel, B. (2014). The determinants of success in primary education in Spain
 - DOI: 10.5944/reppp.2.2014.12030 · Revista: Revista de Evaluación de Programas y Políticas Públicas, 2, 22-
@@ -142,7 +142,7 @@ Neutralidad: estos trabajos miden uso de servicios o efectos sobre resultados de
 - Resultado principal (con su unidad, tal como lo da el autor): el resumen describe los datos y las variables, pero no da resultados ni magnitudes sobre el alumnado extranjero; no los atribuyo.
 - Validez para España: alta en ámbito (Madrid); pendiente de lectura del texto completo, que es de acceso abierto.
 - Replicación pública: no público (los datos de la prueba CDI no son públicos a nivel de alumno)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ---
 

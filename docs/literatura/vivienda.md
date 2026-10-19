@@ -18,7 +18,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): el choque añadió en torno a un 9 % a la población arrendataria de Miami en 1980; entre 1979 y 1981 los alquileres subieron entre 8 y 11 puntos porcentuales más que en los controles y en 1983 el diferencial seguía en torno al 7 %. Sin efecto en las viviendas de mayor calidad; las ocupadas en 1979 por hogares hispanos de renta baja subieron un 8 % adicional. A corto plazo los precios de venta relativos se movieron en sentido contrario al alquiler.
 - Validez para España: un único choque súbito en una ciudad con mucho alquiler; (inferencia) informa sobre la dinámica de corto plazo del alquiler en el segmento bajo, no sobre una elasticidad aplicable a flujos graduales y a un parque mayoritariamente en propiedad como el español.
 - Replicación pública: no público (no se ha localizado paquete de replicación)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Saiz, A. (2007). Immigration and housing rents in American cities
 - DOI: 10.1016/j.jue.2006.07.004 · Revista: Journal of Urban Economics, 61(2), 345-371
@@ -28,7 +28,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): una entrada de inmigrantes equivalente al 1 % de la población de la ciudad se asocia con subidas de alquileres medios y de valores de la vivienda de en torno al 1 %; el autor lo califica de un orden de magnitud mayor que los efectos hallados en el mercado de trabajo.
 - Validez para España: referencia de magnitud «1 % por 1 % de población»; (inferencia) el instrumento por asentamientos previos es el mismo tipo que critican Jaeger, Ruist y Stuhler y que en España ha dado primeras etapas débiles a escala provincial (véase el enlace con Econometr-a abajo).
 - Replicación pública: no público (no se ha localizado paquete de replicación)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Saiz, A. y Wachter, S. (2011). Immigration and the Neighborhood
 - DOI: 10.1257/pol.3.2.169 · Revista: American Economic Journal: Economic Policy, 3(2), 169-188
@@ -38,7 +38,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): el crecimiento de la densidad inmigrante en un barrio causa salida de nativos y una revalorización más lenta de la vivienda; los autores lo atribuyen más a la demanda de segregación por etnia y educación que al hecho de ser extranjero. El resumen no da magnitudes.
 - Validez para España: (inferencia) predice que a escala de barrio el signo puede ser opuesto o menor que a escala de ciudad o provincia; mezclar escalas en un mismo diseño sería un error.
 - Replicación pública: paquete de replicación en openICPSR (https://doi.org/10.3886/E114757V1), enlazado desde la página de la AEA; no se ha comprobado si incluye todos los datos.
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### González, L. y Ortega, F. (2013). Immigration and Housing Booms: Evidence from Spain
 - DOI: 10.1111/jors.12010 · Revista: Journal of Regional Science, 53(1), 37-59 (en línea en 2012); versión previa IZA DP 4333 (2009)
@@ -48,7 +48,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): en la versión publicada, la inmigración elevó la población en edad de trabajar en torno a un 1,5 % anual, lo que se tradujo en una subida anual de los precios de la vivienda de en torno al 2 % y en un aumento del 1,2-1,5 % de las viviendas; en conjunto, una cuarta parte de la subida de precios y en torno a la mitad de la construcción de la década. (Las cifras mayores que circulan proceden de la versión de 2009, con otra muestra; no deben atribuirse al artículo publicado.)
 - Validez para España: es el trabajo de referencia para España y provincias, pero cubre el boom y la primera parte de la crisis; (inferencia) no informa sobre la llegada de 2015-2025, cuyo origen es distinto (más América Latina) y que se produce con oferta nueva mucho menor.
 - Replicación pública: no público (no se ha localizado paquete de replicación; los datos de padrón y precios son públicos)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Sá, F. (2015). Immigration and House Prices in the UK
 - DOI: 10.1111/ecoj.12158 · Revista: The Economic Journal, 125(587), 1393-1424 (en línea en 2014); versión previa IZA DP 5893 (2011)
@@ -58,7 +58,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): la inmigración tiene un efecto negativo sobre los precios de la vivienda, explicado por la respuesta de movilidad de los nativos: se marchan los de la parte alta de la distribución salarial, lo que reduce la demanda por efecto renta; el efecto negativo se concentra en áreas donde los inmigrantes tienen menos educación. El resumen no da magnitud.
 - Validez para España: (inferencia) el mecanismo de salida de nativos puede operar a escala municipal o de barrio en España; la diferencia de signo con Saiz (2007) y González y Ortega obliga a declarar la escala antes de estimar.
 - Replicación pública: no público (no se ha localizado paquete de replicación)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Degen, K. y Fischer, A. M. (2017). Immigration and Swiss House Prices
 - DOI: 10.1007/BF03399433 · Revista: Swiss Journal of Economics and Statistics, 153(1), 15-36; versiones previas SNB Working Paper 2010-16 y CEPR DP 7583
@@ -68,7 +68,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): una entrada de inmigrantes equivalente al 1 % de la población de la zona coincide con una subida de en torno al 2,7 % del precio de las viviendas unifamiliares; la inmigración recoge casi dos tercios de la subida total de ese segmento. El vínculo se mantiene aun con inflación de precios baja y flujos moderados.
 - Validez para España: (inferencia) periodo corto y solo unifamiliares; el flujo español de 2001-2008 fue muy superior y el parque es sobre todo de pisos; la magnitud no es directamente transferible.
 - Replicación pública: no público (no se ha localizado paquete de replicación)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Accetturo, A., Manaresi, F., Mocetti, S. y Olivieri, E. (2014). Don't stand so close to me: The urban impact of immigration
 - DOI: 10.1016/j.regsciurbeco.2014.01.001 · Revista: Regional Science and Urban Economics, 45, 45-56; versión previa Banca d'Italia, Temi di discussione 866 (2012)
@@ -78,7 +78,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): la inmigración eleva el precio medio de la vivienda a escala de ciudad, pero frena el crecimiento de precios en el distrito receptor respecto al resto de la ciudad, por salida de nativos hacia otras zonas de la misma ciudad. El resumen no da magnitudes.
 - Validez para España: (inferencia) es el diseño más próximo a un análisis por barrio en grandes ciudades españolas; predice signos distintos según la escala.
 - Replicación pública: no público (no se ha localizado paquete de replicación)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Mussa, A., Nwaogu, U. G. y Pozo, S. (2017). Immigration and housing: A spatial econometric analysis
 - DOI: 10.1016/j.jhe.2017.01.002 · Revista: Journal of Housing Economics, 35, 13-25
@@ -88,7 +88,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): mayores entradas de inmigrantes en un área se asocian con alquileres y precios de unifamiliares más altos en ella y también en las vecinas; los desbordamientos son mayores que los efectos directos, lo que los autores leen como compatible con salida de nativos. El resumen no da magnitudes.
 - Validez para España: (inferencia) con datos municipales o provinciales habrá desbordamientos entre unidades contiguas que violan la no interferencia; conviene modelarlos o declararlos.
 - Replicación pública: no público (no se ha localizado paquete de replicación)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Sanchis-Guarner, R. (2023). Decomposing the impact of immigration on house prices
 - DOI: 10.1016/j.regsciurbeco.2023.103893 · Revista: Regional Science and Urban Economics, 100, 103893; versiones previas SERC DP 223 (2017) e IEB WP 2022/10
@@ -98,7 +98,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): en la versión IEB de 2022, un aumento de 1 punto porcentual de la tasa de inmigración eleva el precio medio de la vivienda un 3,3 % y los alquileres un 1 %; las estimaciones de demanda parcial son un 24 % menores que las totales, porque inmigrantes y nativos se asientan en las mismas provincias. No atribuyo estas cifras a la versión publicada sin haber leído su resumen.
 - Validez para España: alta en ámbito (provincias, padrón); (inferencia) muestra que controlar o no por la población total cambia la cantidad que se estima, no solo su tamaño.
 - Replicación pública: no público (no se ha localizado paquete de replicación)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Torres-Téllez, J. y Montero-Soler, A. (2023). El impacto de la inmigración sobre el precio de la vivienda española en el siglo XXI
 - DOI: 10.37230/CyTET.2023.215.3 · Revista: Ciudad y Territorio Estudios Territoriales, 55(215), 47-60
@@ -108,7 +108,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): durante la burbuja la inmigración contribuyó a elevar el precio de la vivienda hasta un 2,5 %; después, el retorno de inmigrantes contribuyó a reducirlo un 1,12 %, con saldo neto negativo en el conjunto del periodo; la llegada de 2010-2019 explica un aumento del 5,9 % del alquiler.
 - Validez para España: mismo ámbito que el estudio; (inferencia) sugiere efectos simétricos de entrada y salida y un canal propio del alquiler en la década de 2010; la unidad («contribución» acumulada) no es una elasticidad.
 - Replicación pública: no público (no se ha localizado paquete de replicación)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ### Larkin, M. P., Askarov, Z., Doucouliagos, H., Dubelaar, C., Klona, M., Newton, J., Stanley, T. D. y Vocino, A. (2019). Do house prices ride the wave of immigration?
 - DOI: 10.1016/j.jhe.2019.04.002 · Revista: Journal of Housing Economics, 46, 101630
@@ -118,7 +118,7 @@ Procedencia: las fichas de Saiz y Wachter (2011), Sanchis-Guarner (2023), Torres
 - Resultado principal (con su unidad, tal como lo da el autor): en conjunto la inmigración eleva los precios de la vivienda; el efecto es mayor a escala de provincia o estado que de ciudad, y menor en países menos receptivos a la inmigración. El resumen no da el efecto medio.
 - Validez para España: (inferencia) el gradiente por escala anticipa estimaciones menores en municipios o barrios que en provincias; no sé cómo trata el sesgo de publicación.
 - Replicación pública: no público (no se ha localizado paquete de replicación)
-- Estado: (lo escribe el verificador)
+- Estado: VERIFICADA (Crossref)
 
 ---
 
