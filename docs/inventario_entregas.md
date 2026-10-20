@@ -29,6 +29,6 @@ El plan pedía 8 grupos de origen, España por provincia y Europa por país y NU
 ## Otras piezas nuevas de esta verificación
 - Cuadre contable: docs/cuadre.md, tests/test_cuadre_fiscal.py.
 - Fase 5: output/f5/x_verificacion_emd.csv (EMD, Anderson-Rubin, F de Montiel Olea-Pflueger), x_verificacion_curva.csv, x_verificacion_sin_ccaa.csv.
-- Ciclo vital en tres escenarios de convergencia: output/f4/ciclo_vital_convergencia.csv.
+- Ciclo vital en cuatro escenarios de convergencia (divergente, nula, parcial, completa): output/f4/ciclo_vital_convergencia.csv.
 - Referencias externas: docs/literatura/comparacion_externa.md.
 - Brief para revisores: docs/brief_revisores.md.

@@ -14,7 +14,7 @@ SUGESTIVO, ASOCIACIÓN, NO ESTIMABLE. El documento solo ha tenido revisores inte
 | Contribución fiscal neta estática 2024 por persona (con déficit): nacidos en España −1.404 € [−1.990, −673]; resto de la UE +3.398 € [726, 5.915]; resto del mundo −191 € [−2.118, 2.792]. Solo se afirma el intervalo de 64 combinaciones | C2 |
 | A igual edad y sexo, la ventaja del resto de la UE baja a +240 € y la del resto del mundo es −1.708 € (intervalo de supuestos con el cero) | C4 |
 | El signo del conjunto de nacidos fuera lo decide la asignación de los hijos nacidos en España y el coste de los bienes públicos | C2 |
-| Ciclo vital: con cualquier ritmo de convergencia salarial, quien llega del resto de la UE a los 50 años aporta más que un nativo de esa edad; las demás comparaciones dependen de supuestos | C2 |
+| Ciclo vital: ninguna diferencia con un nativo de la misma edad tiene signo en los cuatro escenarios de convergencia salarial (divergente, nula, parcial, completa); la del resto de la UE a los 50 años es positiva salvo con divergencia | C2 |
 | Pensiones: regla mecánica, 4,4 puntos de PIB más en 2050 sin migración (3,4 con empleo y salario relativos) | C2; como efecto, NO ESTIMABLE |
 | Impacto en el empleo, el paro, los salarios y los servicios de los nativos (shift-share de Card por provincia, Borjas por celdas, P3 educación, P5 Europa) | Todo ASOCIACIÓN o NO ESTIMABLE. Conjuntos AKM0 no acotados; F efectivo 17,9 < 23,1 (Montiel Olea-Pflueger) |
 | Indicio desfavorable P1-E3a (empleo de nativos con estudios bajos, −0,61 pp por pp) | C4 / ASOCIACIÓN; no supera BH ni el wild bootstrap; en parte composición por edad; depende de una comunidad |
@@ -46,8 +46,8 @@ Las sumas fiscales cuadran con el saldo B9 de 2024 y con cada partida de la cont
 3. La asignación de los hijos nacidos en España a sus padres cambia el signo. ¿Hasta qué edad o generación debería imputarse?
 4. Las pensiones que reciben los nacidos en el resto de la UE pueden pagarlas otros Estados y la ECV pública no lo distingue. ¿Hay
    una fuente pública (INSS, pensiones en el extranjero) para acotarlo mejor que la cota extrema usada?
-5. El ciclo vital aplica perfiles transversales de 2024 y una tasa de salida que incluye bajas por caducidad del padrón (cota
-   superior). ¿Qué calibración de salidas y de convergencia salarial considera central?
+5. El ciclo vital da cotas con cuatro escenarios de convergencia (c = −0,5; 0; 0,5; 1). ¿Es razonable el rango, y cuál consideraría central? Aplica además perfiles transversales de 2024 y una tasa de salida que incluye bajas por caducidad del padrón (cota
+   superior). ¿Qué calibración de salidas recomienda?
 6. Los tramos de edad con menos de 50 observaciones se imputan con la forma por edad de los nativos reescalada al total del grupo.
    ¿Es aceptable, o preferiría suavizar los perfiles del grupo?
 7. La regla mecánica de pensiones da diferencias diez veces mayores que la AIReF. ¿Debe retirarse del resumen ejecutivo?

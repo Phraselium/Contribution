@@ -112,8 +112,8 @@ def frase(lo, hi, unidad):
         return f"se descartan valores de β mayores que {hi:.2f} {unidad}; no se pueden descartar valores negativos de cualquier tamaño"
     if hi is None:
         return f"se descartan valores de β menores que {lo:.2f} {unidad}; no se pueden descartar valores positivos de cualquier tamaño"
-    return (f"se descartan valores de β menores que {lo:.2f} o mayores que {hi:.2f} {unidad}; no se pueden descartar valores de hasta "
-            f"{max(abs(lo), abs(hi)):.2f} en valor absoluto")
+    return (f"con inferencia agrupada quedarían fuera los valores de β menores que {lo:.2f} o mayores que {hi:.2f} {unidad}; no se pueden "
+            f"descartar los valores entre {lo:.2f} y {hi:.2f}")
 
 
 def main() -> int:
@@ -164,10 +164,10 @@ def main() -> int:
                f"(2,80 × EE {r.tipo_se}; aproximación normal, cota inferior de lo detectable; verificación a posteriori)", "C4",
                "M1 fase 5", "—", "—", "—")
         if r.hipotesis != "P1-E4":
-            cf.add(f"F5V_AR_{k}", round(r.b, 3), r.unidad, f"{r.hipotesis}: estimación e intervalo de Anderson-Rubin al 95 % (test agrupado de la "
+            cf.add(f"F5V_AR_{k}", round(r.b, 4), r.unidad, f"{r.hipotesis}: estimación e intervalo de Anderson-Rubin al 95 % (test agrupado de la "
                    "forma reducida; vacío en un extremo = no acotado; verificación a posteriori)", "C4", "M1 fase 5", "—", "—", "—",
-                   ic_inf=round(r.ar_inf, 3) if r.ar_inf is not None and np.isfinite(r.ar_inf) else np.nan,
-                   ic_sup=round(r.ar_sup, 3) if r.ar_sup is not None and np.isfinite(r.ar_sup) else np.nan)
+                   ic_inf=round(r.ar_inf, 4) if r.ar_inf is not None and np.isfinite(r.ar_inf) else np.nan,
+                   ic_sup=round(r.ar_sup, 4) if r.ar_sup is not None and np.isfinite(r.ar_sup) else np.nan)
             cf.add(f"F5V_FMOP_{k}", round(r.F_efectivo_MOP, 1), "F", f"{r.hipotesis}: F efectivo de Montiel Olea-Pflueger (un instrumento: F de "
                    "Wald agrupado de la primera etapa); valor crítico 23,1 para un sesgo del 10 % del peor caso al 5 %", "C4", "M1 fase 5",
                    "—", "—", "—")

@@ -197,7 +197,7 @@ def main() -> int:
            "ECV y cuentas de las AAPP", "2024", "España", "España")
     filas = []
     for g, a0, modo, c, dto, bienes in itertools.product(["España", "Resto UE", "Resto del mundo"], [0, 20, 30, 40, 50], MODOS,
-                                                         [0.0, 0.5, 1.0], [0.02, 0.03, 0.04], ["medio", "marginal"]):
+                                                         [-0.5, 0.0, 0.5, 1.0], [0.02, 0.03, 0.04], ["medio", "marginal"]):
         if g == "España" and (modo != "ninguno" or c > 0):
             continue
         filas.append({"grupo": g, "edad_llegada": a0, "retorno": modo, "convergencia": c, "descuento": dto, "bienes": bienes,
@@ -302,7 +302,7 @@ def sensibilidad_principal(cf, P, q, r_obs, h0) -> None:
     base = dict(modo="decreciente", c=0.0, dto=0.03, bienes="medio", r_obs=r_obs, h0=h0)
     filas = []
     for g in ("España", "Resto UE", "Resto del mundo"):
-        for a0 in (0, 20, 30, 40):
+        for a0 in (0, 20, 30, 40, 50):
             b = dict(base, modo="ninguno") if g == "España" else base
             filas.append({"grupo": g, "edad_llegada": a0, "variante": "principal", "va_total": vida(a0, g, P, q, **b)["va_total"]})
             filas.append({"grupo": g, "edad_llegada": a0, "variante": "presupuesto equilibrado",
@@ -326,6 +326,12 @@ def sensibilidad_principal(cf, P, q, r_obs, h0) -> None:
                    f"por persona de 2024, {f'{-saldo:,.0f}'.replace(',', '.')} €), {g}, {'nacimiento' if a0 == 0 else f'llegada o edad {a0}'}",
                    "C2", "Perfiles M1", "2024", "España", g)
     for g in ("Resto UE", "Resto del mundo"):
+        w50 = k[(g, 50, "tramos suprimidos con perfil nativo sin escalar")]
+        cf.add(f"F4_VA_IMPUT_UE_{g.replace(' ', '_')}_50", round(w50 / 1e3, 0), "miles de € (VA)", "Principal con los tramos de edad "
+               f"suprimidos rellenados con el perfil nativo sin escalar, {g}, llegada a los 50 (a posteriori)", "C2", "Perfiles M1", "2024", "España", g)
+        cf.add(f"F4_VA_IMPUT_DIF_NAT_{g.replace(' ', '_')}_50", round((w50 - k[("España", 50, "principal")]) / 1e3, 0), "miles de € (VA)",
+               f"Diferencia con un nacido en España de 50 años con los tramos suprimidos rellenados con el perfil nativo sin escalar, {g} "
+               "(principal; a posteriori)", "C2", "Perfiles M1", "2024", "España", g)
         v = k.xs((g, 30), level=("grupo", "edad_llegada"))
         cf.add(f"F4_VA_IMPUT_UE_{g.replace(' ', '_')}_30", round(v["tramos suprimidos con perfil nativo sin escalar"] / 1e3, 0),
                "miles de € (VA)", f"Principal con los tramos de edad suprimidos (< 50 observaciones) rellenados con el perfil nativo sin "
@@ -341,15 +347,17 @@ def sensibilidad_principal(cf, P, q, r_obs, h0) -> None:
                "España", g)
 
 
-ESCEN = {0.0: "nula", 0.5: "parcial (c = 0,5: se cierra la mitad de la brecha con los nativos de la misma edad, linealmente en 20 años)",
+ESCEN = {-0.5: "divergente (c = −0,5: la brecha con los nativos de la misma edad se amplía la mitad en 20 años, simétrico del parcial; "
+               "aproxima un perfil de llegados recientes que no se asimilan)",
+         0.0: "nula", 0.5: "parcial (c = 0,5: se cierra la mitad de la brecha con los nativos de la misma edad, linealmente en 20 años)",
          1.0: "completa (c = 1: se cierra toda la brecha en 20 años)"}
 
 
 def convergencia(v: pd.DataFrame, cf) -> pd.DataFrame:
-    """Cotas en tres escenarios de convergencia salarial (verificación a posteriori): para cada escenario c, intervalo del valor actual y
+    """Cotas en cuatro escenarios de convergencia salarial (divergente, nula, parcial, completa) (verificación a posteriori): para cada escenario c, intervalo del valor actual y
     de la diferencia con un nacido en España de la misma edad entre las 24 combinaciones de salida, descuento y bienes públicos. La
     convergencia actúa sobre impuestos y cotizaciones (proxy del salario), prestaciones no contributivas y, por la carrera de cotización,
-    pensiones. Una conclusión de signo «sobrevive» si el intervalo excluye el cero con el mismo signo en los tres escenarios."""
+    pensiones. Una conclusión de signo «sobrevive» si el intervalo excluye el cero con el mismo signo en todos los escenarios."""
     nat = v[v.grupo == "España"][["edad_llegada", "descuento", "bienes", "va_total"]]
     filas = []
     for (g, a0, c), x in v[v.grupo != "España"].groupby(["grupo", "edad_llegada", "convergencia"]):

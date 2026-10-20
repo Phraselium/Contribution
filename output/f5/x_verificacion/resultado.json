@@ -32,7 +32,7 @@
     "unidad": "pp por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -0.92 o mayores que 0.98 pp por pp; no se pueden descartar valores de hasta 0.98 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -0.92 o mayores que 0.98 pp por pp; no se pueden descartar los valores entre -0.92 y 0.98"
    },
    {
     "hipotesis": "P1-H2",
@@ -53,7 +53,7 @@
     "unidad": "pp por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -1.54 o mayores que 0.25 pp por pp; no se pueden descartar valores de hasta 1.54 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -1.54 o mayores que 0.25 pp por pp; no se pueden descartar los valores entre -1.54 y 0.25"
    },
    {
     "hipotesis": "P1-E1",
@@ -74,7 +74,7 @@
     "unidad": "pp por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -1.04 o mayores que 0.01 pp por pp; no se pueden descartar valores de hasta 1.04 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -1.04 o mayores que 0.01 pp por pp; no se pueden descartar los valores entre -1.04 y 0.01"
    },
    {
     "hipotesis": "P1-E2",
@@ -95,7 +95,7 @@
     "unidad": "log por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -3.41 o mayores que 1.95 log por pp; no se pueden descartar valores de hasta 3.41 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -3.41 o mayores que 1.95 log por pp; no se pueden descartar los valores entre -3.41 y 1.95"
    },
    {
     "hipotesis": "P1-E3a",
@@ -116,7 +116,7 @@
     "unidad": "pp por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -1.41 o mayores que 0.18 pp por pp; no se pueden descartar valores de hasta 1.41 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -1.41 o mayores que 0.18 pp por pp; no se pueden descartar los valores entre -1.41 y 0.18"
    },
    {
     "hipotesis": "P1-E3b",
@@ -137,7 +137,7 @@
     "unidad": "pp por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -2.52 o mayores que 2.10 pp por pp; no se pueden descartar valores de hasta 2.52 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -2.52 o mayores que 2.10 pp por pp; no se pueden descartar los valores entre -2.52 y 2.10"
    },
    {
     "hipotesis": "P1-E3c",
@@ -158,7 +158,7 @@
     "unidad": "pp por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -0.32 o mayores que 1.90 pp por pp; no se pueden descartar valores de hasta 1.90 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -0.32 o mayores que 1.90 pp por pp; no se pueden descartar los valores entre -0.32 y 1.90"
    },
    {
     "hipotesis": "P1-E6",
@@ -179,7 +179,7 @@
     "unidad": "log por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -0.77 o mayores que 0.67 log por pp; no se pueden descartar valores de hasta 0.77 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -0.77 o mayores que 0.67 log por pp; no se pueden descartar los valores entre -0.77 y 0.67"
    },
    {
     "hipotesis": "P2-E1",
@@ -200,7 +200,7 @@
     "unidad": "pp por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -1.27 o mayores que 0.91 pp por pp; no se pueden descartar valores de hasta 1.27 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -1.27 o mayores que 0.91 pp por pp; no se pueden descartar los valores entre -1.27 y 0.91"
    },
    {
     "hipotesis": "P2-E2",
@@ -221,7 +221,7 @@
     "unidad": "pp por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -0.76 o mayores que 1.83 pp por pp; no se pueden descartar valores de hasta 1.83 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -0.76 o mayores que 1.83 pp por pp; no se pueden descartar los valores entre -0.76 y 1.83"
    },
    {
     "hipotesis": "P3-educacion",
@@ -242,7 +242,7 @@
     "unidad": "alumnos por profesor por pp",
     "nota": NaN,
     "supera_mop_10": true,
-    "lectura": "se descartan valores de β menores que -0.79 o mayores que 0.55 alumnos por profesor por pp; no se pueden descartar valores de hasta 0.79 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -0.79 o mayores que 0.55 alumnos por profesor por pp; no se pueden descartar los valores entre -0.79 y 0.55"
    },
    {
     "hipotesis": "P5",
@@ -263,7 +263,7 @@
     "unidad": "pp por pp",
     "nota": NaN,
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -1.29 o mayores que 0.29 pp por pp; no se pueden descartar valores de hasta 1.29 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -1.29 o mayores que 0.29 pp por pp; no se pueden descartar los valores entre -1.29 y 0.29"
    },
    {
     "hipotesis": "P1-E4",
@@ -284,7 +284,7 @@
     "unidad": "Δ log salario por unidad de cuota",
     "nota": "sin instrumento: AR no aplica; intervalo MCO agrupado (orientativo, 15 celdas)",
     "supera_mop_10": false,
-    "lectura": "se descartan valores de β menores que -0.56 o mayores que 0.36 Δ log salario por unidad de cuota; no se pueden descartar valores de hasta 0.56 en valor absoluto"
+    "lectura": "con inferencia agrupada quedarían fuera los valores de β menores que -0.56 o mayores que 0.36 Δ log salario por unidad de cuota; no se pueden descartar los valores entre -0.56 y 0.36"
    }
   ],
   "curva": [

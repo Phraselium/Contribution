@@ -7,6 +7,8 @@ España,30,principal,97904.24469218764
 España,30,presupuesto equilibrado,133017.4871064484
 España,40,principal,12039.405990912375
 España,40,presupuesto equilibrado,43172.966765974124
+España,50,principal,-114569.73741562886
+España,50,presupuesto equilibrado,-88111.1696232453
 Resto UE,0,principal,-59364.51258121288
 Resto UE,0,presupuesto equilibrado,-47977.05373695588
 Resto UE,0,tramos suprimidos con perfil nativo sin escalar,-61476.95980669956
@@ -31,6 +33,12 @@ Resto UE,40,tramos suprimidos con perfil nativo sin escalar,31348.16375335731
 Resto UE,40,pensión contributiva sin mínimo de 15 años,17051.778714011663
 Resto UE,40,sin suelo de pensión no contributiva,26983.8454091364
 Resto UE,40,mitad de salidas y sin mínimo de 15 años,11308.16597224494
+Resto UE,50,principal,2125.904177835542
+Resto UE,50,presupuesto equilibrado,11299.620696330676
+Resto UE,50,tramos suprimidos con perfil nativo sin escalar,8361.24695502588
+Resto UE,50,pensión contributiva sin mínimo de 15 años,-9545.324428377426
+Resto UE,50,sin suelo de pensión no contributiva,6265.537186206369
+Resto UE,50,mitad de salidas y sin mínimo de 15 años,-30787.651455035346
 Resto del mundo,0,principal,-70798.21426152892
 Resto del mundo,0,presupuesto equilibrado,-59410.75541727194
 Resto del mundo,0,tramos suprimidos con perfil nativo sin escalar,-74036.83395309829
@@ -55,3 +63,9 @@ Resto del mundo,40,tramos suprimidos con perfil nativo sin escalar,1761.18340871
 Resto del mundo,40,pensión contributiva sin mínimo de 15 años,-6334.451884061051
 Resto del mundo,40,sin suelo de pensión no contributiva,1536.5345359951134
 Resto del mundo,40,mitad de salidas y sin mínimo de 15 años,-23781.16507543042
+Resto del mundo,50,principal,-20254.44124887023
+Resto del mundo,50,presupuesto equilibrado,-11080.724730375112
+Resto del mundo,50,tramos suprimidos con perfil nativo sin escalar,-19122.31674472541
+Resto del mundo,50,pensión contributiva sin mínimo de 15 años,-28051.670024757557
+Resto del mundo,50,sin suelo de pensión no contributiva,-12642.570663456716
+Resto del mundo,50,mitad de salidas y sin mínimo de 15 años,-59451.186629885204

@@ -96,8 +96,8 @@ FICHAS = [
                      "distinguible de cero por muestreo) y la del resto del mundo, con un principal negativo solo de referencia, es positiva con bienes públicos a "
                      "coste marginal cero. En el ciclo vital, "
                      "sin convergencia, las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos; frente a un nativo de la misma edad, "
-                     "quien llega del resto de la UE a los 50 años aporta más con cualquier ritmo de convergencia salarial (nula, parcial o completa) y quien llega de "
-                     "fuera de la UE a los 20 aporta menos solo si no hay convergencia.",
+                     "ningún signo se mantiene con los cuatro escenarios de convergencia salarial (divergente, nula, parcial y completa): quien llega del resto de la UE a los "
+                     "50 años aporta más salvo con divergencia, y quien llega de fuera de la UE a los 20 aporta menos sin convergencia o con divergencia.",
      "causal": "No es causal: contabilidad (capa C2).",
      "supuestos": "En el resto del mundo el signo depende del reparto de los bienes públicos (coste medio o marginal) y de a quién se asignan los hijos nacidos en "
                   "España (decisión D11: solo intervalos).",
@@ -125,8 +125,9 @@ FICHAS = [
      "causal": "La comparación «sin migración» es una regla mecánica (empleo, cobertura y pensión relativa constantes), no un contrafactual identificado.",
      "supuestos": "Las cotizaciones de hoy generan derechos de pensión futuros: en el ciclo vital el valor actual de los nacidos fuera depende de la salida, el "
                   "descuento y los bienes públicos: para las llegadas entre 20 y 50 años el intervalo contiene el cero, y frente a un nativo de "
-                  "la misma edad quien llega del resto de la UE a los 50 años aporta más con cualquier ritmo de convergencia salarial (nula, parcial o completa) y quien "
-                  "llega de fuera de la UE a los 20 aporta menos solo si no hay convergencia.",
+                  "la misma edad ningún signo se mantiene con los cuatro escenarios de convergencia salarial (divergente, nula, parcial y completa): quien llega del "
+                  "resto de la UE a los 50 "
+                     "años aporta más salvo con divergencia, y quien llega de fuera de la UE a los 20 aporta menos sin convergencia o con divergencia.",
      "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Es cierto que sus cotizaciones financian una parte de las pensiones corrientes; que sostengan el sistema es una afirmación contrafactual y de "
               "largo plazo que no está identificada (mismo estándar que A6)."},
@@ -143,8 +144,9 @@ FICHAS = [
      "contabilidad": "Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE, intervalo que contiene el cero para los "
                      "nacidos fuera de la UE y, para el conjunto, negativa solo con bienes públicos a coste medio e hijos asignados a sus padres; en el "
                      "ciclo vital, las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos, las llegadas a los 0 años "
-                     "son negativas sin convergencia, y frente a un nativo de la misma edad quien llega del resto de la UE a los 50 años aporta más con cualquier ritmo "
-                     "de convergencia salarial (nula, parcial o completa) y quien llega de fuera de la UE a los 20 aporta menos solo si no hay convergencia.",
+                     "son negativas sin convergencia, y frente a un nativo de la misma edad ningún signo se mantiene con los cuatro escenarios de convergencia salarial "
+                     "(divergente, nula, parcial y completa): quien llega del resto de la UE a los "
+                     "50 años aporta más salvo con divergencia, y quien llega de fuera de la UE a los 20 aporta menos sin convergencia o con divergencia.",
      "causal": "No es causal.", "supuestos": "Bienes públicos e hijos nacidos en España.", "veredicto": "no se puede saber", "confianza": "alta",
      "razon": "En la contabilidad estática se sostiene para los nacidos en la UE; para el conjunto de inmigrantes y en el ciclo vital depende de "
               "supuestos (mismo estándar que A5)."},
