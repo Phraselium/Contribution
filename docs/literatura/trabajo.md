@@ -152,11 +152,12 @@ Convención de la línea «Replicación pública»: se indica (a) si existe paqu
 
 ### Izquierdo, Lacuesta y Vegas (2009). Assimilation of immigrants in Spain: a longitudinal analysis
 - DOI: 10.1016/j.labeco.2009.08.011 · Revista: Labour Economics 16(6) (versión previa: Documento de Trabajo del Banco de España 0904)
-- Leído: resumen (https://ideas.repec.org/a/eee/labeco/v16y2009i6p669-678.html)
+- Leído: texto completo (versión de trabajo, Banco de España DT 0904: https://repositorio.bde.es/bitstream/123456789/6982/1/dt0904e.pdf; la versión de Labour Economics no se ha leído) y resumen (https://ideas.repec.org/a/eee/labeco/v16y2009i6p669-678.html)
 - Diseño e identificación: asimilación salarial con un panel longitudinal nuevo (seguimiento de los mismos individuos), que separa la convergencia dentro de la empresa de la movilidad entre empresas.
 - Datos, país y periodo: España; un panel nuevo de datos individuales (el resumen no lo nombra; probablemente registros de la Seguridad Social del tipo MCVL, no comprobado).
 - Resultado principal (con su unidad, tal como lo da el autor): en los primeros 5–6 años tras la llegada los inmigrantes cierran unos 15 puntos porcentuales de la brecha salarial con los nativos, sin cerrarla del todo; más rápido para sudamericanos y nacionales de los nuevos Estados miembros de la UE que para africanos; la mayor parte se debe a acumulación de capital humano dentro de la misma empresa más que a la movilidad.
-- Validez para España: directa; resultado de referencia para los escenarios de convergencia de la fase 4.
+- Cifras leídas en la versión de trabajo (congelación, a posteriori): MCVL 2005, varones de 25-54 años de fuera de la UE-15, mediana censurada; brecha de entrada −0,305 / −0,282 log en el corte transversal y −0,395 / −0,406 en el panel (tabla 2, p. 23); recuperación de +0,143 / +0,115 a los 5-6 años y +0,201 / +0,183 con más de 13 años en el panel; en el texto (pp. 22-24), unos 20 puntos a partir de 8 años y sin más reducciones. Es decir, se cierra en torno a la mitad de la brecha de entrada y se detiene.
+- Validez para España: directa; ancla el rango de convergencia c ∈ [0; 0,5] del ciclo vital de M1 (comparación con nativos de igual experiencia, educación y cohorte, no de igual edad).
 - Replicación pública: no público. Si la fuente es la MCVL (a confirmar en el texto completo), queda excluida por la regla A: NO ESTIMABLE la réplica longitudinal; solo cabe una aproximación por cohortes sintéticas con la EPA o la EES.
 - Estado: VERIFICADA (Crossref)
 

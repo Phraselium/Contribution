@@ -33,7 +33,7 @@ Las sumas fiscales cuadran con el saldo B9 de 2024 y con cada partida de la cont
    alternativo con datos públicos (EPA desde 1996, otros periodos base) recomendaría?
 5. P1-E3a: ¿es la tasa estandarizada por edad la medida adecuada, dado que la composición por edad del grupo cambia con el
    instrumento? ¿Cómo separaría efecto y composición?
-6. Los efectos mínimos detectables (0,7 a 3,5 pp por pp en P1) superan las estimaciones de la literatura española (≈ −0,2). ¿Tiene
+6. Los efectos mínimos detectables (0,7 a 3,5 pp por pp en P1 con el error al nivel del shock; parecidos con el implícito de AKM0) superan las estimaciones de la literatura española, aunque no hay ninguna publicada y leída en la misma escala (la más cercana, −0,18 pp por pp, es de una versión de trabajo). ¿Tiene
    sentido mantener esta parte en el documento, o debe presentarse como un ejercicio de potencia?
 7. El wild bootstrap con 17 comunidades y una con el 42 % de la variación del instrumento: ¿es aceptable como control espacial?
 

@@ -163,8 +163,11 @@ def contribuciones(d: pd.DataFrame, ctas: dict, perf: pd.DataFrame, rat: pd.Data
     rb = d.PY010G + d.PY050G.clip(lower=0) + d.PY100G + d.PY110G + d.PY130G + d.PY090G + d.PY120G
     rb_h = rb.groupby(d.hid).transform("sum")
     cuota = np.where(rb_h > 0, rb / rb_h.where(rb_h > 0, 1), (d.edad >= 16) / d.groupby("hid").edad.transform(lambda e: max((e >= 16).sum(), 1)))
-    out["ing_irpf_cotiz_trab"] = cal(d.HY140G * cuota, t["D51A_C1"] + t["D613"])
-    out["ing_cotiz_empresa"] = cal(d.PY030G, t["D611"])
+    # infradeclaración diferencial (a posteriori, src/m1/f4_infradeclaracion.py): las rentas de los nacidos fuera se elevan por
+    # 1 / (1 − infra) antes de calibrar o repartir; como los totales siguen siendo los de las cuentas, es una reasignación entre grupos
+    m_inf = pd.Series(np.where(d.nacimiento3 != "España", 1 / (1 - s.get("infra", 0.0)), 1.0), index=d.index)
+    out["ing_irpf_cotiz_trab"] = cal(d.HY140G * cuota * m_inf, t["D51A_C1"] + t["D613"])
+    out["ing_cotiz_empresa"] = cal(d.PY030G * m_inf, t["D611"])
     eq = d.HY020 / d.uc
     orden = eq.sort_values(kind="mergesort").index                       # quintiles ponderados por el factor de la ECV
     acum = d.w.loc[orden].cumsum() / d.w.sum()
@@ -177,12 +180,12 @@ def contribuciones(d: pd.DataFrame, ctas: dict, perf: pd.DataFrame, rat: pd.Data
     else:
         iva_r = pd.Series(1.0, index=d.index)
         esp_r = pd.Series(1.0, index=d.index)
-    renta_pc = d.HY020.clip(lower=0) / d.n_hogar
+    renta_pc = d.HY020.clip(lower=0) / d.n_hogar * m_inf
     out["ing_iva"] = reparto(renta_pc * iva_r, t["D211"])
     out["ing_especiales"] = reparto(renta_pc * esp_r, t["D214"])
     prop = d.HH021.isin([1, 2]).astype(float) / d.n_hogar
     out["ing_vivienda_ibi"] = reparto(prop, t["D29A"] + t["D59"])
-    cap = ((d.HY040G + d.HY090G).clip(lower=0) / d.n_hogar + d.PY050G.clip(lower=0)) if s["capital"] == "rentas" else pd.Series(1.0, index=d.index)
+    cap = ((d.HY040G + d.HY090G).clip(lower=0) / d.n_hogar + d.PY050G.clip(lower=0)) * m_inf if s["capital"] == "rentas" else pd.Series(1.0, index=d.index)
     out["ing_sociedades_capital"] = reparto(cap, t["D51B_C2"] + t["D29"] - t["D29A"] + t["D91"])
     impuestos = (t["D51A_C1"] + t["D613"] + t["D611"] + t["D211"] + t["D214"] + t["D59"] + t["D51B_C2"] + t["D29"] + t["D91"])
     # resto de ingresos (ventas, rentas de la propiedad, transferencias, cotizaciones imputadas D612): por persona, para que la suma

@@ -1,0 +1,13 @@
+partida,total_encuesta,total_cn,fuente,tratamiento,cobertura_pct,escalado
+IRPF y cotizaciones del trabajador (HY140G),174146.4889058056,197620.0,ECV,calibrada,88.12189500344378,"factor único CN/encuesta, igual para todos los grupos"
+Cotizaciones empresariales (PY030G),161223.95965847914,151551.0,ECV,calibrada,106.38264324120537,"factor único CN/encuesta, igual para todos los grupos"
+Prestación: desempleo (PY090G),22202.89392585678,23545.0,ECV,calibrada,94.29982555046413,"factor único CN/encuesta, igual para todos los grupos"
+Prestación: vejez (PY100G),159604.15642729538,154327.0,ECV,calibrada,103.41946414256441,"factor único CN/encuesta, igual para todos los grupos"
+Prestación: supervivencia (PY110G),29769.704151723152,35250.0,ECV,calibrada,84.4530614233281,"factor único CN/encuesta, igual para todos los grupos"
+Prestación: enfermedad_incapacidad (PY120G+PY130G),19505.85491144585,37772.0,ECV,calibrada,51.64104339575837,"factor único CN/encuesta, igual para todos los grupos"
+Prestación: familia (HY050G),3456.1886187600835,9585.0,ECV,calibrada,36.05830588169101,"factor único CN/encuesta, igual para todos los grupos"
+Prestación: exclusion_social (HY060G),4657.370523813509,6444.0,ECV,calibrada,72.27452706104141,"factor único CN/encuesta, igual para todos los grupos"
+Prestación: vivienda (HY070G),807.6219905089641,134.0,ECV,calibrada,602.7029779917642,"factor único CN/encuesta, igual para todos los grupos"
+Becas y prestaciones de educación (PY140G),1695.6276124312226,21.0,ECV,calibrada,8074.417202053441,"factor único CN/encuesta, igual para todos los grupos"
+IVA imputado en la EPF 2022 (COICOP × tipos),48855.902785938306,94140.0,EPF 2022,repartida,51.89707115565998,solo distribución; el total es el de las cuentas
+IVA imputado en la EPF 2023 (COICOP × tipos),50972.902576604414,96030.0,EPF 2023,repartida,53.080185959184014,solo distribución; el total es el de las cuentas

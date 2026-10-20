@@ -129,8 +129,13 @@ def main() -> int:
         r = p1.estimar(d, S, g, grupos, spec, y)
         ar = ar_p1(d, spec, y)
         conj = r["akm0_conjunto"]
+        # error típico implícito de AKM0 con la nula β = 0 impuesta: el que hace que (b / EE)² sea su estadístico en β0 = 0 (congelación,
+        # a posteriori). Es una aproximación local: el conjunto AKM0 no está acotado, así que AKM0 no descarta ningún valor lejano
+        from scipy import stats
+        se_akm0 = abs(r["b"]) / np.sqrt(stats.chi2.isf(r["akm0_p"], 1)) if 0 < r["akm0_p"] < 1 else np.nan
         filas.append({"hipotesis": h, "b": r["b"], "se_inferencia": r["se_bhj"], "tipo_se": "BHJ (shock)", "se_alternativo": r["se_cluster_prov"],
-                      "emd": K_EMD * r["se_bhj"], "emd_alternativo": K_EMD * r["se_cluster_prov"],
+                      "emd": K_EMD * r["se_bhj"], "emd_alternativo": K_EMD * r["se_cluster_prov"], "se_akm0": se_akm0, "emd_akm0": K_EMD * se_akm0,
+                      "akm0_p": r["akm0_p"],
                       "ar_inf": _fin(ar["inf"]), "ar_sup": _fin(ar["sup"]), "ar_acotado": ar["acotado"], "ar_convexo": ar.get("convexo"),
                       "akm0_conjunto": json.dumps(conj), "akm0_acotado": r["akm0_acotado"], "F_efectivo_MOP": r["F_efectivo"],
                       "F_shock": r["F_shock"], "unidad": "pp por pp" if not y.startswith("log") else "log por pp"})
@@ -160,6 +165,12 @@ def main() -> int:
     emd.to_csv(O / "x_verificacion_emd.csv", index=False)
     for r in emd.itertuples():
         k = r.hipotesis.replace("-", "_")
+        if pd.notna(getattr(r, "emd_akm0", np.nan)):
+            cf.add(f"F5V_EMD_AKM0_{k}", round(r.emd_akm0, 3), r.unidad, f"{r.hipotesis}: efecto mínimo detectable con el error típico implícito de "
+                   "AKM0 en β = 0 (2,80 × |β| / √χ²; aproximación local, el conjunto AKM0 no está acotado; congelación, a posteriori)", "C4",
+                   "M1 fase 5", "—", "—", "—")
+            cf.add(f"F5V_EMD_PROV_{k}", round(r.emd_alternativo, 3), r.unidad, f"{r.hipotesis}: efecto mínimo detectable con el error típico "
+                   "agrupado por provincia (2,80 × EE; a posteriori)", "C4", "M1 fase 5", "—", "—", "—")
         cf.add(f"F5V_EMD_{k}", round(r.emd, 3), r.unidad, f"{r.hipotesis}: efecto mínimo detectable al 80 % de potencia y 5 % bilateral "
                f"(2,80 × EE {r.tipo_se}; aproximación normal, cota inferior de lo detectable; verificación a posteriori)", "C4",
                "M1 fase 5", "—", "—", "—")
@@ -187,6 +198,10 @@ def main() -> int:
                               "akm0_acotado": r["akm0_acotado"], "F_shock": r["F_shock"], "F_efectivo": r["F_efectivo"]})
     cu = pd.DataFrame(curva)
     cu.to_csv(O / "x_verificacion_curva.csv", index=False)
+    for cc in ("bhj", "original", "cuota_1998"):
+        z = cu[(cu.control_cuotas == cc) & (cu.hipotesis == "P1-H1") & np.logical_and.reduce([cu[k] == spec[k] for k in ejes])].iloc[0]
+        cf.add(f"F5V_FMOP_CTRL_{cc.upper()}", round(float(z.F_efectivo), 1), "F", f"F efectivo de Montiel Olea-Pflueger de la especificación "
+               f"principal con el control de cuotas «{cc}» (valor crítico 23,1; congelación, a posteriori)", "C4", "M1 fase 5", "—", "—", "—")
     rc = cu.groupby(["hipotesis", "control_cuotas"]).agg(b_med=("b", "median"), b_min=("b", "min"), b_max=("b", "max"),
                                                        neg=("b", lambda s: int((s < 0).sum())), rechaza=("akm0_p", lambda s: int((s < 0.05).sum())),
                                                        n=("b", "size"), F_med=("F_shock", "median"))

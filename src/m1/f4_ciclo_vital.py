@@ -373,6 +373,16 @@ def convergencia(v: pd.DataFrame, cf) -> pd.DataFrame:
         va_sobrevive=("signo_va", lambda s: int(s.iloc[0]) if (s != 0).all() and s.nunique() == 1 else 0),
         dif_sobrevive=("signo_dif", lambda s: int(s.iloc[0]) if (s != 0).all() and s.nunique() == 1 else 0))
     t = t.merge(sob.reset_index(), on=["grupo", "edad_llegada"])
+    # congelación (a posteriori): rango basado en evidencia, c ∈ [0; 0,5] (Izquierdo, Lacuesta y Vegas 2009: se cierra en torno a la
+    # mitad de la brecha de entrada en 5-8 años y no más; el perfil transversal ya contiene esa convergencia, así que c = 0 es la cota
+    # inferior y c = 0,5 la superior; c = 1 queda fuera de la evidencia), y prueba de estrés: además c = −0,5
+    def sobrevive(s, cs):
+        x = s[s.index.isin(cs)]
+        return int(x.iloc[0]) if (x != 0).all() and x.nunique() == 1 else 0
+    ev = t.set_index("convergencia").groupby(["grupo", "edad_llegada"]).agg(
+        va_evidencia=("signo_va", lambda s: sobrevive(s, [0.0, 0.5])), dif_evidencia=("signo_dif", lambda s: sobrevive(s, [0.0, 0.5])),
+        va_estres=("signo_va", lambda s: sobrevive(s, [-0.5, 0.0, 0.5])), dif_estres=("signo_dif", lambda s: sobrevive(s, [-0.5, 0.0, 0.5])))
+    t = t.merge(ev.reset_index(), on=["grupo", "edad_llegada"])
     t.to_csv(O / "ciclo_vital_convergencia.csv", index=False)
     for r in t.itertuples():
         k = f"{r.grupo.replace(' ', '_')}_{r.edad_llegada}_C{int(100 * r.convergencia)}"

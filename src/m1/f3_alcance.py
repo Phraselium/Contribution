@@ -66,6 +66,16 @@ def main() -> int:
         cf.add(f"F3_ALC_CUOTA_25_54_FUERA_{nom}_2025", round(float(100 * q[q.edad6.isin(["25-34", "35-44", "45-54"])].pob.sum() / q.pob.sum()), 1),
                "% de 16-64", f"Peso de 25-54 años entre los nacidos fuera {'con' if nac else 'sin'} nacionalidad española", "C1", "EPA (INE)",
                "2025", "España", "nacidos fuera")
+    # misma comparación dentro de cada tramo de años de residencia (congelación, a posteriori): la nacionalidad se obtiene tras años
+    # de residencia que dependen del origen (2 para iberoamericanos, 10 con carácter general) y la incluye quien nace fuera de padres
+    # españoles; por eso la comparación sin tramo mezcla residencia y nacionalidad
+    for tramo, q in z.groupby("resid"):
+        for nac, nom in ((True, "NACIONALIZADOS"), (False, "EXTRANJEROS")):
+            u = q[q.nacionalizado == nac]
+            if u.n_obs.sum() >= 50:
+                cf.add(f"F3_ALC_EMP_FUERA_{nom}_RESID_{tramo.replace('-', '_').replace('+', 'MAS')}_2025", round(float(100 * u.ocu.sum() / u.pob.sum()), 1),
+                       "%", f"Tasa de empleo 16-64 de los nacidos fuera {'con' if nac else 'sin'} nacionalidad española con {tramo} años de residencia "
+                       f"({int(u.n_obs.sum())} observaciones; asociación, a posteriori)", "C1", "EPA (INE)", "2025", "España", "nacidos fuera")
     cf.escribir()
     print(comp.round(1).to_string())
     print(p.groupby("grupo").tasa_empleo.apply(lambda s: s.notna().sum()))

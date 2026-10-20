@@ -3,7 +3,11 @@
 EUROPOP2023 (Eurostat) para España y la UE-27, variantes BSL (base), LMIGR / HMIGR (−33 % / +33 % de migración neta) y NMIGR
 (sin migración). Tasa de dependencia de mayores (65+ / 20-64) y gasto en pensiones / PIB con una regla mecánica: el gasto en
 pensiones de 2024 (COFOG GF1002 + GF1003, prestaciones monetarias) / PIB se multiplica por la tasa de dependencia relativa,
-manteniendo constantes la tasa de empleo, la tasa de cobertura y la pensión media relativa a la productividad. Es una cota
+manteniendo constantes la tasa de empleo, la tasa de cobertura y la pensión media relativa a la productividad. Lo que hace el
+código (aclaración a posteriori): gasto/PIB(t) = gasto/PIB(2024) × [65+/20-64](t) / [65+/20-64](base, 2025). Equivale a un PIB
+proporcional a la población de 20-64 años (PIB endógeno: cada residente adicional en edad de trabajar aporta el empleo y la
+productividad medios) y a un gasto proporcional a la población de 65 y más con la pensión media ligada al PIB por persona en edad de
+trabajar. No es un PIB fijo: con PIB fijo la migración solo añadiría pensionistas y no reduciría el cociente. Es una cota
 demográfica, no una proyección del sistema: el Ageing Report 2024 y la AIReF modelizan además empleo, reformas y revalorización.
 Se compara con las cifras del Ageing Report 2024 recogidas en docs/literatura/fiscal.md (España: 17,3 % del PIB en 2050 en la
 base; 16,1 % con +33 % de migración y 18,7 % con −33 %).
@@ -76,6 +80,16 @@ def main() -> int:
     cf.add("F4_PEN_AR2024_DIF_MIGRACION_2050", round(18.7 - 16.1, 1), "pp del PIB", "Ageing Report 2024: diferencia de gasto en "
            "pensiones en 2050 entre el escenario con un tercio menos y con un tercio más de migración (publicado)", "C2",
            "Comisión Europea, Ageing Report 2024", "2050", "España", "todos")
+    # escenarios equivalentes (congelación, a posteriori): misma variación de la migración que el Ageing Report 2024 (±33 % frente a la
+    # base); la variante sin migración no tiene equivalente publicado en el Ageing Report ni en la AIReF
+    for v, nom in (("LMIGR", "un tercio menos"), ("HMIGR", "un tercio más")):
+        cf.add(f"F4_PEN_MEC_DIF_{v}_BSL_2050", round(es.loc[(v, 2050), "gasto_pensiones_pib_mecanico"] - es.loc[("BSL", 2050), "gasto_pensiones_pib_mecanico"], 1),
+               "pp del PIB", f"Regla mecánica: gasto en pensiones / PIB en 2050 con {nom} de migración menos el de la variante base (escenario "
+               "equivalente al del Ageing Report 2024; a posteriori)", "C2", "Eurostat proj_23np", "2050", "España", "todos")
+    cf.add("F4_PEN_AR2024_DIF_MENOS_BASE_2050", round(18.7 - 17.3, 1), "pp del PIB", "Ageing Report 2024: escenario con un tercio menos de "
+           "migración menos la base en 2050 (tablas publicadas; a posteriori)", "C2", "Comisión Europea, Ageing Report 2024", "2050", "España", "todos")
+    cf.add("F4_PEN_AR2024_DIF_MAS_BASE_2050", round(16.1 - 17.3, 1), "pp del PIB", "Ageing Report 2024: escenario con un tercio más de "
+           "migración menos la base en 2050 (tablas publicadas; a posteriori)", "C2", "Comisión Europea, Ageing Report 2024", "2050", "España", "todos")
     cf.escribir()
     print(d[(d.geo == "ES") & d.TIME_PERIOD.isin([2025, 2050, 2070])][["projection", "TIME_PERIOD", "tasa_dependencia",
                                                                           "gasto_pensiones_pib_mecanico"]].round(3).to_string())

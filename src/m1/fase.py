@@ -24,7 +24,7 @@ def main() -> int:
             etiquetas.exigir()
     # orden alfabético salvo dependencias declaradas (verificación a posteriori: en la fase 4 el ciclo vital corría antes que la
     # contabilidad fiscal de la que lee sus perfiles, así que `make m1_f4` dejaba el ciclo vital con los perfiles anteriores)
-    primero = {"f4_fiscal": 0, "f4_pensiones": 1, "f4_ciclo_vital": 2, "f4_convenciones": 3}
+    primero = {"f4_fiscal": 0, "f4_pensiones": 1, "f4_ciclo_vital": 2, "f4_convenciones": 3, "f4_infradeclaracion": 4}
     scripts = sorted((p for p in SRC.glob(f"f{n}_{patron}.py") if red == p.stem.endswith("_descarga")),
                      key=lambda p: (primero.get(p.stem, 9), p.name))
     for s in scripts:

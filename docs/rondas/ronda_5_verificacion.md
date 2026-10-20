@@ -56,3 +56,15 @@ Números tecleados sin id: los de fuentes externas (anexo H), que coinciden con 
 - El árbitro no ha visto la versión corregida (sin bucle, por instrucción).
 - La cifra del resto de la UE a igual edad y sexo depende del tratamiento de las celdas pequeñas (240 a 349 €; §1, E3).
 - El valor crítico de Montiel Olea-Pflueger no está derivado para el F al nivel del shock.
+
+## Apéndice (congelación, 21-10-2026, a posteriori): segunda pasada del árbitro solo sobre los dos hallazgos mayores
+
+Una sola pasada de arbitro-final limitada a los hallazgos mayores 1 y 2 de §2 y a su corrección. Veredicto: **REVISAR (menor)**: el
+fondo de las dos correcciones es correcto; faltaban tres cambios de texto, sin rehacer cálculos.
+
+| hallazgo | estado según el árbitro | lo que faltaba | acción |
+|---|---|---|---|
+| 1. AKM0 frente a Anderson-Rubin agrupado | PARCIAL. El código respalda que AKM0 es un contraste de tipo AR al nivel del shock (econ.akm0, t2 con la nula impuesta); las cifras de errores típicos cuadran con x_verificacion_emd.csv; la «Lectura» de §5 es correcta | (a) el motivo de la falta de acotación debía nombrar el estadístico límite (primera etapa al nivel del shock con la varianza bajo π = 0), para no contradecir el F al nivel del shock de 13,5; (b) el resumen ejecutivo seguía diciendo «se descartan…» y «no se pueden descartar valores de esa magnitud» | (a) reescrito en §5; (b) el resumen dice ahora «quedarían fuera los valores fuera de [lo, hi]… y no se pueden descartar los de dentro» |
+| 2. Neutralidad de la regla del ciclo vital | RESUELTO. La regla es la misma en los dos sentidos; el valor actual y la diferencia crecen con c en todas las filas, así que c = −0,5 hace de cota pesimista; la malla asimétrica (hasta 1 hacia arriba, −0,5 hacia abajo) está justificada porque el perfil transversal ya contiene convergencia | Omisión: con divergencia también es negativa (por muy poco) la diferencia del resto de la UE a los 20 años; el resumen no técnico se quedaba corto con lo favorable. Reservas menores: k actúa componente a componente (la mejora con c es empírica en el agregado, no por construcción) y con c = −0,5 algunas prestaciones no contributivas a los 16-19 años salen negativas, sin suelo en cero (efecto pequeño) | Añadido el caso; resumen no técnico reescrito. Las dos reservas quedan declaradas aquí. Además, en la congelación el rango de c se ancla en la evidencia (c ∈ [0; 0,5], Izquierdo, Lacuesta y Vegas 2009) y c = −0,5 se presenta aparte como prueba de estrés |
+
+El árbitro no ha visto la versión con estos tres cambios (sin bucle, por instrucción).
