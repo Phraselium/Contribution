@@ -30,3 +30,8 @@ faltaba en el repositorio porque la fase 1 no se había vuelto a ejecutar tras a
 en la congelación).
 
 **Tercera ejecución (HEAD de la congelación):** ver el apartado siguiente.
+
+**Tercera ejecución (74c2356, HEAD de la congelación con todo el código nuevo):** clon actualizado, mismo entorno, misma secuencia;
+completa en 34 minutos, sin fallos. **859 de 859 cifras idénticas** a las de la copia de trabajo (incluidas las 104 nuevas de la
+congelación), sin cifras que falten ni que sobren, y ningún fichero generado distinto salvo las marcas de tiempo de gzip y xlsx.
+No hubo que corregir el pipeline por ninguna cifra.
