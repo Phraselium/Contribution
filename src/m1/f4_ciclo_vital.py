@@ -286,6 +286,7 @@ def main() -> int:
                       "signo_cambia_con_supuesto": bool(xc.va_total.min() < 0 < xc.va_total.max())})
     pd.DataFrame(s).to_csv(O / "ciclo_vital_signos.csv", index=False)
     sensibilidad_principal(cf, P, q, r_obs, h0)
+    convergencia(v, cf)
     cf.escribir()
     print(f"r_obs={r_obs:.4f} h0={h0:.4f}")
     print(princ[["grupo", "edad_llegada", "va_total", "va_hasta_64", "va_65_mas"]].round(0).to_string())
@@ -338,6 +339,45 @@ def sensibilidad_principal(cf, P, q, r_obs, h0) -> None:
         cf.add(f"F4_VA_SIN_SUELO_{g.replace(' ', '_')}_30", round(v["sin suelo de pensión no contributiva"] / 1e3, 0),
                "miles de € (VA)", f"Principal sin el suelo de pensión no contributiva, {g}, llegada a los 30", "C2", "Perfiles M1", "2024",
                "España", g)
+
+
+ESCEN = {0.0: "nula", 0.5: "parcial (c = 0,5: se cierra la mitad de la brecha con los nativos de la misma edad, linealmente en 20 años)",
+         1.0: "completa (c = 1: se cierra toda la brecha en 20 años)"}
+
+
+def convergencia(v: pd.DataFrame, cf) -> pd.DataFrame:
+    """Cotas en tres escenarios de convergencia salarial (verificación a posteriori): para cada escenario c, intervalo del valor actual y
+    de la diferencia con un nacido en España de la misma edad entre las 24 combinaciones de salida, descuento y bienes públicos. La
+    convergencia actúa sobre impuestos y cotizaciones (proxy del salario), prestaciones no contributivas y, por la carrera de cotización,
+    pensiones. Una conclusión de signo «sobrevive» si el intervalo excluye el cero con el mismo signo en los tres escenarios."""
+    nat = v[v.grupo == "España"][["edad_llegada", "descuento", "bienes", "va_total"]]
+    filas = []
+    for (g, a0, c), x in v[v.grupo != "España"].groupby(["grupo", "edad_llegada", "convergencia"]):
+        dif = x.merge(nat[nat.edad_llegada == a0], on=["descuento", "bienes"], suffixes=("", "_nat"))
+        dif = dif.va_total - dif.va_total_nat
+        filas.append({"grupo": g, "edad_llegada": a0, "convergencia": c, "escenario": ESCEN[c].split(" ")[0],
+                      "va_min": x.va_total.min(), "va_max": x.va_total.max(), "dif_min": dif.min(), "dif_max": dif.max()})
+    t = pd.DataFrame(filas)
+    sgn = lambda lo, hi: 1 if lo > 0 else (-1 if hi < 0 else 0)  # noqa: E731
+    t["signo_va"] = [sgn(a, b) for a, b in zip(t.va_min, t.va_max)]
+    t["signo_dif"] = [sgn(a, b) for a, b in zip(t.dif_min, t.dif_max)]
+    sob = t.groupby(["grupo", "edad_llegada"]).agg(
+        va_sobrevive=("signo_va", lambda s: int(s.iloc[0]) if (s != 0).all() and s.nunique() == 1 else 0),
+        dif_sobrevive=("signo_dif", lambda s: int(s.iloc[0]) if (s != 0).all() and s.nunique() == 1 else 0))
+    t = t.merge(sob.reset_index(), on=["grupo", "edad_llegada"])
+    t.to_csv(O / "ciclo_vital_convergencia.csv", index=False)
+    for r in t.itertuples():
+        k = f"{r.grupo.replace(' ', '_')}_{r.edad_llegada}_C{int(100 * r.convergencia)}"
+        cf.add(f"F4_VA_ESC_{k}", round((r.va_min + r.va_max) / 2e3, 0), "miles de € (VA)", f"Valor actual de por vida, nacidos en {r.grupo}, "
+               f"llegada a los {r.edad_llegada}, convergencia salarial {ESCEN[r.convergencia]}: cotas (24 combinaciones de salida, descuento y "
+               "bienes públicos; el valor es el punto medio; verificación a posteriori)", "C2", "Perfiles M1", "2024", "España", r.grupo,
+               ic_inf=round(r.va_min / 1e3, 0), ic_sup=round(r.va_max / 1e3, 0))
+        if r.edad_llegada > 0:
+            cf.add(f"F4_VA_DIF_ESC_{k}", round((r.dif_min + r.dif_max) / 2e3, 0), "miles de € (VA)", f"Diferencia con un nacido en España de la "
+                   f"misma edad, nacidos en {r.grupo}, llegada a los {r.edad_llegada}, convergencia salarial {ESCEN[r.convergencia]}: cotas "
+                   "(punto medio; verificación a posteriori)", "C2", "Perfiles M1", "2024", "España", r.grupo,
+                   ic_inf=round(r.dif_min / 1e3, 0), ic_sup=round(r.dif_max / 1e3, 0))
+    return t
 
 
 if __name__ == "__main__":

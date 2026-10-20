@@ -20,7 +20,8 @@ GASTOS
 - Prestaciones monetarias (D62 por función COFOG): importes de la ECV (observado) calibrados al total de su función: desempleo
   (GF1005 ↔ PY090G), vejez (GF1002 ↔ PY100G), supervivencia (GF1003 ↔ PY110G), enfermedad e incapacidad (GF1001 ↔ PY120G+PY130G),
   familia (GF1004 ↔ HY050G), exclusión social (GF1007 ↔ HY060G), vivienda (GF1006 ↔ HY070G).
-- Sanidad (GF07 total, en especie y sus D62; hasta la verificación a posteriori se omitía el D62): perfil de uso por edad y sexo de la ENSE 2017 por tipo de servicio (fármacos ↔ GF0701,
+- Sanidad (GF07 total, en especie y sus D62; hasta la verificación a posteriori se omitía el D62): perfil de uso por edad y sexo
+  de la ENSE 2017 por tipo de servicio (fármacos ↔ GF0701,
   consultas ↔ GF0702, hospital y urgencias ↔ GF0703; el resto por persona).
 - Educación en especie (GF09 sin D62): 3-11 años ↔ GF0901; 12-15 años y estudiantes de secundaria ↔ GF0902; estudiantes
   universitarios ↔ GF0904; el resto por estudiante.
@@ -349,6 +350,7 @@ def main() -> int:
     perfil_edad(principal).to_csv(O / "perfil_edad_2024.csv", index=False)
     piramide(principal).to_csv(O / "piramide_ecv_2024.csv", index=False)
     suprimidos(principal).to_csv(PROC / "perfil_suprimidos_2024.csv", index=False)
+    cruce(principal).to_csv(O / "neta_nacimiento_x_nacionalidad_2024.csv", index=False)
     regiones(principal, ctas25["pib"]).to_csv(O / "neta_por_region_2024.csv", index=False)
     signos = []
     for g in GR:
@@ -479,6 +481,17 @@ def piramide(c: pd.DataFrame) -> pd.DataFrame:
     prueba de cuadre del ciclo vital (tests/test_cuadre_fiscal.py, a posteriori). Es un recuento ponderado, no una media de celda."""
     c = c.assign(e=(c.edad.clip(upper=85) // 5) * 5)
     return c.groupby(["grupo", "e"]).agg(poblacion=("w", "sum"), n_muestral=("w", "size")).reset_index()
+
+
+def cruce(c: pd.DataFrame) -> pd.DataFrame:
+    """Contribución neta por persona según país de nacimiento × nacionalidad (escenario principal; a posteriori). Celdas con < 50
+    observaciones suprimidas."""
+    r = c.groupby(["grupo", "nacionalidad3"]).apply(lambda g: pd.Series({
+        "neta_pc": np.average(g.neta, weights=g.w), "ingresos_pc": np.average(g.ingresos, weights=g.w),
+        "gastos_pc": np.average(g.gastos, weights=g.w), "edad_media": np.average(g.edad, weights=g.w), "poblacion": g.w.sum(),
+        "n_muestral": len(g)}), include_groups=False).reset_index()
+    r.loc[r.n_muestral < 50, ["neta_pc", "ingresos_pc", "gastos_pc", "edad_media", "poblacion"]] = np.nan
+    return r.rename(columns={"grupo": "nacimiento"})
 
 
 def suprimidos(c: pd.DataFrame) -> pd.DataFrame:

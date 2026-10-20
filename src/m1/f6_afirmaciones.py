@@ -2,7 +2,7 @@
 sentidos, sin atribuirlas a nadie. Cada ficha: qué dice la contabilidad (A), qué dice la evidencia causal (B), qué depende de
 supuestos y veredicto («se sostiene», «se sostiene con matices», «engañosa», «incorrecta», «no se puede saber») con su confianza.
 Las cifras se citan con marcadores {{id}} de output/cifras_clave.csv y se sustituyen con render(). Mismas reglas para las
-afirmaciones favorables y desfavorables. La evidencia causal propia de M1 es la de la fase 5 pre-registrada (output/f5); la
+afirmaciones favorables y desfavorables. La evidencia causal propia de M1 es la de la fase 5, fijada de antemano (output/f5); la
 literatura verificada (docs/literatura) se cita aparte.
 Salidas: output/f6/afirmaciones.md y output/f6/afirmaciones.csv.
 """
@@ -19,9 +19,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from comun import OUT, Cifras, tabla_md  # noqa: E402
 
 O = OUT / "f6"
-CAUSAL_M1 = ("Estimación propia de M1 (fase 5, pre-registrada; corregido un error de código en el control de cuotas que cambió los signos): "
-             "la primera etapa del shift-share provincial es fuerte al nivel del shock (F = {{F5_P1_F_SHOCK}}), pero los conjuntos AKM0 no están "
-             "acotados, de modo que todas las preguntas causales quedan en ASOCIACIÓN y ninguna rechaza el cero con la corrección por multiplicidad.")
+CAUSAL_M1 = ("Estimación propia de M1 (fase 5, con el diseño fijado de antemano; corregido un error de código en el control de cuotas que cambió los signos): "
+             "la primera etapa del shift-share provincial supera el umbral de 10 (F al nivel del shock = {{F5_P1_F_SHOCK}}) pero no el valor crítico de "
+             "Montiel Olea y Pflueger ({{F5V_MOP_CRIT_10}}), y los conjuntos AKM0 no están acotados (no se descarta ningún efecto), de modo que todas las preguntas "
+             "causales quedan en ASOCIACIÓN y ninguna rechaza el cero con la corrección por multiplicidad.")
 
 FICHAS = [
     {"id": "A1", "sentido": "desfavorable", "afirmacion": "Los inmigrantes viven de las ayudas: reciben más prestaciones que los nacidos en España.",
@@ -94,9 +95,9 @@ FICHAS = [
                      "edad y sexo, frente a los nativos, la ventaja del resto de la UE se reduce mucho (positiva en las 64 combinaciones, pero no "
                      "distinguible de cero por muestreo) y la del resto del mundo, con un principal negativo solo de referencia, es positiva con bienes públicos a "
                      "coste marginal cero. En el ciclo vital, "
-                     "las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos; frente a un nativo de la misma edad, "
-                     "quien llega de fuera de la UE a los 20 años aporta menos y quien llega del resto de la UE a los 50 aporta más en todas las "
-                     "combinaciones sin convergencia adicional.",
+                     "sin convergencia, las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos; frente a un nativo de la misma edad, "
+                     "quien llega del resto de la UE a los 50 años aporta más con cualquier ritmo de convergencia salarial (nula, parcial o completa) y quien llega de "
+                     "fuera de la UE a los 20 aporta menos solo si no hay convergencia.",
      "causal": "No es causal: contabilidad (capa C2).",
      "supuestos": "En el resto del mundo el signo depende del reparto de los bienes públicos (coste medio o marginal) y de a quién se asignan los hijos nacidos en "
                   "España (decisión D11: solo intervalos).",
@@ -124,16 +125,17 @@ FICHAS = [
      "causal": "La comparación «sin migración» es una regla mecánica (empleo, cobertura y pensión relativa constantes), no un contrafactual identificado.",
      "supuestos": "Las cotizaciones de hoy generan derechos de pensión futuros: en el ciclo vital el valor actual de los nacidos fuera depende de la salida, el "
                   "descuento y los bienes públicos: para las llegadas entre 20 y 50 años el intervalo contiene el cero, y frente a un nativo de "
-                  "la misma edad quien llega de fuera de la UE a los 20 años aporta menos y quien llega del resto de la UE a los 50, más, en todas "
-                  "las combinaciones sin convergencia.",
+                  "la misma edad quien llega del resto de la UE a los 50 años aporta más con cualquier ritmo de convergencia salarial (nula, parcial o completa) y quien "
+                  "llega de fuera de la UE a los 20 aporta menos solo si no hay convergencia.",
      "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Es cierto que sus cotizaciones financian una parte de las pensiones corrientes; que sostengan el sistema es una afirmación contrafactual y de "
               "largo plazo que no está identificada (mismo estándar que A6)."},
     {"id": "F2", "sentido": "favorable", "afirmacion": "Sin inmigrantes no habría crecido el empleo.",
      "contabilidad": "El {{F3_EMP_CONTRIB_FUERA_2014_2025}} % del aumento de la ocupación de 2014-2025 y el {{F3_EMP_CONTRIB_HORAS_FUERA_2014_2025}} % del de las horas "
                      "corresponden a nacidos fuera.",
-     "causal": "El contrafactual (qué empleo habría sin inmigración) no está identificado: en la fase 5 la primera etapa del shift-share es "
-               "fuerte al nivel del shock, pero los conjuntos AKM0 no están acotados y todas las estimaciones quedan en ASOCIACIÓN; la contabilidad no lo dice.",
+     "causal": "El contrafactual (qué empleo habría sin inmigración) no está identificado: en la fase 5 la primera etapa del shift-share "
+               "no supera el valor crítico de Montiel Olea y Pflueger y los conjuntos AKM0 no están acotados y todas las estimaciones quedan en ASOCIACIÓN; la "
+               "contabilidad no lo dice.",
      "supuestos": "—", "veredicto": "no se puede saber", "confianza": "media",
      "razon": "Es cierto que la mayor parte del aumento del empleo corresponde a nacidos fuera, pero la afirmación es contrafactual («no habría crecido») y no "
               "está identificada (mismo estándar que A6)."},
@@ -141,8 +143,8 @@ FICHAS = [
      "contabilidad": "Véase A5: en la contabilidad estática, positiva en las 64 combinaciones para los nacidos en la UE, intervalo que contiene el cero para los "
                      "nacidos fuera de la UE y, para el conjunto, negativa solo con bienes públicos a coste medio e hijos asignados a sus padres; en el "
                      "ciclo vital, las llegadas entre 20 y 50 años tienen intervalos que contienen el cero para los dos grupos, las llegadas a los 0 años "
-                     "son negativas, y frente a un nativo de la misma edad quien llega de fuera de la UE a los 20 años aporta menos y quien llega "
-                     "del resto de la UE a los 50, más, en todas las combinaciones sin convergencia.",
+                     "son negativas sin convergencia, y frente a un nativo de la misma edad quien llega del resto de la UE a los 50 años aporta más con cualquier ritmo "
+                     "de convergencia salarial (nula, parcial o completa) y quien llega de fuera de la UE a los 20 aporta menos solo si no hay convergencia.",
      "causal": "No es causal.", "supuestos": "Bienes públicos e hijos nacidos en España.", "veredicto": "no se puede saber", "confianza": "alta",
      "razon": "En la contabilidad estática se sostiene para los nacidos en la UE; para el conjunto de inmigrantes y en el ciclo vital depende de "
               "supuestos (mismo estándar que A5)."},

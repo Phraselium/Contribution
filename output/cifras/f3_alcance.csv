@@ -1,0 +1,19 @@
+id,valor,ic_inf,ic_sup,unidad,descripcion,capa,clasificacion,fuente,periodo,ambito,grupo_origen,nivel_ajuste,script
+F3_ALC_PROV_PUBLICABLES_América_Latina,50.0,,,provincias,Provincias (de 52) con tasa de empleo publicable (≥ 50 observaciones en 2023-2025) para los nacidos en América Latina (a posteriori),C1,,EPA (INE),2023-2025,provincias,América Latina,bruto,src/m1/f3_alcance.py
+F3_ALC_PROV_PUBLICABLES_Asia,27.0,,,provincias,Provincias (de 52) con tasa de empleo publicable (≥ 50 observaciones en 2023-2025) para los nacidos en Asia (a posteriori),C1,,EPA (INE),2023-2025,provincias,Asia,bruto,src/m1/f3_alcance.py
+F3_ALC_PROV_PUBLICABLES_Resto,3.0,,,provincias,Provincias (de 52) con tasa de empleo publicable (≥ 50 observaciones en 2023-2025) para los nacidos en Resto (a posteriori),C1,,EPA (INE),2023-2025,provincias,Resto,bruto,src/m1/f3_alcance.py
+F3_ALC_PROV_PUBLICABLES_UE-13_y_otros_de_Europa,50.0,,,provincias,Provincias (de 52) con tasa de empleo publicable (≥ 50 observaciones en 2023-2025) para los nacidos en UE-13 y otros de Europa (a posteriori),C1,,EPA (INE),2023-2025,provincias,UE-13 y otros de Europa,bruto,src/m1/f3_alcance.py
+F3_ALC_PROV_PUBLICABLES_UE-14,44.0,,,provincias,Provincias (de 52) con tasa de empleo publicable (≥ 50 observaciones en 2023-2025) para los nacidos en UE-14 (a posteriori),C1,,EPA (INE),2023-2025,provincias,UE-14,bruto,src/m1/f3_alcance.py
+F3_ALC_PROV_PUBLICABLES_África,50.0,,,provincias,Provincias (de 52) con tasa de empleo publicable (≥ 50 observaciones en 2023-2025) para los nacidos en África (a posteriori),C1,,EPA (INE),2023-2025,provincias,África,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_25_54_FUERA_2025,74.0,,,% de 16-64,"Peso de 25-54 años en la población de 16-64 años, nacidos fuera",C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_16_24_FUERA_2025,10.9,,,% de 16-64,"Peso de 16-24 años en la población de 16-64 años, nacidos fuera",C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_55_64_FUERA_2025,15.2,,,% de 16-64,"Peso de 55-64 años en la población de 16-64 años, nacidos fuera",C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_MUJERES_FUERA_2025,52.7,,,% de 16-64,"Mujeres en la población de 16-64 años, nacidos fuera",C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_25_54_España_2025,59.4,,,% de 16-64,"Peso de 25-54 años en la población de 16-64 años, España",C1,,EPA (INE),2025,España,España,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_16_24_España_2025,16.5,,,% de 16-64,"Peso de 16-24 años en la población de 16-64 años, España",C1,,EPA (INE),2025,España,España,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_55_64_España_2025,24.1,,,% de 16-64,"Peso de 55-64 años en la población de 16-64 años, España",C1,,EPA (INE),2025,España,España,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_MUJERES_España_2025,48.9,,,% de 16-64,"Mujeres en la población de 16-64 años, España",C1,,EPA (INE),2025,España,España,bruto,src/m1/f3_alcance.py
+F3_ALC_EMP_FUERA_NACIONALIZADOS_2025,73.2,,,%,Tasa de empleo 16-64 de los nacidos fuera con nacionalidad española (18572 observaciones; a posteriori),C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_25_54_FUERA_NACIONALIZADOS_2025,70.3,,,% de 16-64,Peso de 25-54 años entre los nacidos fuera con nacionalidad española,C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_alcance.py
+F3_ALC_EMP_FUERA_EXTRANJEROS_2025,64.5,,,%,Tasa de empleo 16-64 de los nacidos fuera sin nacionalidad española (27050 observaciones; a posteriori),C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_alcance.py
+F3_ALC_CUOTA_25_54_FUERA_EXTRANJEROS_2025,75.6,,,% de 16-64,Peso de 25-54 años entre los nacidos fuera sin nacionalidad española,C1,,EPA (INE),2025,España,nacidos fuera,bruto,src/m1/f3_alcance.py
