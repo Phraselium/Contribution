@@ -12,18 +12,19 @@ SUGESTIVO, ASOCIACIÓN, NO ESTIMABLE. El documento solo ha tenido revisores inte
 | El 19,3 % de la población nació fuera (ECP 2025). Tasa de empleo de 25-54 años: 73,2 % frente a 82,3 %; a igual edad y sexo (16-64), −5,3 pp; paro 14,0 % frente a 9,4 % | C1 (bruto); C4 (ajustado) |
 | La brecha salarial por hora de los extranjeros es −18,1 % en bruto y −6,2 % con edad, sexo, estudios y región | C1 / C4 |
 | Contribución fiscal neta estática 2024 por persona (con déficit): nacidos en España −1.404 € [−1.990, −673]; resto de la UE +3.398 € [726, 5.915]; resto del mundo −191 € [−2.118, 2.792]. Solo se afirma el intervalo de 64 combinaciones | C2 |
-| A igual edad y sexo, la ventaja del resto de la UE baja a +240 € y la del resto del mundo es −1.708 € (intervalo de supuestos con el cero) | C4 |
+| A igual edad y sexo, la ventaja del resto de la UE baja a +240 € y la del resto del mundo es −1.708 € (intervalo de supuestos con el cero). La contribución del resto del mundo a igual edad y sexo, [−3.223, −12], está al límite: con un 10 % de infradeclaración diferencial de sus rentas contiene el cero | C4 |
+| Cobertura de la ECV antes de escalar: 88 % en IRPF y cotizaciones del trabajador, 103 % en vejez; escalado con un factor único por partida, igual para todos los grupos. Con infradeclaración diferencial de los nacidos fuera del 10 %, su diferencia con los nativos pasa a ser positiva en las 64 combinaciones | C2 |
 | El signo del conjunto de nacidos fuera lo decide la asignación de los hijos nacidos en España y el coste de los bienes públicos | C2 |
-| Ciclo vital: ninguna diferencia con un nativo de la misma edad tiene signo en los cuatro escenarios de convergencia salarial (divergente, nula, parcial, completa); la del resto de la UE a los 50 años es positiva salvo con divergencia | C2 |
-| Pensiones: regla mecánica, 4,4 puntos de PIB más en 2050 sin migración (3,4 con empleo y salario relativos) | C2; como efecto, NO ESTIMABLE |
-| Impacto en el empleo, el paro, los salarios y los servicios de los nativos (shift-share de Card por provincia, Borjas por celdas, P3 educación, P5 Europa) | Todo ASOCIACIÓN o NO ESTIMABLE. Conjuntos AKM0 no acotados; F efectivo 17,9 < 23,1 (Montiel Olea-Pflueger) |
+| Ciclo vital: con la convergencia salarial que estima la literatura española leída (c entre 0 y 0,5; Izquierdo, Lacuesta y Vegas 2009), quien llega del resto de la UE a los 50 años aporta más que un nativo de su edad; en la prueba de estrés con divergencia (c = −0,5) ninguna diferencia con los nativos conserva el signo | C2 |
+| Pensiones: regla mecánica (PIB proporcional a la población de 20-64), en el anexo J. Con la misma variación de la migración que el Ageing Report 2024 (±33 %), +1,7 / −1,4 puntos en 2050 frente a +1,4 / −1,2 en el Ageing Report; sin migración, 4,4 (no comparable con ninguna fuente) | C2; como efecto, NO ESTIMABLE |
+| Impacto en el empleo, el paro, los salarios y los servicios de los nativos (shift-share de Card por provincia, Borjas por celdas, P3 educación, P5 Europa) | Todo ASOCIACIÓN o NO ESTIMABLE. Conjuntos AKM0 no acotados; F efectivo 17,9 < 23,1 (Montiel Olea-Pflueger). Con información pública el diseño no tiene potencia: efecto mínimo detectable en el empleo de los nativos 1,15 pp por pp (1,21 con el error implícito de AKM0) |
 | Indicio desfavorable P1-E3a (empleo de nativos con estudios bajos, −0,61 pp por pp) | C4 / ASOCIACIÓN; no supera BH ni el wild bootstrap; en parte composición por edad; depende de una comunidad |
 
 Las sumas fiscales cuadran con el saldo B9 de 2024 y con cada partida de la contabilidad nacional (pruebas automáticas, docs/cuadre.md).
 
 ## Preguntas para un economista laboral (parte causal)
 
-1. Con F al nivel del shock 13,5 y F efectivo 17,9 (por debajo de 23,1), ¿es preferible publicar solo la forma reducida y los
+1. Con F efectivo 17,9 (por debajo de 23,1; el diagnóstico al nivel del shock, 13,5, está en el anexo A), ¿es preferible publicar solo la forma reducida y los
    conjuntos AKM0, sin la estimación puntual de MC2E?
 2. Los intervalos de Anderson-Rubin agrupados por provincia están acotados y los AKM0 no. ¿Qué inferencia debe primar, y es
    correcto decir que los AR agrupados son optimistas por no recoger la correlación entre provincias con orígenes parecidos?

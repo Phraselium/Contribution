@@ -1,4 +1,10 @@
 pregunta,referencia,doi,estado
+comparacion_externa,"2.1 OCDE, International Migration Outlook 2021, cap. 4 (Damas de Matos)",10.1787/29f23e9d-en,"NO VERIFICADA (discrepa: título, primer autor (OECD))"
+comparacion_externa,2.2 AIReF: Opiniones sobre la sostenibilidad de las AAPP a largo plazo (2023 y 2025) y Recuadro 5 (2025),,NO VERIFICADA (sin DOI)
+comparacion_externa,"2.3 Comisión Europea, 2024 Ageing Report (IP 279)",,NO VERIFICADA (sin DOI)
+comparacion_externa,"2.4 Banco de España, Informe Anual 2025 (publicado en junio de 2026)",10.53479/43565,VERIFICADA (Crossref)
+comparacion_externa,2.5 Literatura española sobre el efecto en el empleo y los salarios de los nativos,,NO VERIFICADA (sin DOI)
+comparacion_externa,"2.6 Fiorio, Frattini, Riganti y Christl (2023), International Tax and Public Finance",10.1007/s10797-023-09787-9,NO VERIFICADA (discrepa: título)
 fiscal,"Damas de Matos, A. (OCDE) (2021). The fiscal impact of immigration in OECD countries since the mid-2000s (International Migration Outlook 2021, cap. 4)",10.1787/29f23e9d-en,NO VERIFICADA (discrepa: primer autor (OECD))
 fiscal,"Christl, M., Bélanger, A., Conte, A., Mazza, J. y Narazani, E. (2021). The fiscal impact of immigration in the EU",,NO VERIFICADA (sin DOI)
 fiscal,"Christl, M., Bélanger, A., Conte, A., Mazza, J. y Narazani, E. (2022). Projecting the fiscal impact of immigration in the European Union",10.1111/1475-5890.12314,VERIFICADA (Crossref)
