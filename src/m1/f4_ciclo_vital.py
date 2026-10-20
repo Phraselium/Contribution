@@ -3,8 +3,9 @@ supuestos explícitos; no identifica efectos). Sin red.
 
 Perfiles por edad (tramos de 5 años) de la contabilidad estática de 2024 (output/f4/perfil_edad_2024.csv, escenario principal):
 impuestos y cotizaciones, prestaciones no contributivas y de desempleo, pensiones (vejez y supervivencia), sanidad, educación y
-bienes públicos. Los tramos con menos de 50 observaciones (suprimidos) NO se interpolan: se usa el perfil de los nacidos en España de
-esa edad escalado por la razón grupo/nativos del tramo observado más próximo, bloque a bloque (impuestos, prestaciones, pensiones).
+bienes públicos. Los tramos con menos de 50 observaciones (suprimidos) NO se interpolan: se usa la forma por edad del perfil de los
+nacidos en España, partida a partida, reescalada al total del grupo en esos tramos (corrección a posteriori: así los perfiles
+agregados con la pirámide de la ECV reproducen los totales de la contabilidad estática; tests/test_cuadre_fiscal.py).
 Para una persona que llega a la edad a0 en 2024 se proyecta cada año de vida hasta los 100 con:
 - supervivencia de la tabla de mortalidad de España (Eurostat demo_mlifetable, último año);
 - salida (retorno o reemigración) con riesgo que decrece con la duración de la residencia: riesgos relativos 1; 0,5; 0,25; 0,1 en
@@ -38,7 +39,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from comun import OUT, RAW, Cifras  # noqa: E402
+from comun import OUT, PROC, RAW, Cifras  # noqa: E402
 
 O = OUT / "f4"
 PNC = 7250.0
@@ -55,6 +56,11 @@ BLOQUES = {"tax": TAX, "conv": CONV, "pens": PENS}   # OTROS no se escala: es ig
 DUR = [(0, 5, 1.0), (5, 10, 0.5), (10, 20, 0.25), (20, 200, 0.1)]   # riesgos relativos de salida por años de residencia
 
 
+SUPR = pd.read_csv(PROC / "perfil_suprimidos_2024.csv") if (PROC / "perfil_suprimidos_2024.csv").exists() else pd.DataFrame(
+    columns=["grupo"])
+PIR = pd.read_csv(O / "piramide_ecv_2024.csv") if (O / "piramide_ecv_2024.csv").exists() else pd.DataFrame(columns=["grupo"])
+
+
 def perfiles(escalar: bool = True) -> dict[str, pd.DataFrame]:
     p = pd.read_csv(O / "perfil_edad_2024.csv")
     p = p[p.e >= 0]
@@ -64,14 +70,23 @@ def perfiles(escalar: bool = True) -> dict[str, pd.DataFrame]:
     for g, x in p.groupby("grupo"):
         x = x.set_index("e").sort_index()
         x = x[num].where(x.n_muestral >= 50).reindex(nat.index)
-        obs = x.dropna(how="all").index
-        for e in x.index[x.isna().all(axis=1)]:          # tramo suprimido: perfil nativo escalado por el tramo observado más próximo
-            e0 = min(obs, key=lambda o: (abs(o - e), o))
-            for cols in BLOQUES.values():
-                den = nat.loc[e0, cols].sum()
-                x.loc[e, cols] = nat.loc[e, cols] * (x.loc[e0, cols].sum() / den if (den > 0 and escalar) else 1.0)
-            otros = [c for c in num if not any(c in b for b in BLOQUES.values())]
-            x.loc[e, otros] = nat.loc[e, otros]
+        supr = x.index[x.isna().all(axis=1)]
+        if escalar and len(supr):
+            # tramos suprimidos (corrección a posteriori, verificación tras el cierre): forma por edad de los nacidos en España, partida
+            # a partida, reescalada para que el total ponderado de esos tramos sea el de la contabilidad estática del grupo (totales
+            # agrupados por segmento, de uso interno). La versión anterior escalaba por bloques con el tramo observado más próximo y no
+            # reproducía los totales (resto de la UE: contribución neta total un 20 % menor que la estática).
+            seg = SUPR[SUPR.grupo == g]
+            pir = PIR[PIR.grupo == g].set_index("e").poblacion
+            for _, r in seg.iterrows():
+                es = [int(e) for e in str(r.edades).split(";")]
+                for col in num:
+                    den = float((nat.loc[es, col] * pir.reindex(es)).sum())
+                    x.loc[es, col] = (nat.loc[es, col] * r[col] / den) if abs(den) > 1e-9 else r[col] / r.poblacion
+        else:
+            # variante «sin escalar»: perfil de los nacidos en España tal cual
+            for e in supr:
+                x.loc[e, num] = nat.loc[e, num]
         idx = pd.DataFrame(index=range(0, 101))
         idx["e"] = (idx.index.to_series().clip(upper=85) // 5) * 5
         out[g] = idx.join(x, on="e").drop(columns=["e"])

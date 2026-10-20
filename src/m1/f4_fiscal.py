@@ -20,7 +20,7 @@ GASTOS
 - Prestaciones monetarias (D62 por función COFOG): importes de la ECV (observado) calibrados al total de su función: desempleo
   (GF1005 ↔ PY090G), vejez (GF1002 ↔ PY100G), supervivencia (GF1003 ↔ PY110G), enfermedad e incapacidad (GF1001 ↔ PY120G+PY130G),
   familia (GF1004 ↔ HY050G), exclusión social (GF1007 ↔ HY060G), vivienda (GF1006 ↔ HY070G).
-- Sanidad en especie (GF07 sin D62): perfil de uso por edad y sexo de la ENSE 2017 por tipo de servicio (fármacos ↔ GF0701,
+- Sanidad (GF07 total, en especie y sus D62; hasta la verificación a posteriori se omitía el D62): perfil de uso por edad y sexo de la ENSE 2017 por tipo de servicio (fármacos ↔ GF0701,
   consultas ↔ GF0702, hospital y urgencias ↔ GF0703; el resto por persona).
 - Educación en especie (GF09 sin D62): 3-11 años ↔ GF0901; 12-15 años y estudiantes de secundaria ↔ GF0902; estudiantes
   universitarios ↔ GF0904; el resto por estudiante.
@@ -206,12 +206,13 @@ def contribuciones(d: pd.DataFrame, ctas: dict, perf: pd.DataFrame, rat: pd.Data
         fuera = d.nacimiento3 != "España"
         for v in idx:
             idx[v] = idx[v] * np.where(fuera, amp.map(raz[f"razon_{v}"]).astype(float), 1.0)
-    sanidad_te = te["GF07"] - d62.get("GF07", 0)
-    out["gas_sanidad"] = (reparto(idx["far"], te["GF0701"] - d62.get("GF0701", 0)) +
-                          reparto(idx["consultas"], te["GF0702"] - d62.get("GF0702", 0)) +
+    # gasto sanitario total (TE de GF07), incluidas sus prestaciones monetarias D62 (reembolsos), con el perfil de su subfunción.
+    # Corrección a posteriori (verificación tras el cierre): la versión anterior restaba el D62 de GF07 (1.735 M€ en 2024) y no lo
+    # imputaba en ninguna partida, de modo que la suma de las contribuciones netas no cuadraba con el saldo de las AAPP.
+    out["gas_sanidad"] = (reparto(idx["far"], te["GF0701"]) + reparto(idx["consultas"], te["GF0702"]) +
                           reparto(0.8 * idx["hosp"] / max(idx["hosp"].mean(), 1e-9) + 0.2 * idx["urg"] / max(idx["urg"].mean(), 1e-9),
-                                  te["GF0703"] - d62.get("GF0703", 0)) +
-                          reparto(pd.Series(1.0, index=d.index), sanidad_te - sum(te[f] - d62.get(f, 0) for f in ("GF0701", "GF0702", "GF0703"))))
+                                  te["GF0703"]) +
+                          reparto(pd.Series(1.0, index=d.index), te["GF07"] - sum(te[f] for f in ("GF0701", "GF0702", "GF0703"))))
     # educación en especie
     est = d.PE010 == 1
     prim = d.edad.between(3, 11).astype(float)
@@ -346,6 +347,8 @@ def main() -> int:
     r25 = todos[todos.anio_cuentas == 2024].set_index("grupo")
     r25.to_csv(O / "neta_por_grupo_2024.csv")
     perfil_edad(principal).to_csv(O / "perfil_edad_2024.csv", index=False)
+    piramide(principal).to_csv(O / "piramide_ecv_2024.csv", index=False)
+    suprimidos(principal).to_csv(PROC / "perfil_suprimidos_2024.csv", index=False)
     regiones(principal, ctas25["pib"]).to_csv(O / "neta_por_region_2024.csv", index=False)
     signos = []
     for g in GR:
@@ -469,6 +472,28 @@ def perfil_edad(c: pd.DataFrame) -> pd.DataFrame:
                                         include_groups=False).reset_index()
     r.loc[r.n_muestral < 50, cols] = np.nan
     return r
+
+
+def piramide(c: pd.DataFrame) -> pd.DataFrame:
+    """Población ponderada de la ECV por grupo y tramo de 5 años (la pirámide implícita en la contabilidad de 2024). Se usa en la
+    prueba de cuadre del ciclo vital (tests/test_cuadre_fiscal.py, a posteriori). Es un recuento ponderado, no una media de celda."""
+    c = c.assign(e=(c.edad.clip(upper=85) // 5) * 5)
+    return c.groupby(["grupo", "e"]).agg(poblacion=("w", "sum"), n_muestral=("w", "size")).reset_index()
+
+
+def suprimidos(c: pd.DataFrame) -> pd.DataFrame:
+    """Totales ponderados de cada partida en los tramos de edad suprimidos del perfil (n < 50), agrupados por grupo y segmento
+    (jóvenes: tramos por debajo de 45 años; mayores: el resto). Uso interno del ciclo vital (no se publica; data/processed): permite
+    que los perfiles del ciclo vital reproduzcan los totales de la contabilidad estática (prueba de cuadre a posteriori). Es el mismo
+    criterio que la estandarización: el umbral de 50 se aplica a lo publicado, no a los términos de un agregado."""
+    c = c.assign(e=(c.edad.clip(upper=85) // 5) * 5)
+    c = c.assign(n_celda=c.groupby(["grupo", "e"]).w.transform("size"), segmento=np.where(c.e < 45, "joven", "mayor"))
+    cols = ["ingresos", "gastos", "neta"] + [x for x in c.columns if x.startswith(("ing_", "gas_"))]
+    filas = []
+    for (g, seg), x in c[c.n_celda < 50].groupby(["grupo", "segmento"]):
+        filas.append({"grupo": g, "segmento": seg, "edades": ";".join(str(int(e)) for e in sorted(x.e.unique())),
+                      "poblacion": x.w.sum(), "n_obs": len(x), **{k: float((x[k] * x.w).sum()) for k in cols}})
+    return pd.DataFrame(filas)
 
 
 def regiones(c: pd.DataFrame, pib: float) -> pd.DataFrame:
