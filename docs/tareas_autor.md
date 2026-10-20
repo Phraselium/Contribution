@@ -39,3 +39,33 @@ git rev-list -n1 prereg-m1   # debe dar c247555d37e8d0dee45b87c3b959f35a47b762fb
   solo certificaría que el plan existía **desde la fecha de subida**, que ya es posterior a las estimaciones; no puede acreditar que
   existía antes de ellas. La única prueba de anterioridad disponible es el orden de los commits en el historial remoto de GitHub, que
   depende de la confianza en el repositorio.
+
+## Congelación (a posteriori, 21-10-2026): comprobaciones previas y Release de GitHub
+
+**Comprobaciones hechas en la sesión (solo lectura):**
+- `git merge-base --is-ancestor c247555d37e8d0dee45b87c3b959f35a47b762fb origin/claude/m1-contribucion-origen` → sí es ancestro.
+- `git log c247555..HEAD -- docs/preregistro.md docs/preregistro_adenda.md` → vacío: el plan y su adenda no han cambiado.
+- `git ls-tree -r --name-only c247555` → no hay ningún fichero de output/f5 ni registro de estimaciones causales; los únicos
+  `resultado.json` son los siete del Monte Carlo con datos simulados (output/montecarlo/{adenda_a5,bhj,conley,dfl,iv2sls,oaxaca,wcr_boot}).
+
+**Orden completa, desde tu ordenador** (la sesión no crea, mueve ni empuja etiquetas):
+
+```
+git fetch origin claude/m1-contribucion-origen --tags
+git tag -a prereg-m1 c247555d37e8d0dee45b87c3b959f35a47b762fb -m "Plan de análisis interno M1 (fase 5), fijado en c247555d37e8d0dee45b87c3b959f35a47b762fb"
+git push origin refs/tags/prereg-m1
+gh release create prereg-m1 --repo Phraselium/Contribution --verify-tag \
+  --title "M1 · plan de análisis interno (fase 5)" \
+  --notes "Plan de análisis interno de la fase 5 (docs/preregistro.md y docs/preregistro_adenda.md) fijado en el commit c247555d37e8d0dee45b87c3b959f35a47b762fb. La fecha de esta Release la pone el servidor de GitHub y solo certifica que la etiqueta existía en ese momento."
+gh api repos/Phraselium/Contribution/releases/tags/prereg-m1 --jq '.created_at, .published_at'
+```
+
+(Sin gh: en GitHub, Releases → «Draft a new release» → «Choose a tag: prereg-m1» → «Publish release».)
+
+**Por qué la fecha de la etiqueta no certifica nada por sí sola.** La fecha de una etiqueta anotada (tagger date) y la del commit las
+pone el reloj de quien las crea y se pueden fijar a voluntad (`GIT_COMMITTER_DATE`); una etiqueta puede además crearse hoy sobre un
+commit antiguo. La fecha de la Release (`created_at`/`published_at`) la pone el servidor de GitHub: certifica que la etiqueta existía
+en esa fecha, pero esa fecha será posterior a las estimaciones de la fase 5. Lo único que indica que el plan es anterior a las
+estimaciones es el orden de los commits en el historial remoto (c247555 antes de ea10513, el primer commit con resultados), que
+depende de la confianza en el repositorio y en que no se haya reescrito el historial. Ni la etiqueta ni la Release convierten el
+plan de análisis interno en un pre-registro externo.

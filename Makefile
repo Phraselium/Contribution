@@ -5,7 +5,9 @@ PY := python3
 SEED := 20261019
 export PYTHONHASHSEED := 0
 
-.PHONY: m1_f0 m1_f1 m1_f2 m1_f2_descarga m1_f3 m1_f4 m1_f5 m1_f6 m1_f7 check publicacion web cifras estado prereg
+.PHONY: all m1_f0 m1_f1 m1_f2 m1_f2_descarga m1_f3 m1_f4 m1_f5 m1_f6 m1_f7 check publicacion web cifras estado prereg
+
+all: m1_f0 m1_f1 m1_f2 m1_f3 m1_f4 m1_f5 m1_f6 m1_f7 publicacion web   ## Todo el pipeline en orden, sin red y sin borrar nada (solo por orden del autor)
 
 m1_f0:                ## Montaje e inventario de lo público (sin red)
 	$(PY) src/m1/fase.py 0
