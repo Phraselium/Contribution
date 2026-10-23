@@ -115,6 +115,10 @@ def direcciones(xa: pd.DataFrame, cf) -> pd.DataFrame:
                r.capa, "ECV, EPF, ENSE, cuentas de las AAPP y balanza de pagos", "2024", "España", r.grupo, ic_inf=round(r.min, 0), ic_sup=round(r.max, 0))
         cf.add(k + "_NEG", round(r.pct_negativas, 0), "% de las combinaciones", f"{r.comparacion}: porcentaje de las 512 combinaciones con signo "
                "negativo (a posteriori)", r.capa, "ECV, EPF, ENSE, cuentas de las AAPP y balanza de pagos", "2024", "España", r.grupo)
+        cf.add(k + "_ESCPOS", int(r.esc_positivos), "escenarios", f"{r.comparacion}: escenarios (de 8) cuyo intervalo de 64 combinaciones es "
+               "positivo (a posteriori)", r.capa, "ECV, EPF, ENSE, cuentas de las AAPP y balanza de pagos", "2024", "España", r.grupo)
+        cf.add(k + "_ESCNEG", int(r.esc_negativos), "escenarios", f"{r.comparacion}: escenarios (de 8) cuyo intervalo de 64 combinaciones es "
+               "negativo (a posteriori)", r.capa, "ECV, EPF, ENSE, cuentas de las AAPP y balanza de pagos", "2024", "España", r.grupo)
         cf.add(k + "_ESC0", int(r.esc_contienen_cero), "escenarios", f"{r.comparacion}: escenarios (de 8) cuyo intervalo de 64 combinaciones "
                f"contiene el cero ({int(r.esc_positivos)} positivos, {int(r.esc_negativos)} negativos; a posteriori)", r.capa,
                "ECV, EPF, ENSE, cuentas de las AAPP y balanza de pagos", "2024", "España", r.grupo)
@@ -141,7 +145,8 @@ def main() -> int:
         cf.add(f"F4_COB_{i:02d}", round(float(r.cobertura_pct), 1), "% del total de las cuentas", f"Cobertura antes de escalar: {r.partida} "
                f"({r.fuente}) frente a la contabilidad nacional; {r.escalado} (a posteriori)", "C2", f"{r.fuente} y Eurostat", "2024", "España", "todos")
     filas = []
-    for esc, dd, extra in ESCENARIOS:
+    desde = "--desde-rejilla" in sys.argv and (O / "infradeclaracion_rejilla.csv").exists()   # resúmenes sin recalcular la rejilla
+    for esc, dd, extra in ([] if desde else ESCENARIOS):
         for comb in itertools.product([True, False], ["edad_sexo", "observado"], ["medio", "marginal"], ["hijo", "padres"],
                                       ["epf", "uniforme"], ["rentas", "persona"]):
             s = {**dict(zip(SUP, comb)), **extra}
@@ -155,8 +160,11 @@ def main() -> int:
                               "dif_nat": rr.loc[g, "neta"] - rr.loc["España", "neta"],
                               "dif_nat_est": est.loc[g, "neta_est"] - est.loc[g, "nat_neta_mismas"], "neta_fuera": neta_fuera,
                               "dif_fuera": neta_fuera - rr.loc["España", "neta"]})
-    xa = pd.DataFrame(filas)
-    xa.to_csv(O / "infradeclaracion_rejilla.csv", index=False)
+    if desde:
+        xa = pd.read_csv(O / "infradeclaracion_rejilla.csv")
+    else:
+        xa = pd.DataFrame(filas)
+        xa.to_csv(O / "infradeclaracion_rejilla.csv", index=False)
     direcciones(xa, cf)
     x = xa[xa.escenario.isin(["base", "gravada"])].copy()      # la rejilla original (renta gravada) conserva sus cifras
     princ = np.logical_and.reduce([x[k] == v for k, v in ff.PRINCIPAL.items()])

@@ -194,7 +194,7 @@ def render(texto: str, cifras: pd.DataFrame) -> str:
             return "n. d."
         v = float(v)
         u = str(unidad)
-        entero = any(k in u for k in ("posición", "provincias", "€", "miles de hogares", "especificaciones", "combinaciones")) or abs(v) >= 100
+        entero = any(k in u for k in ("posición", "provincias", "€", "miles de hogares", "especificaciones", "combinaciones", "escenarios")) or abs(v) >= 100
         if entero:
             s = f"{v:,.0f}"
         elif u in ("p", "p ajustado"):

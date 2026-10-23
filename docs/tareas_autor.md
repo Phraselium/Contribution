@@ -20,7 +20,7 @@ git ls-remote origin "refs/tags/prereg-m1^{}"   # debe devolver c247555d37e8d0de
 
 y, si quieres una fecha de servidor, la Release de GitHub descrita al final de este fichero. Hasta que lo hagas, la puerta de la fase 5
 está cerrada en cualquier copia del repositorio (src/m1/etiquetas.py): `make m1_f5`, `make m1_f6`, `make m1_f7` y la puerta «fase 5» de
-`make check` fallan, salvo con la variable de trabajo sin red `M1_ETIQUETAS_REMOTAS`, que sustituye la consulta al remoto.
+`make check` fallan (en el commit final de la sesión, `make check` pasa todas las demás puertas). La variable `M1_ETIQUETAS_REMOTAS` existe para tests y trabajo sin red; no debe usarse para abrir la puerta mientras la etiqueta no exista en el remoto.
 
 ---
 
