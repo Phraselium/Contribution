@@ -18,6 +18,14 @@ infradeclaración diferencial de rentas de los nacidos fuera. Sin red. No cambia
    cuentas; (c) IVA con remesas: la base de consumo de cada grupo de nacidos fuera se reduce por las remesas de trabajadores pagadas al
    exterior en 2024 (D752W, débitos, balanza de pagos del Banco de España vía Eurostat bop_rem6), las de socios UE-27 atribuidas a los
    nacidos en el resto de la UE y las de fuera de la UE a los nacidos fuera de la UE (supuesto explícito), en proporción a su renta.
+   Supuesto y sesgo: el país de destino de la remesa se usa como indicador del origen de quien la envía porque no hay una fuente
+   pública de remesas por país de nacimiento del emisor. Es una aproximación: (i) atribuye a los nacidos fuera todas las remesas,
+   aunque parte las envían nacidos en España (descendientes de emigrantes, hogares mixtos, transferencias familiares a residentes en
+   el extranjero), lo que sobrestima sus remesas y subestima su consumo y su IVA (sesgo desfavorable a los nacidos fuera); (ii) un
+   nacido fuera de la UE que envía dinero a familia en otro país de la UE (o al revés) se asigna al grupo equivocado, con un efecto
+   pequeño porque las remesas a la UE son el 6 % del total; (iii) el reparto proporcional a la renta dentro de cada grupo ignora que la
+   propensión a remitir suele ser mayor en los recién llegados de renta baja. La variante es, por tanto, una cota del lado
+   desfavorable para los nacidos fuera, no una estimación central.
    Tabla única: output/f4/infradeclaracion_direcciones.csv.
 """
 from __future__ import annotations

@@ -52,3 +52,8 @@ Revisión final de coherencia (10 incoherencias, una grave en tablas_m1.xlsx: oc
 
 ## Verificación a posteriori tras el cierre (20-10-2026)
 Encargo de 12 puntos sin bucles de autocrítica; todo rotulado «a posteriori» (desviación 25). Cuadre contable en `make check` (tests/test_cuadre_fiscal.py): fallaban (a) y (b) por 1.735 M€ (D62 sanitario omitido) y (c) para el resto de la UE (−20 % de la neta total): corregidos; 86 cifras cambian, en decenas de euros (docs/cuadre.md). Orden de la fase 4 corregido en fase.py. Fase 5: F efectivo 17,9 < 23,1 (se retira «fuerte»); EMD, Anderson-Rubin, curva de especificaciones y quitar una comunidad (anexo G). Ciclo vital: con cuatro escenarios de convergencia (incluido uno divergente, pedido por el árbitro en la ronda 5) ninguna diferencia con los nativos conserva el signo. Convenciones fiscales, cruce nacimiento × nacionalidad, empleo por provincia y grupo, κ de pensiones, comparación externa (anexo H), inventario (docs/inventario_entregas.md), brief (docs/brief_revisores.md), ronda 5 (docs/rondas/ronda_5_verificacion.md). Etiqueta: c247555 (docs/tareas_autor.md); no se crea ni se empuja.
+
+## Corrección sobre la etiqueta (23-10-2026, a posteriori)
+La etiqueta local prereg-m1 la creó el asistente el 19-10-2026 a las 15:19:09 UTC, con la identidad git del contenedor (que es la del
+autor); los apartados anteriores que hablan de «la etiqueta local» y de «subirla» se refieren a ella. Se borró el 23-10-2026 por orden
+del autor: ya no existe ninguna etiqueta prereg-m1, ni local ni remota. El autor debe crearla desde cero (docs/tareas_autor.md).

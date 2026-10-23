@@ -1,6 +1,30 @@
 # Tareas del autor (fuera de esta sesión)
 
-## Subir la etiqueta del pre-registro
+## ⚠ Estado de la etiqueta a 23-10-2026 (sustituye a todo lo anterior sobre la etiqueta)
+
+**No existe ninguna etiqueta prereg-m1, ni local ni en el remoto, que haya que subir.** La etiqueta local que había en el
+contenedor la creó el asistente el 19-10-2026 a las 15:19:09 UTC (no el autor) y se borró el 23-10-2026 por orden del autor
+(`git tag -d prereg-m1`; `git tag -l` vacío). `git ls-remote origin "refs/tags/prereg-m1^{}"` no devuelve nada. Las secciones de
+abajo que hablan de «subir la etiqueta», de «la etiqueta local» o de que «la sesión no crea etiquetas» son históricas y están
+corregidas por esta (docs/autoevaluacion.md, «Incidencias de proceso»).
+
+**Lo que tienes que hacer, desde cero y en tu ordenador:**
+
+```
+git clone --branch claude/m1-contribucion-origen https://github.com/Phraselium/Contribution.git M1 && cd M1
+git tag -l prereg-m1          # debe salir vacío
+git tag -a prereg-m1 c247555d37e8d0dee45b87c3b959f35a47b762fb -m "Plan de análisis interno M1 (fase 5), fijado en c247555d37e8d0dee45b87c3b959f35a47b762fb"
+git push origin refs/tags/prereg-m1
+git ls-remote origin "refs/tags/prereg-m1^{}"   # debe devolver c247555d37e8d0dee45b87c3b959f35a47b762fb
+```
+
+y, si quieres una fecha de servidor, la Release de GitHub descrita al final de este fichero. Hasta que lo hagas, la puerta de la fase 5
+está cerrada en cualquier copia del repositorio (src/m1/etiquetas.py): `make m1_f5`, `make m1_f6`, `make m1_f7` y la puerta «fase 5» de
+`make check` fallan, salvo con la variable de trabajo sin red `M1_ETIQUETAS_REMOTAS`, que sustituye la consulta al remoto.
+
+---
+
+## [Histórico, 19-10-2026] Subir la etiqueta del pre-registro
 
 El proxy de la sesión rechazó `git push origin prereg-m1` con HTTP 403 (la rama sí subió). La puerta de la fase 5 acepta la etiqueta local porque su commit está en `origin/claude/m1-contribucion-origen`, pero conviene que la etiqueta exista también en el remoto. Desde tu ordenador, con el repositorio clonado y la rama actualizada:
 
@@ -24,7 +48,7 @@ Nota: la etiqueta local original tiene fecha de etiquetado anterior a cualquier 
   vacío) y el primer commit con resultados de la fase 5 es posterior (ea10513, 16:31 UTC). No es HEAD. La etiqueta local ya apunta ahí
   (`git rev-list -n1 prereg-m1` = c247555…). El plan general del estudio (docs/plan.md, sin especificaciones econométricas) se fijó
   antes, en c0ceaac4e09945ad1021892eb730bd01d8199aae; no es el que acredita el análisis causal.
-- **Orden exacta (desde tu ordenador; la sesión no crea ni empuja la etiqueta):**
+- **Orden exacta (desde tu ordenador; la sesión no crea ni empuja la etiqueta):** [corrección del 23-10-2026: la sesión sí había creado una etiqueta local el 19-10-2026; ya está borrada]
 
 ```
 git fetch origin claude/m1-contribucion-origen --tags
@@ -40,7 +64,7 @@ git rev-list -n1 prereg-m1   # debe dar c247555d37e8d0dee45b87c3b959f35a47b762fb
   existía antes de ellas. La única prueba de anterioridad disponible es el orden de los commits en el historial remoto de GitHub, que
   depende de la confianza en el repositorio.
 
-## Congelación (a posteriori, 21-10-2026): comprobaciones previas y Release de GitHub
+## Congelación (a posteriori, 20-10-2026; rotulada por error «21-10-2026» hasta el 23-10-2026): comprobaciones previas y Release de GitHub
 
 **Comprobaciones hechas en la sesión (solo lectura):**
 - `git merge-base --is-ancestor c247555d37e8d0dee45b87c3b959f35a47b762fb origin/claude/m1-contribucion-origen` → sí es ancestro.
@@ -48,7 +72,7 @@ git rev-list -n1 prereg-m1   # debe dar c247555d37e8d0dee45b87c3b959f35a47b762fb
 - `git ls-tree -r --name-only c247555` → no hay ningún fichero de output/f5 ni registro de estimaciones causales; los únicos
   `resultado.json` son los siete del Monte Carlo con datos simulados (output/montecarlo/{adenda_a5,bhj,conley,dfl,iv2sls,oaxaca,wcr_boot}).
 
-**Orden completa, desde tu ordenador** (la sesión no crea, mueve ni empuja etiquetas):
+**Orden completa, desde tu ordenador** (la sesión no crea, mueve ni empuja etiquetas) [corrección del 23-10-2026: la etiqueta local que existía la había creado la sesión el 19-10-2026; ya está borrada]:
 
 ```
 git fetch origin claude/m1-contribucion-origen --tags

@@ -1,6 +1,6 @@
 # Reproducción en limpio (congelación, a posteriori)
 
-Fecha: 20/21-10-2026. Objetivo: reconstruir todas las cifras desde un clon nuevo del repositorio remoto, con un entorno de Python
+Fecha: 20-10-2026. Objetivo: reconstruir todas las cifras desde un clon nuevo del repositorio remoto, con un entorno de Python
 nuevo, sin red durante el cálculo y sin tocar nada a mano.
 
 ## Procedimiento
@@ -10,7 +10,7 @@ nuevo, sin red durante el cálculo y sin tocar nada a mano.
    se enlazan desde la copia de trabajo y se comprueban contra data/CHECKSUMS.sha256 (todos coinciden). No se copia nada de
    data/processed: se regenera con la fase 2. Cinco PDF listados en CHECKSUMS.sha256 (data/raw/admin/grandes/ar2024_*.pdf,
    boe_ley_22_2009…pdf, gs2013…pdf) no existen tampoco en la copia de trabajo; el pipeline no los usa.
-4. Puerta de la fase 5: el clon no tiene la etiqueta prereg-m1 (no se ha subido y no se crea). Se usa el mecanismo documentado de
+4. Puerta de la fase 5: el clon no tiene la etiqueta prereg-m1 (no se ha subido y no se crea) [corrección del 23-10-2026: en la copia de trabajo sí existía una etiqueta local, creada por el asistente el 19-10-2026; se borró el 23-10-2026]. Se usa el mecanismo documentado de
    src/m1/etiquetas.py para trabajo sin red, `M1_ETIQUETAS_REMOTAS` apuntando a `{"prereg-m1": "c247555d37e8d0dee45b87c3b959f35a47b762fb"}`;
    la puerta sigue comprobando que el plan y su adenda no han cambiado desde ese commit. Sin esa variable, un clon nuevo no puede
    ejecutar la fase 5 hasta que el autor suba la etiqueta (docs/tareas_autor.md).

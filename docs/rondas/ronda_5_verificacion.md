@@ -57,7 +57,7 @@ Números tecleados sin id: los de fuentes externas (anexo H), que coinciden con 
 - La cifra del resto de la UE a igual edad y sexo depende del tratamiento de las celdas pequeñas (240 a 349 €; §1, E3).
 - El valor crítico de Montiel Olea-Pflueger no está derivado para el F al nivel del shock.
 
-## Apéndice (congelación, 21-10-2026, a posteriori): segunda pasada del árbitro solo sobre los dos hallazgos mayores
+## Apéndice (congelación, 20-10-2026, a posteriori; rotulado por error «21-10-2026» hasta el 23-10-2026): segunda pasada del árbitro solo sobre los dos hallazgos mayores
 
 Una sola pasada de arbitro-final limitada a los hallazgos mayores 1 y 2 de §2 y a su corrección. Veredicto: **REVISAR (menor)**: el
 fondo de las dos correcciones es correcto; faltaban tres cambios de texto, sin rehacer cálculos.

@@ -1,5 +1,5 @@
 # Registro de ejecuciones de la secuencia completa m1_f0 … m1_f7 (equivalente a `make all`; la guarda (e) bloquea la orden literal).
-# Las tres primeras líneas se anotaron a posteriori (21-10-2026 → 23-10-2026) a partir del registro de la sesión; desde entonces las
+# Las tres primeras líneas se anotaron a posteriori (23-10-2026) a partir del registro de la sesión; desde entonces las
 # escribe la guarda (.claude/hooks/guardas_m1.py, (j)). Formato: fecha UTC, directorio, orden.
 2026-10-20T09:55:31Z	cwd=/home/user/M1_limpio	make PY=/home/user/venv_m1/bin/python m1_f0 m1_f1 m1_f2 m1_f3 m1_f4 m1_f5 m1_f6 m1_f7 publicacion web	[a posteriori; clon de 6568429; falló en la fase 2: faltaba xlrd]
 2026-10-20T09:56:34Z	cwd=/home/user/M1_limpio	make PY=/home/user/venv_m1/bin/python m1_f0 m1_f1 m1_f2 m1_f3 m1_f4 m1_f5 m1_f6 m1_f7 publicacion web	[a posteriori; clon de dcdcd84; completa, 755/755 cifras idénticas; con M1_ETIQUETAS_REMOTAS]
