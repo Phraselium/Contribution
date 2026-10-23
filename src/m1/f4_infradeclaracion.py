@@ -11,6 +11,14 @@ infradeclaración diferencial de rentas de los nacidos fuera. Sin red. No cambia
    verificada de la infradeclaración por origen en la ECV), antes de calibrar o repartir las partidas de ingresos ligadas a la renta.
    Los totales siguen siendo los de las cuentas: es una reasignación de impuestos de los nativos a los nacidos fuera. Las prestaciones
    no se tocan. Se recalculan las 64 combinaciones de supuestos y el nivel «edad y sexo».
+3. Otras direcciones (a posteriori, corrección de neutralidad): (a) renta informal no gravada: la renta no declarada no está en la
+   recaudación de las cuentas, así que no se reasignan IRPF, cotizaciones ni rentas del capital; solo cambia el consumo (IVA y
+   especiales); (b) dirección contraria en transferencias: los nacidos fuera declaran de menos, un d = 10 o 20 % más que los nativos,
+   las prestaciones de enfermedad e incapacidad, familia, desempleo, vivienda y exclusión social, que se calibran al total de las
+   cuentas; (c) IVA con remesas: la base de consumo de cada grupo de nacidos fuera se reduce por las remesas de trabajadores pagadas al
+   exterior en 2024 (D752W, débitos, balanza de pagos del Banco de España vía Eurostat bop_rem6), las de socios UE-27 atribuidas a los
+   nacidos en el resto de la UE y las de fuera de la UE a los nacidos fuera de la UE (supuesto explícito), en proporción a su renta.
+   Tabla única: output/f4/infradeclaracion_direcciones.csv.
 """
 from __future__ import annotations
 
@@ -57,6 +65,63 @@ def cobertura(d: pd.DataFrame, ctas: dict) -> pd.DataFrame:
     return r
 
 
+# escenarios (a posteriori): base; renta gravada infradeclarada (la rejilla original); renta informal no gravada (solo cambia el
+# consumo); prestaciones infradeclaradas por los nacidos fuera (dirección contraria); IVA con la base de consumo neta de remesas
+ESCENARIOS = [("base", 0.0, {}), ("gravada", 0.1, {"infra": 0.1}), ("gravada", 0.2, {"infra": 0.2}),
+              ("informal", 0.1, {"infra": 0.1, "infra_modo": "informal"}), ("informal", 0.2, {"infra": 0.2, "infra_modo": "informal"}),
+              ("prestaciones", 0.1, {"infra_prest": 0.1}), ("prestaciones", 0.2, {"infra_prest": 0.2}), ("remesas", 0.0, {"remesas": True})]
+NOMBRE_ESC = {"base": "base", "gravada": "renta gravada infradeclarada", "informal": "renta informal no gravada",
+              "prestaciones": "prestaciones infradeclaradas", "remesas": "IVA con remesas"}
+MEDIDAS = [("dif_fuera", "nacidos fuera", "Diferencia con los nativos, conjunto de nacidos fuera", "C2"),
+           ("dif_nat", "Resto UE", "Diferencia con los nativos, resto de la UE", "C2"),
+           ("dif_nat", "Resto del mundo", "Diferencia con los nativos, resto del mundo", "C2"),
+           ("neta_fuera", "nacidos fuera", "Contribución neta, conjunto de nacidos fuera", "C2"),
+           ("neta_pc", "Resto UE", "Contribución neta, resto de la UE", "C2"),
+           ("neta_pc", "Resto del mundo", "Contribución neta, resto del mundo", "C2"),
+           ("neta_pc", "España", "Contribución neta, nacidos en España", "C2"),
+           ("dif_nat_est", "Resto UE", "Diferencia con los nativos a igual edad y sexo, resto de la UE", "C4"),
+           ("dif_nat_est", "Resto del mundo", "Diferencia con los nativos a igual edad y sexo, resto del mundo", "C4"),
+           ("neta_pc_est", "Resto UE", "Contribución a igual edad y sexo, resto de la UE", "C4"),
+           ("neta_pc_est", "Resto del mundo", "Contribución a igual edad y sexo, resto del mundo", "C4")]
+
+
+def direcciones(xa: pd.DataFrame, cf) -> pd.DataFrame:
+    """Tabla única (a posteriori): para cada comparación, rango en todas las direcciones y escenarios (8 × 64 combinaciones), cuota de
+    combinaciones con signo positivo y negativo, y cuántos de los 8 intervalos de escenario son positivos, negativos o contienen el cero."""
+    filas = []
+    for var, g, nom, capa in MEDIDAS:
+        y = xa[xa.grupo == ("Resto UE" if g == "nacidos fuera" else g)]
+        v = y[var]
+        sig = y.groupby(["escenario", "infra"])[var].agg(lambda s: 1 if s.min() > 0 else (-1 if s.max() < 0 else 0))
+        por = {f"{e}_{int(round(100 * dd))}": (float(z[var].min()), float(z[var].max())) for (e, dd), z in y.groupby(["escenario", "infra"])}
+        filas.append({"medida": var, "grupo": g, "comparacion": nom, "capa": capa, "min": float(v.min()), "max": float(v.max()),
+                      "pct_positivas": 100 * float((v > 0).mean()), "pct_negativas": 100 * float((v < 0).mean()),
+                      "esc_positivos": int((sig == 1).sum()), "esc_negativos": int((sig == -1).sum()), "esc_contienen_cero": int((sig == 0).sum()),
+                      **{f"rango_{k}": f"[{a:.0f}, {b:.0f}]" for k, (a, b) in por.items()}})
+    t = pd.DataFrame(filas)
+    t.to_csv(O / "infradeclaracion_direcciones.csv", index=False)
+    for r in t.itertuples():
+        k = f"F4_DIRS_{r.medida.upper()}_{r.grupo.replace(' ', '_')}"
+        cf.add(k, round(r.pct_positivas, 0), "% de las combinaciones", f"{r.comparacion}: porcentaje de las 512 combinaciones (8 escenarios de "
+               "infradeclaración y remesas × 64 de supuestos) con signo positivo; intervalo: mínimo y máximo en euros por persona (a posteriori)",
+               r.capa, "ECV, EPF, ENSE, cuentas de las AAPP y balanza de pagos", "2024", "España", r.grupo, ic_inf=round(r.min, 0), ic_sup=round(r.max, 0))
+        cf.add(k + "_NEG", round(r.pct_negativas, 0), "% de las combinaciones", f"{r.comparacion}: porcentaje de las 512 combinaciones con signo "
+               "negativo (a posteriori)", r.capa, "ECV, EPF, ENSE, cuentas de las AAPP y balanza de pagos", "2024", "España", r.grupo)
+        cf.add(k + "_ESC0", int(r.esc_contienen_cero), "escenarios", f"{r.comparacion}: escenarios (de 8) cuyo intervalo de 64 combinaciones "
+               f"contiene el cero ({int(r.esc_positivos)} positivos, {int(r.esc_negativos)} negativos; a posteriori)", r.capa,
+               "ECV, EPF, ENSE, cuentas de las AAPP y balanza de pagos", "2024", "España", r.grupo)
+    for (e, dd), z in xa[xa.escenario.isin(["informal", "prestaciones", "remesas"])].groupby(["escenario", "infra"]):
+        for var, g, nom, capa in MEDIDAS:
+            y = z[z.grupo == ("Resto UE" if g == "nacidos fuera" else g)]
+            p = y[np.logical_and.reduce([y[k] == v for k, v in ff.PRINCIPAL.items()])].iloc[0]
+            k = f"F4_DIR_{e.upper()}{int(round(100 * dd)) if e != 'remesas' else ''}_{var.upper()}_{g.replace(' ', '_')}"
+            cf.add(k, round(float(p[var]), 0), "€ por persona y año", f"{nom}, escenario «{NOMBRE_ESC[e]}»"
+                   f"{f' del {100 * dd:.0f} %' if e != 'remesas' else ''}: principal e intervalo de las 64 combinaciones (a posteriori)", capa,
+                   "ECV, EPF, ENSE, cuentas de las AAPP y balanza de pagos", "2024", "España", g,
+                   ic_inf=round(float(y[var].min()), 0), ic_sup=round(float(y[var].max()), 0))
+    return t
+
+
 def main() -> int:
     cf = Cifras("f4_infradeclaracion", "src/m1/f4_infradeclaracion.py")
     ctas = ff.cuentas(2024)
@@ -68,22 +133,24 @@ def main() -> int:
         cf.add(f"F4_COB_{i:02d}", round(float(r.cobertura_pct), 1), "% del total de las cuentas", f"Cobertura antes de escalar: {r.partida} "
                f"({r.fuente}) frente a la contabilidad nacional; {r.escalado} (a posteriori)", "C2", f"{r.fuente} y Eurostat", "2024", "España", "todos")
     filas = []
-    for dd in D:
+    for esc, dd, extra in ESCENARIOS:
         for comb in itertools.product([True, False], ["edad_sexo", "observado"], ["medio", "marginal"], ["hijo", "padres"],
                                       ["epf", "uniforme"], ["rentas", "persona"]):
-            s = dict(zip(SUP, comb), infra=dd)
+            s = {**dict(zip(SUP, comb)), **extra}
             c = ff.contribuciones(d, ctas, perf, rat, s)
             rr = ff.resumen(c, ctas["pib"]).set_index("grupo")
             est = ff.estandarizar(c)
             fu = [g for g in ff.GR if g != "España"]
             neta_fuera = float(np.average(rr.loc[fu, "neta"], weights=rr.loc[fu, "poblacion"]))
             for g in ff.GR:
-                filas.append({**s, "grupo": g, "neta_pc": rr.loc[g, "neta"], "neta_pc_est": est.loc[g, "neta_est"],
+                filas.append({**dict(zip(SUP, comb)), "escenario": esc, "infra": dd, "grupo": g, "neta_pc": rr.loc[g, "neta"], "neta_pc_est": est.loc[g, "neta_est"],
                               "dif_nat": rr.loc[g, "neta"] - rr.loc["España", "neta"],
                               "dif_nat_est": est.loc[g, "neta_est"] - est.loc[g, "nat_neta_mismas"], "neta_fuera": neta_fuera,
                               "dif_fuera": neta_fuera - rr.loc["España", "neta"]})
-    x = pd.DataFrame(filas)
-    x.to_csv(O / "infradeclaracion_rejilla.csv", index=False)
+    xa = pd.DataFrame(filas)
+    xa.to_csv(O / "infradeclaracion_rejilla.csv", index=False)
+    direcciones(xa, cf)
+    x = xa[xa.escenario.isin(["base", "gravada"])].copy()      # la rejilla original (renta gravada) conserva sus cifras
     princ = np.logical_and.reduce([x[k] == v for k, v in ff.PRINCIPAL.items()])
     res = []
     for (dd, g), y in x.groupby(["infra", "grupo"]):

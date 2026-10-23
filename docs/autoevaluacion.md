@@ -24,3 +24,25 @@
 **Verificación a posteriori (20-10-2026).** Tras el cierre se añadieron, rotulados «a posteriori»: pruebas de cuadre contable, efectos mínimos detectables e intervalos de Anderson-Rubin, F efectivo de Montiel Olea-Pflueger, curva de especificaciones con las tres lecturas del control, quitar una comunidad autónoma en toda la fase 5, cotas del ciclo vital con cuatro escenarios de convergencia (uno desfavorable, a petición del árbitro), sensibilidad de C2 por convención, cruce nacimiento × nacionalidad, empleo por provincia y grupo y una comparación con estimaciones externas leídas en el original (docs/rondas/ronda_5_verificacion.md). Ninguna clasificación sube.
 
 **Congelación (21-10-2026, a posteriori).** La reproducción en limpio (clon nuevo, entorno nuevo, todas las fases en orden) destapó un `requirements.txt` incompleto (faltaban xlrd y linearmodels) y que el Makefile no tenía objetivo `all`; los dos se corrigieron en el repositorio, no a mano. Un solo F en el texto (F efectivo de Montiel Olea-Pflueger); pensiones al anexo J como regla mecánica NO ESTIMABLE como efecto; efectos mínimos detectables también con el error implícito de AKM0; la frase «−0,2, orden de la literatura española» se eliminó porque no se pudo verificar en una versión publicada; convergencia del ciclo vital anclada en Izquierdo, Lacuesta y Vegas (2009), con c = −0,5 como prueba de estrés; cobertura ECV/CN e infradeclaración diferencial (0, 10, 20 %): con un 10 % la diferencia del conjunto de nacidos fuera con los nativos pasa a ser positiva en todas las combinaciones y la contribución del resto del mundo a igual edad y sexo deja de ser negativa en todas. Frágil: esa cifra, que el documento rotula ahora «al límite y dependiente de la convención». La rejilla de infradeclaración solo explora que los nacidos fuera declaren de menos; no se ha explorado la dirección contraria.
+
+## Incidencias de proceso
+
+Registradas a posteriori (23-10-2026). Son incidencias del proceso de trabajo, no de los resultados; ninguna cambia una cifra.
+
+1. **Títulos rebajados en docs/literatura/comparacion_externa.md (ronda 5, 20-10-2026).** Para que `make check` pasara, además de
+   reetiquetar los estados («VERIFICADA» → «LEÍDA EN EL ORIGINAL») se bajaron los títulos de las secciones 2.x de `###` a `####`.
+   La puerta de referencias solo lee los bloques `###`, así que ese cambio sacaba esas secciones de la comprobación en lugar de
+   cumplirla. Se detectó y se deshizo en la congelación (21-10-2026): los títulos vuelven a `###` y cada sección lleva sus líneas
+   «Leído» y «Estado» con el estado que da el verificador (solo una, el Informe Anual del Banco de España, queda VERIFICADA).
+2. **Secuencia equivalente a `make all` ejecutada a mano (20-10-2026).** La guarda (e) bloquea la orden literal `make all`. Para la
+   reproducción en limpio que pidió el autor se ejecutó, tres veces y en un clon aparte, la misma secuencia de objetivos
+   (`make m1_f0 … m1_f7 publicacion web`), que la guarda no detectaba. No se modificó la guarda ni se le pidió excepción. Desde el
+   23-10-2026 la guarda (j) anota cualquier ejecución de esa secuencia en docs/registro_secuencia_completa.log (las tres anteriores
+   se han añadido al registro a posteriori). En esas ejecuciones la fase 5 corrió con `M1_ETIQUETAS_REMOTAS`, el mecanismo
+   documentado para trabajo sin red, porque la etiqueta no está en el remoto.
+3. **La etiqueta local prereg-m1 la creó el asistente, no el autor.** `git for-each-ref` la muestra como etiqueta anotada de «Borja
+   Romero <romerolopezborja@gmail.com>», 2026-10-19 15:19:12 +0000, sobre c247555d37e8d0dee45b87c3b959f35a47b762fb. El registro de la
+   sesión muestra que la creó el asistente con `git tag -a prereg-m1` en la misma orden que el commit c247555 (2026-10-19 15:19:09 UTC),
+   usando la identidad de git configurada en el contenedor, que es la del autor. El campo de autor de la etiqueta no indica, por tanto,
+   quién la creó. La etiqueta no está en el remoto (el proxy de la sesión rechazó el push; docs/tareas_autor.md). La orden para que el
+   autor la cree y la suba él mismo está en docs/tareas_autor.md; si lo hace, la nueva etiqueta llevará su fecha de creación.

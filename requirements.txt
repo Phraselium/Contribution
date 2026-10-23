@@ -1,3 +1,5 @@
+# Dependencias directas de M1 con versión exacta. Python 3.13.16 (.python-version); bloqueo completo, con dependencias
+# transitivas, en requirements.lock (a posteriori). make check comprueba que todo módulo importado esté aquí.
 numpy==2.5.3
 pandas==3.0.5
 scipy==1.18.1

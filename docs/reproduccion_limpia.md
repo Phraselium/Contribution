@@ -35,3 +35,22 @@ en la congelación).
 completa en 34 minutos, sin fallos. **859 de 859 cifras idénticas** a las de la copia de trabajo (incluidas las 104 nuevas de la
 congelación), sin cifras que falten ni que sobren, y ningún fichero generado distinto salvo las marcas de tiempo de gzip y xlsx.
 No hubo que corregir el pipeline por ninguna cifra.
+
+## Entorno y datos (cierre de reproducibilidad, 23-10-2026, a posteriori)
+- **Entorno:** Python 3.13.16 (`.python-version`). `requirements.txt` fija con `==` las dependencias directas; `requirements.lock` es
+  el `pip freeze` completo (33 paquetes, con las dependencias transitivas) del entorno nuevo de la reproducción en limpio. Para
+  recrearlo: `python3.13 -m venv venv && venv/bin/pip install -r requirements.lock`. `make check` incluye la puerta «entorno y
+  dependencias»: todo módulo de terceros importado por src/, tests/ o la guarda, y los motores que pandas carga sin import explícito
+  (read_excel → openpyxl y xlrd), deben estar en requirements.txt con versión exacta, en el bloqueo, y la versión de Python debe
+  coincidir (tests/test_entorno.py demuestra que habría detectado la falta de xlrd).
+- **Datos crudos:** 653 ficheros versionados en git (con su sha256 en data/CHECKSUMS.sha256) y 138 que no se versionan por tamaño y se
+  descargan con `make m1_f2_descarga` (lista con URL, sha256 y bytes en docs/crudos_descargables.csv; 5,3 GB: EPA 1,8, EPF 1,6,
+  ine_tablas 0,6, Eurostat 0,5, ECV 0,5, EES 0,3). Cinco de ellos son PDF de referencia (Ageing Report, BOE, Gasto sanitario) que no usa
+  el pipeline y que tampoco están en la copia de trabajo: la comprobación los señala como ausentes.
+- **Avisos:** el descargador (src/m1/fuentes.py) compara cada descarga con el sha256 registrado para su URL o su nombre; si no coincide,
+  avisa por stderr, lo anota en data/descargas_avisos.log y guarda la nueva edición con la fecha en el nombre sin tocar el registro.
+  Antes de cada fase, src/m1/fase.py avisa (sin bloquear) de los crudos descargables ausentes o con un tamaño distinto del registrado;
+  `python3 src/m1/fuentes.py --descargados` hace la comprobación completa con sha256, y `make check` falla si un crudo presente no
+  coincide con su sha256.
+- **Registro de ejecuciones completas:** docs/registro_secuencia_completa.log (lo escribe la guarda; las tres primeras líneas se
+  anotaron a posteriori).

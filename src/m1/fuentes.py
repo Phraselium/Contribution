@@ -95,6 +95,17 @@ def descargar(url: str, familia: str, nombre: str, licencia: str, edicion: str, 
                 raise
             time.sleep(espera)
             espera *= 2
+    # aviso de reproducibilidad (a posteriori): si la URL o la ruta ya tienen un sha256 registrado y lo descargado no coincide, se
+    # avisa, se anota en data/descargas_avisos.log y no se sustituye el registro (la nueva edición se guarda con la fecha en el nombre)
+    sha_nuevo = sha256(tmp)
+    registrados = {f["sha256"] for f in _catalogo() if f["url"] == url or f["ruta"].endswith("/" + nombre)}
+    distinto = bool(registrados) and sha_nuevo not in registrados
+    if distinto:
+        aviso = (f"AVISO: {url} descargado con sha256 {sha_nuevo[:16]}… distinto del registrado ({', '.join(x[:16] for x in registrados)}…); "
+                 "las cifras pueden no reproducirse")
+        print(aviso, file=sys.stderr, flush=True)
+        with open(RAIZ / "data" / "descargas_avisos.log", "a", encoding="utf-8") as fh:
+            fh.write(f"{dt.datetime.now(dt.timezone.utc):%Y-%m-%dT%H:%M:%SZ}\t{nombre}\t{sha_nuevo}\t{url}\n")
     destino = destino_dir / nombre
     if (destino_dir / "grandes" / nombre).exists():
         destino = destino_dir / "grandes" / nombre
@@ -107,6 +118,8 @@ def descargar(url: str, familia: str, nombre: str, licencia: str, edicion: str, 
             if str(destino.relative_to(RAIZ)) not in {f["ruta"] for f in _catalogo()}:
                 registrar(destino, familia, url, licencia, edicion, descripcion)
             return destino
+        destino = destino.with_name(f"{destino.stem}_{dt.date.today():%Y%m%d}{destino.suffix}")
+    elif distinto:      # clon nuevo sin el fichero ignorado y contenido distinto del registrado: no se pisa el registro
         destino = destino.with_name(f"{destino.stem}_{dt.date.today():%Y%m%d}{destino.suffix}")
     tmp.rename(destino)
     registrar(destino, familia, url, licencia, edicion, descripcion)
@@ -141,7 +154,28 @@ def comprobar() -> list[str]:
     return errores
 
 
+def descargados(rapido: bool = False) -> tuple[list[dict], list[str]]:
+    """Crudos que no están en git (se descargan al ejecutar m1_f2_descarga) y avisos: ausentes o con sha256 distinto del registrado.
+    rapido=True compara solo el tamaño en bytes (lo usa fase.py antes de cada fase; el sha256 completo lo comprueba make check)."""
+    filas, avisos = [], []
+    for f in _catalogo():
+        if f["versionado"] == "sí":
+            continue
+        filas.append(f)
+        p = RAIZ / f["ruta"]
+        if not p.exists():
+            avisos.append(f"falta el crudo descargable {f['ruta']} (make m1_f2_descarga)")
+        elif (rapido and str(p.stat().st_size) != str(f["bytes"])) or (not rapido and sha256(p) != f["sha256"]):
+            avisos.append(f"AVISO: {f['ruta']} no coincide con su sha256 registrado")
+    return filas, avisos
+
+
 if __name__ == "__main__":
+    if "--descargados" in sys.argv:
+        filas, avisos = descargados()
+        print(f"{len(filas)} crudos descargables (no versionados) con sha256 registrado en data/fuentes.csv")
+        print("\n".join(avisos) or "todos presentes y con su sha256")
+        sys.exit(1 if any(a.startswith("AVISO") for a in avisos) else 0)
     e = comprobar()
     print("\n".join(e) or "fuentes: catálogo íntegro")
     sys.exit(1 if e else 0)

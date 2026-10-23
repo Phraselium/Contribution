@@ -11,6 +11,9 @@
 8. Fase 5: todo resultado de output/f5 declara el commit de prereg-m1 y la puerta está abierta.
 9. publicacion/: coincide con su MANIFIESTO.sha256 (generada, no editada a mano) y sin «[FALTA CIFRA».
 10. Neutralidad: sin nombres de partidos en los entregables.
+11. Entorno (a posteriori): todo módulo de terceros importado por src/, tests/ o la guarda, y los motores que pandas carga sin import
+    explícito (read_excel → openpyxl y xlrd; to_excel con xlsxwriter; pyreadstat), figuran en requirements.txt con versión exacta
+    (==); requirements.lock fija todo el entorno; la versión de Python coincide con .python-version.
 """
 from __future__ import annotations
 
@@ -184,6 +187,62 @@ def publicacion() -> list[str]:
     return e
 
 
+IMPORT_A_DIST = {"sklearn": "scikit-learn", "yaml": "pyyaml", "PIL": "pillow", "dateutil": "python-dateutil"}
+
+
+def _norm_dist(n: str) -> str:
+    return re.sub(r"[-_.]+", "-", n).lower()
+
+
+def entorno() -> list[str]:
+    import ast
+    e = []
+    req = {}
+    for linea in (RAIZ / "requirements.txt").read_text(encoding="utf-8").splitlines():
+        linea = linea.split("#")[0].strip()
+        if not linea:
+            continue
+        m = re.match(r"^([A-Za-z0-9_.\-]+)\s*==\s*\S+$", linea)
+        if not m:
+            e.append(f"requirements.txt: versión no fijada con ==: {linea}")
+            continue
+        req[_norm_dist(m.group(1))] = linea
+    lock = RAIZ / "requirements.lock"
+    if not lock.exists():
+        e.append("falta requirements.lock")
+    else:
+        bloq = {_norm_dist(x.split("==")[0]) for x in lock.read_text(encoding="utf-8").splitlines() if "==" in x and not x.startswith("#")}
+        e += [f"{d} está en requirements.txt pero no en requirements.lock" for d in req if d not in bloq]
+    pv = RAIZ / ".python-version"
+    if not pv.exists():
+        e.append("falta .python-version")
+    elif ".".join(map(str, sys.version_info[:2])) != ".".join(pv.read_text().strip().split(".")[:2]):
+        e.append(f"Python {sys.version.split()[0]} no coincide con .python-version ({pv.read_text().strip()})")
+    ficheros = list((RAIZ / "src").rglob("*.py")) + list((RAIZ / "tests").rglob("*.py")) + [RAIZ / ".claude" / "hooks" / "guardas_m1.py"]
+    locales = {p.stem for p in ficheros} | {p.name for p in (RAIZ / "src").rglob("*") if p.is_dir()}
+    usados: dict[str, str] = {}
+    for f in ficheros:
+        texto = f.read_text(encoding="utf-8")
+        for nodo in ast.walk(ast.parse(texto)):
+            mods = []
+            if isinstance(nodo, ast.Import):
+                mods = [a.name for a in nodo.names]
+            elif isinstance(nodo, ast.ImportFrom) and nodo.level == 0 and nodo.module:
+                mods = [nodo.module]
+            for m in mods:
+                top = m.split(".")[0]
+                if top in sys.stdlib_module_names or top in locales or top == "__future__":
+                    continue
+                usados.setdefault(IMPORT_A_DIST.get(top, top), str(f.relative_to(RAIZ)))
+        if "read_excel(" in texto:
+            usados.setdefault("openpyxl", str(f.relative_to(RAIZ)))
+            usados.setdefault("xlrd", str(f.relative_to(RAIZ)))
+        if "engine=\"xlsxwriter\"" in texto or "xlsxwriter" in texto:
+            usados.setdefault("xlsxwriter", str(f.relative_to(RAIZ)))
+    e += [f"{d} (importado en {f}) no está en requirements.txt" for d, f in sorted(usados.items()) if _norm_dist(d) not in req]
+    return e
+
+
 def main() -> int:
     if LOCK.exists():
         try:
@@ -197,7 +256,8 @@ def main() -> int:
         antes = _git_status()
         pasos = [("ruff", ruff), ("pytest", pytest_), ("fuentes y checksums", fuentes_), ("referencias", referencias),
                  ("cifras_clave", cifras_), ("lenguaje causal", lenguaje), ("neutralidad", neutralidad),
-                 ("supresión de celdas", supresion), ("puerta de la fase 5", fase5), ("publicacion generada", publicacion)]
+                 ("supresión de celdas", supresion), ("puerta de la fase 5", fase5), ("publicacion generada", publicacion),
+                 ("entorno y dependencias", entorno)]
         ok = all([paso(n, f()) for n, f in pasos])
         ok = paso("git sin cambios tras el check", [] if _git_status() == antes else ["make check modificó el repositorio"]) and ok
         print("make check:", "LIMPIO" if ok else "CON FALLOS")

@@ -5,6 +5,8 @@ solo con datos públicos. Documento: publicacion/documento_m1/documento.md. Toda
 Capas: C1 hechos; C2 cotas con supuestos; C3 efectos identificados (vacía); C4 exploratorio. Clasificación causal: IDENTIFICADO,
 SUGESTIVO, ASOCIACIÓN, NO ESTIMABLE. El documento solo ha tenido revisores internos simulados.
 
+**Literatura (a posteriori).** De las fuentes externas con las que se comparan las cifras (anexo H y docs/literatura/comparacion_externa.md), solo una figura como VERIFICADA según la regla de M1 (DOI comprobado en Crossref y título coincidente): el Informe Anual 2025 del Banco de España. Las demás se leyeron en el original, pero no tienen DOI, la versión leída es de trabajo o el título no coincide. La comparación con la literatura es parcial: no hay ninguna estimación española publicada y leída en la misma escala que P1, y la convergencia salarial del ciclo vital se ancla en un único estudio (Izquierdo, Lacuesta y Vegas 2009, con datos de 2005, del periodo expansivo).
+
 ## Qué se afirma y con qué clasificación
 
 | Afirmación | Capa / clasificación |
@@ -52,5 +54,6 @@ Las sumas fiscales cuadran con el saldo B9 de 2024 y con cada partida de la cont
 6. Los tramos de edad con menos de 50 observaciones se imputan con la forma por edad de los nativos reescalada al total del grupo.
    ¿Es aceptable, o preferiría suavizar los perfiles del grupo?
 7. La regla mecánica de pensiones da diferencias diez veces mayores que la AIReF. ¿Debe retirarse del resumen ejecutivo?
-8. La población de la ECV deja fuera a unos 0,45 millones de nacidos fuera (recién llegados, hogares colectivos). ¿Cómo imputaría su
+8. Infradeclaración diferencial y renta informal: el documento explora que los nacidos fuera declaren en la ECV un 10 o 20 % menos de renta gravada (los impuestos se reasignan hacia ellos), de renta informal no gravada (solo cambia el IVA a través del consumo), o de prestaciones (se reasignan hacia ellos), y una base de consumo neta de remesas. ¿Qué evidencia hay sobre la magnitud y la dirección de la infradeclaración por origen en la ECV o en el IRPF, y cómo trataría la renta informal: como consumo gravado por el IVA y fuera del IRPF, o con otra regla?
+9. La población de la ECV deja fuera a unos 0,45 millones de nacidos fuera (recién llegados, hogares colectivos). ¿Cómo imputaría su
    contribución?

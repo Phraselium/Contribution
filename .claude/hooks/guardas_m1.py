@@ -16,6 +16,8 @@ WebFetch
 Write / Edit / NotebookEdit
   (h) sobrescribir o editar un fichero ya existente de data/raw (los crudos solo se añaden);
   (i) escribir a mano en publicacion/ (se genera con `make publicacion`).
+Registro (sin bloquear, a posteriori): (j) toda orden make con la secuencia completa m1_f0 … m1_f7 (equivalente a `make all`) se
+anota en docs/registro_secuencia_completa.log.
 Uso como función: `evaluar(datos_hook, raiz) -> motivo | None` (tests/test_guardas.py).
 """
 from __future__ import annotations
@@ -115,7 +117,31 @@ def _push_mal(cmd: str) -> str | None:
     return None
 
 
+FASES = {f"m1_f{i}" for i in range(8)}
+REGISTRO = Path(os.environ.get("M1_REGISTRO_SECUENCIA", "")) if os.environ.get("M1_REGISTRO_SECUENCIA") else None
+
+
+def registrar_secuencia(cmd: str, raiz: Path) -> bool:
+    """(j) registro, sin bloquear (a posteriori): toda orden make que contenga la secuencia completa m1_f0 … m1_f7 (la equivalente a
+    `make all`, que (e) bloquea) se anota con fecha, directorio y orden en docs/registro_secuencia_completa.log."""
+    hit = False
+    for m in re.finditer(r"\bmake\b([^;&|\n]*)", cmd):
+        if FASES <= set(re.findall(r"\bm1_f[0-7]\b", m.group(1))):
+            hit = True
+    if hit:
+        import datetime as dt
+        log = REGISTRO or (raiz / "docs" / "registro_secuencia_completa.log")
+        try:
+            log.parent.mkdir(parents=True, exist_ok=True)
+            with open(log, "a", encoding="utf-8") as fh:
+                fh.write(f"{dt.datetime.now(dt.timezone.utc):%Y-%m-%dT%H:%M:%SZ}\tcwd={os.getcwd()}\t{' '.join(cmd.split())[:500]}\n")
+        except OSError:
+            pass
+    return hit
+
+
 def evaluar_bash(cmd: str, raiz: Path) -> str | None:
+    registrar_secuencia(cmd, raiz)
     if HEREDOC_SIN_COMILLAS.search(_sin_cuerpos(cmd)):
         return "(a) heredoc sin comillas: use <<'EOF' (el shell expandiría `…` y $(…))"
     if re.search(r"\bmake\b[^;&|\n]*\scheck(\s|$|;|&|\|)", cmd) and make_check_en_marcha():

@@ -66,7 +66,16 @@ def cuentas(a: int) -> dict:
     pib = g[(g.geo == "ES") & (g.unit == "CP_MEUR") & (g.na_item == "B1GQ") & (g.TIME_PERIOD == a)].OBS_VALUE.iloc[0] * 1e6
     m = pd.read_csv(RAW / "eurostat" / "gov_10a_main.csv.gz", low_memory=False)
     tr = m[(m.geo == "ES") & (m.unit == "MIO_EUR") & (m.sector == "S13") & (m.na_item == "TR") & (m.TIME_PERIOD == a)]
-    return {"t": t, "te": te, "d62": d62, "pib": pib, "tr": tr.OBS_VALUE.iloc[0] * 1e6}
+    # remesas de trabajadores pagadas al exterior (D752W, débitos; balanza de pagos del Banco de España vía Eurostat bop_rem6),
+    # por socio UE-27 / fuera de la UE-27 (a posteriori, variante del IVA con remesas)
+    rem = {}
+    f = RAW / "eurostat" / "bop_rem6.csv.gz"
+    if f.exists():
+        r = pd.read_csv(f, low_memory=False)
+        r = r[(r.geo == "ES") & (r.currency == "MIO_EUR") & (r.stk_flow == "DEB") & (r.bop_item == "D752W") & (r.TIME_PERIOD == a)]
+        rem = {"Resto UE": float(r[r.partner == "EU27_2020"].OBS_VALUE.sum()) * 1e6,
+               "Resto del mundo": float(r[r.partner == "EXT_EU27_2020"].OBS_VALUE.sum()) * 1e6}
+    return {"t": t, "te": te, "d62": d62, "pib": pib, "tr": tr.OBS_VALUE.iloc[0] * 1e6, "remesas": rem}
 
 
 # ── perfiles externos ──────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -165,9 +174,12 @@ def contribuciones(d: pd.DataFrame, ctas: dict, perf: pd.DataFrame, rat: pd.Data
     cuota = np.where(rb_h > 0, rb / rb_h.where(rb_h > 0, 1), (d.edad >= 16) / d.groupby("hid").edad.transform(lambda e: max((e >= 16).sum(), 1)))
     # infradeclaración diferencial (a posteriori, src/m1/f4_infradeclaracion.py): las rentas de los nacidos fuera se elevan por
     # 1 / (1 − infra) antes de calibrar o repartir; como los totales siguen siendo los de las cuentas, es una reasignación entre grupos
+    # modo «informal» (a posteriori): la renta no declarada no está en la recaudación de las cuentas, así que no se reasignan IRPF,
+    # cotizaciones ni rentas del capital; solo cambia el consumo (y con él el IVA y los especiales)
     m_inf = pd.Series(np.where(d.nacimiento3 != "España", 1 / (1 - s.get("infra", 0.0)), 1.0), index=d.index)
-    out["ing_irpf_cotiz_trab"] = cal(d.HY140G * cuota * m_inf, t["D51A_C1"] + t["D613"])
-    out["ing_cotiz_empresa"] = cal(d.PY030G * m_inf, t["D611"])
+    m_trib = m_inf if s.get("infra_modo", "gravada") == "gravada" else pd.Series(1.0, index=d.index)
+    out["ing_irpf_cotiz_trab"] = cal(d.HY140G * cuota * m_trib, t["D51A_C1"] + t["D613"])
+    out["ing_cotiz_empresa"] = cal(d.PY030G * m_trib, t["D611"])
     eq = d.HY020 / d.uc
     orden = eq.sort_values(kind="mergesort").index                       # quintiles ponderados por el factor de la ECV
     acum = d.w.loc[orden].cumsum() / d.w.sum()
@@ -181,21 +193,35 @@ def contribuciones(d: pd.DataFrame, ctas: dict, perf: pd.DataFrame, rat: pd.Data
         iva_r = pd.Series(1.0, index=d.index)
         esp_r = pd.Series(1.0, index=d.index)
     renta_pc = d.HY020.clip(lower=0) / d.n_hogar * m_inf
+    if s.get("remesas") and ctas.get("remesas"):
+        # base de consumo neta de las remesas enviadas al exterior: las de socios UE-27 se atribuyen a los nacidos en el resto de la UE y
+        # las de fuera de la UE a los nacidos fuera de la UE (supuesto explícito: destino de la remesa = región de nacimiento), en
+        # proporción a su renta (a posteriori)
+        for g, R in ctas["remesas"].items():
+            mg = (d.nacimiento3 == g).to_numpy()
+            tot = float((w[mg] * renta_pc[mg]).sum())
+            if tot > 0:
+                renta_pc = renta_pc.where(~mg, renta_pc * max(0.0, 1 - R / tot))
     out["ing_iva"] = reparto(renta_pc * iva_r, t["D211"])
     out["ing_especiales"] = reparto(renta_pc * esp_r, t["D214"])
     prop = d.HH021.isin([1, 2]).astype(float) / d.n_hogar
     out["ing_vivienda_ibi"] = reparto(prop, t["D29A"] + t["D59"])
-    cap = ((d.HY040G + d.HY090G).clip(lower=0) / d.n_hogar + d.PY050G.clip(lower=0)) * m_inf if s["capital"] == "rentas" else pd.Series(1.0, index=d.index)
+    cap = ((d.HY040G + d.HY090G).clip(lower=0) / d.n_hogar + d.PY050G.clip(lower=0)) * m_trib if s["capital"] == "rentas" else pd.Series(1.0, index=d.index)
     out["ing_sociedades_capital"] = reparto(cap, t["D51B_C2"] + t["D29"] - t["D29A"] + t["D91"])
     impuestos = (t["D51A_C1"] + t["D613"] + t["D611"] + t["D211"] + t["D214"] + t["D59"] + t["D51B_C2"] + t["D29"] + t["D91"])
     # resto de ingresos (ventas, rentas de la propiedad, transferencias, cotizaciones imputadas D612): por persona, para que la suma
     # de las contribuciones netas cuadre con el saldo de las AAPP
     out["ing_otros_ingresos"] = reparto(pd.Series(1.0, index=d.index), ctas["tr"] - impuestos)
     # gastos: prestaciones monetarias
+    # infradeclaración diferencial de prestaciones (a posteriori): los nacidos fuera declaran de menos un d adicional de las prestaciones
+    # no contributivas y de desempleo; como se calibran al total de las cuentas, la diferencia se reasigna hacia ellos
+    m_pre = pd.Series(np.where(d.nacimiento3 != "España", 1 / (1 - s.get("infra_prest", 0.0)), 1.0), index=d.index)
     for nombre, (f, vs) in BEN.items():
         x = sum(d[v] for v in vs)
         if vs[0].startswith("HY"):
             x = x / d.n_hogar
+        if nombre in ("desempleo", "enfermedad_incapacidad", "familia", "exclusion_social", "vivienda"):
+            x = x * m_pre
         out[f"gas_{nombre}"] = cal(x, d62.get(f, 0.0))
     otras = d62.get("GF10", 0) - sum(d62.get(f, 0) for f, _ in BEN.values())
     out["gas_otras_prestaciones"] = reparto(pd.Series(1.0, index=d.index), max(otras, 0))

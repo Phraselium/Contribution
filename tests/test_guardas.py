@@ -165,3 +165,11 @@ def test_fases_6_7_bloqueadas_si_hay_resultados_causales(monkeypatch, tmp_path):
     shutil.copy(RAIZ / "src" / "m1" / "etiquetas.py", tmp_path / "src" / "m1" / "etiquetas.py")
     shutil.copy(RAIZ / "src" / "m1" / "politica_fuentes.py", tmp_path / "src" / "m1" / "politica_fuentes.py")
     assert G.evaluar({"tool_name": "Bash", "tool_input": {"command": "make m1_f7"}}, tmp_path).startswith("(c)")
+
+
+def test_secuencia_completa_se_registra(tmp_path, monkeypatch):
+    log = tmp_path / "reg.log"
+    monkeypatch.setattr(G, "REGISTRO", log)
+    assert G.registrar_secuencia("make PY=x m1_f0 m1_f1 m1_f2 m1_f3 m1_f4 m1_f5 m1_f6 m1_f7 publicacion web", RAIZ)
+    assert not G.registrar_secuencia("make m1_f4", RAIZ)
+    assert log.read_text(encoding="utf-8").count("m1_f0") == 1

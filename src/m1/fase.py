@@ -27,6 +27,12 @@ def main() -> int:
     primero = {"f4_fiscal": 0, "f4_pensiones": 1, "f4_ciclo_vital": 2, "f4_convenciones": 3, "f4_infradeclaracion": 4}
     scripts = sorted((p for p in SRC.glob(f"f{n}_{patron}.py") if red == p.stem.endswith("_descarga")),
                      key=lambda p: (primero.get(p.stem, 9), p.name))
+    if n != "0" and not red:      # aviso (no bloquea) si faltan crudos descargables o no coinciden con su sha256 (a posteriori)
+        sys.path.insert(0, str(SRC))
+        import fuentes
+        _, avisos = fuentes.descargados(rapido=True)
+        for a in avisos:
+            print(a, file=sys.stderr, flush=True)
     for s in scripts:
         print(f"── {s.relative_to(RAIZ)}", flush=True)
         r = subprocess.run([sys.executable, str(s)], cwd=RAIZ)
